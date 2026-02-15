@@ -1,0 +1,1051 @@
+! ==============================================================================
+! ARCHERON-9 v.0.1
+! ==============================================================================
+Constant Story "Archeron-9";
+Constant Headline "^An Interactive Sci-Fi Mystery^";
+! ==============================================================================
+! CONSTANTS & INCLUDES
+! ==============================================================================
+Constant BULK_POCKET = 1;
+Constant BULK_NORMAL = 2;
+Constant BULK_HEAVY  = 8;
+Constant MAX_CAPACITY = 10;
+Include "parser";
+
+! ==============================================================================
+! GLOBAL VARIABLES
+! ==============================================================================
+Global power_restored = 0;
+Global lockdown_lifted = 0;
+Global visual_cortex_active = 0;
+Global audio_codec_active = 0;
+Global identity_hacked = 0;
+Global oxygen = 50;
+Global arpi_downloaded = 0;
+Global last_qr_source = 0;
+Global drone_active = 1;
+Global player_hidden = 0;
+Global drone_alert = 0;
+Global turn_count = 0;
+Global jumpsuit_timer = 0;
+Global jumpsuit_worn = 0;
+Global alarm_lights_active = 0;
+Global bulkhead_passed = 0;
+Global battery_count = 0;
+Global medical_wing_powered = 0;
+
+! ==============================================================================
+! UTILITY ROUTINES
+! ==============================================================================
+[ Mod a b;
+    if (b == 0) return 0;
+    return a - (a / b) * b;
+];
+
+[ GetCurrentBulk i k;
+    k = 0;
+    objectloop(i in player) {
+        if (i provides bulk) k = k + i.bulk;
+        else k = k + BULK_NORMAL;
+    }
+    return k;
+];
+
+! ==============================================================================
+! HUD & AUDIO INTERFACE
+! ==============================================================================
+[ PrintVisual real_text;
+    if (visual_cortex_active == 1) {
+        print (string) real_text;
+        return;
+    }
+    print "ZERAKTHYN: [STYRZOSH ZGRT]";
+];
+
+[ PrintAudio real_text;
+    if (audio_codec_active == 1) {
+        print (string) real_text;
+        return;
+    }
+    print "~VZDYK... TSKOR... VESKRACH... NAADEN...~";
+];
+
+! ==============================================================================
+! CUSTOM ACTIONS & ROUTINES
+! ==============================================================================
+[ InstallSub;
+    if (noun == nothing) { print "Install what?"; rtrue; }
+    if (noun notin player) { print "You don't have that."; rtrue; }
+    if (action == ##Install) {
+        if (noun.before(action)) return;
+    }
+    rtrue;
+];
+
+[ BlinkSub; "You blink, clearing the sweat from your eyes."; ];
+
+[ BlinkTwiceSub;
+    if (visual_cortex_active == 0) return false;
+    if (last_qr_source == 0 || (last_qr_source notin location && last_qr_source ~= location)) {
+        print "No active data streams detected.^";
+        return true;
+    }
+    if (last_qr_source provides qr_content) {
+        print (string) last_qr_source.qr_content;
+        print "^";
+        return true;
+    }
+    return false;
+];
+
+[ FreezeSub;
+    player_hidden = 1;
+    print "You freeze instantly. You slow your breathing and force your heart rate down, lowering your thermal signature.^";
+    return true;
+];
+
+[ HideSub;
+    player_hidden = 1;
+    print "You dive behind cover, curling tight to minimize your silhouette. You hold your breath.^";
+    return true;
+];
+
+[ RecallSub; "You can't recall that."; ];
+
+! ==============================================================================
+! DAEMONS & SYSTEMS
+! ==============================================================================
+[ ZerakthynAtmosphere r;
+    if (random(10) == 1) {
+        r = random(5);
+        new_line;
+        print "An intercom in the ceiling crackles to life!^";
+        new_line;
+        style underline;
+        if (audio_codec_active == 1) {
+            if (r == 1) print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.~";
+            if (r == 2) print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.~";
+            if (r == 3) print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.~";
+            if (r == 4) print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.~";
+            if (r == 5) print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.~";
+        } else {
+            if (r == 1) print "~KRZHDAR JADROZ... VZDYK... VZDYK.~";
+            if (r == 2) print "~POHYB STAVR... SCERNOSH ZRAAV.~";
+            if (r == 3) print "~SMRNK DRAZK... VESKRACH KRZHD.~";
+            if (r == 4) print "~JADROZ POHYB... VZDRAK TSKOR.~";
+            if (r == 5) print "~STYRZOSH KRZHD... DRAZKARY.~";
+        }
+        style roman;
+        new_line;
+    }
+];
+
+[ DroneDaemon dir next_room adjacent;
+    if (drone_active == 0) return;
+    if (power_restored == 0) return;
+    
+    ! --- Drone Movement Logic ---
+    if (parent(SecurityDrone) == location) {
+        if (drone_alert == 1) {
+            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up in agony.^...^You wake up dragged back to the Security Checkpoint.^";
+            PlayerTo(SecurityCheck);
+            drone_alert = 0;
+            player_hidden = 0;
+            return;
+        }
+        if (player_hidden == 0) {
+            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your combat instincts scream: RUN!^";
+            drone_alert = 1;
+            return;
+        } else {
+            print "^The security drone hovers past. Its finely-tuned sensors fail to pick up your signature. You allow yourself a little sigh of relief as you watch it turn a corner.^";
+        }
+    }
+    
+    drone_alert = 0;
+    dir = random(4);
+    next_room = nothing;
+    
+    ! Simple adjacency map for drone movement
+    if (parent(SecurityDrone) == Atrium) {
+        if (dir == 3) next_room = MessHall;
+        if (dir == 4) next_room = SecurityCheck;
+    }
+    else if (parent(SecurityDrone) == MessHall) {
+        if (dir == 4) next_room = Atrium;
+        if (dir == 3) next_room = CrewQuarters;
+    }
+    else if (parent(SecurityDrone) == CrewQuarters) {
+        if (dir == 4) next_room = MessHall;
+        if (dir == 2) next_room = MedicalBay;
+    }
+    else if (parent(SecurityDrone) == MedicalBay) {
+        if (dir == 1) next_room = CrewQuarters;
+    }
+    else if (parent(SecurityDrone) == SecurityCheck) {
+        if (dir == 3) next_room = Atrium;
+        if (dir == 4) next_room = OpsCenter;
+    }
+    else if (parent(SecurityDrone) == OpsCenter) {
+        if (dir == 3) next_room = SecurityCheck;
+        if (dir == 1) next_room = ServerFarm;
+    }
+    else if (parent(SecurityDrone) == ServerFarm) {
+        if (dir == 2) next_room = OpsCenter;
+    }
+    
+    if (next_room ~= nothing) move SecurityDrone to next_room;
+    
+    ! --- Proximity Alerts ---
+    if (parent(SecurityDrone) == location) {
+        print "^(WARNING: A Security Drone floats into the room!)^";
+        if (audio_codec_active) print "^ARPI (Headset): 'Hold still! Don't let it pick up your heartbeat! **Freeze** or **Hide**!'^";
+        else print "^**THERMAL SCAN DETECTED. FREEZE OR HIDE.**^";
+    } else {
+        adjacent = 0;
+        if ( (location == Atrium && (parent(SecurityDrone)==MessHall || parent(SecurityDrone)==SecurityCheck)) ||
+             (location == MessHall && (parent(SecurityDrone)==Atrium || parent(SecurityDrone)==CrewQuarters)) ||
+             (location == SecurityCheck && (parent(SecurityDrone)==Atrium || parent(SecurityDrone)==OpsCenter)) )
+             adjacent = 1;
+        if (adjacent) {
+             print "^(PROXIMITY ALERT)^";
+             if (audio_codec_active) print "^ARPI (Headset): 'Hostile nearby. Keep your head down.'^";
+             else print "^The heavy hum of an anti-grav engine vibrates nearby. Suggestion: **Freeze** or **Hide**.^";
+        }
+    }
+];
+
+[ TimePasses;
+    turn_count++;
+    DroneDaemon();
+    ZerakthynAtmosphere();
+    if (power_restored == 0) {
+        oxygen = oxygen - 1;
+        if (oxygen == 15) print "^Your lungs burn. The air is getting thin...^";
+        if (oxygen <= 0) {
+            deadflag = 1;
+            print "^^Black spots fill your vision. You gasp for air that isn't there. Collapse.^";
+        }
+        if (alarm_lights_active == 1) {
+            if (Mod(turn_count, 2) == 0) {
+                print "^Red alarm lights flash! A siren sounds! A voice booms!^^";
+                new_line;
+                style underline;
+                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~^";
+            }
+        }
+    }
+    if (jumpsuit_timer > 0) {
+        jumpsuit_timer = jumpsuit_timer - 1;
+        if (jumpsuit_timer == 0) {
+            deadflag = 1;
+            print "^^The cold seeps into your bones. Without protection, your body succumbs to the frigid environment.^";
+        } else if (jumpsuit_timer == 1) {
+            print "^Your body is starting to feel the extreme cold. You need protection soon.^";
+        }
+    }
+];
+
+[ GamePreRoutine;
+    if (action ~= ##Freeze && action ~= ##Hide && action ~= ##Look && action ~= ##Wait) {
+        if (player_hidden == 1) {
+            player_hidden = 0;
+            print "You move, breaking your concealment.^";
+        }
+    }
+    if (action == ##Take && noun ~= nothing) {
+        if (noun has static || noun has scenery) return false;
+        if (GetCurrentBulk() + noun.bulk > MAX_CAPACITY) {
+            print "You can't carry that. You're already encumbered.^";
+            return true;
+        }
+    }
+    return false;
+];
+
+! ==============================================================================
+! ZERAKTHYN SYSTEM CLASSES
+! ==============================================================================
+Property zh_name;
+Property bulk;
+Property qr_content;
+
+Class AlienRoom with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], has light;
+
+Replace PrintLocation;
+Include "verblib";
+
+[ PrintLocation the_location;
+    if (the_location == nothing) rtrue;
+    new_line;
+    style bold;
+    if (visual_cortex_active == 0 && the_location provides zh_name)
+        print (string) the_location.zh_name;
+    else
+        print (name) the_location;
+    style roman;
+    new_line;
+];
+
+! ==============================================================================
+! LOCATIONS
+! ==============================================================================
+AlienRoom CryoBay "Cryo Bay"
+  with zh_name "VESKRAN ZRAAV",
+       description [;
+           print "The air is freezing here, stinging your exposed skin. Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant.";
+           if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
+               print " A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.";
+           }
+           print " The only exit is a bulkhead door leading North.^";
+           return true;
+        ],
+        n_to Corridor;
+Object -> PlayerCryoTube "open cryo tube"
+  with name 'open' 'cryo' 'tube' 'pod' 'glass',
+       description [;
+           print "This is the tube you woke up in. The bio-monitor display reads: ";
+           PrintVisual("STATUS: REVIVED. ID: 009.");
+           print "^";
+           return true;
+       ],
+       has static scenery;
+Object -> ClosedCryoTubes "rows of cryo tubes"
+  with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
+       description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
+       has static scenery;
+Object -> DepletedCell "heavy cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'cell',
+       bulk BULK_HEAVY,
+       initial "A heavy, dark cylinder lies on the floor.",
+       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+
+Object ChargedCell1 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell2 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell3 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+Object HighTechJumpsuit "high-tech jumpsuit"
+  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
+       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
+       before [;
+            Wear:
+                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
+                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                rtrue;
+            Remove:
+                if (jumpsuit_worn == 1) { print "This suit has somehow fused to your skin. It cannot be removed no matter how hard you try."; rtrue; }
+       ],
+    has scenery;
+
+AlienRoom Corridor "The Spine"
+  with zh_name "POHYB STAVR",
+       description [;
+           print "A long, dark metal corridor. Emergency lights cast long shadows.^";
+           if (BulkheadDoor has locked) {
+               print "To the North, a massive bulkhead door blocks the passage forward.";
+           } else {
+               print "To the North, the bulkhead door stands open, leading deeper into the ship.";
+           }
+           print " To the East, a security door is closed. An open archway leads West. A desiccated corpse lies slumped against the wall.^";
+           return true;
+        ],
+        s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
+
+Object -> Corpse "desiccated corpse"
+  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
+       description [;
+            print "A crew member, long dead. He wears a standard technician's uniform.";
+            if (Keycard in self) { 
+                give Keycard ~concealed; 
+                print " You notice a plastic card tucked into his breast pocket."; 
+            }
+            print "^"; 
+            return true;
+       ],
+       search [;
+            return true;
+       ],
+  has static container open scenery;
+Object -> -> Keycard "plastic keycard"
+  with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
+       description [; print "A standard plastic ID card. The label reads: "; PrintVisual("ZRAAVEK: KRZHARYN"); print ".^"; return true; ], has concealed;
+
+Object BulkheadDoor "bulkhead door"
+  with name 'door' 'bulkhead' 'massive' 'north' 'blast' 'south',
+       description [;
+            print "A massive blast door separating the aft section from the main ship. ";
+            if (power_restored == 0) {
+                print "It is dark and unresponsive, its heavy bolts engaged.";
+            } else if (lockdown_lifted == 0) {
+                print "A hologram projected over the lock reads: "; 
+                PrintVisual("DRAZKARY ZAMEROSH");
+                print ". The lock remains engaged.";
+            } else if (bulkhead_passed == 0) {
+                print "The lock has been released. The door stands open.";
+            } else if (identity_hacked == 0) {
+                print "The door has closed behind you. A hologram reads: "; 
+                PrintVisual("ACCESS DENIED: NON-COMMANDER PERSONNEL");
+                print ". It's sealed tight.";
+            } else {
+                print "The commander override is active. The door can be opened.";
+            }
+            print "^";
+            return true;
+       ],
+       before [;
+            Unlock, Open:
+                if (location == Corridor) {
+                    ! From south side (before passing through)
+                    if (power_restored == 0) { 
+                        print "The electronic systems are dead. It needs power.^"; 
+                        rtrue; 
+                    }
+                    if (lockdown_lifted == 0) { 
+                        print "The lock is still engaged. You need to release it first.^"; 
+                        rtrue; 
+                    }
+                    ! Door is open, allow passage
+                    give self ~locked open;
+                    print "The door is already open. You can go north.^";
+                    rtrue;
+                } else {
+                    ! From north side (after passing through)
+                    if (identity_hacked == 0) {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                        print "^The door remains locked.^"; 
+                        rtrue;
+                    } else {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("VELMAR, CERNYV.");
+                        print "^The heavy bolts retract. The door grinds open.^";
+                        give self ~locked open; 
+                        rtrue;
+                    }
+                }
+       ],
+       door_dir [; if (location == Corridor) return n_to; return s_to; ],
+       door_to [; 
+           if (location == Corridor) {
+               if (power_restored == 0 || lockdown_lifted == 0) {
+                   print "The bulkhead door is sealed shut.^";
+                   rtrue;
+               }
+               return SpineFore;
+           }
+           if (bulkhead_passed == 1 && identity_hacked == 0) {
+               print "The door is locked from this side.^";
+               rtrue;
+           }
+           return Corridor;
+       ],
+       found_in Corridor SpineFore,
+       has static door locked scenery;
+
+Object EngineeringDoor "security door"
+  with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
+       description [;
+            if (location == Corridor) {
+                print "A heavy steel door with a card reader slot.";
+                if (battery_count == 0) print " The LED on the lock is dead.";
+                else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
+            } else print "The inner face is smooth steel.";
+            print "^"; return true;
+       ],
+       found_in Corridor Engineering,
+       door_dir [; if (location == Corridor) return e_to; return w_to; ],
+       door_to [; if (location == Corridor) return Engineering; return Corridor; ],
+       with_key Keycard,
+       before [;
+            Unlock, Open:
+                if (location == Engineering) "Use the green panel.";
+                if (battery_count == 0) "The electronic lock is dead. It needs power.";
+       ], has static door openable lockable locked scenery;
+
+AlienRoom Engineering "Engineering Room"
+  with zh_name "KRZHDYN STAVR",
+       description [;
+           print "A claustrophobic little closet smelling of ozone and hot circuitry. Status panels of various sizes fill the walls. ";
+           print "Most lights on the panels are green, but the main reactor status light is ";
+           
+           if (battery_count == 0) print "glowing an ominous red.";
+           else if (battery_count == 1) print "flashing amber.";
+           else print "glowing a steady green.";
+           
+           print "^A metal shelf is bolted to one wall. The exit is West.^";
+           return true;
+       ],
+       w_to EngineeringDoor;
+Object -> ExitButton "exit button"
+  with name 'button' 'exit',
+       before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
+Object -> BatteryShelf "metal shelf"
+  with name 'shelf' 'shelves' 'rack' 'metal',
+       description "A sturdy metal shelf bolted to the wall. Two heavy, dark cylinders rest on it.",
+       before [;
+            Receive:
+                if (noun ~= Battery1 && noun ~= Battery2 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
+                    print "That doesn't fit on the battery shelf.^";
+                    return true;
+                }
+                ! Place the battery back
+                move noun to self;
+                print "You slide ", (the) noun, " back onto the shelf.^";
+                return true;
+       ], has static container open supporter scenery;
+
+Object -> ControlStation "control station"
+  with name 'panel' 'station' 'control' 'status' 'amber', 
+       description "It features a Heavy Iron Lever.", 
+       has static scenery supporter;
+
+Object -> IronLever "Heavy Iron Lever"
+  with name 'lever' 'iron' 'heavy',
+  before [;
+     Pull:
+        if (battery_count < 2) {
+            print "The lever is locked in place. The status light is ";
+            if (battery_count == 0) print "red";
+            else print "amber";
+            print ", indicating the reactor needs more power (2 cells minimum) to release the bulkhead lock.^";
+            return true;
+        }
+        if (lockdown_lifted == 1) {
+            print "The lever has already been pulled. The bulkhead door is unlocked.^";
+            return true;
+        }
+        print "With the status light glowing green, you heave the lever back. The machinery groans with a deep THRUM throughout the ship!^^";
+        print "[STATUS: Bulkhead lock released. The door is now open.]^";
+        lockdown_lifted = 1;
+        give BulkheadDoor ~locked open;
+        return true;
+  ],
+  has static scenery;
+
+! Battery Objects
+Object Battery1 "heavy cylinder"
+  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
+       bulk BULK_HEAVY,
+       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+
+Object Battery2 "heavy cylinder"
+  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
+       bulk BULK_HEAVY,
+       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+
+AlienRoom ReactorRoom "Machinery Chamber"
+  with zh_name "KRZHDAR JADROZ",
+       description [;
+           print "The air here smells of ozone. A complex mechanism is set into the north wall, and a massive column dominates the center of the room.";
+           if (battery_count > 0) print " The column hums with a deep, bone-shaking rhythm.";
+           else print " The room is silent and dark.";
+           print " The exit lies to the East.^";
+           return true;
+        ],
+        e_to Corridor;
+Object -> WallSocket "wall mechanism"
+  with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity sized to fit a heavy unit.",
+       before [;
+            Receive:
+                if (child(self) ~= 0) "The slot is occupied.";
+                if (noun == DepletedCell || noun == Battery1 || noun == Battery2) {
+                    remove noun;
+                    if (noun == DepletedCell) move ChargedCell1 to self;
+                    else if (noun == Battery1) move ChargedCell2 to self;
+                    else if (noun == Battery2) move ChargedCell3 to self;
+                    print "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.^";
+                    return true;
+                }
+       ], has static container open scenery;
+Object -> MainColumn "central column"
+  with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
+       description [;
+           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a single cylindrical slot lined with copper contacts.";
+           if (battery_count > 0) print " The slot glows with pulsing blue light.";
+           print "^";
+           return true;
+       ],
+       before [;
+            Receive:
+                ! Accept charged cells only
+                if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
+                    remove noun;
+                    battery_count++;
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
+                    if (battery_count == 1) {
+                        print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
+                        print "^[STATUS: Minimal power restored. Engineering door unlocked.]^";
+                        power_restored = 1;
+                        alarm_lights_active = 0;
+                    } else if (battery_count == 2) {
+                        print "^^The reactor hums louder, power surging through the ship's systems.^";
+                        print "^[STATUS: Main systems online. Bulkhead controls enabled.]^";
+                    } else if (battery_count == 3) {
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
+                        print "^[STATUS: Medical Wing power restored.]^";
+                        medical_wing_powered = 1;
+                        give MedicalBay light;
+                    }
+                    return true;
+                }
+       ], has static container open scenery;
+
+AlienRoom SpineFore "Spine Fore"
+  with zh_name "POHYB STAVR PRE",
+       description [;
+           print "Another segment of the long, dark corridor. The emergency lights flicker erratically. The corridor continues North.";
+           if (bulkhead_passed == 0 && BulkheadDoor hasnt locked) {
+               print " To the South, the bulkhead door stands open.";
+           } else {
+               print " To the South, the bulkhead door is closed.";
+           }
+           print "^";
+           return true;
+       ],
+       n_to SpineMid, s_to BulkheadDoor,
+       after [;
+           Go:
+               if (noun == n_to && bulkhead_passed == 0) {
+                   bulkhead_passed = 1;
+                   print "^As you step forward into the main ship, you hear a heavy CLUNK behind you. The bulkhead door has closed and sealed itself. You're committed now.^";
+                   give BulkheadDoor locked;
+               }
+       ];
+
+AlienRoom SpineMid "Spine Mid"
+  with zh_name "POHYB STAVR SRED",
+       description "The central segment of the spine corridor. The air here feels colder, and the emergency lights are almost completely dead. The corridor continues North and South.",
+       s_to SpineFore, n_to Atrium;
+
+AlienRoom Atrium "Central Atrium"
+  with zh_name "JADROZ POHYB",
+       description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads Down.",
+       s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;
+
+AlienRoom SecurityCheck "Security Checkpoint"
+  with zh_name "VZRAC ZAMER",
+       description [;
+           print "A reinforced checkpoint. Exits lead East and West. To the North, a heavy, reinforced door leads to what appears to be a detention area.^";
+           return true;
+       ],
+       e_to Atrium, w_to OpsCenter, n_to BrigDoor;
+
+AlienRoom OpsCenter "Ops Center"
+  with zh_name "KRZHDYN VZRAC",
+       description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, South, and East.",
+       e_to SecurityCheck, n_to ServerRoom, s_to CommsRelay;
+
+AlienRoom CommsRelay "Comms Relay"
+  with zh_name "STYRZEN POHYB",
+       description "Banks of radio equipment line the walls. The air hums with static. The exit is North.",
+       n_to OpsCenter;
+Object -> AudioModule "bio-chip (silver)"
+  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
+       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                audio_codec_active = 1; remove self;
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                rtrue;
+       ];
+
+AlienRoom ServerRoom "Server Room"
+  with zh_name "CERNYV STYRZ",
+       description "Rows of server banks hum quietly. The exit is South.",
+       s_to OpsCenter;
+Object -> OpticalModule "bio-chip (green)"
+  with name 'driver' 'module' 'chip' 'green' 'wafer', bulk BULK_POCKET,
+       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
+                visual_cortex_active = 1; remove self;
+                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
+                rtrue;
+       ];
+Object -> ServerTerminal "main terminal"
+  with name 'terminal' 'computer' 'screen' 'code' 'image' 'qr' 'glyph',
+       qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
+       description [;
+            print "The screen displays the ship's crew manifest. ";
+            if (visual_cortex_active == 0) print "Your vision cannot parse the glyphs.";
+            else {
+                 print "CURRENT USER: ID 009. RANK: UNLISTED.";
+                 if (identity_hacked) print "^STATUS: OVERRIDDEN (COMMANDER ACCESS).";
+                 last_qr_source = self;
+                 print "^^[ENCRYPTED DATA DETECTED. BLINK TWICE TO DECRYPT]";
+            }
+            print "^"; return true;
+       ], has static scenery;
+Object -> TerminalSlot "data slot"
+  with name 'slot' 'drive' 'reader', description "A slot designed for a standard Admin Data Wafer.",
+       before [;
+            Receive:
+                if (noun == DataWafer) {
+                    if (visual_cortex_active == 0) { print "You cannot parse the terminal interface to perform the hack.^"; rtrue; }
+                    remove DataWafer; identity_hacked = 1;
+                    print "You insert the wafer. You overwrite the 'UNLISTED' tag with 'COMMANDER'.^";
+                    rtrue;
+                }
+       ], has static container open scenery;
+
+AlienRoom CargoBay "Cargo Bay"
+  with zh_name "VZDYK DRAZK",
+       description "A dark, cavernous storage area. The exit is Up.", u_to Atrium;
+Object -> CargoCrates "crates" with name 'crate' 'crates', description "Standard shipping crates.", has static scenery;
+Object -> DataWafer "data wafer"
+  with name 'wafer' 'disk' 'chip' 'admin', bulk BULK_POCKET,
+       description [; print "A small data chip. Label: "; PrintVisual("ZRAAVEK: VZ-STYRZ"); print ".^"; return true; ];
+
+Object BridgeDoor "blast door"
+  with name 'door' 'blast' 'bridge' 'north',
+       description "A reinforced door protecting the Bridge. It has a biometric scanner.",
+       before [;
+            Open, Unlock:
+                if (location == Bridge) { give self ~locked open; "Unlocked."; }
+                print "The scanner sweeps a laser over your retina. ";
+                if (identity_hacked == 0) {
+                    print "^VOICE: "; PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                    print "^The door remains locked.^"; return true;
+                }
+                print "^VOICE: "; PrintAudio("VELMAR, CERNYV.");
+                print "^The heavy bolts retract. The door opens.^";
+                give self ~locked open; return true;
+       ], door_dir n_to, door_to Bridge, has static door locked scenery;
+
+AlienRoom Bridge "The Bridge"
+  with zh_name "VZDRAK SMRNK",
+       description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",
+       s_to Atrium, n_to Airlock;
+Object -> Mainframe "mainframe"
+  with name 'mainframe' 'server' 'bank' 'computer', description "A massive computer bank. A heavy 'AI Core' drive is slotted into the center.", has static scenery;
+Object -> ARPICore "AI Core"
+  with name 'core' 'drive' 'unit' 'box' 'arpi' 'ai', bulk BULK_HEAVY,
+       description "A heavy, rectangular drive containing ARPI's consciousness.",
+       before [;
+            Take:
+                if (audio_codec_active == 0) { print "You don't understand the function of this hardware yet.^"; rtrue; }
+                print "You grip the heavy core. ARPI (Headset): 'Do it, 9! Pull me out! We're leaving this graveyard!'^You yank the drive free. Sparks fly!^";
+                arpi_downloaded = 1; remove self;
+                rtrue;
+       ];
+
+AlienRoom Airlock "Escape Pod Airlock"
+  with zh_name "ZAMER SMRNK",
+       description "The final airlock. The Escape Pod is prepped for launch. The exit is South.", s_to Bridge,
+       before [;
+            Go:
+               if (noun == n_to) {
+                   print "You stumble into the pod. ";
+                   if (ARPICore in player) {
+                       print "You slot ARPI's core into the pod's computer.^ARPI: 'Launch sequence initiated. Destination: Archeron-9.'^
+                       ^As the pod blasts away toward the red planet, you catch your reflection in the black glass.^
+                       ^You see the seams where the metal meets the flesh. You aren't a crew member. You are the project.^
+                       ^You are Archeron-9.^
+                       ^
+                       *** TO BE CONTINUED ***^";
+                       deadflag = 2; return true;
+                   } else {
+                       print "You sit in the pilot seat. But the computer is dead. You need an AI to calculate the trajectory.^*** GAME OVER ***^";
+                       deadflag = 1; return true;
+                   }
+               }
+       ], n_to "Escape Pod";
+Object -> RecallTerminal "recall terminal"
+  with name 'terminal' 'screen' 'console',
+       description [;
+            print "The screen controls the automated security systems. ";
+            if (identity_hacked) print "It is active. You see a command: [RECALL PATROL DRONE].";
+            else print "It is locked. [ACCESS DENIED: COMMANDER ONLY].";
+            print "^"; return true;
+       ],
+       before [;
+            Recall, Push:
+                if (identity_hacked == 0) "Access Denied.";
+                if (drone_active == 0) "The drone is already recalled.";
+                drone_active = 0; move SecurityDrone to nothing;
+                print "You type the command. [COMMAND ACCEPTED]. The drone flies into a wall chute.^"; return true;
+       ], has static scenery;
+Object SecurityDrone "Security Drone"
+  with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
+       initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
+
+AlienRoom MessHall "Mess Hall"
+  with zh_name "CERNYV VESKR",
+       description "Overturned tables. Exits lead East and West.", w_to Atrium, e_to CrewQuarters;
+
+AlienRoom CrewQuarters "Crew Quarters"
+  with zh_name "CERNYV DRAZK",
+       description "Rows of bunks. Exits lead West and South.", w_to MessHall, s_to MedicalBay;
+
+AlienRoom MedicalBay "Medical Bay"
+  with zh_name "VESKRAC STAVR",
+       description [;
+           if (medical_wing_powered == 0) {
+               print "It's pitch black in here. You can't see anything. The medical wing needs power.^";
+           } else {
+               print "A sterile room. An operating table sits in the center with surgical lasers still active. The exit is North.^";
+           }
+           return true;
+       ],
+       before [;
+           Go:
+               if (medical_wing_powered == 0) {
+                   print "You stumble in the darkness. It's too dangerous to navigate without light.^";
+                   return true;
+               }
+       ],
+       n_to CrewQuarters;
+
+AlienRoom ServerFarm "Server Farm"
+  with zh_name "STYRZEN JADROZ",
+       description "Towering black server racks. The exit is South.", s_to OpsCenter;
+
+! --- NEW ROOM: Brig ---
+AlienRoom Brig "Security Brig"
+  with zh_name "ZAMER DRAZK",
+       description [;
+           print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is South, through a thick door.^";
+           return true;
+       ],
+       s_to BrigDoor;
+
+! --- NEW DOOR: BrigDoor ---
+Object BrigDoor "reinforced door"
+  with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
+       description [;
+            if (location == SecurityCheck) {
+                print "A heavy, reinforced door with a glowing red panel and a keycard slot.";
+                if (power_restored == 0) print " The panel is dark and unresponsive.";
+                else { print " The panel reads: "; PrintVisual("DRAZKOSH ZAMEROSH"); }
+            } else { ! From inside the Brig
+                print "The inner face of the door is smooth, unyielding metal with no visible controls or seams.";
+            }
+            print "^"; return true;
+       ],
+       before [;
+            Unlock, Open:
+                if (location == Brig) { print "There's no way to open the door from in here."; rtrue; }
+                if (power_restored == 0) { print "The electronic lock is dead."; rtrue; }
+       ],
+       found_in SecurityCheck Brig,
+       door_dir [; if (location == SecurityCheck) return n_to; return s_to; ],
+       door_to [; if (location == SecurityCheck) return Brig; return SecurityCheck; ],
+       with_key Keycard,
+       has static door openable lockable locked scenery;
+! ==============================================================================
+! ARCHERON-9 - MEDICAL WING ENHANCEMENTS (Revised Again)
+! ==============================================================================
+
+! --- New Objects Defined Separately ---
+
+Object -> DiagnosticConsole "diagnostic console"
+  with name 'console' 'diagnostic' 'terminal' 'panel' 'scanner' 'medical',
+       description [;
+           print "A sleek, metallic console. The screen displays a complex array of alien glyphs and readouts. ";
+           if (visual_cortex_active == 0 || audio_codec_active == 0) {
+               print "You can't understand any of it. It seems to be waiting for input, but you have no idea what to do.";
+           } else {
+               print "With your upgrades, you can decipher some of the interface. It appears to be a bio-diagnostic unit. The primary function is labeled 'INITIATE FULL SPECTRUM SCAN'. There are also options for 'SYSTEM REBOOT' and 'LOG ACCESS'.";
+               last_qr_source = self;
+               print "^[ALIEN DATA DETECTED. BLINK TWICE TO DECRYPT]";
+           }
+           print "^";
+           return true;
+       ];
+
+! --- Explicit Action Subroutines for DiagnosticConsole ---
+! These are called when the player uses verbs like USE, PUSH, ACTIVATE, INITIATE
+! on the DiagnosticConsole.
+
+[ DiagnosticConsole_UseSub i;
+    ! This handles the 'use console' command.
+    ! We can make it behave similarly to 'push' or 'activate' for simplicity.
+    DiagnosticConsole_PushSub();
+    rtrue;
+];
+
+[ DiagnosticConsole_PushSub i;
+    ! This handles 'push console'
+    if (medical_wing_powered == 0) {
+        print "The console is dead. It needs power to function.^";
+        rtrue;
+    }
+    if (visual_cortex_active == 0 || audio_codec_active == 0) {
+        ! Danger zone: attempting interaction without understanding
+        print "You press a series of alien symbols at random, hoping for the best. Suddenly, the console emits a high-pitched whine! A searing pain shoots through your head as your neural interface is overloaded by the incomprehensible data stream!^";
+        deadflag = 1; ! Game over for attempting without upgrades
+        rtrue;
+    } else {
+        ! Player has upgrades, initiate scan
+        print "You select 'INITIATE FULL SPECTRUM SCAN'. The console hums to life, and a beam of light sweeps over you from the operating table's lasers.^";
+        PerformDiagnosticScan();
+        rtrue;
+    }
+];
+
+[ DiagnosticConsole_ActivateSub i;
+    ! This handles 'activate console'
+    DiagnosticConsole_PushSub();
+    rtrue;
+];
+
+[ DiagnosticConsole_InitiateSub i;
+    ! This handles 'initiate scan' (or similar, if 'initiate' is a verb)
+    DiagnosticConsole_PushSub();
+    rtrue;
+];
+
+
+Object -> MedicalLogTerminal "data terminal"
+  with name 'terminal' 'data' 'log' 'records' 'medical',
+       qr_content [;
+           if (visual_cortex_active == 0) {
+               print "The screen displays incomprehensible alien script. You can't read it.";
+               return;
+           }
+           print "ACCESSING ARCHERON PROJECT LOGS...^";
+           print "SUBJECT: 009. EXPERIMENT PHASE: BIO-INTEGRATION ALPHA.^";
+           print "OBJECTIVE: To create a seamless symbiosis between host and advanced nanite-suit technology.^";
+           print "OBSERVATIONS: Subject 009 exhibits unprecedented integration. The nanite matrix has bonded at a cellular level, rendering the suit indistinguishable from organic tissue.^";
+           print "CONCLUSION: PROJECT SUCCESSFUL. SUBJECT 009 IS NOW ARCHERON-9.^";
+           print "FURTHER RESEARCH: Monitor subject's behavioral patterns and combat effectiveness.^";
+       ],
+       description [;
+           print "A small data terminal mounted on the wall. It displays a blinking cursor and a title: 'ARCHERON PROJECT - SUBJECT 009'. ";
+           if (visual_cortex_active == 0) {
+               print "The text is in an alien language.";
+           } else {
+               print "You can read the logs here. Accessing them might reveal crucial information.";
+               last_qr_source = self;
+               print "^[ALIEN DATA DETECTED. BLINK TWICE TO DECRYPT]";
+           }
+           print "^";
+           return true;
+       ];
+
+Object -> OperatingTable "operating table"
+  with name 'table' 'operating' 'surgical',
+       description [;
+           print "A sterile, metallic operating table. Surgical lasers are mounted above it, currently inactive but humming with latent power. The table itself is designed to secure a subject for examination.";
+           if (medical_wing_powered == 1) {
+               print " The lasers are ready to activate for diagnostic purposes.";
+           }
+           print "^";
+           return true;
+       ],
+       has static scenery;
+
+! --- MedicalBay Room Definition ---
+! Assuming AlienRoom is a valid class defined elsewhere in your code.
+! If not, it should be 'Room'.
+AlienRoom MedicalBay "Medical Bay"
+  with zh_name "VESKRAC STAVR",
+       description [;
+           if (medical_wing_powered == 0) {
+               print "It's pitch black in here. The air is cold and sterile, but you can't see anything. The medical wing needs power to function.^";
+           } else {
+               print "The sterile white room hums with latent energy. An operating table sits in the center, its surgical lasers currently inactive but glowing faintly. To your left, a Diagnostic Console flickers with alien symbols. To your right, a small data terminal is mounted on the wall. The only exit is North.^";
+           }
+           return true;
+       ],
+       before [;
+           Go:
+               if (medical_wing_powered == 0) {
+                   print "You stumble in the darkness. It's too dangerous to navigate without light. You need to restore power to this section.^";
+                   return true;
+               }
+               rfalse;
+       ],
+       n_to CrewQuarters;
+
+! --- Routine to handle the reveal ---
+[ PerformDiagnosticScan;
+    ! Called when player initiates scan with necessary upgrades.
+    if (HighTechJumpsuit in player || jumpsuit_worn == 1) {
+        print "The diagnostic beam intensifies. Your internal sensors flare with activity. You feel a strange warmth spreading through your body, a sensation of... belonging.^";
+        jumpsuit_worn = 1; ! Ensure integration state is set.
+        PrintVisual("BIO-INTEGRATION COMPLETE. SUBJECT 009 IS NOW ARCHERON-9.");
+        PrintAudio("ZRAAVEK: DOMN. CERNYV: STAVR.");
+        print "^You look down at your hands. The fabric of the suit seems to ripple and flow, merging seamlessly with your skin. It's no longer something you wear; it's part of you. You feel its power, its purpose, coursing through your veins.^";
+    } else {
+        print "The scanner runs, but detects no anomalous bio-integration. Perhaps the suit is not present or not active.^";
+    }
+    return;
+];
+
+
+
+! ==============================================================================
+! GRAMMAR & INIT
+! ==============================================================================
+Include "grammar";
+Verb 'install' 'slot' * noun -> Install;
+Extend 'insert' * noun -> Install;
+Verb 'blink'
+    * -> Blink
+    * 'twice' -> BlinkTwice;
+Verb 'freeze' 'stop' * -> Freeze;
+Verb 'hide' 'duck' * -> Hide;
+Verb 'recall' * noun -> Recall;
+
+[ Initialise;
+    location = CryoBay;
+    ! Place batteries on the shelf in Engineering
+    move Battery1 to BatteryShelf;
+    move Battery2 to BatteryShelf;
+
+    move DiagnosticConsole to MedicalBay;
+    move MedicalLogTerminal to MedicalBay;
+    move OperatingTable to MedicalBay;
+    
+    ! --- Intro Sequence ---
+    @erase_window $ffff;
+    new_line;
+    style underline;
+    print "~Jadroz: veskrach... Domn: pohyb.^";
+    style roman;
+    print "^You wake slowly, your breath misting in the chill air. The glass door of your cryo-tube slides open with a smooth hydraulic hiss. You step out onto the metal grating, shivering as the stasis fluid evaporates from your skin. From all around you, a voice barks:^";
+    jumpsuit_timer = 3; ! Set the timer for 3 turns
+    ! --- Place the HighTechJumpsuit in the CryoBay ---
+    move HighTechJumpsuit to CryoBay;
+    ! --- Activate Alarm Lights ---
+    alarm_lights_active = 1;
+    new_line;
+    style underline;
+    print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~^";
+    style roman;
+    new_line;
+    Banner();
+    print "^Press any key to begin... ";
+    @read_char 1 -> sp;
+    @erase_window $ffff; ! Clear screen for game start
+    ! --- Pre-Game Urgency Text ---
+    print "^Red alarm lights begin flashing! You hear the voice again, and though you can't understand, you can feel the urgency.^";
+    new_line;
+    style underline;
+    print "KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
+    style roman;
+    new_line;
+    return 2; ! Suppress banner, start game
+];
