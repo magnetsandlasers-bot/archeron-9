@@ -36,14 +36,14 @@ AlienRoom Corridor "The Spine"
            } else {
                print "To the North, the bulkhead door stands open, leading deeper into the ship.";
            }
-           print " To the East, a security door marked "
+           print " To the East, a security door marked ";
            if (visual_cortex_active) {
                print "ENGINEERING ";
            } else {
                print "KRZHDYN ";
            }
            ".";
-           print "is closed. An open archway leads West towards an area marked "
+           print "is closed. An open archway leads West towards an area marked ";
            if (visual_cortex_active) {
                print "REACTOR. ";
            } else {
