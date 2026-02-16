@@ -2,7 +2,7 @@ AlienRoom SpineFore "Spine Fore"
   with zh_name "POHYB STAVR PRE",
        description [;
            print "Another segment of the long, dark corridor. The emergency lights flicker erratically. The corridor continues North.";
-           if (bulkhead_passed == 0 && BulkheadDoor hasnt locked) {
+           if (BulkheadDoor has open) {
                print " To the South, the bulkhead door stands open.";
            } else {
                print " To the South, the bulkhead door is closed.";
@@ -12,14 +12,12 @@ AlienRoom SpineFore "Spine Fore"
        ],
        n_to SpineMid, s_to BulkheadDoor,
        after [;
-           Go:
-               if (noun == n_to && bulkhead_passed == 0) {
-                   bulkhead_passed = 1;
-                   print "^As you step forward into the main ship, you hear a heavy CLUNK behind you. The bulkhead door has closed and sealed itself. You're committed now.^";
-                   give BulkheadDoor locked;
-               }
+           if (bulkhead_passed == 0) {
+               bulkhead_passed = 1;
+               give BulkheadDoor ~open locked;
+               print "^^As you step into the forward section, you hear a heavy CLUNK behind you. The bulkhead door slams shut and seals itself. You're committed now.^";
+           }
        ];
-
 AlienRoom SpineMid "Spine Mid"
   with zh_name "POHYB STAVR SRED",
        description "The central segment of the spine corridor. The air here feels colder, and the emergency lights are almost completely dead. The corridor continues North and South.",
