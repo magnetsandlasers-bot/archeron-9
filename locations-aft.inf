@@ -111,21 +111,26 @@ Object BulkheadDoor "bulkhead"
        ],
        door_dir [; if (location == Corridor) return n_to; return s_to; ],
        door_to [; 
-           if (location == Corridor) {
-               if (power_restored == 0 || lockdown_lifted == 0) {
-                   print "The bulkhead is sealed shut.^";
-                   rtrue;
-               }
-               bulkhead_passed = 1; 
-               give self ~open locked;
-               return SpineFore;
-           }
-           if (bulkhead_passed == 1 && identity_hacked == 0) {
-               print "The door is locked from this side.^";
-               rtrue;
-           }
-           return Corridor;
-       ],
+    if (location == Corridor) {
+        if (power_restored == 0 || lockdown_lifted == 0) {
+            print "The bulkhead is sealed shut.^";
+            rtrue;
+        }
+        if (bulkhead_passed == 0) {
+            bulkhead_passed = 1;
+            give self ~open locked;
+            print "As you pass through, the massive bulkhead slams shut behind you with a heavy CLUNK! It seals tight.^";
+            PlayerTo(SpineFore);
+            rtrue;
+        }
+        return SpineFore;
+    }
+    if (identity_hacked == 0) {
+        print "The door is locked from this side.^";
+        rtrue;
+    }
+    return Corridor;
+],
        found_in Corridor SpineFore,
        has static door locked scenery;
 Object EngineeringDoor "security door"
