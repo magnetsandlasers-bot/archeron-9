@@ -26,7 +26,7 @@ Object -> ClosedCryoTubes "rows of cryo tubes"
   with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
        description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
        has static scenery;
-Object -> DepletedCell "heavy cylinder"
+Object -> Battery1 "heavy cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'cell',
        bulk BULK_HEAVY,
        initial "A heavy, dark cylinder lies on the floor.",
@@ -265,45 +265,48 @@ AlienRoom ReactorRoom "Machinery Chamber"
         e_to Corridor;
 Object -> WallSocket "wall mechanism"
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
-       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom. ",
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
        before [;
             Receive:
                 if (child(self) ~= 0) "The slot is occupied.";
-                if (noun == DepletedCell || noun == Battery1 || noun == Battery2) {
+                if (noun == Battery1 || noun == Battery2 || noun == Battery3) {
                     remove noun;
-                    if (noun == DepletedCell) move ChargedCell1 to self;
-                    else if (noun == Battery1) move ChargedCell2 to self;
-                    else if (noun == Battery2) move ChargedCell3 to self;
-                    print "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.^";
-                    return true;
+                    if (noun == Battery1) move ChargedCell1 to self;
+                    else if (noun == Battery2) move ChargedCell2 to self;
+                    else if (noun == Battery3) move ChargedCell3 to self;
+                    "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.^";
                 }
-       ], has static container open scenery;
+                "That doesn't fit.";
+       ],
+    has static container open scenery;
 Object -> MainColumn "central column"
   with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
        description [;
-           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.";
-           if (battery_count > 0) print " The slot glows with pulsing blue light.";
-           print "^";
-           return true;
+           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot.";
+           if (battery_count > 0) print " The slot pulses with blue light from the inserted cells.";
+           "^";
        ],
        before [;
             Receive:
-                ! Accept charged cells only
                 if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
-                    remove noun;
+                    move noun to self; ! Keep the object inside so it's 'visible'
                     battery_count++;
-                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
+                    print "You slide ", (the) noun, " into the column's slot. It clicks home and recedes to make room for the next.^";
+                    
                     if (battery_count == 1) {
-                        print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
                         power_restored = 1;
-                        alarm_lights_active = 0;
-                    } else if (battery_count == 2) {
+                        print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
+                    }
+                    else if (battery_count == 2) {
                         print "^^The reactor hums louder, power surging through the ship's systems.^";
-                    } else if (battery_count == 3) {
-                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
+                    }
+                    else if (battery_count == 3) {
                         medical_wing_powered = 1;
                         give MedicalBay light;
+                        print "^^The entire ship shudders as full power floods the grid!^";
                     }
-                    return true;
+                    rtrue;
                 }
-       ], has static container open scenery;
+                "The column only accepts charged power cells.";
+       ],
+    has static container open scenery;
