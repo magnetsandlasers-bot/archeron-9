@@ -291,3 +291,12 @@
     new_line;
     return 2; ! Suppress banner, start game
 ];
+
+[ Translate str_alien str_human;
+    if (visual_cortex_active) {
+        print (string) str_human;
+    } else {
+        print (string) str_alien;
+    }
+    rtrue;
+];
