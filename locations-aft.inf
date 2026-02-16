@@ -58,7 +58,7 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
        ],
-    has clothing;
+    has clothing concealed;
 
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
