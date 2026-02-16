@@ -197,6 +197,8 @@
                 style underline;
                 print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
                 new_line;
+                style roman;
+
             }
         }
     }
