@@ -65,19 +65,6 @@ AlienRoom ServerRoom "Server Room"
        description "Rows of server banks hum quietly. The exit is South.",
        s_to OpsCenter;
 
-Object AudioModule "bio-chip (silver)" ServerRoom
-  with name 'chip' 'module' 'silver' 'wafer',
-       bulk BULK_POCKET,
-       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1; remove self;
-                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
-                rtrue;
-       ];
-
 Object OpticalModule "bio-chip (green)" ServerRoom
   with name 'driver' 'module' 'chip' 'green' 'wafer',
        bulk BULK_POCKET,
