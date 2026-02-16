@@ -11,3 +11,12 @@ Object Battery2 "heavy cylinder"
 Object SecurityDrone "Security Drone"
   with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
        initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
+
+Class AlienRoom with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], has light;
+
+Replace PrintLocation;
