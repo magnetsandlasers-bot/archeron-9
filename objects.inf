@@ -18,5 +18,3 @@ Class AlienRoom with short_name [;
     }
     rfalse;
 ], has light;
-
-Replace PrintLocation;
