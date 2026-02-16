@@ -2,8 +2,6 @@
 ! GRAMMAR.INF - Custom Verbs
 ! ==============================================================================
 
-! Note: Ensure 'Include "grammar";' is in your MAIN file, NOT here.
-
 Verb 'install' 'slot' * held -> Install;
 Extend 'insert'       * held -> Install;
 
@@ -24,4 +22,4 @@ Verb 'warp' 'teleport' 'goto'
 Verb 'heal' * -> Heal;
 
 Verb 'toggle' 
-    * special -> Toggle;
+    * topic -> Toggle;

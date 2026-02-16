@@ -6,17 +6,19 @@
     print "^--- [ SYSTEM DIAGNOSTICS ] ---^";
     print "Power: ", power_restored, " | Lockdown: ", lockdown_lifted, "^";
     print "Visual: ", visual_cortex_active, " | Audio: ", audio_codec_active, "^";
-    print "Current Room: ", (name) location, " (ID: ", location, ")^";
     "-------------------------------";
 ];
 
-[ ToggleSub;
-    ! 'special' is a keyword that holds the dictionary word typed
-    if (special == 'power') power_restored = 1 - power_restored;
-    else if (special == 'lockdown') lockdown_lifted = 1 - lockdown_lifted;
-    else if (special == 'visual') visual_cortex_active = 1 - visual_cortex_active;
-    else if (special == 'audio') audio_codec_active = 1 - audio_codec_active;
+[ ToggleSub w;
+    wn = consult_from; ! Set the word number to where the 'topic' starts
+    w = NextWord();    ! Grab the word typed after 'toggle'
+
+    if (w == 'power') power_restored = 1 - power_restored;
+    else if (w == 'lockdown') lockdown_lifted = 1 - lockdown_lifted;
+    else if (w == 'visual' or 'cortex') visual_cortex_active = 1 - visual_cortex_active;
+    else if (w == 'audio' or 'codec') audio_codec_active = 1 - audio_codec_active;
     else { "Toggle what? (power, lockdown, visual, audio)"; }
+    
     print "System toggled.^";
     <<DevMenu>>;
 ];
@@ -38,5 +40,5 @@
 [ HealSub;
     power_restored = 1; lockdown_lifted = 1; 
     visual_cortex_active = 1; audio_codec_active = 1;
-    "All systems stabilized and augmented.^";
+    "All systems stabilized.^";
 ];
