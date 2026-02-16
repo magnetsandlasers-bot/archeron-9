@@ -265,7 +265,7 @@ AlienRoom ReactorRoom "Machinery Chamber"
         e_to Corridor;
 Object -> WallSocket "wall mechanism"
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
-       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity sized to fit a heavy unit.",
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom. ",
        before [;
             Receive:
                 if (child(self) ~= 0) "The slot is occupied.";
@@ -281,7 +281,7 @@ Object -> WallSocket "wall mechanism"
 Object -> MainColumn "central column"
   with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
        description [;
-           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a single cylindrical slot lined with copper contacts.";
+           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.";
            if (battery_count > 0) print " The slot glows with pulsing blue light.";
            print "^";
            return true;
@@ -295,15 +295,12 @@ Object -> MainColumn "central column"
                     print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
                     if (battery_count == 1) {
                         print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
-                        print "^[STATUS: Minimal power restored. Engineering door unlocked.]^";
                         power_restored = 1;
                         alarm_lights_active = 0;
                     } else if (battery_count == 2) {
                         print "^^The reactor hums louder, power surging through the ship's systems.^";
-                        print "^[STATUS: Main systems online. Bulkhead controls enabled.]^";
                     } else if (battery_count == 3) {
                         print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
-                        print "^[STATUS: Medical Wing power restored.]^";
                         medical_wing_powered = 1;
                         give MedicalBay light;
                     }
