@@ -6,7 +6,7 @@ Include "constants.inf";
 
 ! The Library
 ! Include "inform6lib-6.12.8/parser";
-Include Parser;
+Include "Parser";
 
 ! Routines & Objects
 Include "routines.inf";
@@ -21,7 +21,7 @@ Include "locations-tech.inf";
 
 ! 5. The Library Verbs
 ! Include "inform6lib-6.12.8/verblib";
-Include VerbLib;
+Include "VerbLib";
 
 ! 6. Custom Grammar
 Include "grammar.inf";
