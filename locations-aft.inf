@@ -36,7 +36,20 @@ AlienRoom Corridor "The Spine"
            } else {
                print "To the North, the bulkhead door stands open, leading deeper into the ship.";
            }
-           print " To the East, a security door marked is closed. An open archway leads West. A desiccated corpse lies slumped against the wall.^";
+           print " To the East, a security door marked "
+           if (visual_cortex_active) {
+               print "ENGINEERING ";
+           } else {
+               print "KRZHDYN ";
+           }
+           ".";
+           print "is closed. An open archway leads West towards an area marked "
+           if (visual_cortex_active) {
+               print "REACTOR. ";
+           } else {
+               print "JADROZ. ";
+           }
+           print ". A desiccated corpse lies slumped against the wall.^";
            return true;
         ],
         s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
