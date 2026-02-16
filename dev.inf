@@ -1,0 +1,60 @@
+! ==============================================================================
+! DEV.INF - Developer & Debugging Suite
+! ==============================================================================
+
+[ DevMenuSub;
+    print "^--- [ SYSTEM DIAGNOSTICS ] ---^";
+    print "Power Restored:   ", power_restored, "^";
+    print "Lockdown Lifted:  ", lockdown_lifted, "^";
+    print "Visual Cortex:    ", visual_cortex_active, "^";
+    print "Audio Codec:      ", audio_codec_active, "^";
+    print "Identity Hack:    ", identity_hacked, "^";
+    print "Current Room:      ", (name) location, " (ID: ", location, ")^";
+    "-------------------------------";
+];
+
+[ ToggleSub;
+    switch (noun) {
+        'power': power_restored = 1 - power_restored;
+        'lockdown': lockdown_lifted = 1 - lockdown_lifted;
+        'visual', 'cortex', 'eyes': visual_cortex_active = 1 - visual_cortex_active;
+        'audio', 'codec', 'ears': audio_codec_active = 1 - audio_codec_active;
+        'id', 'hack': identity_hacked = 1 - identity_hacked;
+        default: "Toggle what? (power, lockdown, visual, audio, id)";
+    }
+    print (string) noun, " toggled.^";
+    <<DevMenu>>;
+];
+
+[ WarpSub;
+    if (noun == 0) "Usage: WARP [room object]";
+    PlayerTo(noun);
+    print "Warping to ", (name) location, "...^";
+    <<Look>>;
+];
+
+! --- Scope for Warping (Allows targeting rooms not in reach) ---
+[ AnyRoom;
+    if (scope_stage == 1) rfalse;
+    if (scope_stage == 2) {
+        ScopeWithin(LibraryMessages); ! Technically searches all objects
+        rtrue;
+    }
+];
+
+! --- Verb Definitions ---
+Verb 'dev' 'stats' 'diag'
+    * -> DevMenu;
+
+Verb 'toggle' 'set'
+    * name -> Toggle;
+
+Verb 'warp' 'teleport' 'goto'
+    * [AnyRoom] -> Warp;
+
+Verb 'heal' 'fix'
+    * -> { 
+        power_restored = 1; lockdown_lifted = 1; 
+        visual_cortex_active = 1; audio_codec_active = 1;
+        "All systems stabilized and augmented.^";
+    };

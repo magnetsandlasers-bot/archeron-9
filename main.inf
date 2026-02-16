@@ -7,6 +7,9 @@ Replace PrintLocation;
 ! Constants & Globals
 Include "constants.inf";
 
+! Dev tools
+Include "dev.inf";
+
 ! The Library
 Include "parser";      
 
