@@ -61,7 +61,14 @@ Object SecurityDrone "Security Drone"
 Object Keycard "plastic keycard"
   with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
 
-       description [; print "A standard plastic ID card. The label reads: "; PrintVisual("ZRAAVEK: KRZHARYN"); print ".^"; return true; 
+       description [; print "A standard plastic ID card. The label reads: "; 
+                      if (visual_cortex_active) {
+               print "ACCESS CARD";
+           } else {
+               print "CERNYV ZRAAV";
+           }
+           ".";
+         return true; 
       ], 
     has concealed;
 

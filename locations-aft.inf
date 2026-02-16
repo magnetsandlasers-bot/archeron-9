@@ -176,7 +176,7 @@ Object -> BatteryShelf "metal shelf"
        before [;
             Receive:
                 if (noun ~= Battery2 && noun ~= Battery3 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
-                    print "That doesn't fit on the battery shelf.^";
+                    print "That doesn't look like it belongs on the metal shelf.^";
                     return true;
                 }
                 ! Place the battery back
