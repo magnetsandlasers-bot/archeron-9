@@ -1,5 +1,5 @@
 ! ==============================================================================
-! LOCATIONS AFT
+! LOCATIONS AFT: CRYO ROOM
 ! ==============================================================================
 AlienRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
@@ -26,7 +26,7 @@ Object -> ClosedCryoTubes "rows of cryo tubes"
   with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
        description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
        has static scenery;
-
+! ==============================================================================
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
        description [;
@@ -40,7 +40,6 @@ AlienRoom Corridor "The Spine"
            return true;
         ],
         s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
-
 Object -> Corpse "desiccated corpse"
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
        description [;
@@ -56,7 +55,6 @@ Object -> Corpse "desiccated corpse"
             return true;
        ],
   has static container open scenery;
-
 Object BulkheadDoor "bulkhead"
   with name 'bulkhead' 'massive' 'north' 'blast' 'south',
        description [;
@@ -128,7 +126,6 @@ Object BulkheadDoor "bulkhead"
        ],
        found_in Corridor SpineFore,
        has static door locked scenery;
-
 Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
@@ -148,7 +145,7 @@ Object EngineeringDoor "security door"
                 if (location == Engineering) "Use the green panel.";
                 if (battery_count == 0) "The electronic lock appears dead.";
        ], has static door openable lockable locked scenery;
-
+! ==============================================================================
 AlienRoom Engineering "Engineering Room"
   with zh_name "KRZHDYN STAVR",
        description [;
@@ -180,7 +177,6 @@ Object -> BatteryShelf "metal shelf"
                 print "You slide ", (the) noun, " back onto the bottom shelf.^";
                 return true;
        ], has static container open supporter scenery;
-
 Object -> ControlStation "control station"
   with name 'panel' 'station' 'control' 'status' 'amber', 
        description [;
@@ -216,7 +212,7 @@ Object -> IronLever "Heavy Iron Lever"
         return true;
   ],
   has static scenery;
-
+! ==============================================================================
 AlienRoom ReactorRoom "Machinery Chamber"
   with zh_name "KRZHDAR JADROZ",
        description [;
