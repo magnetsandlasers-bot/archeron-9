@@ -195,7 +195,7 @@
                 print "^Red alarm lights flash! A siren sounds! A voice booms!^^";
                 new_line;
                 style underline;
-                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~^";
+                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
             }
         }
     }
