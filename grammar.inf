@@ -1,24 +1,27 @@
 ! ==============================================================================
-! GRAMMAR & INIT
-! ==============================================================================
-! Include "grammar";
-Verb 'install' 'slot' * noun -> Install;
-Extend 'insert' * noun -> Install;
-Verb 'blink'
-    * -> Blink
-    * 'twice' -> BlinkTwice;
-Verb 'freeze' 'stop' * -> Freeze;
-Verb 'hide' 'duck' * -> Hide;
-Verb 'recall' * noun -> Recall;
-
-! ==============================================================================
 ! GRAMMAR.INF - Custom Verbs
 ! ==============================================================================
 
+! Note: Ensure 'Include "grammar";' is in your MAIN file, NOT here.
+
+Verb 'install' 'slot' * held -> Install;
+Extend 'insert'       * held -> Install;
+
+Verb 'blink'
+    * -> Blink
+    * 'twice' -> BlinkTwice;
+
+Verb 'freeze' 'stop' * -> Freeze;
+Verb 'hide' 'duck'   * -> Hide;
+Verb 'recall'        * noun -> Recall;
+
+! Developer Tools
 Verb 'dev' 'stats' 'diag' * -> DevMenu;
 
-Verb 'warp' 'teleport' 'goto' * [AnyRoom] -> Warp;
+Verb 'warp' 'teleport' 'goto' 
+    * scope=AnyRoom -> Warp;
 
 Verb 'heal' * -> Heal;
 
-Verb 'toggle' * [special] -> Toggle;
+Verb 'toggle' 
+    * special -> Toggle;
