@@ -243,7 +243,12 @@
 
 [ Initialise;
     location = CryoBay;
-    ! Place batteries on the shelf in Engineering
+    ! Place batteries etc
+    move Battery1 to CryoBay;
+    move Battery2 to BatteryShelf;
+    move Battery3 to BatteryShelf;
+    move HighTechJumpsuit to CryoBay;
+    move Keycard to Corpse;
     move Battery2 to BatteryShelf;
     move Battery3 to BatteryShelf;
 

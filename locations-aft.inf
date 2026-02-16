@@ -26,39 +26,6 @@ Object -> ClosedCryoTubes "rows of cryo tubes"
   with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
        description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
        has static scenery;
-Object -> Battery1 "heavy cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'cell',
-       bulk BULK_HEAVY,
-       initial "A heavy, dark cylinder lies on the floor.",
-       description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.";
-
-Object ChargedCell1 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object ChargedCell2 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object ChargedCell3 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-Object HighTechJumpsuit "high-tech jumpsuit"
-  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
-       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
-       before [;
-            Wear:
-                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
-                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
-                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
-                rtrue;
-            Remove:
-                if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
-       ],
-    has clothing concealed;
 
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
@@ -89,9 +56,6 @@ Object -> Corpse "desiccated corpse"
             return true;
        ],
   has static container open scenery;
-Object -> -> Keycard "plastic keycard"
-  with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
-       description [; print "A standard plastic ID card. The label reads: "; PrintVisual("ZRAAVEK: KRZHARYN"); print ".^"; return true; ], has concealed;
 
 Object BulkheadDoor "bulkhead"
   with name 'bulkhead' 'massive' 'north' 'blast' 'south',

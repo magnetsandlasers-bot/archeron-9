@@ -1,3 +1,34 @@
+! ==============================================================================
+! CRYO LAB BATTERIES AND ENGINEERING
+! ==============================================================================
+
+Class AlienRoom with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], has light;
+
+Object HighTechJumpsuit "high-tech jumpsuit"
+  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
+       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
+       before [;
+            Wear:
+                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
+                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                rtrue;
+            Remove:
+                if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
+       ],
+    has clothing concealed;
+
+Object Battery1 "heavy cylinder"
+  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
+       bulk BULK_HEAVY,
+       initial "A heavy, dark cylinder lies on the floor.",
+       description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+
 Object Battery2 "heavy cylinder"
   with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
        bulk BULK_HEAVY,
@@ -8,13 +39,26 @@ Object Battery3 "heavy cylinder"
        bulk BULK_HEAVY,
        description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
 
+Object ChargedCell1 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell2 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell3 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
 Object SecurityDrone "Security Drone"
   with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
        initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
 
-Class AlienRoom with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
-        print (string) self.zh_name; rtrue;
-    }
-    rfalse;
-], has light;
+Object Keycard "plastic keycard"
+  with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
+
+       description [; print "A standard plastic ID card. The label reads: "; PrintVisual("ZRAAVEK: KRZHARYN"); print ".^"; return true; ], has concealed;
