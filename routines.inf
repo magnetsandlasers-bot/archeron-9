@@ -254,6 +254,8 @@
     move Keycard to Corpse;
     move Battery2 to BatteryShelf;
     move Battery3 to BatteryShelf;
+    move OpticalModule to ServerRoom;
+    move AudioModule to CommsRelay;
 
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
