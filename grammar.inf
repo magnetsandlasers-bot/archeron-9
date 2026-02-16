@@ -10,3 +10,15 @@ Verb 'blink'
 Verb 'freeze' 'stop' * -> Freeze;
 Verb 'hide' 'duck' * -> Hide;
 Verb 'recall' * noun -> Recall;
+
+! ==============================================================================
+! GRAMMAR.INF - Custom Verbs
+! ==============================================================================
+
+Verb 'dev' 'stats' 'diag' * -> DevMenu;
+
+Verb 'warp' 'teleport' 'goto' * [AnyRoom] -> Warp;
+
+Verb 'heal' * -> Heal;
+
+Verb 'toggle' * [special] -> Toggle;
