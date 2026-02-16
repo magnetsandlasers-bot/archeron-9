@@ -78,7 +78,14 @@ Object OpticalModule "bio-chip (green)" ServerRoom
                 rtrue;
        ];
 
-Object ServerTerminal "main terminal" ServerRoom
+
+AlienRoom ServerFarm "Server Farm"
+  with zh_name "STYRZEN JADROZ",
+       description "Towering black server racks. The exit is Southeast.", 
+       se_to OpsCenter;
+
+! --- 2. THE TERMINAL (Explicitly placed in ServerFarm) ---
+Object ServerTerminal "main terminal" ServerFarm
   with name 'terminal' 'computer' 'screen' 'code' 'image' 'qr' 'glyph',
        qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
        description [;
@@ -94,6 +101,7 @@ Object ServerTerminal "main terminal" ServerRoom
        ],
        has static scenery;
 
+! --- 3. THE SLOT (Nested INSIDE the terminal) ---
 Object -> TerminalSlot "data slot"
   with name 'slot' 'drive' 'reader',
        description "A slot designed for a standard Admin Data Wafer.",
@@ -107,10 +115,6 @@ Object -> TerminalSlot "data slot"
                 }
        ],
        has static container open scenery;
-AlienRoom ServerFarm "Server Farm"
-  with zh_name "STYRZEN JADROZ",
-       description "Towering black server racks. The exit is Southeast.", 
-       se_to OpsCenter;
 
 ! --- NEW ROOM: Brig ---
 AlienRoom Brig "Security Brig"
