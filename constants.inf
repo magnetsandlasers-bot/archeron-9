@@ -5,7 +5,6 @@ Constant BULK_POCKET = 1;
 Constant BULK_NORMAL = 2;
 Constant BULK_HEAVY  = 8;
 Constant MAX_CAPACITY = 10;
-Include "parser";
 ! ==============================================================================
 ! GLOBAL VARIABLES
 ! ==============================================================================
