@@ -59,17 +59,13 @@ Object SecurityDrone "Security Drone"
        initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
 
 Object Keycard "plastic keycard"
-  with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
-
-       description [; print "A standard plastic ID card. The label reads: "; 
-                      if (visual_cortex_active) {
-               print "ACCESS CARD";
-           } else {
-               print "CERNYV ZRAAV";
-           }
-           ".";
-         return true; 
-      ], 
+  with name 'card' 'key' 'keycard' 'pass',
+       bulk BULK_POCKET,
+       description [;
+           print "A standard plastic ID card. The label reads: ";
+           Translate("CERNYV ZRAAV", "ACCESS CARD");
+           "."; ! This adds the final period and newline
+       ],
     has concealed;
 
 Object OpticalModule "bio-chip (green)"
