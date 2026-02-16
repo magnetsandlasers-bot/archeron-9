@@ -244,8 +244,8 @@
 [ Initialise;
     location = CryoBay;
     ! Place batteries on the shelf in Engineering
-    move Battery1 to BatteryShelf;
     move Battery2 to BatteryShelf;
+    move Battery3 to BatteryShelf;
 
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
