@@ -87,17 +87,17 @@
         new_line;
         style underline;
         if (audio_codec_active == 1) {
-            if (r == 1) print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.~";
-            if (r == 2) print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.~";
-            if (r == 3) print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.~";
-            if (r == 4) print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.~";
-            if (r == 5) print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.~";
+            if (r == 1) print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.";
+            if (r == 2) print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.";
+            if (r == 3) print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.";
+            if (r == 4) print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.";
+            if (r == 5) print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.";
         } else {
-            if (r == 1) print "~KRZHDAR JADROZ... VZDYK... VZDYK.~";
-            if (r == 2) print "~POHYB STAVR... SCERNOSH ZRAAV.~";
-            if (r == 3) print "~SMRNK DRAZK... VESKRACH KRZHD.~";
-            if (r == 4) print "~JADROZ POHYB... VZDRAK TSKOR.~";
-            if (r == 5) print "~STYRZOSH KRZHD... DRAZKARY.~";
+            if (r == 1) print "~KRZHDAR JADROZ... VZDYK... VZDYK.";
+            if (r == 2) print "~POHYB STAVR... SCERNOSH ZRAAV.";
+            if (r == 3) print "~SMRNK DRAZK... VESKRACH KRZHD.";
+            if (r == 4) print "~JADROZ POHYB... VZDRAK TSKOR.";
+            if (r == 5) print "~STYRZOSH KRZHD... DRAZKARY.";
         }
         style roman;
         new_line;
