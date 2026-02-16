@@ -1,0 +1,12 @@
+! ==============================================================================
+! GRAMMAR & INIT
+! ==============================================================================
+Include "grammar";
+Verb 'install' 'slot' * noun -> Install;
+Extend 'insert' * noun -> Install;
+Verb 'blink'
+    * -> Blink
+    * 'twice' -> BlinkTwice;
+Verb 'freeze' 'stop' * -> Freeze;
+Verb 'hide' 'duck' * -> Hide;
+Verb 'recall' * noun -> Recall;

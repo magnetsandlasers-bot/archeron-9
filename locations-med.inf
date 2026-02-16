@@ -1,0 +1,105 @@
+AlienRoom MessHall "Mess Hall"
+  with zh_name "CERNYV VESKR",
+       description "Overturned tables. Exits lead East and West.", w_to Atrium, e_to CrewQuarters;
+
+AlienRoom CrewQuarters "Crew Quarters"
+  with zh_name "CERNYV DRAZK",
+       description "Rows of bunks. Exits lead West and South.", w_to MessHall, s_to MedicalBay;
+
+AlienRoom MedicalBay "Medical Bay"
+  with zh_name "VESKRAC STAVR",
+       description [;
+           if (medical_wing_powered == 0) {
+               print "It's pitch black in here. The air is cold and sterile, but you can't see anything. The medical wing needs power to function.^";
+           } else {
+               print "The sterile white room hums with latent energy. An operating table sits in the center, its surgical lasers currently inactive but glowing faintly. To your left, a diagnostic console flickers with alien symbols. To your right, a small data terminal is mounted on the wall. The only exit is North.^";
+           }
+           return true;
+       ],
+       before [;
+           Go:
+               if (medical_wing_powered == 0) {
+                   print "You stumble in the darkness. It's too dangerous to navigate without light. You need to restore power to this section.^";
+                   return true;
+               }
+               rfalse;
+       ],
+       n_to CrewQuarters;
+! ==============================================================================
+! ARCHERON-9 - MEDICAL WING ENHANCEMENTS (CORRECTED)
+! ==============================================================================
+
+! --- Diagnostic Console Object ---
+Object DiagnosticConsole "diagnostic console"
+  with name 'console' 'diagnostic' 'terminal' 'panel' 'scanner' 'medical',
+       description [;
+           print "A sleek, metallic console. The screen displays a complex array of alien glyphs and readouts. ";
+           if (visual_cortex_active == 0 || audio_codec_active == 0) {
+               print "You can't understand any of it. It seems to be waiting for input, but you have no idea what to do.";
+           } else {
+               print "With your upgrades, you can decipher some of the interface. It appears to be a bio-diagnostic unit. The primary function is labeled 'INITIATE FULL SPECTRUM SCAN'. There are also options for 'SYSTEM REBOOT' and 'LOG ACCESS'.";
+               last_qr_source = self;
+               print "^[ALIEN DATA DETECTED. BLINK TWICE TO DECRYPT]";
+           }
+           print "^";
+           return true;
+       ],
+       before [;
+           Push, Touch, SwitchOn, Turn:
+               if (medical_wing_powered == 0) {
+                   print "The console is dead. It needs power to function.^";
+                   rtrue;
+               }
+               if (visual_cortex_active == 0 || audio_codec_active == 0) {
+                   print "You press a series of alien symbols at random, hoping for the best. Suddenly, the console emits a high-pitched whine! A searing pain shoots through your head as your neural interface is overloaded by the incomprehensible data stream!^";
+                   deadflag = 1;
+                   rtrue;
+               } else {
+                   print "You select 'INITIATE FULL SPECTRUM SCAN'. The console hums to life, and a beam of light sweeps over you from the operating table's lasers.^";
+                   PerformDiagnosticScan();
+                   rtrue;
+               }
+       ],
+       has static scenery;
+
+! --- Medical Log Terminal Object ---
+Object MedicalLogTerminal "data terminal"
+  with name 'terminal' 'data' 'log' 'records' 'medical',
+       qr_content [;
+           if (visual_cortex_active == 0) {
+               print "The screen displays incomprehensible alien script. You can't read it.";
+               return;
+           }
+           print "ACCESSING ARCHERON PROJECT LOGS...^";
+           print "SUBJECT: 009. EXPERIMENT PHASE: BIO-INTEGRATION ALPHA.^";
+           print "OBJECTIVE: To create a seamless symbiosis between host and advanced nanite-suit technology.^";
+           print "OBSERVATIONS: Subject 009 exhibits unprecedented integration. The nanite matrix has bonded at a cellular level, rendering the suit indistinguishable from organic tissue.^";
+           print "CONCLUSION: PROJECT SUCCESSFUL. SUBJECT 009 IS NOW ARCHERON-9.^";
+           print "FURTHER RESEARCH: Monitor subject's behavioral patterns and combat effectiveness.^";
+       ],
+       description [;
+           print "A small data terminal mounted on the wall. It displays a blinking cursor and a title: 'ARCHERON PROJECT - SUBJECT 009'. ";
+           if (visual_cortex_active == 0) {
+               print "The text is in an alien language.";
+           } else {
+               print "You can read the logs here. Accessing them might reveal crucial information.";
+               last_qr_source = self;
+               print "^[ALIEN DATA DETECTED. BLINK TWICE TO DECRYPT]";
+           }
+           print "^";
+           return true;
+       ],
+       has static scenery;
+
+! --- Operating Table Object ---
+Object OperatingTable "operating table"
+  with name 'table' 'operating' 'surgical' 'lasers',
+       description [;
+           print "A sterile, metallic operating table. Surgical lasers are mounted above it, currently inactive but humming with latent power. The table itself is designed to secure a subject for examination.";
+           if (medical_wing_powered == 1) {
+               print " The lasers are ready to activate for diagnostic purposes.";
+           }
+           print "^";
+           return true;
+       ],
+       has static scenery;

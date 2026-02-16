@@ -1,0 +1,312 @@
+! ==============================================================================
+! LOCATIONS AFT
+! ==============================================================================
+AlienRoom CryoBay "Cryo Bay"
+  with zh_name "VESKRAN ZRAAV",
+       description [;
+           print "The air is freezing here, stinging your exposed skin. Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant.";
+           new_line;
+           if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
+               print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.";
+           }
+           print " The only exit is a bulkhead door leading North.^";
+           return true;
+        ],
+        n_to Corridor;
+Object -> PlayerCryoTube "open cryo tube"
+  with name 'open' 'cryo' 'tube' 'pod' 'glass',
+       description [;
+           print "This is the tube you woke up in. The bio-monitor display reads: ";
+           PrintVisual("STATUS: REVIVED. ID: 009.");
+           print "^";
+           return true;
+       ],
+       has static scenery;
+Object -> ClosedCryoTubes "rows of cryo tubes"
+  with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
+       description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
+       has static scenery;
+Object -> DepletedCell "heavy cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'cell',
+       bulk BULK_HEAVY,
+       initial "A heavy, dark cylinder lies on the floor.",
+       description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+
+Object ChargedCell1 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell2 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell3 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+Object HighTechJumpsuit "high-tech jumpsuit"
+  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
+       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
+       before [;
+            Wear:
+                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
+                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                rtrue;
+            Remove:
+                if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
+       ],
+    has scenery;
+
+AlienRoom Corridor "The Spine"
+  with zh_name "POHYB STAVR",
+       description [;
+           print "A long, dark metal corridor. Emergency lights cast long shadows.^";
+           if (BulkheadDoor has locked) {
+               print "To the North, a massive bulkhead door blocks the passage.";
+           } else {
+               print "To the North, the bulkhead door stands open, leading deeper into the ship.";
+           }
+           print " To the East, a security door marked is closed. An open archway leads West. A desiccated corpse lies slumped against the wall.^";
+           return true;
+        ],
+        s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
+
+Object -> Corpse "desiccated corpse"
+  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
+       description [;
+            print "A crew member, long dead. He wears a standard technician's uniform.";
+            if (Keycard in self) { 
+                give Keycard ~concealed; 
+                print " You notice a plastic card tucked into his breast pocket."; 
+            }
+            print "^"; 
+            return true;
+       ],
+       search [;
+            return true;
+       ],
+  has static container open scenery;
+Object -> -> Keycard "plastic keycard"
+  with name 'card' 'key' 'keycard' 'pass', bulk BULK_POCKET,
+       description [; print "A standard plastic ID card. The label reads: "; PrintVisual("ZRAAVEK: KRZHARYN"); print ".^"; return true; ], has concealed;
+
+Object BulkheadDoor "bulkhead"
+  with name 'bulkhead' 'massive' 'north' 'blast' 'south',
+       description [;
+            print "A massive bulkhead separating the aft section from the main ship. ";
+            if (power_restored == 0) {
+                print "It is dark and unresponsive, its heavy bolts engaged.";
+            } else if (lockdown_lifted == 0) {
+                print "A hologram projected over the lock reads: "; 
+                PrintVisual("DRAZKARY ZAMEROSH");
+                print ". The lock remains engaged.";
+            } else if (bulkhead_passed == 0) {
+                print "The lock has been released. The door stands open.";
+            } else if (identity_hacked == 0) {
+                print "The door has closed behind you. A hologram reads: "; 
+                PrintVisual("ACCESS DENIED: NON-COMMANDER PERSONNEL");
+                print ". It's sealed tight.";
+            } else {
+                print "The commander override is active. The door can be opened.";
+            }
+            print "^";
+            return true;
+       ],
+       before [;
+            Unlock, Open:
+                if (location == Corridor) {
+                    ! From south side (before passing through)
+                    if (power_restored == 0) { 
+                        print "The electronic systems appear dead.^"; 
+                        rtrue; 
+                    }
+                    if (lockdown_lifted == 0) { 
+                        print "The lock is still engaged. You need to release it first.^"; 
+                        rtrue; 
+                    }
+                    ! Door is open, allow passage
+                    give self ~locked open;
+                    print "The door is already open.^";
+                    rtrue;
+                } else {
+                    ! From north side (after passing through)
+                    if (identity_hacked == 0) {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                        print "^The door remains locked.^"; 
+                        rtrue;
+                    } else {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("VELMAR, CERNYV.");
+                        print "^The heavy bolts retract. The door grinds open.^";
+                        give self ~locked open; 
+                        rtrue;
+                    }
+                }
+       ],
+       door_dir [; if (location == Corridor) return n_to; return s_to; ],
+       door_to [; 
+           if (location == Corridor) {
+               if (power_restored == 0 || lockdown_lifted == 0) {
+                   print "The bulkhead is sealed shut.^";
+                   rtrue;
+               }
+               return SpineFore;
+           }
+           if (bulkhead_passed == 1 && identity_hacked == 0) {
+               print "The door is locked from this side.^";
+               rtrue;
+           }
+           return Corridor;
+       ],
+       found_in Corridor SpineFore,
+       has static door locked scenery;
+
+Object EngineeringDoor "security door"
+  with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
+       description [;
+            if (location == Corridor) {
+                print "A heavy steel door with a card reader slot.";
+                if (battery_count == 0) print " The lock's display is dead.";
+                else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
+            } else print "The inner face is smooth steel.";
+            print "^"; return true;
+       ],
+       found_in Corridor Engineering,
+       door_dir [; if (location == Corridor) return e_to; return w_to; ],
+       door_to [; if (location == Corridor) return Engineering; return Corridor; ],
+       with_key Keycard,
+       before [;
+            Unlock, Open:
+                if (location == Engineering) "Use the green panel.";
+                if (battery_count == 0) "The electronic lock appears dead.";
+       ], has static door openable lockable locked scenery;
+
+AlienRoom Engineering "Engineering Room"
+  with zh_name "KRZHDYN STAVR",
+       description [;
+           print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
+           print "Looking at the panels, ";
+           
+           if (battery_count == 0) print "you notice most of them are green, except for one status light next to a metal lever, which is glowing an ominous red.";
+           else if (battery_count == 1) print "you notice one light next to a metal lever marked POHYB ZANER is flashing amber.";
+           else print "you see that all status lights are green, including the one next to the POHYB ZANER lever. ";
+           
+           print "^A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
+           return true;
+       ],
+       w_to EngineeringDoor;
+Object -> ExitButton "exit button"
+  with name 'button' 'exit',
+       before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
+Object -> BatteryShelf "metal shelf"
+  with name 'shelf' 'shelves' 'rack' 'metal',
+       description "A sturdy metal shelf bolted to the wall. It has three levels. The top level is a mess of manuals and documents, probably relating to all the technical equipemt in there. The second shelf contains broken servos and mechanical articulators. You puch aside some junk on the bottom shelf and notice two more of the heavy cylinders you saw before. They are both inert.",
+       before [;
+            Receive:
+                if (noun ~= Battery1 && noun ~= Battery2 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
+                    print "That doesn't fit on the battery shelf.^";
+                    return true;
+                }
+                ! Place the battery back
+                move noun to self;
+                print "You slide ", (the) noun, " back onto the bottom shelf.^";
+                return true;
+       ], has static container open supporter scenery;
+
+Object -> ControlStation "control station"
+  with name 'panel' 'station' 'control' 'status' 'amber', 
+       description [;
+           print "It features a Heavy Iron Lever. A sign above the lever reads ";
+           if (visual_cortex_active) {
+               print "BULKHEAD LEVER";
+           } else {
+               print "POHYB ZANER";
+           }
+           ".";
+       ],
+       has static scenery supporter;
+
+Object -> IronLever "Heavy Iron Lever"
+  with name 'lever' 'iron' 'heavy',
+  before [;
+     Pull:
+        if (battery_count < 2) {
+            print "The lever is locked in place. The status light is ";
+            if (battery_count == 0) print "red";
+            else print "amber";
+            print ", indicating the reactor needs more power (2 cells minimum) to release the bulkhead lock.^";
+            return true;
+        }
+        if (lockdown_lifted == 1) {
+            print "The lever has already been pulled. The bulkhead door is unlocked.^";
+            return true;
+        }
+        print "With the status light glowing green, you heave the lever back. The machinery groans with a deep THRUM throughout the ship!^^";
+        print "[STATUS: Bulkhead lock released. The door is now open.]^";
+        lockdown_lifted = 1;
+        give BulkheadDoor ~locked open;
+        return true;
+  ],
+  has static scenery;
+
+AlienRoom ReactorRoom "Machinery Chamber"
+  with zh_name "KRZHDAR JADROZ",
+       description [;
+           print "The air here smells of ozone. A complex mechanism is set into the north wall, and a massive column dominates the center of the room.";
+           if (battery_count > 0) print " The column hums with a deep, bone-shaking rhythm.";
+           else print " The room is silent and dark.";
+           print " The exit lies to the East.^";
+           return true;
+        ],
+        e_to Corridor;
+Object -> WallSocket "wall mechanism"
+  with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity sized to fit a heavy unit.",
+       before [;
+            Receive:
+                if (child(self) ~= 0) "The slot is occupied.";
+                if (noun == DepletedCell || noun == Battery1 || noun == Battery2) {
+                    remove noun;
+                    if (noun == DepletedCell) move ChargedCell1 to self;
+                    else if (noun == Battery1) move ChargedCell2 to self;
+                    else if (noun == Battery2) move ChargedCell3 to self;
+                    print "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.^";
+                    return true;
+                }
+       ], has static container open scenery;
+Object -> MainColumn "central column"
+  with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
+       description [;
+           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a single cylindrical slot lined with copper contacts.";
+           if (battery_count > 0) print " The slot glows with pulsing blue light.";
+           print "^";
+           return true;
+       ],
+       before [;
+            Receive:
+                ! Accept charged cells only
+                if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
+                    remove noun;
+                    battery_count++;
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
+                    if (battery_count == 1) {
+                        print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
+                        print "^[STATUS: Minimal power restored. Engineering door unlocked.]^";
+                        power_restored = 1;
+                        alarm_lights_active = 0;
+                    } else if (battery_count == 2) {
+                        print "^^The reactor hums louder, power surging through the ship's systems.^";
+                        print "^[STATUS: Main systems online. Bulkhead controls enabled.]^";
+                    } else if (battery_count == 3) {
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
+                        print "^[STATUS: Medical Wing power restored.]^";
+                        medical_wing_powered = 1;
+                        give MedicalBay light;
+                    }
+                    return true;
+                }
+       ], has static container open scenery;

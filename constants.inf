@@ -1,0 +1,58 @@
+! ==============================================================================
+! CONSTANTS & INCLUDES
+! ==============================================================================
+Constant BULK_POCKET = 1;
+Constant BULK_NORMAL = 2;
+Constant BULK_HEAVY  = 8;
+Constant MAX_CAPACITY = 10;
+Include "parser";
+! ==============================================================================
+! GLOBAL VARIABLES
+! ==============================================================================
+Global power_restored = 0;
+Global lockdown_lifted = 0;
+Global visual_cortex_active = 0;
+Global audio_codec_active = 0;
+Global identity_hacked = 0;
+Global oxygen = 50;
+Global arpi_downloaded = 0;
+Global last_qr_source = 0;
+Global drone_active = 1;
+Global player_hidden = 0;
+Global drone_alert = 0;
+Global turn_count = 0;
+Global jumpsuit_timer = 0;
+Global jumpsuit_worn = 0;
+Global alarm_lights_active = 0;
+Global bulkhead_passed = 0;
+Global battery_count = 0;
+Global medical_wing_powered = 0;
+
+! ==============================================================================
+! ZERAKTHYN SYSTEM CLASSES
+! ==============================================================================
+Property zh_name;
+Property bulk;
+Property qr_content;
+
+Class AlienRoom with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], has light;
+
+Replace PrintLocation;
+Include "verblib";
+
+[ PrintLocation the_location;
+    if (the_location == nothing) rtrue;
+    new_line;
+    style bold;
+    if (visual_cortex_active == 0 && the_location provides zh_name)
+        print (string) the_location.zh_name;
+    else
+        print (name) the_location;
+    style roman;
+    new_line;
+];

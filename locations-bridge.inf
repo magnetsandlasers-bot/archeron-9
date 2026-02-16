@@ -1,0 +1,69 @@
+Object BridgeDoor "blast door"
+  with name 'door' 'blast' 'bridge' 'north',
+       description "A reinforced door protecting the Bridge. It has a biometric scanner.",
+       before [;
+            Open, Unlock:
+                if (location == Bridge) { give self ~locked open; "Unlocked."; }
+                print "The scanner sweeps a laser over your retina. ";
+                if (identity_hacked == 0) {
+                    print "^VOICE: "; PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                    print "^The door remains locked.^"; return true;
+                }
+                print "^VOICE: "; PrintAudio("VELMAR, CERNYV.");
+                print "^The heavy bolts retract. The door opens.^";
+                give self ~locked open; return true;
+       ], door_dir n_to, door_to Bridge, has static door locked scenery;
+
+AlienRoom Bridge "The Bridge"
+  with zh_name "VZDRAK SMRNK",
+       description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",
+       s_to Atrium, n_to Airlock;
+Object -> Mainframe "mainframe"
+  with name 'mainframe' 'server' 'bank' 'computer', description "A massive computer bank. A heavy 'AI Core' drive is slotted into the center.", has static scenery;
+Object -> ARPICore "AI Core"
+  with name 'core' 'drive' 'unit' 'box' 'arpi' 'ai', bulk BULK_HEAVY,
+       description "A heavy, rectangular drive containing ARPI's consciousness.",
+       before [;
+            Take:
+                if (audio_codec_active == 0) { print "You don't understand the function of this hardware yet.^"; rtrue; }
+                print "You grip the heavy core. ARPI (Headset): 'Do it, 9! Pull me out! We're leaving this graveyard!'^You yank the drive free. Sparks fly!^";
+                arpi_downloaded = 1; remove self;
+                rtrue;
+       ];
+
+AlienRoom Airlock "Escape Pod Airlock"
+  with zh_name "ZAMER SMRNK",
+       description "The final airlock. The Escape Pod is prepped for launch. The exit is South.", s_to Bridge,
+       before [;
+            Go:
+               if (noun == n_to) {
+                   print "You stumble into the pod. ";
+                   if (ARPICore in player) {
+                       print "You slot ARPI's core into the pod's computer.^ARPI: 'Launch sequence initiated. Destination: Archeron-9.'^
+                       ^As the pod blasts away toward the red planet, you catch your reflection in the black glass.^
+                       ^You see the seams where the metal meets the flesh. You aren't a crew member. You are the project.^
+                       ^You are Archeron-9.^
+                       ^
+                       *** TO BE CONTINUED ***^";
+                       deadflag = 2; return true;
+                   } else {
+                       print "You sit in the pilot seat. But the computer is dead. You need an AI to calculate the trajectory.^*** GAME OVER ***^";
+                       deadflag = 1; return true;
+                   }
+               }
+       ], n_to "Escape Pod";
+Object -> RecallTerminal "recall terminal"
+  with name 'terminal' 'screen' 'console',
+       description [;
+            print "The screen controls the automated security systems. ";
+            if (identity_hacked) print "It is active. You see a command: [RECALL PATROL DRONE].";
+            else print "It is locked. [ACCESS DENIED: COMMANDER ONLY].";
+            print "^"; return true;
+       ],
+       before [;
+            Recall, Push:
+                if (identity_hacked == 0) "Access Denied.";
+                if (drone_active == 0) "The drone is already recalled.";
+                drone_active = 0; move SecurityDrone to nothing;
+                print "You type the command. [COMMAND ACCEPTED]. The drone flies into a wall chute.^"; return true;
+       ], has static scenery;
