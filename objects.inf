@@ -1,9 +1,9 @@
-Object Battery1 "heavy cylinder"
+Object Battery2 "heavy cylinder"
   with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
        bulk BULK_HEAVY,
        description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
 
-Object Battery2 "heavy cylinder"
+Object Battery3 "heavy cylinder"
   with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
        bulk BULK_HEAVY,
        description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";

@@ -207,7 +207,7 @@ Object -> BatteryShelf "metal shelf"
        description "A sturdy metal shelf bolted to the wall. It has three levels. The top level is a mess of manuals and documents, probably relating to all the technical equipemt in there. The second shelf contains broken servos and mechanical articulators. You puch aside some junk on the bottom shelf and notice two more of the heavy cylinders you saw before. They are both inert.",
        before [;
             Receive:
-                if (noun ~= Battery1 && noun ~= Battery2 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
+                if (noun ~= Battery2 && noun ~= Battery3 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
                     print "That doesn't fit on the battery shelf.^";
                     return true;
                 }
