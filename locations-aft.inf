@@ -189,7 +189,7 @@ AlienRoom Engineering "Engineering Room"
   with zh_name "KRZHDYN STAVR",
        description [;
            print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
-           print "Looking at the panels, ";
+           print " Looking at the panels, ";
            
            if (battery_count == 0) print "you notice most of them are green, except for one status light next to a metal lever, which is glowing an ominous red.";
            else if (battery_count == 1) print "you notice one light next to a metal lever marked POHYB ZANER is flashing amber.";
@@ -245,7 +245,7 @@ Object -> IronLever "Heavy Iron Lever"
             print "The lever has already been pulled. The bulkhead door is unlocked.^";
             return true;
         }
-        print "With the status light glowing green, you heave the lever back. The machinery groans with a deep THRUM throughout the ship!^^";
+        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
         print "[STATUS: Bulkhead lock released. The door is now open.]^";
         lockdown_lifted = 1;
         give BulkheadDoor ~locked open;
