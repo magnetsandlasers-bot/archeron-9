@@ -5,7 +5,8 @@ Constant Headline "^An Interactive Sci-Fi Mystery^";
 Include "constants.inf";
 
 ! The Library
-Include "inform6lib-6.12.8/parser";
+! Include "inform6lib-6.12.8/parser";
+Include Parser;
 
 ! Routines & Objects
 Include "routines.inf";
@@ -19,7 +20,8 @@ Include "locations-med.inf";
 Include "locations-tech.inf";
 
 ! 5. The Library Verbs
-Include "inform6lib-6.12.8/verblib";
+! Include "inform6lib-6.12.8/verblib";
+Include VerbLib;
 
 ! 6. Custom Grammar
 Include "grammar.inf";
