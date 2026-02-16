@@ -241,32 +241,28 @@ Object -> WallSocket "wall mechanism"
     has static container open scenery;
 Object -> MainColumn "central column"
   with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
-       description [;
-           print "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot.";
-           if (battery_count > 0) print " The slot pulses with blue light from the inserted cells.";
-           "^";
-       ],
+       description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
        before [;
             Receive:
                 if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
-                    move noun to self; ! Keep the object inside so it's 'visible'
+                    remove noun;
                     battery_count++;
-                    print "You slide ", (the) noun, " into the column's slot. It clicks home and recedes to make room for the next.^";
-                    
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
                     if (battery_count == 1) {
-                        power_restored = 1;
                         print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
-                    }
-                    else if (battery_count == 2) {
+                        power_restored = 1;
+                        alarm_lights_active = 0;
+                    } else if (battery_count == 2) {
                         print "^^The reactor hums louder, power surging through the ship's systems.^";
-                    }
-                    else if (battery_count == 3) {
+                    } else if (battery_count == 3) {
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
                         medical_wing_powered = 1;
-                        give MedicalBay light;
-                        print "^^The entire ship shudders as full power floods the grid!^";
                     }
-                    rtrue;
+                    return true;
                 }
-                "The column only accepts charged power cells.";
-       ],
+                if (noun == Battery1 || noun == Battery2 || noun == Battery3) {
+                    "The cylinder fits the slot, but the contact points remain cold. Nothing happens. The machine seems to require a different state of energy.";
+                }
+                "The column slot is designed for specific cylindrical units; that doesn't belong there.";
+       ], 
     has static container open scenery;
