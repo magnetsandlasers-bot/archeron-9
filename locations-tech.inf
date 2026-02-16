@@ -38,8 +38,11 @@ AlienRoom SecurityCheck "Security Checkpoint"
 
 AlienRoom OpsCenter "Ops Center"
   with zh_name "KRZHDYN VZRAC",
-       description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, South, and East.",
-       e_to SecurityCheck, n_to ServerRoom, s_to CommsRelay;
+       description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, Northwest, South, and East.",
+       e_to SecurityCheck,
+       n_to ServerRoom,   ! Leads to the terminal and chips
+       nw_to ServerFarm,  ! Leads to the backup server area
+       s_to CommsRelay;
 
 AlienRoom CommsRelay "Comms Relay"
   with zh_name "STYRZEN POHYB",
@@ -61,8 +64,23 @@ AlienRoom ServerRoom "Server Room"
   with zh_name "CERNYV STYRZ",
        description "Rows of server banks hum quietly. The exit is South.",
        s_to OpsCenter;
-Object -> OpticalModule "bio-chip (green)"
-  with name 'driver' 'module' 'chip' 'green' 'wafer', bulk BULK_POCKET,
+
+Object AudioModule "bio-chip (silver)" ServerRoom
+  with name 'chip' 'module' 'silver' 'wafer',
+       bulk BULK_POCKET,
+       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                audio_codec_active = 1; remove self;
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                rtrue;
+       ];
+
+Object OpticalModule "bio-chip (green)" ServerRoom
+  with name 'driver' 'module' 'chip' 'green' 'wafer',
+       bulk BULK_POCKET,
        description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
        before [;
             Wear: <<Install self>>;
@@ -72,7 +90,8 @@ Object -> OpticalModule "bio-chip (green)"
                 print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
                 rtrue;
        ];
-Object -> ServerTerminal "main terminal"
+
+Object ServerTerminal "main terminal" ServerRoom
   with name 'terminal' 'computer' 'screen' 'code' 'image' 'qr' 'glyph',
        qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
        description [;
@@ -85,9 +104,12 @@ Object -> ServerTerminal "main terminal"
                  print "^^[ENCRYPTED DATA DETECTED. BLINK TWICE TO DECRYPT]";
             }
             print "^"; return true;
-       ], has static scenery;
+       ],
+       has static scenery;
+
 Object -> TerminalSlot "data slot"
-  with name 'slot' 'drive' 'reader', description "A slot designed for a standard Admin Data Wafer.",
+  with name 'slot' 'drive' 'reader',
+       description "A slot designed for a standard Admin Data Wafer.",
        before [;
             Receive:
                 if (noun == DataWafer) {
@@ -96,10 +118,12 @@ Object -> TerminalSlot "data slot"
                     print "You insert the wafer. You overwrite the 'UNLISTED' tag with 'COMMANDER'.^";
                     rtrue;
                 }
-       ], has static container open scenery;
+       ],
+       has static container open scenery;
 AlienRoom ServerFarm "Server Farm"
   with zh_name "STYRZEN JADROZ",
-       description "Towering black server racks. The exit is South.", s_to OpsCenter;
+       description "Towering black server racks. The exit is Southeast.", 
+       se_to OpsCenter;
 
 ! --- NEW ROOM: Brig ---
 AlienRoom Brig "Security Brig"
