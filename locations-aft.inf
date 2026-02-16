@@ -116,6 +116,8 @@ Object BulkheadDoor "bulkhead"
                    print "The bulkhead is sealed shut.^";
                    rtrue;
                }
+               bulkhead_passed = 1; 
+               give self ~open locked;
                return SpineFore;
            }
            if (bulkhead_passed == 1 && identity_hacked == 0) {
