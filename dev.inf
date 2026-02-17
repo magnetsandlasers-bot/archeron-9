@@ -16,12 +16,12 @@
     w = NextWord();
 
     if (w == 'power') power_restored = 1 - power_restored;
-    else if (w == 'medical' or w == 'med') medical_wing_powered = 1 - medical_wing_powered;
+    else if ((w == 'medical') or (w == 'med')) medical_wing_powered = 1 - medical_wing_powered;
     else if (w == 'lockdown') lockdown_lifted = 1 - lockdown_lifted;
-    else if (w == 'visual' or w == 'cortex') visual_cortex_active = 1 - visual_cortex_active;
-    else if (w == 'audio' or w == 'codec') audio_codec_active = 1 - audio_codec_active;
-    else if (w == 'bulkhead' or w == 'door') bulkhead_passed = 1 - bulkhead_passed;
-    else if (w == 'id' or w == 'identity' or w == 'hack') identity_hacked = 1 - identity_hacked;
+    else if ((w == 'visual') or (w == 'cortex')) visual_cortex_active = 1 - visual_cortex_active;
+    else if ((w == 'audio') or (w == 'codec')) audio_codec_active = 1 - audio_codec_active;
+    else if ((w == 'bulkhead') or (w == 'door')) bulkhead_passed = 1 - bulkhead_passed;
+    else if ((w == 'id') or (w == 'identity') or (w == 'hack')) identity_hacked = 1 - identity_hacked;
     else { "Toggle what? (power, medical, lockdown, visual, audio, bulkhead, identity)"; }
     
     print "System toggled.^";
