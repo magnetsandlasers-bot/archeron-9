@@ -1,34 +1,34 @@
 Constant Story "Archeron-9";
 Constant Headline "^An Interactive Sci-Fi Mystery^";
 
-! 1. Replace directives MUST come first
+! Replace directives MUST come first
 Replace PrintLocation;
 
-! 2. Basic Constants and your Global variables
+! Basic Constants and Global variables
 Include "constants.inf"; 
 
-! 3. The Parser (Essential foundations)
+! The Parser (Essential foundations)
 Include "parser";      
 
-! 4. The Library Logic (Defines location, noun, etc.)
+! The Library Logic (Defines location, noun, etc.)
 Include "verblib";
 
-! 5. NOW include your logic and dev tools
-! (They can now see 'location' and 'noun')
+! Logic and dev tools
 Include "dev.inf";
 Include "routines.inf";
+
+! The Objects
 Include "objects.inf";
 
-! 6. The Map
+! The Map
 Include "locations-aft.inf";
 Include "locations-bridge.inf";
 Include "locations-cargo.inf";  
 Include "locations-med.inf";  
 Include "locations-tech.inf";
 
-! 7. Grammar (MUST be last)
-! This defines how the player's typing maps to the routines
+! Grammar library
 Include "grammar"; 
 
-! 8. Custom Grammar (Your specific verb additions)
+! Custom Grammar (Your specific verb additions)
 Include "grammar.inf";
