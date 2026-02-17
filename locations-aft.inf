@@ -13,20 +13,7 @@ AlienRoom CryoBay "Cryo Bay"
            return true;
         ],
         n_to Corridor;
-Object -> PlayerCryoTube "open cryo tube"
-  with name 'open' 'cryo' 'tube' 'pod' 'glass',
-       description [;
-           print "This is the tube you woke up in. The bio-monitor display reads: ";
-                           Translate("DOMN 009 KRZSHDOSH: VZRAK", "SUBJECT 009 STATUS: REVIVED");
 
-           print "^";
-           return true;
-       ],
-       has static scenery;
-Object -> ClosedCryoTubes "rows of cryo tubes"
-  with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
-       description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
-       has static scenery;
 ! ==============================================================================
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",

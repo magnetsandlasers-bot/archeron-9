@@ -9,6 +9,21 @@ Class AlienRoom with short_name [;
     rfalse;
 ], has light;
 
+Object PlayerCryoTube "open cryo tube"
+  with name 'open' 'cryo' 'tube' 'pod' 'glass',
+       description [;
+           print "This is the tube you woke up in. The bio-monitor display reads: ";
+                           Translate("DOMN 009 KRZSHDOSH: VZRAK", "SUBJECT 009 STATUS: REVIVED");
+
+           print "^";
+           return true;
+       ],
+       has static scenery;
+Object ClosedCryoTubes "rows of cryo tubes"
+  with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
+       description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
+       has static scenery;
+
 Object HighTechJumpsuit "high-tech jumpsuit"
   with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
        description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",

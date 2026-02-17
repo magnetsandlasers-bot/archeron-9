@@ -248,6 +248,8 @@
     location = CryoBay;
     ! Place batteries etc
     move Battery1 to CryoBay;
+    move PlayerCryoTube to CryoBay;
+    move ClosedCryoTubes to CryoBay;
     move Battery2 to BatteryShelf;
     move Battery3 to BatteryShelf;
     move HighTechJumpsuit to CryoBay;
