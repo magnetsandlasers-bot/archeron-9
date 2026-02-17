@@ -168,7 +168,7 @@ AlienRoom Engineering "Engineering Room"
             Translate("POHYB ZANER", "BULKHEAD LEVER");
                ".";
            }
-           print "^^A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
+           print " A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
            return true;
        ],
        w_to EngineeringDoor;
