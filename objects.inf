@@ -9,6 +9,16 @@ Class AlienRoom with short_name [;
     rfalse;
 ], has light;
 
+Class Cylinder
+  with  name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries',
+        short_name "heavy cylinder",
+        plural "heavy cylinders",
+        description "A heavy, inert metal cylinder.",
+        before [;
+            Receive: <<Receive BatteryShelf noun>>; ! Redirect if put on shelf
+        ],
+  has   supporter;
+
 Object PlayerCryoTube "open cryo tube"
   with name 'open' 'cryo' 'tube' 'pod' 'glass',
        description [;

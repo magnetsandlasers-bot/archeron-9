@@ -276,8 +276,8 @@
     move HighTechJumpsuit to CryoBay;
     move Corpse to Corridor;
     move Keycard to Corpse;
-    move Battery2 to BatteryShelf;
-    move Battery3 to BatteryShelf;
+   ! move Battery2 to BatteryShelf;
+   ! move Battery3 to BatteryShelf;
     move OpticalModule to ServerRoom;
     move AudioModule to CommsRelay;
 
