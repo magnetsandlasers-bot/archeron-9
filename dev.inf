@@ -24,21 +24,17 @@
 ];
 
 [ WarpSub;
-    if (noun == 0) "You must name a room to warp to.";
-    if (noun == player) "You are already where you are.";
-    
-    PlayerTo(noun);
-    ! No need to print "Warping..." the <<Look>> will show the new room.
-    <<Look>>;
-];
-
-[ AnyRoom;
-    switch (scope_stage) {
-        1: rfalse;
-        2: ScopeWithin(LibraryMessages); ! This forces the parser to see everything
-           rtrue;
-        3: "You can't see any such place.";
+    ! We manually check the next word in the input buffer
+    wn = consult_from;
+    switch (NextWord()) {
+        'brig': PlayerTo(BrigRoom);
+        'spine': PlayerTo(SpineRoom);
+        'med', 'medbay': PlayerTo(MedBayRoom);
+        'eng', 'engineering': PlayerTo(EngineeringRoom);
+        'cargo': PlayerTo(CargoHold);
+        default: "Teleport failed. Use: WARP [brig, spine, med, eng, cargo]";
     }
+    <<Look>>;
 ];
 
 [ HealSub;

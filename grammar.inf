@@ -17,7 +17,6 @@ Verb 'recall'        * noun -> Recall;
 Verb 'dev' 'stats' 'diag' * -> DevMenu;
 
 Verb 'warp' 'teleport' 'goto'
-    * scope=AnyRoom           -> Warp
     * 'to' scope=AnyRoom      -> Warp;
 
 Verb 'heal' * -> Heal;
