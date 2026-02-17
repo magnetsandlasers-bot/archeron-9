@@ -24,16 +24,20 @@
 ];
 
 [ WarpSub;
+    if (noun == 0) "You must name a room to warp to.";
+    if (noun == player) "You are already where you are.";
+    
     PlayerTo(noun);
-    print "Warping to ", (name) location, "...^";
+    ! No need to print "Warping..." the <<Look>> will show the new room.
     <<Look>>;
 ];
 
 [ AnyRoom;
-    if (scope_stage == 1) rfalse;
-    if (scope_stage == 2) {
-        ScopeWithin(LibraryMessages); 
-        rtrue;
+    switch (scope_stage) {
+        1: rfalse;
+        2: ScopeWithin(LibraryMessages); ! This forces the parser to see everything
+           rtrue;
+        3: "You can't see any such place.";
     }
 ];
 
