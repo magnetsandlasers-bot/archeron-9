@@ -27,10 +27,10 @@
     ! We manually check the next word in the input buffer
     wn = consult_from;
     switch (NextWord()) {
-        'brig': PlayerTo(BrigRoom);
-        'spine': PlayerTo(SpineRoom);
-        'med', 'medbay': PlayerTo(MedBayRoom);
-        'eng', 'engineering': PlayerTo(EngineeringRoom);
+        'brig': PlayerTo(Brig);
+        'spine': PlayerTo(SpineMid);
+        'med', 'medbay': PlayerTo(MedicalBay);
+        'eng', 'engineering': PlayerTo(Engineering);
         'cargo': PlayerTo(CargoHold);
         default: "Teleport failed. Use: WARP [brig, spine, med, eng, cargo]";
     }
