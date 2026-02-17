@@ -180,17 +180,17 @@ AlienRoom Engineering "Engineering Room"
            
            if (battery_count == 0) {
                print "you notice most of them are green, except for one status light next to a metal lever marked ";
-               Translate("BULKHEAD LEVER", "POHYB ZANER");
+            Translate("POHYB ZANER", "BULKHEAD LEVER");
                " , which is glowing an ominous red.";  
            } 
            else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
-               Translate("BULKHEAD LEVER", "POHYB ZANER");
+            Translate("POHYB ZANER", "BULKHEAD LEVER");
                " is flashing amber.";
            } 
            else {
                print "you see that all status lights are green, including the one next to the lever marked  ";
-               Translate("BULKHEAD LEVER", "POHYB ZANER");
+            Translate("POHYB ZANER", "BULKHEAD LEVER");
                ".";
            }
            
