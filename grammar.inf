@@ -15,10 +15,15 @@ Verb 'recall'        * noun -> Recall;
 
 ! Developer Tools
 Verb 'dev' 'stats' 'diag' * -> DevMenu;
-
 Verb 'warp' 'goto' * topic -> Warp;
-
 Verb 'heal' * -> Heal;
-
 Verb 'toggle' 
     * topic -> Toggle;
+
+Verb 'swipe'
+    * held 'through'/'in'/'on'/'at' noun -> Unlock
+    * held noun                          -> Swipe;
+
+! Add 'swipe' to the existing Unlock grammar so "swipe card at door" works
+Extend 'unlock' first
+    * held 'at'/'through'/'on' noun      -> Unlock;

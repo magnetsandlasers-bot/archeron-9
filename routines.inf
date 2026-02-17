@@ -300,3 +300,10 @@
     }
     rtrue;
 ];
+
+[ SwipeSub;
+    if (noun == nothing) "Swipe what?";
+    if (second == nothing) "You need to swipe the card through something, like a reader.";
+    ! By default, if the object doesn't have a specific 'swipe' routine:
+    "Swiping that doesn't seem to do anything."
+];
