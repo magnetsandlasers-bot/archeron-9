@@ -244,6 +244,26 @@
     return;
 ];
 
+[ Translate str_alien str_human;
+    if (visual_cortex_active) {
+        print (string) str_human;
+    } else {
+        print (string) str_alien;
+    }
+    rtrue;
+];
+
+[ SwipeSub;
+    ! Case 1: "swipe card" (noun is card, second is nothing)
+    if (second == nothing) {
+        if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
+        "You'd need to swipe that through something, but it's not even a card. Are you OK?";
+    }
+
+    ! Case 2: "swipe card at [something that isn't a door]"
+    "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
+];
+
 [ Initialise;
     location = CryoBay;
     ! Place batteries etc
@@ -295,22 +315,3 @@
     return 2; ! Suppress banner, start game
 ];
 
-[ Translate str_alien str_human;
-    if (visual_cortex_active) {
-        print (string) str_human;
-    } else {
-        print (string) str_alien;
-    }
-    rtrue;
-];
-
-[ SwipeSub;
-    ! Case 1: "swipe card" (noun is card, second is nothing)
-    if (second == nothing) {
-        if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
-        "You'd need to swipe that through something, but it's not even a card. Are you OK?";
-    }
-
-    ! Case 2: "swipe card at [something that isn't a door]"
-    "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
-];
