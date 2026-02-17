@@ -9,7 +9,7 @@ AlienRoom CryoBay "Cryo Bay"
            if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
                print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.";
            }
-           print " The only exit is a bulkhead door leading North.^";
+           print " The only exit is a doorway leading North.^";
            return true;
         ],
         n_to Corridor;
@@ -190,18 +190,30 @@ Object -> BatteryShelf "metal shelf"
                 print "You slide ", (the) noun, " back onto the bottom shelf.^";
                 return true;
        ], has static container open supporter scenery;
+
+
+
 Object -> ControlStation "control station"
   with name 'panel' 'station' 'control' 'status' 'amber', 
        description [;
            print "It features a Heavy Iron Lever. A sign above the lever reads ";
-           if (visual_cortex_active) {
-               print "BULKHEAD LEVER";
-           } else {
-               print "POHYB ZANER";
-           }
+           Translate("BULKHEAD LEVER", "POHYB ZANER");
            ".";
        ],
        has static scenery supporter;
+
+!Object -> ControlStation "control station"
+!  with name 'panel' 'station' 'control' 'status' 'amber', 
+!       description [;
+!           print "It features a Heavy Iron Lever. A sign above the lever reads ";
+!           if (visual_cortex_active) {
+!               print "BULKHEAD LEVER";
+!           } else {
+!               print "POHYB ZANER";
+!           }
+!           ".";
+!       ],
+!       has static scenery supporter;
 
 Object -> IronLever "Heavy Iron Lever"
   with name 'lever' 'iron' 'heavy',
