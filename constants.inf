@@ -6,6 +6,7 @@ Constant BULK_POCKET = 1;
 Constant BULK_NORMAL = 2;
 Constant BULK_HEAVY  = 8;
 Constant MAX_CAPACITY = 10;
+
 ! ==============================================================================
 ! GLOBAL VARIABLES
 ! ==============================================================================
@@ -36,7 +37,6 @@ Global medical_wing_powered = 0;
 Property zh_name;
 Property bulk;
 Property qr_content;
-
 
 [ PrintLocation the_location;
     if (the_location == nothing) rtrue;
