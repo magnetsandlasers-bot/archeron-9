@@ -177,9 +177,10 @@ AlienRoom Engineering "Engineering Room"
        description [;
            print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
            print " Looking at the panels, ";
-           
            if (battery_count == 0) {
-               print "you notice most of them are green, except for one status light next to a metal lever, which is glowing an ominous red.";
+               print "you notice most of them are green, except for one status light next to a metal lever marked ";
+               if (visual_cortex_active) print "BULKHEAD LEVER"; else print "POHYB ZANER";
+               print " , which is glowing an ominous red.";  
            } 
            else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
@@ -191,7 +192,6 @@ AlienRoom Engineering "Engineering Room"
                if (visual_cortex_active) print "BULKHEAD LEVER"; else print "POHYB ZANER";
                print " lever.";
            }
-           
            print "^A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
            return true;
        ],
