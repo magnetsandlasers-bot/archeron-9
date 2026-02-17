@@ -220,7 +220,7 @@ Object -> ControlStation "control station"
   with name 'panel' 'station' 'control' 'status' 'amber', 
        description [;
            print "It features a Heavy Iron Lever. A sign above the lever reads ";
-           Translate("BULKHEAD LEVER", "POHYB ZANER");
+           Translate("POHYB ZANER", "BULKHEAD LEVER");
            ".";
        ],
        has static scenery supporter;
