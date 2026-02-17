@@ -9,8 +9,7 @@
     print "Visual:     ", visual_cortex_active, " | Audio:     ", audio_codec_active, "^";
     print "Identity:   ", identity_hacked, "^";
     "-------------------------------";
-    print "toggle power, medical, lockdown, visual, audio, bulkhead, identity"
-];
+    ];
 
 [ ToggleSub w;
     wn = consult_from;
