@@ -1,5 +1,5 @@
 ! ==============================================================================
-! GRAMMAR.INF - Custom Verbs
+! Custom Verbs
 ! ==============================================================================
 
 Verb 'install' 'slot' * held -> Install;
@@ -20,6 +20,7 @@ Verb 'heal' * -> Heal;
 Verb 'toggle' 
     * topic -> Toggle;
 
+! Swipe Keycard
 Verb 'swipe'
     * held                               -> Swipe
     * held 'at'/'through'/'on'/'in' noun -> Unlock reverse;
