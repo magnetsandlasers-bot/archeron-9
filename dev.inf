@@ -35,11 +35,12 @@
     wn = consult_from;
     switch (NextWord()) {
         'brig': PlayerTo(Brig);
+        'bridge': PlayerTo(Bridge);
         'spine': PlayerTo(SpineMid);
         'med', 'medbay': PlayerTo(MedicalBay);
         'eng', 'engineering': PlayerTo(Engineering);
         'cargo': PlayerTo(CargoBay);
-        default: "Teleport failed. Use: WARP [brig, spine, med, eng, cargo]";
+        default: "Teleport failed. Use: WARP [brig, bridge, spine, med, eng, cargo]";
     }
     <<Look>>;
 ];
