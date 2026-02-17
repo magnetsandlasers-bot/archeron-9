@@ -21,9 +21,9 @@ Verb 'toggle'
     * topic -> Toggle;
 
 Verb 'swipe'
-    * held 'through'/'in'/'on'/'at' noun -> Unlock
-    * held noun                          -> Swipe;
+    * held                               -> Swipe
+    * held 'at'/'through'/'on'/'in' noun -> Unlock reverse;
 
 ! Add 'swipe' to the existing Unlock grammar so "swipe card at door" works
 Extend 'unlock' first
-    * held 'at'/'through'/'on' noun      -> Unlock;
+    * held 'at'/'through'/'on' noun      -> Unlock reverse;
