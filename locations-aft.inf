@@ -13,7 +13,6 @@ AlienRoom CryoBay "Cryo Bay"
            return true;
         ],
         n_to Corridor;
-
 ! ==============================================================================
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
@@ -34,7 +33,7 @@ AlienRoom Corridor "The Spine"
            return true;
         ],
         s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
-
+! ==============================================================================
 Object BulkheadDoor "bulkhead"
   with name 'bulkhead' 'massive' 'north' 'blast' 'south',
        description [;
@@ -113,6 +112,7 @@ Object BulkheadDoor "bulkhead"
 ],
        found_in Corridor SpineFore,
        has static door locked scenery;
+! ==============================================================================
 Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
@@ -183,19 +183,6 @@ Object -> ControlStation "control station"
            ".";
        ],
        has static scenery supporter;
-
-!Object -> ControlStation "control station"
-!  with name 'panel' 'station' 'control' 'status' 'amber', 
-!       description [;
-!           print "It features a Heavy Iron Lever. A sign above the lever reads ";
-!           if (visual_cortex_active) {
-!               print "BULKHEAD LEVER";
-!           } else {
-!               print "POHYB ZANER";
-!           }
-!           ".";
-!       ],
-!       has static scenery supporter;
 
 Object -> IronLever "Heavy Iron Lever"
   with name 'lever' 'iron' 'heavy',
