@@ -305,7 +305,7 @@
     ! Case 1: "swipe card" (noun is card, second is nothing)
     if (second == nothing) {
         if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
-        "You'd need to swipe that through something, but it's not even a card.";
+        "You'd need to swipe that through something, but it's not even a card. Are you OK?";
     }
 
     ! Case 2: "swipe card at [something that isn't a door]"
