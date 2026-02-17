@@ -34,21 +34,7 @@ AlienRoom Corridor "The Spine"
            return true;
         ],
         s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
-Object -> Corpse "desiccated corpse"
-  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
-       description [;
-            print "A crew member, long dead. He wears a standard technician's uniform.";
-            if (Keycard in self) { 
-                give Keycard ~concealed; 
-                print " You notice a plastic card tucked into his breast pocket."; 
-            }
-            print "^"; 
-            return true;
-       ],
-       search [;
-            return true;
-       ],
-  has static container open scenery;
+
 Object BulkheadDoor "bulkhead"
   with name 'bulkhead' 'massive' 'north' 'blast' 'south',
        description [;

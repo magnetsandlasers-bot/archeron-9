@@ -73,6 +73,22 @@ Object SecurityDrone "Security Drone"
   with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
        initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
 
+Object Corpse "desiccated corpse"
+  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
+       description [;
+            print "A crew member, long dead. He wears a standard technician's uniform.";
+            if (Keycard in self) { 
+                give Keycard ~concealed; 
+                print " You notice a plastic card tucked into his breast pocket."; 
+            }
+            print "^"; 
+            return true;
+       ],
+       search [;
+            return true;
+       ],
+  has static container open scenery;
+
 Object Keycard "plastic keycard"
   with name 'card' 'key' 'keycard' 'pass',
        bulk BULK_POCKET,
