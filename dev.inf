@@ -31,7 +31,7 @@
         'spine': PlayerTo(SpineMid);
         'med', 'medbay': PlayerTo(MedicalBay);
         'eng', 'engineering': PlayerTo(Engineering);
-        'cargo': PlayerTo(CargoHold);
+        'cargo': PlayerTo(CargoBay);
         default: "Teleport failed. Use: WARP [brig, spine, med, eng, cargo]";
     }
     <<Look>>;
