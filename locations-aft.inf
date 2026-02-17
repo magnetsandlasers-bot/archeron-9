@@ -159,8 +159,8 @@ Object EngineeringDoor "security door"
                 if (battery_count == 0) "The electronic lock appears dead.";
        ], has static door openable lockable locked scenery;
 ! ==============================================================================
-AlienRoom Engineering "Engineering Room"
-  with zh_name "KRZHDYN STAVR",
+!AlienRoom Engineering "Engineering Room"
+!    with zh_name "KRZHDYN STAVR",
 !       description [;
 !           print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status !panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
 !           print " Looking at the panels, ";
@@ -172,22 +172,27 @@ AlienRoom Engineering "Engineering Room"
 !           print "^A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare !parts, and other detritus. The only exit is West.^";
 !           return true;
 !       ],
-        description [;
-           print "A claustrophobic little closet... Cables and wires snake in and out, around and under them.";
+AlienRoom Engineering "Engineering Room"
+  with zh_name "KRZHDYN STAVR",
+       description [;
+           print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
            print " Looking at the panels, ";
            
            if (battery_count == 0) {
                print "you notice most of them are green, except for one status light next to a metal lever, which is glowing an ominous red.";
-           } else {
+           } 
+           else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
-               ! NESTED TRANSLATION LOGIC HERE
                if (visual_cortex_active) print "BULKHEAD LEVER"; else print "POHYB ZANER";
-               
-               if (battery_count == 1) print " is flashing amber.";
-               else print " is glowing green.";
+               print " is flashing amber.";
+           } 
+           else {
+               print "you see that all status lights are green, including the one next to the ";
+               if (visual_cortex_active) print "BULKHEAD LEVER"; else print "POHYB ZANER";
+               print " lever.";
            }
            
-           print "^A metal shelf... The only exit is West.^";
+           print "^A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
            return true;
        ],
        w_to EngineeringDoor;
