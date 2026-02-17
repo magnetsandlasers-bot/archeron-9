@@ -1,313 +1,159 @@
-Ah — now I understand fully what you want. You need the **entire linguistic bible rebuilt as a fully internal, fully inscrutable ZERAKTHYN canon**, including **room names, terminals, AI messages, and narrative references**, with **no English whatsoever** — everything derived strictly from the internal root set.
+ZERAKTHYN LINGUISTIC BIBLE (REV. 4.0)
 
-Here’s the full **ARCHERON-9 PROTOKOL LINGUISTIC BIBLE**, cleaned and fully internalized.
+Dialect: ZERAKTHYN (Machine Governance)
 
----
+I. LINGUISTIC FOUNDATION
 
-# ARCHERON-9 PROTOKOL LINGUISTIC BIBLE
+1.1 Design Purpose
 
-## ZERAKTHYN (Zerakthyn Protokól)
+ZERAKTHYN is the codified machine-administrative language used by ARCHERON-class stations and associated vessels. It is a language of authority, precision, and state-reporting. It eschews emotional nuance for objective "State-of-Being" declarations.
 
----
+1.2 Phonological Constraints
 
-# I. DESIGN PURPOSE
+Consonant Inventory: Z, S, C, J, R, K, T, D, G, V, B, M, N, L, P, H, Y, F
 
-ZERAKTHYN is the machine-administrative language used by:
+Preferred Clusters: ZR, TSK, VZ, KR, DR, SC, ST, PR, TL, ZG
 
-* ARCHERON-class stations
-* Shipboard AI
-* Security matrices
-* Biometric arrays
-* Core infrastructure
-* Pre-collapse interplanetary bureaucracy
+Vowel Sets: A, E, I, O, U, Y (Authority extensions: AA, EE, II, OO, UU)
 
-It is not a human vernacular.
-It is a codified **machine governance dialect**, designed for:
+Compressed Vowel: O', U' (Used for absolute or finalized states)
 
-* Authority
-* Precision
-* Hierarchy
-* Threat declaration
-* Resource state reporting
+II. THE MASTER ROOT MATRIX
 
-It should always feel:
+2.1 Technical & Structural
 
-* Bureaucratic
-* Severe
-* Formal
-* Slightly oppressive
-* Non-emotional (except in corruption states)
+JADROZ — Core / Subsystem / Central Node
 
----
+KRZHD — Energy / Power / Reactor state
 
-# II. PHONOLOGICAL RULES
+STAVR — Structural integrity / Stability
 
-### Consonant Inventory
+TLKZ — Pressure / Tension
 
-Z S C J R K T D G V B M N L P H Y F
-Clusters: ZR, TSK, VZ, KR, DR, SC, ST, PR, TL, ZG
+PRSKV — Breach / Rupture / Leak
 
-### Vowels
+ZAMER — Lock / Seal / Physical closure
 
-A E I O U Y
-Authority extension: AA EE II OO UU
-Compressed vowel: O' U'
+SMRNK — Trajectory / Vector / Directional flow
 
-### Structural Rules
+2.2 Personnel & Biological
 
-Allowed word shapes:
+CERNYV — Authorized personnel / Crew / Human assets
 
-* CV
-* CVC
-* CCV
-* CCVC
-* CVCC
-* CCVCC
+VESKR — Biological / Organic / Carbon-based
 
-Clusters favored at word start and end.
-No soft endings, no external resemblance.
+DOMN — Subject / Asset / Targeted entity
 
----
+STYRZ — Identity / Record / Authentication profile
 
-# III. GRAMMAR STRUCTURE
+2.3 Operational & Status
 
-Word Order:
+ZRAAV — Access / Entry / Clearance
 
-ACTION – STATUS – TARGET
+DRAZK — Isolation / Containment / Quarantine
 
-Modifiers follow noun.
-No articles.
+VZRAC — Surveillance / Scan / Analysis
 
-Plural suffix: -yn
-Abstract/state suffix: -osh
-Authority prefix: Vz-
-Negation prefix: Ne-
-Escalation marker: -IX
+SCERN — Erasure / Void / Dissolution / Destruction
 
-Declarative only.
-No contraction.
+POHYB — Movement / Flow / Liquification
 
----
+VZDYK — Alert / Warning / Threat detection
 
-# IV. CORE ROOT MATRIX
+ZGRT — Failed / Nullified / Zero / Void
 
-ZRAAV — access / entry / clearance
-KRZHD — energy / power / reactor state
-DRAZK — isolation / containment
-VESKR — biological / organic
-CERNYV — authorized personnel
-SCERN — erasure / destruction
-STYRZ — identity / record
-VZDYK — alert / warning
-ZAMER — lock / seal
-JADROZ — core / subsystem
-TLKZ — pressure / tension
-PRSKV — breach / rupture
-ZGRT — failed / nullified
-ULMK — fragment / segment
-SMRNK — trajectory / vector
-NADKRZ — overload / escalation
-VZRAC — surveillance / scan
-STAVR — structural integrity
-POHYB — movement / flow
-DOMN — subject / asset
-TSKOR — denial / refusal
+TSKOR — Denial / Refusal / System block
 
-All expansions derive from these roots.
+NADKRZ — Overload / Escalation / Threshold breach
 
----
+2.4 Nanotechnology (The KLYST Matrix)
 
-# V. DERIVATION RULES
+KLYST — Nanite / Swarm / Micro-matrix / Molecular array
 
-**Agent:** -nik
-**Process:** -avl
-**State/abstract:** -osh
-**Plural:** -yn
-**Authority vowels:** AA EE II OO UU within roots
+ULMK — Fragment / Asteroid / Segment / Raw ore
 
----
+2.5 EVA & Evacuation (New)
 
-# VI. DERIVED FORMS
+VNEJ — Exterior / Vacuum / External space
 
-ZRAAVEK — access
-ZRAAVNIK — access node
-ZRAAVOSH — clearance state
+SKAF — Protective shell / Suit / EVA casing
 
-KRZHDYN — power
-KRZHDAR — reactor
-KRZHDOSH — energy condition
+DYCH — Atmosphere / Oxygen / Breathable gas
 
-DRAZKOL — quarantine
-DRAZKARY — sealed sector
-DRAZKOSH — isolation condition
+KAPS — Pod / Capsule / Escape vessel
 
-VESKRACH — biological
-VESKRAN — organism
-VESKRANYN — multiple organisms
+ODST — Detachment / Ejection / Separation
 
-CERNYV — crew
-CERNYVYN — crew members
-CERNYVOSH — crew status
+PARYN — Vapor / Gas / Propellant
 
-SCERNAVL — self-destruct
-SCERNOSH — annihilation state
+III. GRAMMAR & MORPHOLOGY
 
-STYRZEN — identity
-STYRZNIK — identity node
-STYRZOSH — authentication state
+3.1 Affixes (Modifiers)
 
-VZDYK — warning
-VZDYKYN — alert systems
-VZDYK-IX — maximum alert
+VZ- (Prefix): Authority marker. Mandated by higher-tier AI or Station protocols.
 
-ZAMER — lock
-ZAMERNIK — locking mechanism
-ZAMEROSH — secured state
+NE- (Prefix): Negation. Indicates failure, lack, or absence.
 
-JADROZ — core
-JADROZNIK — subsystem node
+-NIK (Suffix): Agent or Node. The specific point where an action occurs.
 
-TLKZ — pressure
-PRSKV — breach
-ZGRT — failed
-ULMK — fragment
-SMRNK — trajectory
-NADKRZ — overload
-VZRAC — surveillance
-STAVR — structural integrity
-POHYB — movement
-DOMN — subject
-TSKOR — denial
+-AVL (Suffix): Process or Active State. Indicates an ongoing action.
 
-Negation: NECERNYV, NEZRAAV, NEKRZHD, NEDRAZK
-Authority: VZZRAAV, VZKRZHD, VZDRAZK, VZSTYRZ
+-OSH (Suffix): Abstract/Environmental state. Describes the "feeling" of a zone.
 
----
+-YN (Suffix): Plurality. Used for fields, groups, or arrays.
 
-# VII. ADMINISTRATIVE REGISTER
+-IX (Suffix): Maximum escalation. Indicates the highest possible threat or priority.
 
-ZRAAVEK TSKOR.
-VESKRACH DOMN NAADEN.
-STYRZOSH ZGRT.
-ZAMEROSH ZRAAV.
+-O' (Suffix): Compressed absolute. The terminal end-state of a process.
 
-ZRAAVNIK VZRAC.
-KRZHDYN STAVR.
-DRAZKARY ZAMEROSH.
+3.2 Word Order
 
-CERNYVOSH STYRZ.
-JADROZ KRZHDYN.
-TLKZ STAVR.
+ACTION — STATUS — TARGET
 
----
+Example: VZ-SCERN ZGRT CERNYV (Authorized erasure of nullified personnel).
 
-# VIII. SECURITY REGISTER
+IV. DERIVED FORMS & DESIGNATIONS
+
+4.1 Vessel & Gear Designations
+
+KLYST-SCERN — The Swarm-Eraser (Nanotech Mining Ship).
+
+VZ-KLYST-O' — Sovereign Swarm-State (Finalized disassembly).
+
+SKAF-DRAZK — Suit-Quarantine (The internal environment of an EVA suit).
+
+KAPS-ODST — Ejection Pod (Escape vehicle).
+
+4.2 Environmental Nodes (Rooms/Zones)
+
+VNEJ-ZRAAV — External Airlock (Avenue to vacuum).
+
+DYCH-JADROZ — Life Support Core.
+
+KAPS-JADR-IX — Maximum Escape Pod Deployment Bay.
+
+STAVR-PRSKV-VNEJ — External Structural Breach Zone.
+
+V. ADMINISTRATIVE REGISTERS (SYSTEM MESSAGES)
+
+5.1 EVA Protocols (Spacewalk)
+
+ZRAAV VNEJ-AVL.
+SKAF-DRAZK KRZHD STAVR.
+DYCH-TLKZ VZRAC.
+(Accessing Vacuum-Process. Suit-Quarantine Power Stable. Atmosphere-Pressure Scanned.)
+
+5.2 Emergency Escape Pod Deployment
 
 VZDYK-IX.
-POHYB NAADEN.
-VZRACYN DRAZKARY.
-NECERNYV ZGRT.
+JADROZ ZGRT.
+KAPS-ODST SMRNK: VNEJ.
+CERNYV POHYB: KAPS-JADR-IX.
+(Maximum Alert. Core Failed. Pod-Ejection Trajectory: Vacuum. Personnel Flow: Pod-Core-Maximum.)
 
-KRZHDAR NADKRZ.
-TLKZ PRSKV SMRNK.
-DRAZKOSH VZDYK.
+5.3 Suit Failure (Crisis)
 
-STYRZNIK ZGRT.
-ZAMERNIK DRAZKOL.
-VESKRANYN POHYB.
-
----
-
-# IX. CATASTROPHIC REGISTER
-
-ZRAAVOSH ZGRTOSH.
-CERNYVYN STYRZOSH.
-VESKRACH VZKORD.
-
-KRZHDYN NADKRZ NADKRZ.
-TLKZ ZGRT.
-STAVR PRSKV.
-
-SCERNAVL POZREET.
-SCERNOSH SCERNOSH.
-
-JADROZ ULMK.
-ULMK ULMK ULMK.
-
----
-
-# X. CORRUPTION STREAM
-
-Vz...yk
-Krzh...
-Styr...
-
-Zraav...
-Drazk...
-Krzh...
-
-ULMK ULMK ULMK.
-SCERN SCERN SCERN.
-
-NE NE NE.
-
-ZRAAVEK TSKOR.
-ZRAAVEK TSKOR.
-ZRAAVEK TSKOR.
-
----
-
-# XI. ROOM NAME GRID (INSCRUTABLE)
-
-Each room name derives from root core and follows cluster rules. No external lexemes. Examples:
-
-* ZRAVNIKOL
-* KRZHARYN
-* DRAZKOLYN
-* VESKRANAV
-* CERNYVNIK
-* SCERNAVLOR
-* STYRZNIK
-* VZDYKAV
-* ZAMERNIK
-* JADROZNIK
-* TLKZPRSK
-* POHYBDOMN
-
-These can be programmatically expanded to a 100+ room network, fully internal, no English.
-
----
-
-# XII. TERMINALS AND AI NODES
-
-* ŠTYRZNIK VZRAC
-* VZRAAV DRAZKOL
-* JADROZ-ULMK
-* VZDYK-IX
-* KRZHDAR NADKRZ
-* TLKZ PRSKV SMRNK
-
-All interactions and messages fully ZERAKTHYN.
-
----
-
-# XIII. SIGNAL REPETITION BLOCK
-
-VZDYK VZDYK VZDYK.
-KRZHD KRZHD KRZHD.
-STYRZ ZGRT ZGRT.
-
-POHYB POHYB POHYB.
-DRAZK DRAZK DRAZK.
-
-SCERNAVL.
-SCERNOSH.
-
----
-
-✅ Fully internalized.
-✅ All ASCII.
-✅ No English.
-✅ No translational crutches.
-✅ Parser-ready for Inform6/Z5.
-
+SKAF PRSKV.
+NE-DYCH-OSH.
+VESKR DOMN ZGRT.
+(Suit Breach. Non-Breathable State. Biological Subject Zeroed.)
