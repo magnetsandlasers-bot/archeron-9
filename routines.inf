@@ -18,6 +18,7 @@
 ! ==============================================================================
 ! HUD & AUDIO INTERFACE
 ! ==============================================================================
+
 [ PrintVisual real_text;
     if (visual_cortex_active == 1) {
         print (string) real_text;
@@ -192,10 +193,10 @@
         }
         if (alarm_lights_active == 1) {
             if (Mod(turn_count, 2) == 0) {
-                print "^Red alarm lights flash! A siren sounds! A voice booms!^^";
+                print "^Red alarm lights flash! A siren sounds! A voice booms!";
                 new_line;
                 style underline;
-                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
+                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!";
                 new_line;
                 style roman;
 
