@@ -10,12 +10,13 @@ Class AlienRoom with short_name [;
 ], has light;
 
 Class Cylinder
-  with  name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries',
+  with  name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
         short_name "heavy cylinder",
         plural "heavy cylinders",
-        description "A heavy, inert metal cylinder.",
+        bulk BULK_HEAVY,
+        description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.",
         before [;
-            Receive: <<Receive BatteryShelf noun>>; ! Redirect if put on shelf
+            Receive: <<Receive BatteryShelf noun>>;
         ],
   has   supporter;
 
@@ -48,26 +49,14 @@ Object HighTechJumpsuit "high-tech jumpsuit"
        ],
     has clothing concealed;
 
-Object Battery1 "heavy cylinder"
-  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
-       bulk BULK_HEAVY,
-       initial "A heavy, dark cylinder lies on the floor.",
-       description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+! This one is placed in CryoBay at init
+Object Battery1 "heavy cylinder" Cylinder
+  with initial "A heavy, dark cylinder lies on the floor.";
 
-Object Battery2 "heavy cylinder"
-  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
-       bulk BULK_HEAVY,
-       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
-
-Object Battery3 "heavy cylinder"
-  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
-       bulk BULK_HEAVY,
-       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
-
-Object Battery4 "heavy cylinder"
-  with name 'battery' 'cell' 'cylinder' 'unit' 'heavy',
-       bulk BULK_HEAVY,
-       description "It is a dense, cylindrical unit with heavily-scarred contact points on the bottom. It looks like a part of something larger. There is a recessed groove all around the circumference.";
+! These are placed on the metal shelf in Engineering at init
+Object Battery2 "heavy cylinder" Cylinder;
+Object Battery3 "heavy cylinder" Cylinder;
+Object Battery4 "heavy cylinder" Cylinder;
 
 Object ChargedCell1 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
