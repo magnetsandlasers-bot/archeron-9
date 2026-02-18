@@ -9,16 +9,7 @@ Class AlienRoom with short_name [;
     rfalse;
 ], has light;
 
-Class Cylinder
-  with  name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-        short_name "heavy cylinder",
-        plural "heavy cylinders",
-        bulk BULK_HEAVY,
-        description "It is a dense, cylindrical unit with heavily-scarred contact points on one end. It looks like a part of something larger. There is a recessed groove all around the circumference.",
-        before [;
-            Receive: <<Receive BatteryShelf noun>>;
-        ],
-  has   supporter;
+Class Cylinder;
 
 Object PlayerCryoTube "open cryo tube"
   with name 'open' 'cryo' 'tube' 'pod' 'glass',
@@ -49,14 +40,35 @@ Object HighTechJumpsuit "high-tech jumpsuit"
        ],
     has clothing concealed;
 
-! This one is placed in CryoBay at init
-Object Battery1 "heavy cylinder" Cylinder
-  with initial "A heavy, dark cylinder lies on the floor.";
+Object Battery1 Cylinder
+     with initial "A heavy, dark cylinder lies on the floor.",
+     name 'cell' 'battery' 'cylinder' 'heavy',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     list_together "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
 
-! These are placed on the metal shelf in Engineering at init
-Object Battery2 "heavy cylinder" Cylinder;
-Object Battery3 "heavy cylinder" Cylinder;
-Object Battery4 "heavy cylinder" Cylinder;
+Object Battery2 Cylinder
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
+
+Object Battery3 Cylinder
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
+
+Object Battery4 Cylinder
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
 
 Object ChargedCell1 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
