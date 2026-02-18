@@ -42,7 +42,6 @@
         'cargo': PlayerTo(CargoBay);
         default: "Teleport failed. Use: WARP [brig, bridge, spine, med, eng, cargo]";
     }
-    <<Look>>;
 ];
 
 [ HealSub;
