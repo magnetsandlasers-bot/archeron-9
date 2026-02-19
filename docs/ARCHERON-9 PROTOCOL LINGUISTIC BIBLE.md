@@ -18,142 +18,91 @@ Vowel Sets: A, E, I, O, U, Y (Authority extensions: AA, EE, II, OO, UU)
 
 Compressed Vowel: O', U' (Used for absolute or finalized states)
 
-II. THE MASTER ROOT MATRIX
+ZERAKTHYN MASTER GLOSSARY (REV. 6.0)
+Format: English Term — Zerakthyn Equivalent
 
-2.1 Technical & Structural
+I. PRIMARY SHIP LOCATIONS
+AI Core — JADROZ KLYST
 
-JADROZ — Core / Subsystem / Central Node
+Cargo Bay — ULMK JADROZ
 
-KRZHD — Energy / Power / Reactor state
+Central Atrium — JADROZ POHYB
 
-STAVR — Structural integrity / Stability
+Central Column — JADROZ STAVR
 
-TLKZ — Pressure / Tension
+Comms Relay — PARYN VZRAC
 
-PRSKV — Breach / Rupture / Leak
+Crew Quarters — CERNYV JADROZ
 
-ZAMER — Lock / Seal / Physical closure
+Cryo Bay — VESKR DRAZK
 
-SMRNK — Trajectory / Vector / Directional flow
+Engineering Room — KRZHD JADROZ
 
-2.2 Personnel & Biological
+Escape Pod Airlock — KAPS ZRAAV
 
-CERNYV — Authorized personnel / Crew / Human assets
+Machinery Chamber — POHYB JADROZ
 
-VESKR — Biological / Organic / Carbon-based
+Medical Bay — VESKR STAVR
 
-DOMN — Subject / Asset / Targeted entity
+Mess Hall — CERNYV POHYB
 
-STYRZ — Identity / Record / Authentication profile
+Ops Center — VZRAC JADROZ
 
-2.3 Operational & Status
+Security Brig — DOMN DRAZK
 
-ZRAAV — Access / Entry / Clearance
+Security Checkpoint — STYRZ ZRAAV
 
-DRAZK — Isolation / Containment / Quarantine
+Server Farm — JADROZ PARYN
 
-VZRAC — Surveillance / Scan / Analysis
+Server Room — PARYN JADROZ
 
-SCERN — Erasure / Void / Dissolution / Destruction
+The Bridge — JADROZ
 
-POHYB — Movement / Flow / Liquification
+The Spine — STAVR SMRNK
 
-VZDYK — Alert / Warning / Threat detection
+The Spine (Fore) — STAVR SMRNK JADR
 
-ZGRT — Failed / Nullified / Zero / Void
+The Spine (Mid) — STAVR SMRNK POHYB
 
-TSKOR — Denial / Refusal / System block
+II. DOORS, BARRIERS & BULKHEADS
+Blast Door — SCERN ZAMER
 
-NADKRZ — Overload / Escalation / Threshold breach
+Bulkhead — STAVR ZAMER
 
-2.4 Nanotechnology (The KLYST Matrix)
+Open Cryo Tube — VESKR DRAZK ZRAAV
 
-KLYST — Nanite / Swarm / Micro-matrix / Molecular array
+Reinforced Door — NADKRZ ZAMER
 
-ULMK — Fragment / Asteroid / Segment / Raw ore
+Rows of Cryo Tubes — VESKR DRAZK YN
 
-2.5 EVA & Evacuation (New)
+Security Door — STYRZ ZAMER
 
-VNEJ — Exterior / Vacuum / External space
+III. HARDWARE & INTERFACES
+AI Core / Mainframe — JADROZ KLYST
 
-SKAF — Protective shell / Suit / EVA casing
+Control Station — JADROZ NIK
 
-DYCH — Atmosphere / Oxygen / Breathable gas
+Data Slot — PARYN ZRAAV
 
-KAPS — Pod / Capsule / Escape vessel
+Data Terminal — PARYN NIK
 
-ODST — Detachment / Ejection / Separation
+Diagnostic Console — VZRAC NIK
 
-PARYN — Vapor / Gas / Propellant
+Exit Button — VNEJ ZRAAV NIK
 
-III. GRAMMAR & MORPHOLOGY
+Heavy Iron Lever — TLKZ POHYB NIK
 
-3.1 Affixes (Modifiers)
+Main Terminal — JADROZ PARYN NIK
 
-VZ- (Prefix): Authority marker. Mandated by higher-tier AI or Station protocols.
+Operating Table — VESKR SCERN NIK
 
-NE- (Prefix): Negation. Indicates failure, lack, or absence.
+Recall Terminal — SMRNK NIK
 
--NIK (Suffix): Agent or Node. The specific point where an action occurs.
+Wall Mechanism — STAVR POHYB NIK
 
--AVL (Suffix): Process or Active State. Indicates an ongoing action.
+IV. OBJECTS & ASSETS
+Central Column — JADROZ STAVR
 
--OSH (Suffix): Abstract/Environmental state. Describes the "feeling" of a zone.
+Desiccated Corpse — VESKR ZGRT
 
--YN (Suffix): Plurality. Used for fields, groups, or arrays.
-
--IX (Suffix): Maximum escalation. Indicates the highest possible threat or priority.
-
--O' (Suffix): Compressed absolute. The terminal end-state of a process.
-
-3.2 Word Order
-
-ACTION — STATUS — TARGET
-
-Example: VZ-SCERN ZGRT CERNYV (Authorized erasure of nullified personnel).
-
-IV. DERIVED FORMS & DESIGNATIONS
-
-4.1 Vessel & Gear Designations
-
-KLYST-SCERN — The Swarm-Eraser (Nanotech Mining Ship).
-
-VZ-KLYST-O' — Sovereign Swarm-State (Finalized disassembly).
-
-SKAF-DRAZK — Suit-Quarantine (The internal environment of an EVA suit).
-
-KAPS-ODST — Ejection Pod (Escape vehicle).
-
-4.2 Environmental Nodes (Rooms/Zones)
-
-VNEJ-ZRAAV — External Airlock (Avenue to vacuum).
-
-DYCH-JADROZ — Life Support Core.
-
-KAPS-JADR-IX — Maximum Escape Pod Deployment Bay.
-
-STAVR-PRSKV-VNEJ — External Structural Breach Zone.
-
-V. ADMINISTRATIVE REGISTERS (SYSTEM MESSAGES)
-
-5.1 EVA Protocols (Spacewalk)
-
-ZRAAV VNEJ-AVL.
-SKAF-DRAZK KRZHD STAVR.
-DYCH-TLKZ VZRAC.
-(Accessing Vacuum-Process. Suit-Quarantine Power Stable. Atmosphere-Pressure Scanned.)
-
-5.2 Emergency Escape Pod Deployment
-
-VZDYK-IX.
-JADROZ ZGRT.
-KAPS-ODST SMRNK: VNEJ.
-CERNYV POHYB: KAPS-JADR-IX.
-(Maximum Alert. Core Failed. Pod-Ejection Trajectory: Vacuum. Personnel Flow: Pod-Core-Maximum.)
-
-5.3 Suit Failure (Crisis)
-
-SKAF PRSKV.
-NE-DYCH-OSH.
-VESKR DOMN ZGRT.
-(Suit Breach. Non-Breathable State. Biological Subject Zeroed.)
+Metal Shelf — STAVR ULMK

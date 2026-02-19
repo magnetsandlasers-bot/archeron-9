@@ -52,12 +52,74 @@ AlienRoom CommsRelay "Comms Relay"
 AlienRoom ServerRoom "Server Room"
   with zh_name "CERNYV STYRZ",
        description "Rows of server banks hum quietly. The exit is South.",
-       s_to OpsCenter;
+       s_to OpsCenter,
+       d_to Landing;
 
-AlienRoom ServerFarm "Server Farm"
-  with zh_name "STYRZEN JADROZ",
-       description "Towering black server racks. The exit is Southeast.", 
-       se_to OpsCenter;
+AlienRoom Landing "Landing"
+    with zh_name "KAELTH",
+        description "A landing in a stairwell. There is a locked door on the West wall. You can go up or down.",
+        d_to ServerFarm1,
+        u_to ServerRoom;
+
+!AlienRoom ServerFarm "Server Farm"
+!  with zh_name "STYRZEN JADROZ",
+!       description "Towering black server racks. The exit is Southeast.", 
+!       se_to ServerRoom;
+
+ServerFarm ServerFarm1 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        se_to ServerRoom,
+        n_to ServerFarm2;
+
+ServerFarm ServerFarm2 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        s_to ServerFarm1,
+        w_to ServerFarm3;
+
+ServerFarm ServerFarm3 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        w_to ServerFarm2,
+        n_to ServerFarm4,
+        e_to ServerFarm6;
+
+ServerFarm ServerFarm4 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        s_to ServerFarm3,
+        n_to ServerFarm5;
+
+ServerFarm ServerFarm5 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        s_to ServerFarm5,
+        w_to ServerFarm5,
+        n_to ServerFarm4,
+        e_to ServerFarm8;
+
+ServerFarm ServerFarm6 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.",
+        s_to ServerFarm7,
+        w_to ServerFarm3,
+        n_to ServerFarm9;
+
+ServerFarm ServerFarm7 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.";
+
+ServerFarm ServerFarm8 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.";
+
+ServerFarm ServerFarm9 "Server Farm"
+    with zh_name "JADROZ PARYN",
+        description "Towering black server racks.";
+
+ 
+
 
 ! --- 2. THE TERMINAL (Explicitly placed in ServerFarm) ---
 Object ServerTerminal "main terminal" ServerFarm

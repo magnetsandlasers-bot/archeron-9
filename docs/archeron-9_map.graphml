@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    
+    <node id="CryoBay">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="0.0" y="400.0"/><y:NodeLabel>Cryo Bay</y:NodeLabel><y:Fill color="#ADD8E6"/></y:ShapeNode></data>
+    </node>
+
+    <node id="Corridor">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="0.0" y="300.0"/><y:NodeLabel>The Spine (Corridor)</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="ReactorRoom">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="-150.0" y="300.0"/><y:NodeLabel>Machinery Chamber</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="Engineering">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="150.0" y="300.0"/><y:NodeLabel>Engineering Room</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="SpineFore">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="0.0" y="200.0"/><y:NodeLabel>Spine Fore</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="SpineMid">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="0.0" y="100.0"/><y:NodeLabel>Spine Mid</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="Atrium">
+      <data key="d6"><y:ShapeNode><y:Geometry height="60.0" width="140.0" x="0.0" y="0.0"/><y:NodeLabel>Central Atrium</y:NodeLabel><y:Fill color="#FFCC00"/></y:ShapeNode></data>
+    </node>
+
+    <node id="CargoBay">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="100.0" y="100.0"/><y:NodeLabel>Cargo Bay (DOWN)</y:NodeLabel><y:Fill color="#C0C0C0"/></y:ShapeNode></data>
+    </node>
+
+    <node id="MessHall">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="200.0" y="0.0"/><y:NodeLabel>Mess Hall</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="CrewQuarters">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="350.0" y="0.0"/><y:NodeLabel>Crew Quarters</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="MedicalBay">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="350.0" y="100.0"/><y:NodeLabel>Medical Bay</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="SecurityCheck">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="120.0" x="-200.0" y="0.0"/><y:NodeLabel>Security Checkpoint</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="Brig">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="-200.0" y="-100.0"/><y:NodeLabel>Security Brig</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="OpsCenter">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="-350.0" y="0.0"/><y:NodeLabel>Ops Center</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="CommsRelay">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="-350.0" y="100.0"/><y:NodeLabel>Comms Relay</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="ServerRoom">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="-350.0" y="-100.0"/><y:NodeLabel>Server Room</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="ServerFarm">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="-450.0" y="100.0"/><y:NodeLabel>Server Farm</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <node id="Bridge">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="0.0" y="-150.0"/><y:NodeLabel>The Bridge</y:NodeLabel><y:Fill color="#FF99CC"/></y:ShapeNode></data>
+    </node>
+
+    <node id="Airlock">
+      <data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="100.0" x="0.0" y="-250.0"/><y:NodeLabel>Escape Pod Airlock</y:NodeLabel></y:ShapeNode></data>
+    </node>
+
+    <edge source="CryoBay" target="Corridor"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="Corridor" target="ReactorRoom"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>W</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="Corridor" target="Engineering"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="Corridor" target="SpineFore"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N (Bulkhead)</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SpineFore" target="SpineMid"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SpineMid" target="Atrium"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    
+    <edge source="Atrium" target="CargoBay"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>DN (45 deg SE)</y:EdgeLabel><y:Arrows source="none" target="standard"/></y:PolyLineEdge></data></edge>
+    <edge source="Atrium" target="MessHall"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="MessHall" target="CrewQuarters"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="CrewQuarters" target="MedicalBay"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>S</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    
+    <edge source="Atrium" target="SecurityCheck"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>W</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SecurityCheck" target="Brig"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SecurityCheck" target="OpsCenter"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>W</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="OpsCenter" target="CommsRelay"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>S</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="OpsCenter" target="ServerRoom"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="OpsCenter" target="ServerFarm"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>S/W</y:EdgeLabel></y:PolyLineEdge></data></edge>
+
+    <edge source="Atrium" target="Bridge"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="Bridge" target="Airlock"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+
+  </graph>
+</graphml>

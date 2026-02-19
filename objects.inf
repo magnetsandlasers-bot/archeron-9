@@ -9,6 +9,13 @@ Class AlienRoom with short_name [;
     rfalse;
 ], has light;
 
+Class ServerFarm with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], has light;
+
 Class Cylinder;
 
 Object PlayerCryoTube "open cryo tube"
