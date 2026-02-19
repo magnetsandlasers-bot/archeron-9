@@ -22,16 +22,32 @@ Object PlayerCryoTube "open cryo tube"
   with name 'open' 'cryo' 'tube' 'pod' 'glass',
        description [;
            print "This is the tube you woke up in. The bio-monitor display reads: ";
-                           Translate("DOMN 009 KRZSHDOSH: VZRAK", "SUBJECT 009 STATUS: REVIVED");
+                           Translate("DOMN 009 KRZSHDOSH: NESTAV", "SUBJECT 009 STATUS: DEFECTIVE");
 
            print "^";
            return true;
        ],
        has static scenery;
-Object ClosedCryoTubes "rows of cryo tubes"
-  with name 'rows' 'tubes' 'pods' 'closed' 'sealed',
-       description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. They appear sealed and dormant, their interiors empty and cold.",
-       has static scenery;
+
+Object EmptyCryoTubes "rows of cryo tubes"
+     with name 'rows' 'tubes' 'pods' 'open' 'empty' 'vacant',
+          description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. Most are open and vacant, their interiors empty and cold. One near you appears occupied.",
+          has static scenery;
+
+Object OccupiedTube "occupied cryo tube"
+     with name 'occupied' 'tube' 'pod' 'closed' 'sealed',
+          description [;
+          print "You see the silhouette of a misshapen figure slumped in the tube. The bio-monitor display reads: ";
+                         Translate("DOMN 012 KRZSHDOSH: NESTAV. ", "SUBJECT 012 STATUS: DEFECTIVE. ");
+          print "^";
+          return true;
+     ],
+     before [;
+               Open:
+                    "The heavy seals are fused shut; no amount of prying will budge them. Probably for the best.";
+          ],
+          has static scenery;
+
 
 Object HighTechJumpsuit "high-tech jumpsuit"
   with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
