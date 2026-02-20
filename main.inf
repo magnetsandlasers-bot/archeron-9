@@ -17,6 +17,9 @@ Include "verblib";
 Include "dev.inf";
 Include "routines.inf";
 
+! The Classes
+Include "classes.inf";
+
 ! The Objects
 Include "objects.inf";
 

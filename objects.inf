@@ -1,36 +1,18 @@
-! ==============================================================================
 ! Objects
 ! ==============================================================================
-
-Class AlienRoom with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
-        print (string) self.zh_name; rtrue;
-    }
-    rfalse;
-], has light;
-
-Class ServerFarm with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
-        print (string) self.zh_name; rtrue;
-    }
-    rfalse;
-], has light;
-
-Class Cylinder;
 
 Object PlayerCryoTube "open cryo tube"
   with name 'open' 'cryo' 'tube' 'pod' 'glass',
        description [;
            print "This is the tube you woke up in. The bio-monitor display reads: ";
                            Translate("DOMN 009 KRZSHDOSH: NESTAV", "SUBJECT 009 STATUS: DEFECTIVE");
-
            print "^";
            return true;
        ],
        has static scenery;
 
 Object EmptyCryoTubes "rows of cryo tubes"
-     with name 'rows' 'tubes' 'pods' 'open' 'empty' 'vacant',
+     with name 'bank' 'rows' 'pods' 'open' 'empty' 'vacant',
           description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. Most are open and vacant, their interiors empty and cold. One near you is closed, and appears occupied.",
           has static scenery;
 
