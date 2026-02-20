@@ -1,35 +1,54 @@
 ! Objects
 ! ==============================================================================
 
-Object PlayerCryoTube "open cryo tube"
-  with name 'open' 'cryo' 'tube' 'pod' 'glass',
+Object PlayerCryoTube "one you came out of"
+  with name 'open' 'cryo' 'tube' 'pod' 'glass' 'one' 'empty',
        description [;
-           print "This is the tube you woke up in. The bio-monitor display reads: ";
-                           Translate("DOMN 009 KRZSHDOSH: NESTAV", "SUBJECT 009 STATUS: DEFECTIVE");
-           print "^";
+           print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
+           Translate("DOMN 009 KRZSHDOSH: NESTAV", "SUBJECT 009 STATUS: DEFECTIVE");
+           new_line;
+           if (self hasnt open) "The heavy glass lid is now permanently sealed.";
            return true;
        ],
-       has static scenery;
+       door_to TubeInterior,  ! Points to the room below
+       door_dir in_to,        ! Allows "ENTER TUBE" or "IN"
+       before [;
+           Close:
+               if (self has open) {
+                   give self ~open;
+                   "You pull the glass lid shut. With a hiss of hydraulics and a final, heavy 'clunk,' the seals lock permanently. You won't be getting back in there.";
+               }
+           Open:
+               if (self hasnt open) "The locking mechanism has engaged fully; it's sealed for good.";
+       ],
+       has static scenery door open; ! Kept everything, just swapped 'container' for 'door'
 
-Object EmptyCryoTubes "rows of cryo tubes"
-     with name 'bank' 'rows' 'pods' 'open' 'empty' 'vacant',
-          description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. Most are open and vacant, their interiors empty and cold. One near you is closed, and appears occupied.",
-          has static scenery;
-
-Object OccupiedTube "occupied cryo tube"
-     with name 'occupied' 'tube' 'pod' 'closed' 'sealed',
-          description [;
-          print "You see the silhouette of a misshapen figure slumped in the tube. The bio-monitor display reads: ";
-                         Translate("DOMN 012 KRZSHDOSH: NESTAV. ", "SUBJECT 012 STATUS: DEFECTIVE. ");
-          print "^";
-          return true;
-     ],
-     before [;
-               Open:
-                    "The heavy seals are fused shut; no amount of prying will budge them. Probably for the best.";
+Object EmptyCryoTubes "bank of cryo tubes"
+     with name 'bank' 'row' 'tubes' 'pods' 'open' 'empty' 'vacant',
+          description "A row of closed upright sarcophagi with frosted glass lids. Most are vacant. One near you appears occupied.",
+          before [;
+              Open:
+                  "The heavy seals are fused shut; no amount of prying will budge them.";
+              Close:
+                  "They are already sealed tight.";
           ],
           has static scenery;
 
+Object OccupiedTube "occupied cryo tube"
+     with name 'occupied' 'tube' 'pod' 'closed' 'glass' 'sealed',
+          description [;
+              print "You see the silhouette of a misshapen figure slumped in the sealed tube. The bio-monitor display reads: ",
+              Translate("DOMN 012 KRZSHDOSH: NESTAV. ", "SUBJECT 012 STATUS: DEFECTIVE. ");
+              new_line;
+              return true;
+          ],
+          before [;
+              Open:
+                  "The heavy seals are fused shut; no amount of prying will budge them. Probably for the best.";
+              Close:
+                  "It is already sealed tight.";
+          ],
+          has static scenery container ~open;
 
 Object HighTechJumpsuit "high-tech jumpsuit"
   with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,

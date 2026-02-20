@@ -4,7 +4,7 @@
 AlienRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
        description [;
-           print "The air is freezing here, stinging your exposed skin. There is a bank of empty, frosted glass tubes on the East wall. Most of them are open, like yours. The only exit is a door leading North.";
+           print "The air is freezing here, stinging your exposed skin. There is a bank of empty, frosted glass tubes on the East wall. Most of them are open, like the one you just stepped out of. The only exit is a door leading North.";
            new_line;
            if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
                print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.^";
@@ -12,6 +12,23 @@ AlienRoom CryoBay "Cryo Bay"
            return true;
         ],
         n_to Corridor;
+
+AlienRoom TubeInterior "Inside the Cryo Tube"
+    with description "It is cramped and smelly in here, but at least it's warm.",
+        after [;
+            give PlayerCryoTube ~open; ! The door slams shut behind them
+            print "^Suddenly, the glass lid slides shut with 
+                  the speed of a guillotine. The bolts engage with a sickening thud.^^";
+            print "The lights go red and the floor 
+                  vents hiss. You hear a strangely calm voice intone ",
+            Translate("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
+            print "Before you can even scream, jets of white-hot 
+                  plasma erupt from the wall-ports, turning the tube into 
+                  a high-pressure incinerator.^^";
+           deadflag = 1;
+           return true;
+       ],
+  has light;
 ! ==============================================================================
 AlienRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
