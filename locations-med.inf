@@ -20,9 +20,7 @@ AlienRoom MedicalBay "Medical Bay"
            Go:
                if (medical_wing_powered == 0) {
                    print "You stumble in the darkness. It's too dangerous to navigate without light. You need to restore power to this section.^";
-                   return true;
                }
-               rfalse;
        ],
        n_to CrewQuarters;
 ! ==============================================================================
