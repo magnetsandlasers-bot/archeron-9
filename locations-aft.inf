@@ -4,12 +4,11 @@
 AlienRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
        description [;
-           print "The air is freezing here, stinging your exposed skin. Rows of epmpty, frosted glass tubes line the walls. They appear sealed and dormant.";
+           print "The air is freezing here, stinging your exposed skin. There is a bank of empty, frosted glass tubes on the East wall. Most of them are open, like yours. The only exit is a door leading North.";
            new_line;
            if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
-               print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.";
+               print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.^";
            }
-           print " The only exit is a doorway leading North.^";
            return true;
         ],
         n_to Corridor;

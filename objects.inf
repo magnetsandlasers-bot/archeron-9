@@ -31,7 +31,7 @@ Object PlayerCryoTube "open cryo tube"
 
 Object EmptyCryoTubes "rows of cryo tubes"
      with name 'rows' 'tubes' 'pods' 'open' 'empty' 'vacant',
-          description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. Most are open and vacant, their interiors empty and cold. One near you appears occupied.",
+          description "Rows of frosted glass tubes line the walls, glowing with a faint, rhythmic pulse. Most are open and vacant, their interiors empty and cold. One near you is closed, and appears occupied.",
           has static scenery;
 
 Object OccupiedTube "occupied cryo tube"
