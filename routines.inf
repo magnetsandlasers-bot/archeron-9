@@ -93,7 +93,10 @@
 ! DAEMONS & SYSTEMS
 ! ==============================================================================
 [ ZerakthynAtmosphere r;
-    ! Only run the atmosphere logic if power has been restored
+    ! 1. Do not run if the player is in the Brig
+    if (location == Brig) return;
+
+    ! 2. Only run the atmosphere logic if power has been restored
     if (power_restored == 1) { 
         if (random(10) == 1) {
             r = random(5);
@@ -102,17 +105,21 @@
             new_line;
             style underline;
             if (audio_codec_active == 1) {
-                if (r == 1) print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.";
-                if (r == 2) print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.";
-                if (r == 3) print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.";
-                if (r == 4) print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.";
-                if (r == 5) print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.";
+                switch(r) {
+                    1: print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.";
+                    2: print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.";
+                    3: print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.";
+                    4: print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.";
+                    5: print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.";
+                }
             } else {
-                if (r == 1) print "~KRZHDAR JADROZ... VZDYK... VZDYK.";
-                if (r == 2) print "~POHYB STAVR... SCERNOSH ZRAAV.";
-                if (r == 3) print "~SMRNK DRAZK... VESKRACH KRZHD.";
-                if (r == 4) print "~JADROZ POHYB... VZDRAK TSKOR.";
-                if (r == 5) print "~STYRZOSH KRZHD... DRAZKARY.";
+                switch(r) {
+                    1: print "~KRZHDAR JADROZ... VZDYK... VZDYK.";
+                    2: print "~POHYB STAVR... SCERNOSH ZRAAV.";
+                    3: print "~SMRNK DRAZK... VESKRACH KRZHD.";
+                    4: print "~JADROZ POHYB... VZDRAK TSKOR.";
+                    5: print "~STYRZOSH KRZHD... DRAZKARY.";
+                }
             }
             style roman;
             new_line;
@@ -125,14 +132,23 @@
 
     ! --- 1. Interaction Logic (Is it in the same room?) ---
     if (parent(SecurityDrone) == location) {
-        if (drone_alert == 1) {
+if (drone_alert == 1) {
             print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^^";
-            new_line;
             style bold;
-            print "     *** You have... NOT died ***^^^";
+            print "     *** You have... NOT died ***^";
             style roman;
-            new_line;
-            print "But the way your head feels, you wish you had. You force your eyelids open against the glare of the blindingly white room.^";
+
+            ! 1. Wait for the player to acknowledge the "death"
+            print "^[MORE]^";
+            @read_char 1 -> next_room; 
+
+            ! 2. Clear the screen for the "transition"
+            @erase_window -1; 
+            @set_cursor 1 1; ! Move cursor to the top-left of the fresh screen
+
+            ! 3. Narrative transition and move
+            print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of the blindingly white room.^";
+            
             PlayerTo(Brig);
             drone_alert = 0;
             player_hidden = 0;
