@@ -120,15 +120,20 @@
     }
 ];
 
-[ DroneDaemon dir next_room adjacent;
-    if (drone_active == 0) return;
-    if (power_restored == 0) return;
-    
-    ! --- Drone Movement Logic ---
+[ DroneDaemon dir next_room;
+    if (drone_active == 0 || power_restored == 0) return;
+
+    ! --- 1. Interaction Logic (Is it in the same room?) ---
     if (parent(SecurityDrone) == location) {
         if (drone_alert == 1) {
-            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up in agony.^...^You wake up dragged back to the Security Checkpoint.^";
-            PlayerTo(SecurityCheck);
+            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^";
+            new_line;
+            style bold;
+            print "     *** You have... NOT died ***";
+            style roman;
+            new_line;
+            print "But the way your head feels, you wish you had. You force your eyelids open against the glare of the blindingly white room.";
+            PlayerTo(Brig);
             drone_alert = 0;
             player_hidden = 0;
             return;
@@ -138,63 +143,39 @@
             drone_alert = 1;
             return;
         } else {
-            print "^The security drone hovers past. Its finely-tuned sensors fail to pick up your signature. You allow yourself a little sigh of relief as you watch it turn a corner.^";
+            print "^The security drone hovers past, its sensors failing to pick you up.^";
         }
     }
-    
+
+    ! --- 2. Algorithmic Movement ---
     drone_alert = 0;
-    dir = random(4);
-    next_room = nothing;
+    dir = random(6); ! Randomly pick N, S, E, W, U, or D
     
-    ! Simple adjacency map for drone movement
-    if (parent(SecurityDrone) == Atrium) {
-        if (dir == 3) next_room = MessHall;
-        if (dir == 4) next_room = SecurityCheck;
+    switch(dir) {
+        1: next_room = (parent(SecurityDrone)).n_to;
+        2: next_room = (parent(SecurityDrone)).s_to;
+        3: next_room = (parent(SecurityDrone)).e_to;
+        4: next_room = (parent(SecurityDrone)).w_to;
+        5: next_room = (parent(SecurityDrone)).u_to;
+        6: next_room = (parent(SecurityDrone)).d_to;
     }
-    else if (parent(SecurityDrone) == MessHall) {
-        if (dir == 4) next_room = Atrium;
-        if (dir == 3) next_room = CrewQuarters;
+
+    ! Safety Check: Only move if next_room is an actual Room Object
+    if (metaclass(next_room) == Object && next_room ~= 0) {
+        move SecurityDrone to next_room;
     }
-    else if (parent(SecurityDrone) == CrewQuarters) {
-        if (dir == 4) next_room = MessHall;
-        if (dir == 2) next_room = MedicalBay;
-    }
-    else if (parent(SecurityDrone) == MedicalBay) {
-        if (dir == 1) next_room = CrewQuarters;
-    }
-    else if (parent(SecurityDrone) == SecurityCheck) {
-        if (dir == 3) next_room = Atrium;
-        if (dir == 4) next_room = OpsCenter;
-    }
-    else if (parent(SecurityDrone) == OpsCenter) {
-        if (dir == 3) next_room = SecurityCheck;
-        if (dir == 1) next_room = ServerFarm;
-    }
-    else if (parent(SecurityDrone) == ServerFarm) {
-        if (dir == 2) next_room = OpsCenter;
-    }
-    
-    if (next_room ~= nothing) move SecurityDrone to next_room;
-    
-    ! --- Proximity Alerts ---
+
+    ! --- 3. Automatic Proximity Alert ---
     if (parent(SecurityDrone) == location) {
         print "^(WARNING: A Security Drone floats into the room!)^";
-        if (audio_codec_active) print "^ARPI (Headset): 'Hold still! Don't let it pick up your heartbeat! **Freeze** or **Hide**!'^";
-        else print "^**THERMAL SCAN DETECTED. FREEZE OR HIDE.**^";
     } else {
-        adjacent = 0;
-        if ( (location == Atrium && (parent(SecurityDrone)==MessHall || parent(SecurityDrone)==SecurityCheck)) ||
-             (location == MessHall && (parent(SecurityDrone)==Atrium || parent(SecurityDrone)==CrewQuarters)) ||
-             (location == SecurityCheck && (parent(SecurityDrone)==Atrium || parent(SecurityDrone)==OpsCenter)) )
-             adjacent = 1;
-        if (adjacent) {
-             print "^(PROXIMITY ALERT)^";
-             if (audio_codec_active) print "^ARPI (Headset): 'Hostile nearby. Keep your head down.'^";
-             else print "^The heavy hum of an anti-grav engine vibrates nearby. Suggestion: **Freeze** or **Hide**.^";
+        ! Check if the drone is in any room connected to the player's location
+        if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
+            parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
+            print "^(PROXIMITY ALERT: You hear the low hum of an engine nearby.)^";
         }
     }
 ];
-
 [ TimePasses;
     turn_count++;
     DroneDaemon();
@@ -299,7 +280,9 @@
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
     move OperatingTable to MedicalBay;
-    
+    move SecurityDrone to Atrium; 
+    ! Start Drone
+    StartDaemon(SecurityDrone);   
     ! --- Intro Sequence ---
     @erase_window $ffff;
     new_line;
