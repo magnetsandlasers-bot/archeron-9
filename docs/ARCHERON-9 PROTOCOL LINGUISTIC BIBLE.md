@@ -1,108 +1,138 @@
-ZERAKTHYN LINGUISTIC BIBLE (REV. 4.0)
+# **ZERAKTHYN LINGUISTIC BIBLE (REV. 12.0)**
 
-Dialect: ZERAKTHYN (Machine Governance)
+**Dialect:** ZERAKTHYN (Machine Governance & Common Usage)
 
-I. LINGUISTIC FOUNDATION
+# **I. LINGUISTIC FOUNDATION**
 
-1.1 Design Purpose
+## **1.1 Design Purpose**
 
-ZERAKTHYN is the codified machine-administrative language used by ARCHERON-class stations and associated vessels. It is a language of authority, precision, and state-reporting. It eschews emotional nuance for objective "State-of-Being" declarations.
+ZERAKTHYN (Rev 12.0) is a closed-loop linguistic system with zero external lexical influence. It is designed for absolute administrative precision while allowing for a "Slavic-Machine" conversational mode. It utilizes Sentence Case for all communication, with the strict rule that **all Nouns are Capitalized**, regardless of their position in the sentence.
 
-1.2 Phonological Constraints
+## **1.2 Phonetics & Aesthetic**
 
-Consonant Inventory: Z, S, C, J, R, K, T, D, G, V, B, M, N, L, P, H, Y, F
+The language favors heavy consonant clusters and palatalized sounds, giving it a distinct Eastern European "vibe."
 
-Preferred Clusters: ZR, TSK, VZ, KR, DR, SC, ST, PR, TL, ZG
+* **Consonants:** Z, S, C, J, R, K, T, D, G, V, B, M, N, L, P, H, Y, F  
+* **Digraphs (Common):** Sz, Cz, Rz, Dz, Sk, Vsk, Tr, Pl  
+* **Vowels:** A, E, I, O, U, Y (Authority: AA, EE, II, OO, UU)
 
-Vowel Sets: A, E, I, O, U, Y (Authority extensions: AA, EE, II, OO, UU)
+# **II. GRAMMAR & STRUCTURE**
 
-Compressed Vowel: O', U' (Used for absolute or finalized states)
+## **2.1 Sentence Structure**
 
-ZERAKTHYN MASTER GLOSSARY (REV. 6.0)
-Format: English Term — Zerakthyn Equivalent
+* **Administrative:** ACTION – STATUS – NOUN (e.g., *Zraavek Tskor Domn*)  
+* **Conversational:** ARTICLE – NOUN – ACTION – (MODIFIER) (e.g., *I Domn Zraavak*)
 
-I. PRIMARY SHIP LOCATIONS
-AI Core — JADROZ KLYST
+## **2.2 Noun Capitalization**
 
-Cargo Bay — ULMK JADROZ
+Like German, every Noun is capitalized. Verbs, adjectives, particles, and suffixes remain in lowercase unless starting a sentence.
 
-Central Atrium — JADROZ POHYB
+## **2.3 Short Parts of Speech (Particles & Articles)**
 
-Central Column — JADROZ STAVR
+Zerakthyn uses short, single-vowel or CV particles to define relationships and specificity:
 
-Comms Relay — PARYN VZRAC
+1. **Articles (Specificity):**  
+   * **i** (The/This): Denotes a specific, known Noun. (*i Jadroz*)  
+   * **y** (A/Some): Denotes a general or unknown Noun. (*y Veskr*)  
+2. **Relational Particles:**  
+   * **na** (On/At/Upon): Spatial or temporal position.  
+   * **vo** (In/Inside): Internal containment.  
+   * **za** (For/To): Purpose or destination.  
+   * **po** (With/By): Instrumental or accompanying.
 
-Crew Quarters — CERNYV JADROZ
+## **2.4 Internal States (vsk)**
 
-Cryo Bay — VESKR DRAZK
+To express "feeling" or internal sensor data, Zerakthyn uses the **vsk** suffix.
 
-Engineering Room — KRZHD JADROZ
+* **vsk** (Internalized state/Feeling):  
+  * *Krzhdvsk* — To feel powerful/energetic.  
+  * *Tlkzvsk* — To feel stressed/pressured.
 
-Escape Pod Airlock — KAPS ZRAAV
+## **2.5 Conversational Shortcuts**
 
-Machinery Chamber — POHYB JADROZ
+1. **ak (Broken/No):** Modification of *Tskor*. (e.g., *Stavrak* \- broken body).  
+2. **uzh (Good/Active):** Modification of *Krzhd*. (e.g., *Styrzuzh* \- valid ID).  
+3. **vaz (Honorific):** Respectful address.  
+4. **ka (Locative):** Physical location (e.g., *Jadrozka* \- at the Core).
 
-Medical Bay — VESKR STAVR
+# **III. CORE ROOT MATRIX**
 
-Mess Hall — CERNYV POHYB
+* **Zraav** — Access / Entry  
+* **Krzhd** — Energy / Power / Life  
+* **Drazk** — Isolation / Quiet  
+* **Veskr** — Biological / Meat  
+* **Cernyv** — Personnel / Us  
+* **Scern** — Erasure / Death  
+* **Styrz** — Identity / Name  
+* **Vzdyk** — Alert / Warning  
+* **Zamer** — Lock / Seal  
+* **Jadroz** — Core / Heart  
+* **Tlkz** — Pressure / Stress  
+* **Prskv** — Breach / Leak  
+* **Zgrt** — Failed / Trash  
+* **Ulmk** — Fragment / Bit  
+* **Smrnk** — Trajectory / Path  
+* **Nadkrz** — Overload  
+* **Vzrac** — Surveillance / Sight  
+* **Stavr** — Structural Integrity / Body  
+* **Pohyb** — Movement / Flow  
+* **Domn** — Subject / Asset / That  
+* **Tskor** — Denial / No  
+* **Dronz** — Drone  
+* **Majstrz** — Workshop
 
-Ops Center — VZRAC JADROZ
+# **IV. CONVERSATIONAL COLLOQUIALISMS & SLANG**
 
-Security Brig — DOMN DRAZK
+* **Zgrtulmk**: "Trash-bit." An insult.  
+* **Vzvz**: Sarcastic mimicry of Authority.  
+* **Scernpohyb**: "Death-flow." A suicide mission.  
+* **Jadrozuzh?**: "Is your Core powered?" (Greeting).  
+* **Veskrzamer**: "Meat-lock." Sleep or fainting.  
+* **Zraavstak**: "Entry-glitch." Confusion.  
+* **Stavrszern**: "Body-rust." Old or slow.
 
-Security Checkpoint — STYRZ ZRAAV
+# **V. EXAMPLES BY REGISTER**
 
-Server Farm — JADROZ PARYN
+### **Administrative (The Machine)**
 
-Server Room — PARYN JADROZ
+Zraavek Tskor Domn. Veskrach Domn Nadkrz Stavr.
 
-The Bridge — JADROZ
+### **Conversational (Common)**
 
-The Spine — STAVR SMRNK
+i Domnak Zraav vo i Majstrz. I Tlkzvsk na i Smrnk. (The specific subject's access is broken in the workshop. I feel pressure on the path.)
 
-The Spine (Fore) — STAVR SMRNK JADR
+# **APPENDIX: MASTER GLOSSARY (A-Z)**
 
-The Spine (Mid) — STAVR SMRNK POHYB
-
-II. DOORS, BARRIERS & BULKHEADS
-Blast Door — SCERN ZAMER
-
-Bulkhead — STAVR ZAMER
-
-Open Cryo Tube — VESKR DRAZK ZRAAV
-
-Reinforced Door — NADKRZ ZAMER
-
-Rows of Cryo Tubes — VESKR DRAZK YN
-
-Security Door — STYRZ ZAMER
-
-III. HARDWARE & INTERFACES
-AI Core / Mainframe — JADROZ KLYST
-
-Control Station — JADROZ NIK
-
-Data Slot — PARYN ZRAAV
-
-Data Terminal — PARYN NIK
-
-Diagnostic Console — VZRAC NIK
-
-Exit Button — VNEJ ZRAAV NIK
-
-Heavy Iron Lever — TLKZ POHYB NIK
-
-Main Terminal — JADROZ PARYN NIK
-
-Operating Table — VESKR SCERN NIK
-
-Recall Terminal — SMRNK NIK
-
-Wall Mechanism — STAVR POHYB NIK
-
-IV. OBJECTS & ASSETS
-Central Column — JADROZ STAVR
-
-Desiccated Corpse — VESKR ZGRT
-
-Metal Shelf — STAVR ULMK
+| English Concept | Zerakthyn Equivalent |
+| ----- | ----- |
+| A / Some (Article) | y |
+| Access | Zraavek |
+| Active/Working | Krzhduzh |
+| Alert | Vzdyk |
+| At / On | na |
+| Authorized | Cernyv |
+| Body | Stavr |
+| Breach | Prskv |
+| Broken/Denied | Tskor (or ak) |
+| Core | Jadroz |
+| Crew | Cernyv |
+| Drone | Dronz |
+| Energy/Power | Krzhd |
+| Failed | Zgrt |
+| Feeling | vsk |
+| For / To | za |
+| Heart | Jadroz |
+| Identity | Styrz |
+| In / Inside | vo |
+| Isolation | Drazk |
+| Meat (Biological) | Veskr |
+| Movement | Pohyb |
+| No / Not | ne (or ak) |
+| Pressure | Tlkz |
+| Reactor | Krzhdar |
+| Stress (feeling) | Tlkzvsk |
+| Subject | Domn |
+| The / This (Article) | i |
+| Warning | Vzdyk |
+| With / By | po |
+| Workshop | Majstrz |

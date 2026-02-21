@@ -126,13 +126,13 @@
     ! --- 1. Interaction Logic (Is it in the same room?) ---
     if (parent(SecurityDrone) == location) {
         if (drone_alert == 1) {
-            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^";
+            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^^";
             new_line;
             style bold;
-            print "     *** You have... NOT died ***";
+            print "     *** You have... NOT died ***^^^";
             style roman;
             new_line;
-            print "But the way your head feels, you wish you had. You force your eyelids open against the glare of the blindingly white room.";
+            print "But the way your head feels, you wish you had. You force your eyelids open against the glare of the blindingly white room.^";
             PlayerTo(Brig);
             drone_alert = 0;
             player_hidden = 0;
@@ -147,9 +147,9 @@
         }
     }
 
-    ! --- 2. Algorithmic Movement ---
+! --- Algorithmic Movement (Light-Sensitive & Server-Averse) ---
     drone_alert = 0;
-    dir = random(6); ! Randomly pick N, S, E, W, U, or D
+    dir = random(6); 
     
     switch(dir) {
         1: next_room = (parent(SecurityDrone)).n_to;
@@ -160,11 +160,12 @@
         6: next_room = (parent(SecurityDrone)).d_to;
     }
 
-    ! Safety Check: Only move if next_room is an actual Room Object
+! Check: Valid object? Has light? Not the specific object? Not the class?
     if (metaclass(next_room) == Object && next_room ~= 0) {
-        move SecurityDrone to next_room;
+        if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm)) {
+            move SecurityDrone to next_room;
+        }
     }
-
     ! --- 3. Automatic Proximity Alert ---
     if (parent(SecurityDrone) == location) {
         print "^(WARNING: A Security Drone floats into the room!)^";
