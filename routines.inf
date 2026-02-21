@@ -118,7 +118,7 @@
             new_line;
         }
     }
-];warp
+];
 
 [ DroneDaemon dir next_room adjacent;
     if (drone_active == 0) return;
