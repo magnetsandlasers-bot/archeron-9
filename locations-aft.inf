@@ -12,19 +12,14 @@ AlienRoom CryoBay "Cryo Bay"
            return true;
         ],
         n_to Corridor;
-
 AlienRoom TubeInterior "Inside the Cryo Tube"
     with description "It is cramped and smelly in here, but at least it's warm.",
         after [;
             give PlayerCryoTube ~open; ! The door slams shut behind them
-            print "^Suddenly, the glass lid slides shut with 
-                  the speed of a guillotine. The bolts engage with a sickening thud.^^";
-            print "The lights go red and the floor 
-                  vents hiss. You hear a strangely calm voice intone ",
-            Translate("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
-            print "Before you can even scream, jets of white-hot 
-                  plasma erupt from the wall-ports, turning the tube into 
-                  a high-pressure incinerator.^^";
+            print "^Suddenly, the glass lid slides shut with the speed of a guillotine. The bolts engage with a sickening thud.^^";
+            print "The lights go red and the floor vents hiss. You hear a strangely calm voice intones ",
+                Translate("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
+            print "Before you can even scream, jets of white-hot plasma erupt from the wall-ports, turning the tube into a high-pressure incinerator and you into a pile of dust.^^";
            deadflag = 1;
            return true;
        ],
@@ -206,8 +201,9 @@ Object -> BatteryShelf "metal shelf"
        ],
        before [;
            Receive:
-               if (noun ~= Cylinder) {
-                   "That doesn't look like it belongs on the metal shelf.";
+                if (noun ~= Battery2 && noun ~= Battery3 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
+                    print "That doesn't look like it belongs on the metal shelf.^";
+                   return true;
                }
                move noun to self;
                "You slide ", (the) noun, " back onto the bottom shelf.";

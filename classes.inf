@@ -12,4 +12,4 @@ Class ServerFarm with short_name [;
     rfalse;
 ], has light;
 
-Class Cylinder;
+! Class Cylinder;

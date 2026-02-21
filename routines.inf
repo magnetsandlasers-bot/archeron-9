@@ -15,6 +15,18 @@
     return k;
 ];
 
+[ ChooseObjects obj code;
+    ! If the parser is confused between multiple 'tubes'
+    if (code == 2) { 
+        ! If the player is trying to 'ENTER' or 'GO IN'
+        if (action_to_be == ##Enter or ##Go) {
+            if (obj == PlayerCryoTube) return 3; ! 3 = "Pick this one"
+            if (obj == OccupiedTube or EmptyCryoTubes) return 2; ! 2 = "Don't pick this"
+        }
+    }
+    return 0; ! Otherwise, let the parser ask "Which do you mean?"
+];
+
 ! ==============================================================================
 ! HUD & AUDIO INTERFACE
 ! ==============================================================================
