@@ -30,6 +30,10 @@ Global bulkhead_passed = 0;
 Global battery_count = 0;
 Global medical_wing_powered = 0;
 
+!Global last_location;
+![ AfterPrompt;
+!    last_location = location;
+!];
 ! ==============================================================================
 ! ZERAKTHYN SYSTEM CLASSES
 ! ==============================================================================

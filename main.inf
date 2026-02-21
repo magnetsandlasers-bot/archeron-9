@@ -1,37 +1,28 @@
 Constant Story "Archeron-9";
 Constant Headline "^An Interactive Sci-Fi Mystery^";
 
-! Replace directives MUST come first
+! 1. Directives and Globals FIRST
 Replace PrintLocation;
-
-! Basic Constants and Global variables
 Include "constants.inf"; 
+Global last_location; ! Ensure this is here if you still use it
 
-! The Parser (Essential foundations)
+! 2. THE LIBRARIES (These define 'location')
 Include "parser";      
-
-! The Library Logic (Defines location, noun, etc.)
 Include "verblib";
 
-! Logic and dev tools
+! 3. YOUR LOGIC & CLASSES
 Include "dev.inf";
 Include "routines.inf";
-
-! The Classes
 Include "classes.inf";
 
-! The Objects
+! 4. THE MAP (Now 'location' is safely defined for these files)
 Include "objects.inf";
-
-! The Map
 Include "locations-aft.inf";
 Include "locations-bridge.inf";
 Include "locations-cargo.inf";  
 Include "locations-med.inf";  
 Include "locations-tech.inf";
 
-! Grammar library
+! 5. GRAMMAR LAST
 Include "grammar"; 
-
-! Custom Grammar (Your specific verb additions)
 Include "grammar.inf";
