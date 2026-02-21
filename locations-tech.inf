@@ -153,15 +153,39 @@ Object -> TerminalSlot "data slot"
        ],
        has static container open scenery;
 
-! --- NEW ROOM: Brig ---
 AlienRoom Brig "Security Brig"
   with zh_name "ZAMER DRAZK",
+       timer_count 0, ! Our own variable to track time
        description [;
            print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is South, through a thick door.^";
            return true;
        ],
-       s_to BrigDoor;
-
+       s_to BrigDoor,
+       after [;
+            if (arpi_active == 0) {
+                arpi_active = 1;
+                self.timer_count = 3; ! Set our own counter
+                StartDaemon(self);    ! Use a Daemon instead of a Timer
+                new_line;
+                print "A crackle of static erupts from the door's intercom...^";
+                style underline;
+                new_line;
+                Translate("Smrnk ne zraav y Stavrszern. Zraavek za y Veskr zraav y Tlkzvsk na Jadroz. Krzhd ne po Domn. Domn ne zraavek Vzrac, ak?", "Please don't make this a habit, getting you out of here is taking a computational toll, and I'm not sure you have much time left. You probably can't understand me anyway, can you?");
+                new_line;
+            }
+        ],
+        daemon [;
+            if (self.timer_count > 0) {
+                self.timer_count--;
+                if (self.timer_count == 0) {
+                    StopDaemon(self);
+                    give BrigDoor ~locked;
+                    new_line;
+                    print "With a heavy clunk and a hiss of pneumatics, the reinforced door's locking bolts retract. The status light on the intercom shifts from red to a dull green.^";
+                }
+            }
+        ];
+            
 ! --- NEW DOOR: BrigDoor ---
 Object BrigDoor "reinforced door"
   with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
@@ -171,7 +195,7 @@ Object BrigDoor "reinforced door"
                 if (power_restored == 0) print " The panel is dark and unresponsive.";
                 else { print " The panel reads: "; PrintVisual("DRAZKOSH ZAMEROSH"); }
             } else { ! From inside the Brig
-                print "The inner face of the door is smooth, unyielding metal with no visible controls or seams.";
+                print "The inner face of the door is smooth, unyielding metal with no visible controls. There is a loudspeaker in the middle of door at eye level.";
             }
             print "^"; return true;
        ],

@@ -17,41 +17,12 @@ Object BridgeDoor "blast door"
 AlienRoom Bridge "The Bridge"
   with zh_name "VZDRAK SMRNK",
        description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",
-       s_to Atrium, n_to Airlock;
-Object -> Mainframe "mainframe"
-  with name 'mainframe' 'server' 'bank' 'computer', description "A massive computer bank. A heavy 'AI Core' drive is slotted into the center.", has static scenery;
-Object -> ARPICore "AI Core"
-  with name 'core' 'drive' 'unit' 'box' 'arpi' 'ai', bulk BULK_HEAVY,
-       description "A heavy, rectangular drive containing ARPI's consciousness.",
-       before [;
-            Take:
-                if (audio_codec_active == 0) { print "You don't understand the function of this hardware yet.^"; rtrue; }
-                print "You grip the heavy core. ARPI (Headset): 'Do it, 9! Pull me out! We're leaving this graveyard!'^You yank the drive free. Sparks fly!^";
-                arpi_downloaded = 1; remove self;
-                rtrue;
-       ];
+       s_to Atrium;
 
-AlienRoom Airlock "Escape Pod Airlock"
-  with zh_name "ZAMER SMRNK",
-       description "The final airlock. The Escape Pod is prepped for launch. The exit is South.", s_to Bridge,
-       before [;
-            Go:
-               if (noun == n_to) {
-                   print "You stumble into the pod. ";
-                   if (ARPICore in player) {
-                       print "You slot ARPI's core into the pod's computer.^ARPI: 'Launch sequence initiated. Destination: Archeron-9.'^
-                       ^As the pod blasts away toward the red planet, you catch your reflection in the black glass.^
-                       ^You see the seams where the metal meets the flesh. You aren't a crew member. You are the project.^
-                       ^You are Archeron-9.^
-                       ^
-                       *** TO BE CONTINUED ***^";
-                       deadflag = 2; return true;
-                   } else {
-                       print "You sit in the pilot seat. But the computer is dead. You need an AI to calculate the trajectory.^*** GAME OVER ***^";
-                       deadflag = 1; return true;
-                   }
-               }
-       ], n_to "Escape Pod";
+
+! AlienRoom Airlock "Escape Pod Airlock"
+!  with zh_name "ZAMER SMRNK",
+ 
 Object -> RecallTerminal "recall terminal"
   with name 'terminal' 'screen' 'console',
        description [;
