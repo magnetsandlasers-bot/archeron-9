@@ -15,15 +15,20 @@
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ChooseObjects obj code;
-    ! If the parser is confused between multiple 'tubes'
     if (code == 2) { 
-        ! If the player is trying to 'ENTER' or 'GO IN'
+        ! 1. THE JUMPSUIT: Force include in 'take all'
+        if (obj == HighTechJumpsuit && obj in location) return 2;
+
+        ! 2. THE CYLINDER: Force include so the parser doesn't get picky
+        if (obj == Battery1 && obj in location) return 2;
+
+        ! 3. YOUR EXISTING TUBE LOGIC
         if (action_to_be == ##Enter or ##Go) {
-            if (obj == PlayerCryoTube) return 3; ! 3 = "Pick this one"
-            if (obj == OccupiedTube or EmptyCryoTubes) return 2; ! 2 = "Don't pick this"
+            if (obj == PlayerCryoTube) return 3; 
+            if (obj == OccupiedTube or EmptyCryoTubes) return 2; 
         }
     }
-    return 0; ! Otherwise, let the parser ask "Which do you mean?"
+    return 0; 
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! HUD & AUDIO INTERFACE
@@ -272,9 +277,9 @@ if (child(EvidenceLocker) ~= nothing) {
         jumpsuit_timer = jumpsuit_timer - 1;
         if (jumpsuit_timer == 0) {
             deadflag = 1;
-            print "^^The cold seeps into your bones. Without protection, your body succumbs to the frigid environment.^";
+            print "^^The cold seeps into your bones. Without protection, your body succumbs to the frigid environment.^^";
         } else if (jumpsuit_timer == 1) {
-            print "^Your body is starting to feel the extreme cold. You need protection soon.^";
+            print "^Your body is starting to feel the extreme cold. You need protection soon.^^";
         }
     }
 ];

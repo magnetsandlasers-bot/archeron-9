@@ -1,6 +1,5 @@
-! ==============================================================================
 ! LOCATIONS AFT
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
        description [;
@@ -24,7 +23,7 @@ AftRoom TubeInterior "Inside the Cryo Tube"
            return true;
        ],
   has light;
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom Corridor "The Spine"
   with zh_name "POHYB STAVR",
        description [;
@@ -44,7 +43,7 @@ AftRoom Corridor "The Spine"
            return true;
         ],
         s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object BulkheadDoor "bulkhead"
   with name 'bulkhead' 'massive' 'north' 'blast' 'south',
        description [;
@@ -123,8 +122,8 @@ Object BulkheadDoor "bulkhead"
 ],
        found_in Corridor SpineFore,
        has static door locked scenery;
-! ==============================================================================
-Object EngineeringDoor "security door"
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object EngineeringDoor "security door" ! This door needs to open automatically when card is swiped or otherwise unlocked
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
             if (location == Corridor) {
@@ -143,7 +142,7 @@ Object EngineeringDoor "security door"
                 if (location == Engineering) "Use the green panel.";
                 if (battery_count == 0) "The electronic lock appears dead.";
        ], has static door openable lockable locked scenery;
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom Engineering "Engineering Room"
   with zh_name "KRZHDYN STAVR",
        description [;
@@ -225,7 +224,7 @@ Object -> IronLever "Heavy Iron Lever"
         return true;
   ],
   has static scenery;
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom ReactorRoom "Machinery Chamber"
   with zh_name "KRZHDAR JADROZ",
        description [;
@@ -247,7 +246,7 @@ Object -> WallSocket "wall mechanism"
                     if (noun == Battery1) move ChargedCell1 to self;
                     else if (noun == Battery2) move ChargedCell2 to self;
                     else if (noun == Battery3) move ChargedCell3 to self;
-                    "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.^";
+                    "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.";
                 }
                 "That doesn't fit.";
        ],
@@ -260,9 +259,9 @@ Object -> MainColumn "central column"
                 if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
                     remove noun;
                     battery_count++;
-                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.^";
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
                     if (battery_count == 1) {
-                        print "^^THOOM.^^The room groans to life. Lights flicker on overhead.^";
+                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead.^";
                         power_restored = 1;
                         alarm_lights_active = 0;
                     } else if (battery_count == 2) {

@@ -53,23 +53,22 @@ Object OccupiedTube "occupied cryo tube"
                   "It is already sealed tight.";
           ],
           has static scenery container ~open;
+
 Object HighTechJumpsuit "high-tech jumpsuit"
-  with name 'jumpsuit' 'suit' 'grey' 'tech', 
-       bulk BULK_NORMAL,
-       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable.",
-       before [;
-            Take, Wear: 
-                if (self in player) { "You are already wearing the jumpsuit."; }
-                move self to player;
-                give self worn;
-                give self concealed; ! This hides it from the inventory list
-                jumpsuit_worn = 1;
-                jumpsuit_timer = 0;
-                "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material adjusts to your temperature. You feel secure, protected, and... inseparable from the fabric.";
-            Remove, Drop:
-                "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric.";
+  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
+       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
+       describe [;
+           rtrue; ! This trick hides it from the "You can also see" list
        ],
-    has clothing;
+       before [;
+            Take, Wear:
+                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
+                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                rtrue;
+            Remove:
+                if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
+       ];
 Object Battery1 "heavy cylinder" ! In CryoBay
      with initial "A heavy, dark cylinder lies on the floor.",
      name 'cell' 'battery' 'cylinder' 'heavy',
