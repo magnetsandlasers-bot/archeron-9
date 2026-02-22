@@ -162,24 +162,27 @@
     }
 
     ! --- 2. Algorithmic Movement ---
-    drone_alert = 0;
-    dir = random(6); 
-    
-    switch(dir) {
-        1: next_room = location.n_to; ! Moving relative to its current position
-        2: next_room = location.s_to;
-        3: next_room = location.e_to;
-        4: next_room = location.w_to;
-        5: next_room = location.u_to;
-        6: next_room = location.d_to;
-    }
+drone_alert = 0;
+dir = random(6); 
 
-    if (next_room ~= 0 && metaclass(next_room) == Object) {
-        if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm)) {
-            move SecurityDrone to next_room;
-        }
-    }
+switch(dir) {
+    1: next_room = location.n_to; 
+    2: next_room = location.s_to;
+    3: next_room = location.e_to;
+    4: next_room = location.w_to;
+    5: next_room = location.u_to;
+    6: next_room = location.d_to;
+}
 
+! Check if the room exists, is an object, and is NOT an AftRoom
+if (next_room ~= 0 && metaclass(next_room) == Object) {
+    if (next_room has light && next_room ~= ServerFarm && 
+        ~~(next_room ofclass ServerFarm) && 
+        ~~(next_room ofclass AftRoom)) { ! <--- ADDED THIS LINE
+        
+        move SecurityDrone to next_room;
+    }
+}
     ! --- 3. Proximity Alerts ---
     if (parent(SecurityDrone) == location) {
         print "^Suddenly, a security drone floats into the room!^";
