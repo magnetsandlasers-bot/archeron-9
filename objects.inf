@@ -68,7 +68,7 @@ Object HighTechJumpsuit "high-tech jumpsuit"
        ],
     has clothing concealed;
 
-Object Battery1 "heavy cylinder"
+Object Battery1 "heavy cylinder" ! In CryoBay
      with initial "A heavy, dark cylinder lies on the floor.",
      name 'cell' 'battery' 'cylinder' 'heavy',
      short_name "heavy cylinder",
@@ -77,21 +77,21 @@ Object Battery1 "heavy cylinder"
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
      bulk BULK_HEAVY;
 
-Object Battery2 "heavy cylinder"
+Object Battery2 "heavy cylinder" ! On metal shelf
      with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
      short_name "heavy cylinder",
      plural "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
      bulk BULK_HEAVY;
 
-Object Battery3 "heavy cylinder"
+Object Battery3 "heavy cylinder" ! On metal shelf
      with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
      short_name "heavy cylinder",
      plural "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
      bulk BULK_HEAVY;
 
-Object Battery4 "heavy cylinder"
+Object Battery4 "heavy cylinder" ! On metal shelf
      with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
      short_name "heavy cylinder",
      plural "heavy cylinders",
@@ -165,7 +165,18 @@ Object OpticalModule "bio-chip (green)"
                 print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
                 rtrue;
        ];
-
+Object OpticalModuleFried "fried bio-chip (green)"
+  with name 'driver' 'module' 'chip' 'green' 'wafer',
+       bulk BULK_POCKET,
+       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
+                visual_cortex_active = 1; remove self;
+                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
+                rtrue;
+       ];
 Object AudioModule "bio-chip (silver)"
   with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
        description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
@@ -177,7 +188,17 @@ Object AudioModule "bio-chip (silver)"
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
-
+Object AudioModuleFried "fried bio-chip (silver)"
+  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
+       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                audio_codec_active = 1; remove self;
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                rtrue;
+       ];
 Object CotUnmade "unmade cot"
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in."

@@ -5,7 +5,6 @@
     if (b == 0) return 0;
     return a - (a / b) * b;
 ];
-
 [ GetCurrentBulk i k;
     k = 0;
     objectloop(i in player) {
@@ -14,7 +13,6 @@
     }
     return k;
 ];
-
 [ ChooseObjects obj code;
     ! If the parser is confused between multiple 'tubes'
     if (code == 2) { 
@@ -26,11 +24,9 @@
     }
     return 0; ! Otherwise, let the parser ask "Which do you mean?"
 ];
-
 ! ==============================================================================
 ! HUD & AUDIO INTERFACE
 ! ==============================================================================
-
 [ PrintVisual real_text;
     if (visual_cortex_active == 1) {
         print (string) real_text;
@@ -38,7 +34,6 @@
     }
     print "ZERAKTHYN: [STYRZOSH ZGRT]";
 ];
-
 [ PrintAudio real_text;
     if (audio_codec_active == 1) {
         print (string) real_text;
@@ -46,7 +41,6 @@
     }
     print "~VZDYK... TSKOR... VESKRACH... NAADEN...~";
 ];
-
 ! ==============================================================================
 ! CUSTOM ACTIONS & ROUTINES
 ! ==============================================================================
@@ -58,9 +52,7 @@
     }
     rtrue;
 ];
-
 [ BlinkSub; "You blink, clearing the sweat from your eyes."; ];
-
 [ BlinkTwiceSub;
     if (visual_cortex_active == 0) return false;
     if (last_qr_source == 0 || (last_qr_source notin location && last_qr_source ~= location)) {
@@ -74,21 +66,17 @@
     }
     return false;
 ];
-
 [ FreezeSub;
     player_hidden = 1;
     print "You freeze instantly. You slow your breathing and force your heart rate down, lowering your thermal signature.^";
     return true;
 ];
-
 [ HideSub;
     player_hidden = 1;
     print "You dive behind cover, curling tight to minimize your silhouette. You hold your breath.^";
     return true;
 ];
-
 [ RecallSub; "You can't recall that."; ];
-
 ! ==============================================================================
 ! DAEMONS & SYSTEMS
 ! ==============================================================================
@@ -126,9 +114,7 @@
         }
     }
 ];
-
 ! THE DRONE
-
 [ DroneDaemon dir next_room;
     if (drone_active == 0 || power_restored == 0) return;
 
@@ -190,8 +176,6 @@
         }
     }
 ];
-
-
 [ CapturePlayer i next_obj;
     ! 1. Safe Inventory Strip
     i = child(player);
@@ -242,7 +226,6 @@ if (child(EvidenceLocker) ~= nothing) {
         StartDaemon(EvidenceLocker); ! Start the 'watchdog' to see when it's emptied
     }
 ];
-
 [ ArpiNarrative unaware_str aware_str;
     if (arpi_aware == 0) {
         print (string) unaware_str;
@@ -250,7 +233,6 @@ if (child(EvidenceLocker) ~= nothing) {
         print (string) aware_str;
     }
 ];
-
 [ TimePasses;
     turn_count++;
     DroneDaemon();
@@ -284,7 +266,6 @@ if (child(EvidenceLocker) ~= nothing) {
         }
     }
 ];
-
 [ GamePreRoutine;
     if (action ~= ##Freeze && action ~= ##Hide && action ~= ##Look && action ~= ##Wait) {
         if (player_hidden == 1) {
@@ -301,7 +282,6 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     return false;
 ];
-
 ! --- Diagnostic Scan Routine ---
 [ PerformDiagnosticScan;
     if (HighTechJumpsuit in player || jumpsuit_worn == 1) {
@@ -315,7 +295,6 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     return;
 ];
-
 [ Translate str_alien str_human;
     if (visual_cortex_active) {
         print (string) str_human;
@@ -324,7 +303,6 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     rtrue;
 ];
-
 [ SwipeSub;
     ! Case 1: "swipe card" (noun is card, second is nothing)
     if (second == nothing) {
@@ -334,59 +312,5 @@ if (child(EvidenceLocker) ~= nothing) {
 
     ! Case 2: "swipe card at [something that isn't a door]"
     "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
-];
-
-[ Initialise;
-    location = CryoBay;
-
-    move Battery1 to CryoBay;
-    move PlayerCryoTube to CryoBay;
-    move EmptyCryoTubes to CryoBay;
-    move OccupiedTube to CryoBay;
-    move Battery2 to BatteryShelf;
-    move Battery3 to BatteryShelf;
-    move Battery4 to BatteryShelf;
-    move HighTechJumpsuit to CryoBay;
-    move Corpse to Corridor;
-    move Keycard to Corpse;
-    move OpticalModule to ServerRoom;
-    move AudioModule to CommsRelay;
-    move CotUnmade to Brig;
-
-    move DiagnosticConsole to MedicalBay;
-    move MedicalLogTerminal to MedicalBay;
-    move OperatingTable to MedicalBay;
-    move SecurityDrone to Atrium; 
-    ! Start Drone
-    StartDaemon(SecurityDrone);   
-    ! --- Intro Sequence ---
-    @erase_window $ffff;
-    new_line;
-    style underline;
-    print "~Jadroz: veskrach... Domn: pohyb.~^";
-    style roman;
-    print "^You wake slowly, your breath misting in the chill air. The glass door of your cryo-tube slides open with a smooth hydraulic hiss. You step out onto the metal grating, shivering as the stasis fluid evaporates from your skin. From all around you, a voice barks:^";
-    jumpsuit_timer = 3; ! Set the timer for 3 turns
-    ! --- Place the HighTechJumpsuit in the CryoBay ---
-    move HighTechJumpsuit to CryoBay;
-    ! --- Activate Alarm Lights ---
-    alarm_lights_active = 1;
-    new_line;
-    style underline;
-    print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~^";
-    style roman;
-    new_line;
-    Banner();
-    print "^Press any key to begin... ";
-    @read_char 1 -> sp;
-    @erase_window $ffff; ! Clear screen for game start
-    ! --- Pre-Game Urgency Text ---
-    print "^Red alarm lights begin flashing! You hear that voice again, and though you can't understand the strange words, you can feel their urgency.^";
-    new_line;
-    style underline;
-    print "KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
-    style roman;
-    new_line;
-    return 2; ! Suppress banner, start game
 ];
 

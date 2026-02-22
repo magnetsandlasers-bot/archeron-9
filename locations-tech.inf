@@ -62,10 +62,6 @@ AlienRoom Landing "Landing"
         d_to ServerFarm1,
         u_to ServerRoom;
 
-!AlienRoom ServerFarm "Server Farm"
-!  with zh_name "STYRZEN JADROZ",
-!       description "Towering black server racks. The exit is Southeast.", 
-!       se_to ServerRoom;
 
 ServerFarm ServerFarm1 "Server Farm"
     with zh_name "JADROZ PARYN",

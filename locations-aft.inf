@@ -171,21 +171,6 @@ AftRoom Engineering "Engineering Room"
 Object -> ExitButton "exit button"
   with name 'button' 'exit',
        before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
-!Object -> BatteryShelf "metal shelf"
-!  with name 'shelf' 'shelves' 'rack' 'metal',
-!       description "A sturdy metal shelf bolted to the wall. It has three levels. The top level is a !mess of manuals and documents, probably relating to all the technical equipemt in there. The second !shelf contains broken servos and mechanical articulators. You puch aside some junk on the bottom shelf !and notice two more of the heavy cylinders you saw before. They are both inert.",
-!       before [;
-!            Receive:
-!                if (noun ~= Battery2 && noun ~= Battery3 && noun ~= ChargedCell1 && noun ~= !ChargedCell2 && noun ~= ChargedCell3) {
-!                    print "That doesn't look like it belongs on the metal shelf.^";
-!                    return true;
-!                }
-!                ! Place the battery back
-!                move noun to self;
-!                print "You slide ", (the) noun, " back onto the bottom shelf.^";
-!                return true;
-!       ], has static container open supporter scenery;
-
 Object -> BatteryShelf "metal shelf"
   with name 'shelf' 'shelves' 'rack' 'metal',
        description [;
