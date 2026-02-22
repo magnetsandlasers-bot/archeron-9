@@ -1,6 +1,5 @@
 [ Initialise;
     location = CryoBay;
-
     move Battery1 to CryoBay;
     move PlayerCryoTube to CryoBay;
     move EmptyCryoTubes to CryoBay;
@@ -14,7 +13,6 @@
     move OpticalModule to ServerRoom;
     move AudioModule to CommsRelay;
     move CotUnmade to Brig;
-
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
     move OperatingTable to MedicalBay;
@@ -51,4 +49,3 @@
     new_line;
     return 2; ! Suppress banner, start game
 ];
-

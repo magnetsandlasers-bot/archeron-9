@@ -1,10 +1,10 @@
-! ==============================================================================
 ! UTILITY ROUTINES
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ Mod a b;
     if (b == 0) return 0;
     return a - (a / b) * b;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ GetCurrentBulk i k;
     k = 0;
     objectloop(i in player) {
@@ -13,6 +13,7 @@
     }
     return k;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ChooseObjects obj code;
     ! If the parser is confused between multiple 'tubes'
     if (code == 2) { 
@@ -24,9 +25,9 @@
     }
     return 0; ! Otherwise, let the parser ask "Which do you mean?"
 ];
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! HUD & AUDIO INTERFACE
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ PrintVisual real_text;
     if (visual_cortex_active == 1) {
         print (string) real_text;
@@ -34,6 +35,7 @@
     }
     print "ZERAKTHYN: [STYRZOSH ZGRT]";
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ PrintAudio real_text;
     if (audio_codec_active == 1) {
         print (string) real_text;
@@ -41,9 +43,9 @@
     }
     print "~VZDYK... TSKOR... VESKRACH... NAADEN...~";
 ];
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! CUSTOM ACTIONS & ROUTINES
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ InstallSub;
     if (noun == nothing) { print "Install what?"; rtrue; }
     if (noun notin player) { print "You don't have that."; rtrue; }
@@ -52,7 +54,9 @@
     }
     rtrue;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ BlinkSub; "You blink, clearing the sweat from your eyes."; ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ BlinkTwiceSub;
     if (visual_cortex_active == 0) return false;
     if (last_qr_source == 0 || (last_qr_source notin location && last_qr_source ~= location)) {
@@ -66,20 +70,23 @@
     }
     return false;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ FreezeSub;
     player_hidden = 1;
     print "You freeze instantly. You slow your breathing and force your heart rate down, lowering your thermal signature.^";
     return true;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ HideSub;
     player_hidden = 1;
     print "You dive behind cover, curling tight to minimize your silhouette. You hold your breath.^";
     return true;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ RecallSub; "You can't recall that."; ];
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! DAEMONS & SYSTEMS
-! ==============================================================================
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ZerakthynAtmosphere r;
     ! 1. Do not run if the player is in the Brig
     if (location == Brig) return;
@@ -114,7 +121,9 @@
         }
     }
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! THE DRONE
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ DroneDaemon dir next_room;
     if (drone_active == 0 || power_restored == 0) return;
 
@@ -176,6 +185,7 @@
         }
     }
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ CapturePlayer i next_obj;
     ! 1. Safe Inventory Strip
     i = child(player);
@@ -226,6 +236,7 @@ if (child(EvidenceLocker) ~= nothing) {
         StartDaemon(EvidenceLocker); ! Start the 'watchdog' to see when it's emptied
     }
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ArpiNarrative unaware_str aware_str;
     if (arpi_aware == 0) {
         print (string) unaware_str;
@@ -233,6 +244,7 @@ if (child(EvidenceLocker) ~= nothing) {
         print (string) aware_str;
     }
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ TimePasses;
     turn_count++;
     DroneDaemon();
@@ -266,6 +278,7 @@ if (child(EvidenceLocker) ~= nothing) {
         }
     }
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ GamePreRoutine;
     if (action ~= ##Freeze && action ~= ##Hide && action ~= ##Look && action ~= ##Wait) {
         if (player_hidden == 1) {
@@ -282,7 +295,9 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     return false;
 ];
-! --- Diagnostic Scan Routine ---
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! Diagnostic Scan Routine
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ PerformDiagnosticScan;
     if (HighTechJumpsuit in player || jumpsuit_worn == 1) {
         print "The diagnostic beam intensifies. Your internal sensors flare with activity. You feel a strange warmth spreading through your body, a sensation of... belonging.^";
@@ -295,6 +310,7 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     return;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ Translate str_alien str_human;
     if (visual_cortex_active) {
         print (string) str_human;
@@ -303,6 +319,7 @@ if (child(EvidenceLocker) ~= nothing) {
     }
     rtrue;
 ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ SwipeSub;
     ! Case 1: "swipe card" (noun is card, second is nothing)
     if (second == nothing) {
