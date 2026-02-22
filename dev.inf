@@ -43,6 +43,7 @@ Verb 'testbrig' * -> DevBrig;
         'med', 'medbay': PlayerTo(MedicalBay);
         'eng', 'engineering': PlayerTo(Engineering);
         'cargo': PlayerTo(CargoBay);
+        'home' : PlayerTo(CryoBay);
         default: "Teleport failed. Use: WARP [brig, bridge, spine, med, eng, cargo]";
     }
 ];

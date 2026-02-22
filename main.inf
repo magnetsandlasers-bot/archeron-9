@@ -16,12 +16,13 @@ Include "arpi-speech.inf";
 Include "classes.inf";
 
 ! 4. THE MAP (Now 'location' is safely defined for these files)
-Include "objects.inf";
 Include "locations-aft.inf";
 Include "locations-bridge.inf";
 Include "locations-cargo.inf";  
 Include "locations-med.inf";  
 Include "locations-tech.inf";
+Include "objects.inf";
+
 
 ! 5. GRAMMAR LAST
 Include "grammar"; 

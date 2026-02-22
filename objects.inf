@@ -144,10 +144,15 @@ Object Keycard "plastic keycard"
        description [;
            print "A standard plastic ID card. The label reads: ";
            Translate("CERNYV ZRAAV", "ACCESS CARD");
-           "."; ! This adds the final period and newline
+           "."; 
+       ],
+       after [;
+           Take:
+               if (self has concealed) {
+                   give self ~concealed;
+               }
        ],
     has concealed;
-
 Object OpticalModule "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
        bulk BULK_POCKET,
@@ -177,3 +182,45 @@ Object CotUnmade "unmade cot"
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in."
     has static scenery;
+
+
+Object EvidenceLocker "evidence locker" SecurityCheck
+  with name 'locker' 'evidence' 'cabinet' 'drawer',
+       description [;
+           print "A secure storage unit for confiscated items. It has a heavy electronic lock. ";
+           if (self has open) {
+               if (child(self) == nothing) "It is currently empty.";
+               "Inside, you see your confiscated belongings.";
+           }
+           "It is currently sealed tight.";
+       ],
+       when_closed "A reinforced evidence locker is set into the wall.",
+       when_open "The evidence locker stands open, revealing its contents.",
+       before [;
+           Open:
+               if (self has locked) {
+                   if (arpi_active == 1) {
+                       new_line;
+                       print "As you reach for the locker, the electronic bolt slides back with a sharp click. ";
+                       ArpiNarrative("The intercom voice speaks up:^",
+                                     "Arpi sighs:^");
+                        new_line;
+                        style underline;
+                        ArpiLocker();
+                        style roman;
+                        new_line;
+                       give self ~locked;
+                       ! Open continues normally
+                   } else {
+                       "The locker is firmly sealed. You'll need some way to override the electronic lock.";
+                   }
+               }
+       ],
+       daemon [;
+           ! If the locker is closed/locked but somehow becomes empty, reset it
+           ! Or if the player just took the last item while it was open:
+           if (child(self) == nothing && (self hasnt open || self has locked)) {
+               give self ~locked ~open;
+           }
+       ],
+  has static container openable locked open; ! Starts open and unlocked

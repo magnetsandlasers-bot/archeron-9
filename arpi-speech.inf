@@ -45,3 +45,19 @@
     new_line;
 ];
 
+[ ArpiLocker;
+    switch (random(5)) {
+1: Translate("~Domn zraavek y Ulmks za i Stavr.~", 
+                "~I suppose you'll be wanting these back~");
+2: Translate("~y Ulmks za i Domn.~",
+                "~Here are your items~");
+3: Translate("~Jadroz-Ulmks vo Zamer.~",
+                "~Everything should be in here~");
+4: Translate("~i Dronz zraavek i Vzrac, ak?~",
+                "~The drone is thorough, isn't it~");
+5: Translate("~Zraavek y Ulmks za i Krzhd po pohyb.~",
+                "~Get what you need and let's go~");
+    }
+    new_line;
+];
+
