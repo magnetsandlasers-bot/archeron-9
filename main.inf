@@ -4,7 +4,6 @@ Constant Headline "^An Interactive Sci-Fi Mystery^";
 ! 1. Directives and Globals FIRST
 Replace PrintLocation;
 Include "constants.inf"; 
-Global last_location; ! Ensure this is here if you still use it
 
 ! 2. THE LIBRARIES (These define 'location')
 Include "parser";      
@@ -13,6 +12,7 @@ Include "verblib";
 ! 3. YOUR LOGIC & CLASSES
 Include "dev.inf";
 Include "routines.inf";
+Include "arpi-speech.inf";
 Include "classes.inf";
 
 ! 4. THE MAP (Now 'location' is safely defined for these files)

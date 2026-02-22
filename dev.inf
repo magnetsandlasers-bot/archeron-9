@@ -2,6 +2,9 @@
 ! Developer Tools
 ! ==============================================================================
 
+[ DevBrigSub; CapturePlayer(); ];
+Verb 'testbrig' * -> DevBrig;
+
 [ DevMenuSub;
     print "^--- [ SYSTEM DIAGNOSTICS ] ---^";
     print "Main Power: ", power_restored, " | Med Power: ", medical_wing_powered, "^";
@@ -45,7 +48,7 @@
 ];
 
 [ HealSub;
-    power_restored = 1; lockdown_lifted = 1; 
-    visual_cortex_active = 1; audio_codec_active = 1;
-    "All systems stabilized.^";
+    power_restored = 1; 
+    lockdown_lifted = 1; 
+    "All systems stabilized.";
 ];

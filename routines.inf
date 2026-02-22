@@ -127,31 +127,29 @@
     }
 ];
 
+! THE DRONE
+
 [ DroneDaemon dir next_room;
     if (drone_active == 0 || power_restored == 0) return;
 
-    ! --- 1. Interaction Logic (Is it in the same room?) ---
+    ! --- 1. Interaction Logic ---
     if (parent(SecurityDrone) == location) {
-if (drone_alert == 1) {
+        if (drone_alert == 1) {
             print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^^";
             style bold;
             print "     *** You have... NOT died ***^";
             style roman;
 
-            ! 1. Wait for the player to acknowledge the "death"
             print "^[MORE]^";
             @read_char 1 -> next_room; 
-
-            ! 2. Clear the screen for the "transition"
             @erase_window -1; 
-            @set_cursor 1 1; ! Move cursor to the top-left of the fresh screen
+            @set_cursor 1 1; 
 
-            ! 3. Narrative transition and move
-            print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of the blindingly white room.^";
+            print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of a blindingly white room.^";
             
-            PlayerTo(Brig);
             drone_alert = 0;
             player_hidden = 0;
+            CapturePlayer(); 
             return;
         }
         if (player_hidden == 0) {
@@ -163,36 +161,71 @@ if (drone_alert == 1) {
         }
     }
 
-! --- Algorithmic Movement (Light-Sensitive & Server-Averse) ---
+    ! --- 2. Algorithmic Movement ---
     drone_alert = 0;
     dir = random(6); 
     
     switch(dir) {
-        1: next_room = (parent(SecurityDrone)).n_to;
-        2: next_room = (parent(SecurityDrone)).s_to;
-        3: next_room = (parent(SecurityDrone)).e_to;
-        4: next_room = (parent(SecurityDrone)).w_to;
-        5: next_room = (parent(SecurityDrone)).u_to;
-        6: next_room = (parent(SecurityDrone)).d_to;
+        1: next_room = location.n_to; ! Moving relative to its current position
+        2: next_room = location.s_to;
+        3: next_room = location.e_to;
+        4: next_room = location.w_to;
+        5: next_room = location.u_to;
+        6: next_room = location.d_to;
     }
 
-! Check: Valid object? Has light? Not the specific object? Not the class?
-    if (metaclass(next_room) == Object && next_room ~= 0) {
+    if (next_room ~= 0 && metaclass(next_room) == Object) {
         if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm)) {
             move SecurityDrone to next_room;
         }
     }
-    ! --- 3. Automatic Proximity Alert ---
+
+    ! --- 3. Proximity Alerts ---
     if (parent(SecurityDrone) == location) {
         print "^(WARNING: A Security Drone floats into the room!)^";
     } else {
-        ! Check if the drone is in any room connected to the player's location
         if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
             parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
             print "^(PROXIMITY ALERT: You hear the low hum of an engine nearby.)^";
         }
     }
 ];
+
+
+[ CapturePlayer;
+    PlayerTo(Brig);
+    brig_timer = 3;    ! Using the global from constants.inf
+    StartDaemon(Brig);  ! Ticks down in the room's daemon
+    
+    if (arpi_active == 0) {
+        arpi_active = 1;
+        new_line;
+        print "A crackle of static erupts from the intercom...^";
+        new_line;
+        style underline;
+        Translate("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
+                    "~You should be able to hear my voice now, but this little episode will cost you. The drone has figured out you're here, so we have to figure out how to disable it and... wait a minute, you have no idea what I'm saying do you? Hello?~^");
+        style roman;
+
+
+    } else {
+        new_line;
+        print "The intercom clicks on immediately...^";
+        new_line;
+            style underline;
+            ArpiBrig1();        ! Your existing routine for Arpi's alien speech
+            style roman;
+    }
+];
+
+[ ArpiNarrative unaware_str aware_str;
+    if (arpi_aware == 0) {
+        print (string) unaware_str;
+    } else {
+        print (string) aware_str;
+    }
+];
+
 [ TimePasses;
     turn_count++;
     DroneDaemon();
@@ -293,6 +326,7 @@ if (drone_alert == 1) {
     move Keycard to Corpse;
     move OpticalModule to ServerRoom;
     move AudioModule to CommsRelay;
+    move CotUnmade to Brig;
 
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;

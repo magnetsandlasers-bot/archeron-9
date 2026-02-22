@@ -172,3 +172,8 @@ Object AudioModule "bio-chip (silver)"
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
+
+Object CotUnmade "unmade cot"
+    with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
+    description "Dingy would be a kind way to describe the filthy nest you woke up in."
+    has static scenery;

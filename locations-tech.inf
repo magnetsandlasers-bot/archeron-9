@@ -156,34 +156,27 @@ Object -> TerminalSlot "data slot"
 
 AlienRoom Brig "Security Brig"
   with zh_name "ZAMER DRAZK",
-       timer_count 0, ! Our own variable to track time
        description [;
            print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is South, through a thick door.^";
            return true;
        ],
        s_to BrigDoor,
-       after [;
-            if (arpi_active == 0) {
-                arpi_active = 1;
-                self.timer_count = 3; ! Set our own counter
-                StartDaemon(self);    ! Use a Daemon instead of a Timer
-                new_line;
-                print "A crackle of static erupts from the door's intercom...^";
-                style underline;
-                new_line;
-                Translate("Smrnk ne zraav y Stavrszern. Zraavek za y Veskr zraav y Tlkzvsk na Jadroz. Krzhd ne po Domn. Domn ne zraavek Vzrac, ak?", "Please don't make this a habit, getting you out of here is taking a computational toll, and I'm not sure you have much time left. You probably can't understand me anyway, can you?");
-                new_line;
-            }
-        ],
-        daemon [;
-           if (self.timer_count > 0) {
-               self.timer_count--;
-               if (self.timer_count == 0) {
+       daemon [;
+           if (brig_timer > 0) {
+               brig_timer--;
+               if (brig_timer == 0) {
                    StopDaemon(self);
-                   give BrigDoor ~locked; ! Unlock it
-                   give BrigDoor open;    ! Actually open it!
+                   give BrigDoor ~locked;
+                   give BrigDoor open;
+                   
+                   ! Trigger the exit dialogue
                    new_line;
-                   print "With a heavy clunk and a hiss of pneumatics, the reinforced door's locking bolts retract and the heavy slab of metal slides open. The status light on the intercom shifts from red to a dull green.^";
+                   ArpiBrig2(); 
+
+                   ! Final atmospheric text
+                    style roman;
+                    new_line;
+                    print "With a heavy clunk and a hiss of pneumatics, the reinforced door's locking bolts retract and the heavy slab of metal slides open. The status light on the intercom shifts from red to a dull green.^";
                }
            }
        ];
@@ -213,7 +206,7 @@ Object BrigDoor "reinforced door"
             give self locked;   ! Force locked
             new_line;
             style bold; print "CLANG!^"; style roman;
-            print "The moment you clear the threshold, the reinforced door slams shut behind you. Magnetic bolts hiss as they cycle into place, sealing the Brig once more.^";
+            print "The moment you clear the threshold, the reinforced door slams shut behind you. Magnetic bolts hiss as they cycle into place, sealing the Brig once more. You are free.^";
             PlayerTo(SecurityCheck);
             return true; ! Tells the engine "Move complete, stop here."
        ],
