@@ -1,0 +1,99 @@
+Object BulkheadDoor "bulkhead"
+  with name 'bulkhead' 'massive' 'north' 'blast' 'south',
+       description [;
+            print "A massive bulkhead separating the aft section from the main ship. ";
+            if (power_restored == 0) {
+                print "It is dark and unresponsive, its heavy bolts engaged.";
+            } else if (lockdown_lifted == 0) {
+                print "A hologram projected over the lock reads: "; 
+                PrintVisual("DRAZKARY ZAMEROSH");
+                print ". The lock remains engaged.";
+            } else if (bulkhead_passed == 0) {
+                print "The lock has been released. The door stands open.";
+            } else if (identity_hacked == 0) {
+                print "The door has closed behind you. A hologram reads: "; 
+                PrintVisual("ACCESS DENIED: NON-COMMANDER PERSONNEL");
+                print ". It's sealed tight.";
+            } else {
+                print "The commander override is active. The door can be opened.";
+            }
+            print "^";
+            return true;
+       ],
+       before [;
+            Unlock, Open:
+                if (location == Corridor) {
+                    ! From south side (before passing through)
+                    if (power_restored == 0) { 
+                        print "The electronic systems appear dead.^"; 
+                        rtrue; 
+                    }
+                    if (lockdown_lifted == 0) { 
+                        print "The lock is still engaged. You need to release it first.^"; 
+                        rtrue; 
+                    }
+                    ! Door is open, allow passage
+                    give self ~locked open;
+                    print "The door is already open.^";
+                    rtrue;
+                } else {
+                    ! From north side (after passing through)
+                    if (identity_hacked == 0) {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                        print "^The door remains locked.^"; 
+                        rtrue;
+                    } else {
+                        print "The scanner sweeps a laser over your retina. ";
+                        PrintAudio("VELMAR, CERNYV.");
+                        print "^The heavy bolts retract. The door grinds open.^";
+                        give self ~locked open; 
+                        rtrue;
+                    }
+                }
+       ],
+       door_dir [; if (location == Corridor) return n_to; return s_to; ],
+       door_to [; 
+    if (location == Corridor) {
+        if (power_restored == 0 || lockdown_lifted == 0) {
+            print "The bulkhead is sealed shut.^";
+            rtrue;
+        }
+        if (bulkhead_passed == 0) {
+            bulkhead_passed = 1;
+            give self ~open locked;
+            print "As you pass through, the massive bulkhead slams shut behind you with a heavy CLUNK! It seals tight.^";
+            PlayerTo(SpineFore);
+            rtrue;
+        }
+        return SpineFore;
+    }
+    if (identity_hacked == 0) {
+        print "The door is locked from this side.^";
+        rtrue;
+    }
+    return Corridor;
+],
+       found_in Corridor SpineFore,
+       has static door locked scenery;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object EngineeringDoor "security door" ! This door needs to open automatically when card is swiped or otherwise unlocked
+  with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
+       description [;
+            if (location == Corridor) {
+                print "A heavy steel door with a card reader slot.";
+                if (battery_count == 0) print " The lock's display is dead.";
+                else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
+            } else print "The inner face is smooth steel.";
+            print "^"; return true;
+       ],
+       found_in Corridor Engineering,
+       door_dir [; if (location == Corridor) return e_to; return w_to; ],
+       door_to [; if (location == Corridor) return Engineering; return Corridor; ],
+       with_key Keycard,
+       before [;
+            Unlock, Open:
+                if (location == Engineering) "Use the green panel.";
+                if (battery_count == 0) "The electronic lock appears dead.";
+       ], has static door openable lockable locked scenery;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

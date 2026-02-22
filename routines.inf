@@ -173,13 +173,11 @@ switch(dir) {
     5: next_room = location.u_to;
     6: next_room = location.d_to;
 }
-
 ! Check if the room exists, is an object, and is NOT an AftRoom
 if (next_room ~= 0 && metaclass(next_room) == Object) {
     if (next_room has light && next_room ~= ServerFarm && 
         ~~(next_room ofclass ServerFarm) && 
         ~~(next_room ofclass AftRoom)) { ! <--- ADDED THIS LINE
-        
         move SecurityDrone to next_room;
     }
 }

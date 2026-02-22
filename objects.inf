@@ -1,5 +1,4 @@
-! Objects
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! CryoBay ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object PlayerCryoTube "empty tube you came out of"
  with parse_name [;
            if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
@@ -58,7 +57,7 @@ Object HighTechJumpsuit "high-tech jumpsuit"
   with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
        description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
        describe [;
-           rtrue; ! This trick hides it from the "You can also see" list
+           rtrue; ! This "describe" trick hides it from the "You can also see" list
        ],
        before [;
             Take, Wear:
@@ -77,52 +76,7 @@ Object Battery1 "heavy cylinder" ! In CryoBay
      list_together "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
      bulk BULK_HEAVY;
-
-Object Battery2 "heavy cylinder" ! On metal shelf
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-     bulk BULK_HEAVY;
-
-Object Battery3 "heavy cylinder" ! On metal shelf
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-     bulk BULK_HEAVY;
-
-Object Battery4 "heavy cylinder" ! On metal shelf
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-     bulk BULK_HEAVY;
-
-Object ChargedCell1 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object ChargedCell2 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object ChargedCell3 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object ChargedCell4 "pulsing cylinder"
-  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-       bulk BULK_HEAVY,
-       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
-
-Object SecurityDrone "Security Drone"
-  with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
-       initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
-
+! Corridor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object Corpse "desiccated corpse"
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
        description [;
@@ -154,6 +108,154 @@ Object Keycard "plastic keycard"
                }
        ],
     has concealed;
+
+
+! Engineering ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object Battery2 "heavy cylinder" ! On metal shelf
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
+
+Object Battery3 "heavy cylinder" ! On metal shelf
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
+
+Object Battery4 "heavy cylinder" ! On metal shelf
+     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
+     short_name "heavy cylinder",
+     plural "heavy cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     bulk BULK_HEAVY;
+Object ExitButton "exit button"
+  with name 'button' 'exit',
+       before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
+Object BatteryShelf "metal shelf"
+  with name 'shelf' 'shelves' 'rack' 'metal',
+       description [;
+           print "A sturdy metal shelf bolted to the wall. It has three levels. 
+           The top level is a mess of manuals, while the second contains broken servos. 
+           On the bottom shelf, ";
+           
+           if (child(self) == 0) "you see nothing but dust.";
+           
+           print "you see ";
+           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
+           ".";
+       ],
+       before [;
+           Receive:
+                if (noun ~= Battery2 && noun ~= Battery3 && noun ~= ChargedCell1 && noun ~= ChargedCell2 && noun ~= ChargedCell3) {
+                    print "That doesn't look like it belongs on the metal shelf.^";
+                   return true;
+               }
+               move noun to self;
+               "You slide ", (the) noun, " back onto the bottom shelf.";
+       ],
+  has static supporter scenery;
+
+Object ControlStation "control station"
+  with name 'panel' 'station' 'control' 'status' 'amber', 
+       description [;
+           print "It features a Heavy Iron Lever. A sign above the lever reads ";
+           Translate("POHYB ZANER.", "BULKHEAD LEVER.");
+       ],
+       has static scenery supporter;
+
+Object IronLever "heavy iron lever"
+  with name 'lever' 'iron' 'heavy',
+  before [;
+     Pull:
+        if (battery_count < 2) {
+            print "The lever is locked in place. The status light is ";
+            if (battery_count == 0) print "red";
+            else print "amber";
+            print ", indicating the reactor needs more power (2 cells minimum) to release the bulkhead lock.^";
+            return true;
+        }
+        if (lockdown_lifted == 1) {
+            print "The lever has already been pulled. The bulkhead door is unlocked.^";
+            return true;
+        }
+        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
+        print "[STATUS: Bulkhead lock released. The door is now open.]^";
+        lockdown_lifted = 1;
+        give BulkheadDoor ~locked open;
+        return true;
+  ],
+  has static scenery;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object WallSocket "wall mechanism"
+  with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
+       before [;
+            Receive:
+                if (child(self) ~= 0) "The slot is occupied.";
+                if (noun == Battery1 || noun == Battery2 || noun == Battery3) {
+                    remove noun;
+                    if (noun == Battery1) move ChargedCell1 to self;
+                    else if (noun == Battery2) move ChargedCell2 to self;
+                    else if (noun == Battery3) move ChargedCell3 to self;
+                    "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.";
+                }
+                "That doesn't fit.";
+       ],
+    has static container open scenery;
+Object MainColumn "central column"
+  with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
+       description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
+       before [;
+            Receive:
+                if (noun == ChargedCell1 || noun == ChargedCell2 || noun == ChargedCell3) {
+                    remove noun;
+                    battery_count++;
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
+                    if (battery_count == 1) {
+                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead.^";
+                        power_restored = 1;
+                        alarm_lights_active = 0;
+                    } else if (battery_count == 2) {
+                        print "^^The reactor hums louder, power surging through the ship's systems.^";
+                    } else if (battery_count == 3) {
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
+                        medical_wing_powered = 1;
+                    }
+                    return true;
+                }
+                if (noun == Battery1 || noun == Battery2 || noun == Battery3) {
+                    "The cylinder fits the slot, but the contact points remain cold. Nothing happens. The machine seems to require a different state of energy.";
+                }
+                "The column slot is designed for specific cylindrical units; that doesn't belong there.";
+       ], 
+    has static container open scenery;
+Object ChargedCell1 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell2 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell3 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+
+Object ChargedCell4 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+       bulk BULK_HEAVY,
+       description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.";
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object SecurityDrone "Security Drone"
+  with name 'drone' 'robot' 'machine' 'patrol', description "A floating sphere of black metal with a glowing red eye and a taser mount.",
+       initial "A Security Drone hovers here, scanning for thermal signatures.", has static;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object OpticalModule "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
        bulk BULK_POCKET,
@@ -200,12 +302,12 @@ Object AudioModuleFried "fried bio-chip (silver)"
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object CotUnmade "unmade cot"
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in."
     has static scenery;
-
-
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
