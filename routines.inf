@@ -153,7 +153,7 @@
             return;
         }
         if (player_hidden == 0) {
-            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your combat instincts scream: RUN!^";
+            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your instincts scream: RUN!^";
             drone_alert = 1;
             return;
         } else {
@@ -182,11 +182,11 @@
 
     ! --- 3. Proximity Alerts ---
     if (parent(SecurityDrone) == location) {
-        print "^(WARNING: A Security Drone floats into the room!)^";
+        print "^Suddenly, a security drone floats into the room!^";
     } else {
         if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
             parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
-            print "^(PROXIMITY ALERT: You hear the low hum of an engine nearby.)^";
+            print "^You hear the unmistakable hum of a security drone nearby.^";
         }
     }
 ];
