@@ -205,13 +205,13 @@
     if (visual_cortex_active == 1 && random(100) <= 50) {
         visual_cortex_active = 0;
         move OpticalModule to EvidenceLocker;
-        print "^[CRITICAL ERROR: Optical Link Severed]^";
+        print " Your vision blurs and swims disorientingly. ";
     }
     
     if (audio_codec_active == 1 && random(100) <= 50) {
         audio_codec_active = 0;
         move AudioModule to EvidenceLocker;
-        print "^[CRITICAL ERROR: Audio Codec Failure]^";
+        print "A muffled ringing sound fills your ears for a moment, then fades.";
     }
 
     ! 3. Teleport and Dialogue

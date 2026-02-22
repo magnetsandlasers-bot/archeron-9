@@ -7,10 +7,11 @@ Verb 'testbrig' * -> DevBrig;
 
 [ DevMenuSub;
     print "^--- [ SYSTEM DIAGNOSTICS ] ---^";
-    print "Main Power: ", power_restored, " | Med Power: ", medical_wing_powered, "^";
-    print "Lockdown:   ", lockdown_lifted, " | Bulkhead:  ", bulkhead_passed, "^";
-    print "Visual:     ", visual_cortex_active, " | Audio:     ", audio_codec_active, "^";
-    print "Identity:   ", identity_hacked, "^";
+    print "Main Power: ", power_restored, " | Med Power:  ", medical_wing_powered, "^";
+    print "Lockdown:   ", lockdown_lifted, " | Bulkhead:   ", bulkhead_passed, "^";
+    print "Visual:     ", visual_cortex_active, " | Audio:      ", audio_codec_active, "^";
+    print "Identity:   ", identity_hacked, " | Arpi Aware: ", arpi_aware, "^";
+        
     "-------------------------------";
     ];
 
@@ -51,5 +52,6 @@ Verb 'testbrig' * -> DevBrig;
 [ HealSub;
     power_restored = 1; 
     lockdown_lifted = 1; 
+    arpi_aware = 1;
     "All systems stabilized.";
 ];
