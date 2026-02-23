@@ -225,7 +225,7 @@
         print "A crackle of static erupts from the intercom, followed by a new voice. Not the administrative bark of the ship, but something that sounds like it wants to communicate.^";
         new_line;
         style underline;
-        Translate("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
+        TranslateAudio("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
                     "~You should be able to hear my voice now, but this little episode will cost you. The drone has figured out you're here, so we have to figure out how to disable it and... wait a minute, you have no idea what I'm saying do you? Hello?~^");
         style roman;
     } else {
@@ -316,8 +316,17 @@ if (child(EvidenceLocker) ~= nothing) {
     return;
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ Translate str_alien str_human;
+[ TranslateAudio str_alien str_human;
     if (audio_codec_active) {
+        print (string) str_human;
+    } else {
+        print (string) str_alien;
+    }
+    rtrue;
+];
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ TranslateVisual str_alien str_human;
+    if (visual_cortex_active) {
         print (string) str_human;
     } else {
         print (string) str_alien;

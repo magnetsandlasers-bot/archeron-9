@@ -18,7 +18,7 @@ AftRoom TubeInterior "Inside the Cryo Tube"
             give PlayerCryoTube ~open; ! The door slams shut behind them
             print "^Suddenly, the glass lid slides shut with the speed of a guillotine. The bolts engage with a sickening thud.^^";
             print "The lights go red and the floor vents hiss. You hear a strangely calm voice intones ",
-                Translate("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
+                TranslateAudio("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
             print "Before you can even scream, jets of white-hot plasma erupt from the wall-ports, turning the tube into a high-pressure incinerator and you into a pile of dust.^^";
            deadflag = 1;
            return true;
@@ -53,17 +53,17 @@ AftRoom Engineering "Engineering Room"
            
            if (battery_count == 0) {
                print "you notice most of them are green, except for one status light next to a metal lever marked ";
-            Translate("POHYB ZANER", "BULKHEAD CONTROL");
+            TranslateVisual("POHYB ZANER", "BULKHEAD CONTROL");
                ", which is glowing an ominous red.";  
            } 
            else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
-            Translate("POHYB ZANER", "BULKHEAD CONTROL");
+            TranslateVisual("POHYB ZANER", "BULKHEAD CONTROL");
                " is flashing amber.";
            } 
            else {
                print "you see that all status lights are green, including the one next to the lever marked  ";
-            Translate("POHYB ZANER.", "BULKHEAD CONTROL.");
+            TranslateVisual("POHYB ZANER.", "BULKHEAD CONTROL.");
            }
            print " A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
            return true;
