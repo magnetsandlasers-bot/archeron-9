@@ -22,7 +22,6 @@ AlienRoom SpineMid "Spine Mid"
   with zh_name "POHYB STAVR SRED",
        description "The central segment of the spine corridor. The air here feels colder, and the emergency lights are almost completely dead. The corridor continues North and South.",
        s_to SpineFore, n_to Atrium;
-
 AlienRoom Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
        description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",
@@ -122,46 +121,3 @@ AlienRoom Brig "Security Brig"
                }
            }
        ];
-            
-! --- NEW DOOR: BrigDoor ---
-Object BrigDoor "reinforced door"
-  with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
-       description [;
-            if (location == SecurityCheck) {
-                print "A heavy, reinforced door with a glowing red panel and a keycard slot.";
-                if (power_restored == 0) print " The panel is dark and unresponsive.";
-                else { print " The panel reads: "; PrintVisual("DRAZKOSH ZAMEROSH"); }
-            } else { 
-                print "The inner face of the door is smooth, unyielding metal with no visible controls. There is a loudspeaker in the middle of door at eye level.";
-            }
-            new_line; return true;
-       ],
-       door_dir [; 
-            if (location == SecurityCheck) return n_to; 
-            return s_to; 
-       ],
-       door_to [;
-            if (location == SecurityCheck) return Brig; ! Standard move into Brig
-            
-            ! --- ESCAPE LOGIC ---
-            give self ~open;    ! Force shut
-            give self locked;   ! Force locked
-            new_line;
-            style bold; print "CLANG!^"; style roman;
-            print "The moment you clear the threshold, the reinforced door slams shut behind you. Magnetic bolts hiss as they cycle into place, sealing the Brig once more. You are free.^";
-            PlayerTo(SecurityCheck);
-            return true; ! Tells the engine "Move complete, stop here."
-       ],
-       before [;
-            Open, Enter, Go:
-                if (location == Brig) {
-                    if (self has locked) {
-                        "There's no way to open the door from in here. It's built to keep people in.";
-                    }
-                }
-                if (location == SecurityCheck && power_restored == 0) {
-                    "The electronic lock is dead.";
-                }
-       ],
-       found_in SecurityCheck Brig,
-       has static door openable lockable locked scenery;

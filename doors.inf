@@ -1,83 +1,61 @@
-Object BulkheadDoor "bulkhead"
-  with name 'bulkhead' 'massive' 'north' 'blast' 'south',
-       description [;
+Object  BulkheadDoor "bulkhead"
+  with  name 'bulkhead' 'massive' 'north' 'blast' 'south',
+        found_in Corridor SpineFore,
+        description [;
             print "A massive bulkhead separating the aft section from the main ship. ";
-            if (power_restored == 0) {
-                print "It is dark and unresponsive, its heavy bolts engaged.";
-            } else if (lockdown_lifted == 0) {
-                print "A hologram projected over the lock reads: "; 
+            if (power_restored == 0) "It is dark and unresponsive, its heavy bolts engaged.";
+            if (lockdown_lifted == 0) {
+                print "A hologram projected over the lock reads: ";
                 PrintVisual("DRAZKARY ZAMEROSH");
-                print ". The lock remains engaged.";
-            } else if (bulkhead_passed == 0) {
-                print "The lock has been released. The door stands open.";
-            } else if (identity_hacked == 0) {
-                print "The door has closed behind you. A hologram reads: "; 
-                PrintVisual("ACCESS DENIED: NON-COMMANDER PERSONNEL");
-                print ". It's sealed tight.";
-            } else {
-                print "The commander override is active. The door can be opened.";
+                ". The lock remains engaged.";
             }
-            print "^";
-            return true;
-       ],
-       before [;
-            Unlock, Open:
+            if (bulkhead_passed == 0) "The lock has been released. The door stands open.";
+            if (identity_hacked == 0) {
+                print "The door has closed behind you. A hologram reads: ";
+                PrintVisual("ACCESS DENIED: NON-COMMANDER PERSONNEL");
+                ". It's sealed tight.";
+            }
+            "The commander override is active. The door can be opened.";
+        ],
+        before [;
+            Open, Unlock:
                 if (location == Corridor) {
-                    ! From south side (before passing through)
-                    if (power_restored == 0) { 
-                        print "The electronic systems appear dead.^"; 
-                        rtrue; 
-                    }
-                    if (lockdown_lifted == 0) { 
-                        print "The lock is still engaged. You need to release it first.^"; 
-                        rtrue; 
-                    }
-                    ! Door is open, allow passage
+                    if (power_restored == 0) "The electronic systems appear dead.";
+                    if (lockdown_lifted == 0) "The lock is still engaged. You need to release it first.";
+                    if (self has open) "The door is already open.";
                     give self ~locked open;
-                    print "The door is already open.^";
-                    rtrue;
-                } else {
-                    ! From north side (after passing through)
-                    if (identity_hacked == 0) {
-                        print "The scanner sweeps a laser over your retina. ";
-                        PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
-                        print "^The door remains locked.^"; 
-                        rtrue;
-                    } else {
-                        print "The scanner sweeps a laser over your retina. ";
-                        PrintAudio("VELMAR, CERNYV.");
-                        print "^The heavy bolts retract. The door grinds open.^";
-                        give self ~locked open; 
-                        rtrue;
-                    }
+                    "The heavy door slides aside.";
                 }
-       ],
-       door_dir [; if (location == Corridor) return n_to; return s_to; ],
-       door_to [; 
-    if (location == Corridor) {
-        if (power_restored == 0 || lockdown_lifted == 0) {
-            print "The bulkhead is sealed shut.^";
-            rtrue;
-        }
-        if (bulkhead_passed == 0) {
-            bulkhead_passed = 1;
-            give self ~open locked;
-            print "As you pass through, the massive bulkhead slams shut behind you with a heavy CLUNK! It seals tight.^";
-            PlayerTo(SpineFore);
-            rtrue;
-        }
-        return SpineFore;
-    }
-    if (identity_hacked == 0) {
-        print "The door is locked from this side.^";
-        rtrue;
-    }
-    return Corridor;
-],
-       found_in Corridor SpineFore,
-       has static door locked scenery;
+                ! Logic for the North side (SpineFore)
+                print "The scanner sweeps a laser over your retina. ";
+                if (identity_hacked == 0) {
+                    TranslateAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.", "ACCESS DENIED: UNKNOWN BIOMETRICS.");
+                    "^The door remains locked.";
+                }
+                TranslateAudio("VELMAR, CERNYV.", "IDENTITY VERIFIED. WELCOME, COMMANDER.");
+                give self ~locked open;
+                "^The heavy bolts retract. The door grinds open.";
+        ],
+        after [;
+            Go:
+                ! Trigger the "Slam Shut" only when moving South to North for the first time
+                if (location == SpineFore && bulkhead_passed == 0) {
+                    bulkhead_passed = 1;
+                    give self locked ~open;
+                    "As you pass through, the massive bulkhead slams shut behind you with a heavy CLUNK! It seals tight.";
+                }
+        ],
+        door_to [;
+            if (location == Corridor) return SpineFore;
+            return Corridor;
+        ],
+        door_dir [;
+            if (location == Corridor) return n_to;
+            return s_to;
+        ],
+  has   static door locked scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object EngineeringDoor "security door" ! This door needs to open automatically when card is swiped or otherwise unlocked
+Object EngineeringDoor "security door" ! This door needs to open automatically
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
             if (location == Corridor) {
@@ -96,4 +74,46 @@ Object EngineeringDoor "security door" ! This door needs to open automatically w
                 if (location == Engineering) "Use the green panel.";
                 if (battery_count == 0) "The electronic lock appears dead.";
        ], has static door openable lockable locked scenery;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Object BrigDoor "reinforced door"
+  with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
+       description [;
+            if (location == SecurityCheck) {
+                print "A heavy, reinforced door with a glowing red panel and a keycard slot.";
+                if (power_restored == 0) print " The panel is dark and unresponsive.";
+                else { print " The panel reads: "; PrintVisual("DRAZKOSH ZAMEROSH"); }
+            } else { 
+                print "The inner face of the door is smooth, unyielding metal with no visible controls. There is a loudspeaker in the middle of door at eye level.";
+            }
+            new_line; return true;
+       ],
+       door_dir [; 
+            if (location == SecurityCheck) return n_to; 
+            return s_to; 
+       ],
+       door_to [;
+            if (location == SecurityCheck) return Brig; ! Standard move into Brig
+            
+            ! --- ESCAPE LOGIC ---
+            give self ~open;    ! Force shut
+            give self locked;   ! Force locked
+            new_line;
+            style bold; print "CLANG!^"; style roman;
+            print "The moment you clear the threshold, the reinforced door slams shut behind you. Magnetic bolts hiss as they cycle into place, sealing the Brig once more. You are free.^";
+            PlayerTo(SecurityCheck);
+            return true; ! Tells the engine "Move complete, stop here."
+       ],
+       before [;
+            Open, Enter, Go:
+                if (location == Brig) {
+                    if (self has locked) {
+                        "There's no way to open the door from in here. It's built to keep people in.";
+                    }
+                }
+                if (location == SecurityCheck && power_restored == 0) {
+                    "The electronic lock is dead.";
+                }
+       ],
+       found_in SecurityCheck Brig,
+       has static door openable lockable locked scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
