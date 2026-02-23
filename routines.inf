@@ -204,13 +204,13 @@
     if (visual_cortex_active == 1 && random(100) <= 50) {
         visual_cortex_active = 0;
         move OpticalModule to EvidenceLocker;
-        print " Your vision blurs and swims disorientingly. ";
+        print "Your vision blurs and swims disorientingly. ^";
     }
     
     if (audio_codec_active == 1 && random(100) <= 50) {
         audio_codec_active = 0;
         move AudioModule to EvidenceLocker;
-        print "A muffled ringing sound fills your ears for a moment, then fades.";
+        print "A muffled ringing sound fills your ears for a moment, then fades. ^";
     }
 
     ! 3. Teleport and Dialogue
@@ -317,7 +317,7 @@ if (child(EvidenceLocker) ~= nothing) {
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ Translate str_alien str_human;
-    if (visual_cortex_active) {
+    if (audio_codec_active) {
         print (string) str_human;
     } else {
         print (string) str_alien;
