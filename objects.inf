@@ -349,8 +349,9 @@ Object EvidenceLocker "evidence locker" SecurityCheck
            }
            "It is currently sealed tight.";
        ],
-       when_closed "A reinforced evidence locker is set into the wall.",
-       when_open "The evidence locker stands open, revealing its contents.",
+       when_closed "A reinforced locker is set into the wall under a sign reading ",
+       Translate("KOVRAZHSK." , "EVIDENCE.")
+       when_open "The locker stands open, its contents long since ransacked.",
        before [;
            Open:
                if (self has locked) {

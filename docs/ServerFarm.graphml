@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="SF4"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="0.0" y="0.0"/><y:NodeLabel>ServerFarm4</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF5"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="150.0" y="0.0"/><y:NodeLabel>ServerFarm5</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF8"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="300.0" y="0.0"/><y:NodeLabel>ServerFarm8</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF11"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="450.0" y="0.0"/><y:NodeLabel>ServerFarm11</y:NodeLabel></y:ShapeNode></data></node>
+    
+    <node id="SF3"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="0.0" y="100.0"/><y:NodeLabel>ServerFarm3</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF6"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="150.0" y="100.0"/><y:NodeLabel>ServerFarm6</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF9"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="300.0" y="100.0"/><y:NodeLabel>ServerFarm9</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF12"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="450.0" y="100.0"/><y:NodeLabel>ServerFarm12</y:NodeLabel></y:ShapeNode></data></node>
+    
+    <node id="SF2"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="0.0" y="200.0"/><y:NodeLabel>ServerFarm2</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF7"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="150.0" y="200.0"/><y:NodeLabel>ServerFarm7</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="SF10"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="300.0" y="200.0"/><y:NodeLabel>ServerFarm10</y:NodeLabel></y:ShapeNode></data></node>
+    <node id="ST"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="450.0" y="200.0"/><y:NodeLabel>ServerTerminal</y:NodeLabel></y:ShapeNode></data></node>
+    
+    <node id="SF1"><data key="d6"><y:ShapeNode><y:Geometry height="40.0" width="110.0" x="0.0" y="300.0"/><y:NodeLabel>ServerFarm1</y:NodeLabel></y:ShapeNode></data></node>
+
+    <edge source="SF1" target="SF2"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF2" target="SF3"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF2" target="SF7"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF3" target="SF4"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>N</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF3" target="SF6"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF4" target="SF5"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF5" target="SF8"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF6" target="SF7"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>SW</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF7" target="SF10"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF8" target="SF9"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>S</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF9" target="SF12"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>E</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF11" target="SF12"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>S</y:EdgeLabel></y:PolyLineEdge></data></edge>
+    <edge source="SF12" target="ST"><data key="d10"><y:PolyLineEdge><y:EdgeLabel>SE</y:EdgeLabel></y:PolyLineEdge></data></edge>
+  </graph>
+</graphml>

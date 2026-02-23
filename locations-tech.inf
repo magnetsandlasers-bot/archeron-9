@@ -63,60 +63,6 @@ AlienRoom Landing "Landing"
         u_to ServerRoom;
 
 
-ServerFarm ServerFarm1 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        se_to ServerRoom,
-        n_to ServerFarm2;
-
-ServerFarm ServerFarm2 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        s_to ServerFarm1,
-        w_to ServerFarm3;
-
-ServerFarm ServerFarm3 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        w_to ServerFarm2,
-        n_to ServerFarm4,
-        e_to ServerFarm6;
-
-ServerFarm ServerFarm4 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        s_to ServerFarm3,
-        n_to ServerFarm5;
-
-ServerFarm ServerFarm5 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        s_to ServerFarm5,
-        w_to ServerFarm5,
-        n_to ServerFarm4,
-        e_to ServerFarm8;
-
-ServerFarm ServerFarm6 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.",
-        s_to ServerFarm7,
-        w_to ServerFarm3,
-        n_to ServerFarm9;
-
-ServerFarm ServerFarm7 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.";
-
-ServerFarm ServerFarm8 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.";
-
-ServerFarm ServerFarm9 "Server Farm"
-    with zh_name "JADROZ PARYN",
-        description "Towering black server racks.";
-
- 
-
 
 ! --- 2. THE TERMINAL (Explicitly placed in ServerFarm) ---
 Object ServerTerminal "main terminal" ServerFarm

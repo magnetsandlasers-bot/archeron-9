@@ -18,6 +18,7 @@ Include "locations-bridge.inf";
 Include "locations-cargo.inf";  
 Include "locations-med.inf";  
 Include "locations-tech.inf";
+Include "locations-serverfarm.inf";
 Include "doors.inf";
 Include "objects.inf";
 ! 5. GRAMMAR LAST
