@@ -25,7 +25,7 @@ AlienRoom SpineMid "Spine Mid"
 
 AlienRoom Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
-       description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads Down.",
+       description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",
        s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;
 
 AlienRoom SecurityCheck "Security Checkpoint"
@@ -52,15 +52,15 @@ AlienRoom CommsRelay "Comms Relay"
 
 AlienRoom ServerRoom "Server Room"
   with zh_name "CERNYV STYRZ",
-       description "Rows of server banks hum quietly. The exit is South.",
+       description "Rows of server banks hum quietly. The exit is South. A short stairway leads up to a small landing." ,
        s_to OpsCenter,
-       d_to Landing;
+       u_to Landing;
 
 AlienRoom Landing "Landing"
     with zh_name "KAELTH",
         description "A landing in a stairwell. There is a locked door on the West wall. You can go up or down.",
-        d_to ServerFarm1,
-        u_to ServerRoom;
+        u_to ServerFarm1,
+        d_to ServerRoom;
 
 
 

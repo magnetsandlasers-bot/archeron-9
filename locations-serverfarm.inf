@@ -9,8 +9,7 @@ ServerFarm ServerFarm1 "Server Farm"
 ServerFarm ServerFarm2 "Server Farm"
     with description "Towering black server racks.",
         n_to ServerFarm3,
-        e_to ServerFarm7,
-        s_to ServerFarm1;
+        w_to ServerFarm1;
 
 ! --- The Western Wall ---
 ServerFarm ServerFarm3 "Server Farm"
@@ -22,18 +21,18 @@ ServerFarm ServerFarm3 "Server Farm"
 ServerFarm ServerFarm4 "Server Farm"
     with description "Towering black server racks.",
         w_to ServerFarm3,
-        e_to ServerFarm5;
+        e_to ServerFarm5,
 
 ! --- The North Row ---
 ServerFarm ServerFarm5 "Server Farm"
-    with description "Towering black server racks.",
+    with description "Towering black server racks. You see a shelf here.",
         w_to ServerFarm4,
-        se_to ServerFarm8,
+        nw_to ServerFarm8,
         s_to ServerFarm5; ! Back to itself
 
 ! --- The Central Hubs ---
 ServerFarm ServerFarm6 "Server Farm"
-    with description "Towering black server racks. You see a shelf here.",
+    with description "Towering black server racks. A window on the west wall looks down into the Atrium.",
         w_to ServerFarm3,
         sw_to ServerFarm7;
 
@@ -47,10 +46,11 @@ ServerFarm ServerFarm7 "Server Farm"
 ServerFarm ServerFarm8 "Server Farm"
     with description "Towering black server racks.",
         w_to ServerFarm5,
+        ne_to ServerFarm8,
         s_to ServerFarm9;
 
 ServerFarm ServerFarm9 "Server Farm"
-    with description "Towering black server racks.",
+    with description "Towering black server racks. A window on the east wall looks down into the Atrium.",
         n_to ServerFarm8,
         s_to ServerFarm9, ! Back to itself
         e_to ServerFarm12;
@@ -69,10 +69,10 @@ ServerFarm ServerFarm12 "Server Farm"
     with description "Towering black server racks. You see a shelf here.",
         n_to ServerFarm11,
         w_to ServerFarm9,
-        se_to ServerTerminal;
+        se_to ServerTerminalRoom;
 
 ! --- The Goal ---
-ServerFarm ServerTerminalMachine "Server Terminal"
+ServerFarm ServerTerminalRoom "Server Terminal"
     with description "The chaotic hum of the farm fades, replaced by the steady glow of a master console.",
         n_to ServerFarm12,
         sw_to ServerFarm1;
