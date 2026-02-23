@@ -21,7 +21,7 @@ ServerFarm ServerFarm3 "Server Farm"
 ServerFarm ServerFarm4 "Server Farm"
     with description "Towering black server racks.",
         w_to ServerFarm3,
-        e_to ServerFarm5,
+        e_to ServerFarm5;
 
 ! --- The North Row ---
 ServerFarm ServerFarm5 "Server Farm"
