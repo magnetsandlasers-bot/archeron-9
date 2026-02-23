@@ -342,7 +342,7 @@ Object CotUnmade "unmade cot"
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
-           print "A secure storage unit for confiscated items. It has a heavy electronic lock. ";
+           print "A kind of secure storage unit. It has a serious-looking electronic lock. ";
            if (self has open) {
                if (child(self) == nothing) "It is currently empty.";
                "Inside, you see your confiscated belongings.";
