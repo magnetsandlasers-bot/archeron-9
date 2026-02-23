@@ -20,11 +20,7 @@ Verb 'heal' * -> Heal;
 Verb 'toggle' 
     * topic -> Toggle;
 
-! Swipe Keycard
 Verb 'swipe'
-    * held                               -> Swipe
-    * held 'at'/'through'/'on'/'in' noun -> Unlock reverse;
-
-! Add 'swipe' to the existing Unlock grammar so "swipe card at door" works
-Extend 'unlock' first
-    * held 'at'/'through'/'on' noun      -> Unlock reverse;
+    * held -> Swipe
+    * held 'in'/'at'/'through'/'on' noun -> Swipe
+    * held 'in'/'at'/'through'/'on' 'reader' -> Swipe;

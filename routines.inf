@@ -325,14 +325,29 @@ if (child(EvidenceLocker) ~= nothing) {
     rtrue;
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ SwipeSub;
+![ SwipeSub;
     ! Case 1: "swipe card" (noun is card, second is nothing)
-    if (second == nothing) {
-        if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
-        "You'd need to swipe that through something, but it's not even a card. Are you OK?";
-    }
-
+ !   if (second == nothing) {
+ !       if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
+ !       "You'd need to swipe that through something, but it's not even a card. Are you OK?";
+ !   }
     ! Case 2: "swipe card at [something that isn't a door]"
-    "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
+!    "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
+!];
+[ SwipeSub;
+    if (noun == 0) "Swipe what?";
+    if (second == 0) {
+        ! Check for a reader nearby
+        if (EngineeringDoor in location) <<Swipe EngineeringDoor Keycard>>;
+        "You swipe the card through the air, but nothing happens.";
+    }
+    ! Logic for swiping the card in the door/reader
+    if (second == EngineeringDoor) {
+        if (noun ~= Keycard) "The reader flashes red. Invalid card.";
+        if (battery_count == 0) "The reader is dead.";
+        <<Unlock EngineeringDoor Keycard>>;
+    }
+    "That doesn't have a card reader.";
 ];
+
 
