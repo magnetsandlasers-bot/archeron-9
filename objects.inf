@@ -75,7 +75,7 @@ Object Battery1 "heavy cylinder"
      plural "heavy cylinders",
      list_together "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    not_charged 1, shelvable 1,     
+    charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 ! Corridor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object Corpse "desiccated corpse" ! Examine dessicated should work
@@ -117,21 +117,21 @@ Object Battery2 "heavy cylinder"
      short_name "heavy cylinder",
      plural "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    not_charged 1, shelvable 1,     
+    charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 Object Battery3 "heavy cylinder"
      with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
      short_name "heavy cylinder",
      plural "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    not_charged 1, shelvable 1,     
+    charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 Object Battery4 "heavy cylinder"
      with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit' ,
      short_name "heavy cylinder",
      plural "heavy cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    not_charged 1, shelvable 1,     
+    charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 Object ExitButton "exit button"
   with name 'button' 'exit',
@@ -192,25 +192,25 @@ Object IronLever "heavy iron lever"
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object WallSocket "wall mechanism"
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
-       description "A recessed port set into the metal bulkhead...",
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
        before [;
             Receive:
-                if (child(self) ~= 0) "The slot is occupied.";
-                
-                ! If it's already charged, just move it in normally
-                if (noun.is_charged == 1) {
-                    move noun to self;
-                    "You slide the pulsing cylinder into the port, but it is already fully charged.";
-                }
+    if (child(self) ~= 0) "The slot is occupied.";
+    if (noun.shelvable ~= 1) "That doesn't fit.";
+    
+    if (noun.charged == 1) {
+        move noun to self;
+        "You slide the pulsing cylinder in, but it's already fully charged.";
+    }
 
-                ! If it's a dead battery, swap it
-                if (noun.not_charged == 1) {
-                    if (noun == Battery1) { remove Battery1; move ChargedCell1 to self; }
-                    if (noun == Battery2) { remove Battery2; move ChargedCell2 to self; }
-                    if (noun == Battery3) { remove Battery3; move ChargedCell3 to self; }
-                    if (noun == Battery4) { remove Battery4; move ChargedCell4 to self; }
-                    "You slide the cylinder into the wall port. It locks with a clunk. A high-pitched whine builds up, and the unit begins to glow.";
-                }
+    if (noun.charged == 0) {
+        if (noun == Battery1) { remove Battery1; move ChargedCell1 to self; }
+        if (noun == Battery2) { remove Battery2; move ChargedCell2 to self; }
+        if (noun == Battery3) { remove Battery3; move ChargedCell3 to self; }
+        if (noun == Battery4) { remove Battery4; move ChargedCell4 to self; }
+        "You slide the cylinder into the wall port. It locks with a clunk. 
+        A high-pitched whine builds up, and the unit begins to glow.";
+    }
 
                 "That doesn't fit.";
        ],
@@ -220,32 +220,38 @@ Object MainColumn "central column"
        description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
        before [;
             Receive:
-                ! 1. Check if it's a charged cell
-                if (noun.is_charged == 1) {
+                ! First, check if it's even a battery type
+                if (noun.shelvable ~= 1) {
+                    "The column slot is designed for specific cylindrical units; that doesn't belong there.";
+                }
+
+                ! If it's a charged battery (Value 1)
+                if (noun.charged == 1) {
                     remove noun;
                     battery_count++;
                     print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
                     
                     if (battery_count == 1) {
-                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead.^";
+                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.^";
                         power_restored = 1;
                         alarm_lights_active = 0;
-                    } else if (battery_count == 2) {
-                        print "^^The reactor hums louder, power surging through the ship's systems.^";
-                    } else if (battery_count == 3) {
-                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear lights and machinery coming to life.^";
+                    } 
+                    else if (battery_count == 2) {
+                        print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.^";
+                    } 
+                    else if (battery_count >= 3) {
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.^";
                         medical_wing_powered = 1;
                     }
+                    new_line;
                     return true;
                 }
 
-                ! 2. Check if it's an uncharged battery
-                if (noun.not_charged == 1) {
-                    "The cylinder fits the slot, but the contact points remain cold. Nothing happens. The machine seems to require a different state of energy.";
+                ! If it's a dead battery (Value 0)
+                if (noun.charged == 0) {
+                    move noun to self; ! This physically puts it in the column
+                    "The cylinder fits the slot perfectly, but the contact points remain cold. Nothing happens.";
                 }
-
-                ! 3. Fallback for everything else
-                "The column slot is designed for specific cylindrical units; that doesn't belong there.";
        ], 
     has static container open scenery;
 Object ChargedCell1 "pulsing cylinder"
@@ -253,28 +259,28 @@ Object ChargedCell1 "pulsing cylinder"
     short_name "charged cylinder",
     plural "charged cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
-    is_charged 1, shelvable 1,
+    charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell2 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
     short_name "charged cylinder",
     plural "charged cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
-    is_charged 1, shelvable 1,
+    charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell3 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
     short_name "charged cylinder",
     plural "charged cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
-    is_charged 1, shelvable 1,
+    charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell4 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
     short_name "charged cylinder",
     plural "charged cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
-    is_charged 1, shelvable 1,
+    charged 1, shelvable 1,
     bulk BULK_HEAVY;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object SecurityDrone "Security Drone"
