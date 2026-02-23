@@ -222,7 +222,7 @@
     if (arpi_active == 0) {
         arpi_active = 1;
         new_line;
-        print "A crackle of static erupts from the intercom...^";
+        print "A crackle of static erupts from the intercom, followed by a new voice. Not the administrative bark of the ship, but something that sounds like it wants to communicate.^";
         new_line;
         style underline;
         Translate("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",

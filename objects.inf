@@ -68,12 +68,12 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
        ];
-Object Battery1 "heavy cylinder"
+Object Battery1 "dark cylinder"
      with initial "A heavy, dark cylinder lies on the floor.",
-     name 'cell' 'battery' 'cylinder' 'heavy',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
-     list_together "heavy cylinders",
+     name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     list_together "heavy, dark cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
@@ -112,24 +112,24 @@ Object Keycard "plastic keycard"
 
 
 ! Engineering ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object Battery2 "heavy cylinder"
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
+Object Battery2 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
+Object Battery3 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
-Object Battery3 "heavy cylinder"
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit',
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    charged 0, shelvable 1,     
-    bulk BULK_HEAVY;
-Object Battery4 "heavy cylinder"
-     with name 'heavy' 'cylinder' 'cylinders' 'battery' 'batteries' 'cell' 'unit' ,
-     short_name "heavy cylinder",
-     plural "heavy cylinders",
+Object Battery4 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
@@ -232,15 +232,15 @@ Object MainColumn "central column"
                     print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
                     
                     if (battery_count == 1) {
-                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.^";
+                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.";
                         power_restored = 1;
                         alarm_lights_active = 0;
                     } 
                     else if (battery_count == 2) {
-                        print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.^";
+                        print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.";
                     } 
                     else if (battery_count >= 3) {
-                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.^";
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.";
                         medical_wing_powered = 1;
                     }
                     new_line;
@@ -256,29 +256,29 @@ Object MainColumn "central column"
     has static container open scenery;
 Object ChargedCell1 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-    short_name "charged cylinder",
-    plural "charged cylinders",
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell2 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-    short_name "charged cylinder",
-    plural "charged cylinders",
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell3 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-    short_name "charged cylinder",
-    plural "charged cylinders",
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
 Object ChargedCell4 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-    short_name "charged cylinder",
-    plural "charged cylinders",
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
@@ -379,3 +379,43 @@ Object EvidenceLocker "evidence locker" SecurityCheck
            }
        ],
   has static container openable locked open; ! Starts open and unlocked
+  ! This assumes Global arpi_active is defined in your other file.
+
+Object Arpi "Arpi's voice"
+    with name 'arpi' 'voice' 'ai' 'system',
+    arpi_state 0,
+
+    React_Before [;
+        ! We use 'Answer' because that's the internal 
+        ! action name for 'saying' something.
+        Answer, Ask, Tell:
+            if (arpi_active == 1) {
+                if (noun == 0 || noun == player) <<Answer self>>;
+            }
+    ],
+
+    Life [;
+        ! 'Answer' handles "SAY HELLO", "HI", or "ARPI, [WHATEVER]"
+        Answer:
+            return self.greet_routine();
+        
+        Ask:
+            switch (second) {
+                'mission', 'orders': "Arpi clarifies, 'Our objective is retrieval.'";
+                'status': "Arpi chirps, 'All systems nominal.'";
+                default: "The voice pauses. 'Data on that topic is restricted.'";
+            }
+    ],
+
+    greet_routine [;
+        switch (self.arpi_state) {
+            0: 
+                self.arpi_state = 1;
+                "The speakers crackle. 'Hello, Operator. I am Arpi. Systems are online.'";
+            1: 
+                "Arpi's voice is calm. 'Yes? I am still here, Operator.'";
+            default: 
+                "Arpi sounds slightly impatient. 'We really should be moving.'";
+        }
+    ],
+    has animate scenery;
