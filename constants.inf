@@ -7,6 +7,8 @@ Constant BULK_NORMAL = 2;
 Constant BULK_HEAVY  = 8;
 Constant MAX_CAPACITY = 10;
 
+Attribute is_shelvable;
+
 ! ==============================================================================
 ! GLOBAL VARIABLES
 ! ==============================================================================
