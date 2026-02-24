@@ -20,12 +20,13 @@ Verb 'testbrig' * -> DevBrig;
     w = NextWord();
 
     if (w == 'power') power_restored = 1 - power_restored;
-    else if (w == 'medical' or 'med') medical_wing_powered = 1 - medical_wing_powered;
+    else if (w == 'med') medical_wing_powered = 1 - medical_wing_powered;
     else if (w == 'lockdown') lockdown_lifted = 1 - lockdown_lifted;
     else if (w == 'visual' or 'cortex') visual_cortex_active = 1 - visual_cortex_active;
-    else if (w == 'audio' or 'codec') audio_codec_active = 1 - audio_codec_active;
-    else if (w == 'bulkhead' or 'door') bulkhead_passed = 1 - bulkhead_passed;
+    else if (w == 'audio') audio_codec_active = 1 - audio_codec_active;
+    else if (w == 'bulkhead') bulkhead_passed = 1 - bulkhead_passed;
     else if (w == 'id' or 'identity' or 'hack') identity_hacked = 1 - identity_hacked;
+    else if (w == 'arpi') arpi_aware = 1 - arpi_aware;
     else { 
         "Toggle what? (power, medical, lockdown, visual, audio, bulkhead, identity)"; 
     }
@@ -38,14 +39,15 @@ Verb 'testbrig' * -> DevBrig;
     ! We manually check the next word in the input buffer
     wn = consult_from;
     switch (NextWord()) {
-        'brig': PlayerTo(Brig);
         'bridge': PlayerTo(Bridge);
         'spine': PlayerTo(SpineMid);
         'med', 'medbay': PlayerTo(MedicalBay);
         'eng', 'engineering': PlayerTo(Engineering);
         'cargo': PlayerTo(CargoBay);
         'home' : PlayerTo(CryoBay);
-        default: "Teleport failed. Use: WARP [brig, bridge, spine, med, eng, cargo]";
+        'drone' : PlayerTo(DroneWorkshop);
+        'terminal': PlayerTo(ServerTerminal);
+        default: "Teleport failed. Use: WARP [bridge, spine, med, eng, cargo, home, drone, terminal]";
     }
 ];
 

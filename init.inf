@@ -1,42 +1,24 @@
 [ Initialise;
     location = CryoBay;
     move HighTechJumpsuit to CryoBay;
-    move Battery1 to CryoBay;
-    move PlayerCryoTube to CryoBay;
-    move EmptyCryoTubes to CryoBay;
-    move OccupiedTube to CryoBay;
-    move Corpse to Corridor;
     move Keycard to Corpse;
-
     move ExitButton to Engineering;
-    move ControlStation to Engineering;
-    move IronLever to Engineering;
-    move BatteryShelf to Engineering;
+    move Battery1 to CryoBay;
     move Battery2 to BatteryShelf;
     move Battery3 to BatteryShelf;
     move Battery4 to BatteryShelf;
-
-    move WallSocket to ReactorRoom;
-    move MainColumn to ReactorRoom;
-
-    move ChargedCell5 to DroneCharger;
     move Battery6 to DroneBench;
-    move OpticalModule to ServerRoom;
-    move AudioModule to CommsRelay;
-    move CotUnmade to Brig;
-
+    move ChargedCell5 to DroneCharger;
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
     move OperatingTable to MedicalBay;
-    move DroneBench to DroneWorkshop;
     move BrokenDrone to DroneBench;
     move AudioModuleFried to BrokenDrone;
     move OpticalModuleFried to BrokenDrone;
     move SecurityDrone to Atrium; 
     move OpticalModule to SecurityDrone;
     move AudioModule to SecurityDrone;
-        StartDaemon(SecurityDrone); ! Start Drone
-
+        StartDaemon(SecurityDrone);
     ! --- Intro Sequence ---
     @erase_window $ffff;
     new_line;
@@ -59,10 +41,11 @@
     @read_char 1 -> sp;
     @erase_window $ffff; ! Clear screen for game start
     ! --- Pre-Game Urgency Text ---
-    print "^Red alarm lights begin flashing! You hear that voice again, and though you can't understand the strange words, you can feel their urgency.^";
+    new_line;
+    print "^Red alarm lights begin flashing! You hear the announcement again, and though you can't understand the strange words, you can feel their urgency.^";
     new_line;
     style underline;
-    print "KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
+    print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~";
     style roman;
     new_line;
     return 2; ! Suppress banner, start game

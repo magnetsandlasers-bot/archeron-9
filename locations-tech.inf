@@ -123,5 +123,5 @@ AlienRoom Brig "Security Brig"
        ];
 AlienRoom DroneWorkshop "Drone Workshop"
     with zh_name "VZRAC MAJSTRZ",
-           description "This is a small workshop that looks like it is used for working on security drones. On a workbench you see a half-disassembled drone and a heavy, dark cylinder. ^^On the wall, you see a drone charging station powered by a pulsing cylinder. ",
+           description "This is a small workshop that looks like it must be used for working on security drones. On a workbench you see a half-disassembled drone and a heavy, dark cylinder. One of the charging units is on the south wall, its cylindrical slot empty. Next to it, another station looks to be powered by one of the pulsing cylinders. This station has an opening that looks like it could accomodate one of the drones.",
            e_to OpsCenter;

@@ -1,5 +1,5 @@
 ! CryoBay ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object PlayerCryoTube "empty tube you came out of"
+Object PlayerCryoTube "empty tube you came out of" CryoBay
  with parse_name [;
            if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
            return 0;
@@ -26,7 +26,7 @@ Object PlayerCryoTube "empty tube you came out of"
                if (self hasnt open) "The locking mechanism has engaged fully; it's sealed for good.";
        ],
        has static scenery door open enterable;
-Object EmptyCryoTubes "bank of cryo tubes"
+Object EmptyCryoTubes "bank of cryo tubes" CryoBay
      with name 'bank' 'row' 'tubes' 'pods' 'open' 'empty' 'vacant',
           description "A row of closed upright tubes with frosted glass fronts. Most are vacant, but one near you appears occupied.",
           before [;
@@ -37,7 +37,7 @@ Object EmptyCryoTubes "bank of cryo tubes"
           ],
           has static scenery;
 
-Object OccupiedTube "occupied cryo tube"
+Object OccupiedTube "occupied cryo tube" CryoBay
      with name 'occupied' 'tube' 'pod' 'closed' 'glass' 'sealed',
           description [;
               print "You see the deathly-still silhouette of a misshapen figure slumped in the sealed tube. The bio-monitor display reads: ";
@@ -78,8 +78,8 @@ Object Battery1 "dark cylinder"
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 ! Corridor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object Corpse "desiccated corpse" ! Examine dessicated should work
-  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform',
+Object Corpse "desiccated corpse" Corridor
+  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
             print "A crew member, long dead. He wears a standard technician's uniform.";
             if (Keycard in self) { 
@@ -136,7 +136,7 @@ Object Battery4 "dark cylinder"
 Object ExitButton "exit button"
   with name 'button' 'exit',
        before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
-Object BatteryShelf "metal shelf"
+Object BatteryShelf "metal shelf" Engineering
   with name 'shelf' 'shelves' 'rack' 'metal',
        description [;
            print "A sturdy metal shelf bolted to the wall. It has three levels. 
@@ -160,7 +160,7 @@ Object BatteryShelf "metal shelf"
        ],
   has static supporter scenery;
 
-Object ControlStation "control station"
+Object ControlStation "control station" Engineering
   with name 'panel' 'station' 'control' 'status' 'amber', 
        description [;
            print "It features a Heavy Iron Lever. A sign above the lever reads ";
@@ -168,7 +168,7 @@ Object ControlStation "control station"
        ],
        has static scenery supporter;
 
-Object IronLever "heavy iron lever"
+Object IronLever "heavy iron lever" Engineering
   with name 'lever' 'iron' 'heavy',
   before [;
      Pull:
@@ -190,7 +190,7 @@ Object IronLever "heavy iron lever"
   ],
   has static scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object WallSocket "wall socket"
+Object WallSocket "wall socket" ReactorRoom
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
        description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
        before [;
@@ -222,7 +222,7 @@ Object WallSocket "wall socket"
                 "That doesn't fit.";
        ],
     has static container open scenery;
-Object MainColumn "central column"
+Object MainColumn "central column" ReactorRoom
   with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
        description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
        before [;
@@ -305,10 +305,10 @@ Object SecurityDrone "security drone"
        ],
   has static container openable;
 Object BrokenDrone "broken drone"
-  with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
+  with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description "An inert sphere of black metal, split open to reveal its insides.",
        initial "A broken drone sits here.",
-  has static container open;
+  has static container open scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object OpticalModule "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
@@ -357,7 +357,7 @@ Object AudioModuleFried "fried bio-chip (silver)"
                 rtrue;
        ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object CotUnmade "unmade cot"
+Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in."
     has static scenery;
@@ -442,7 +442,7 @@ Object Arpi "Arpi's voice"
     ],
     has animate scenery;
 
-Object DroneBench "drone workbench"
+Object DroneBench "drone workbench" DroneWorkshop
     with name 'workbench' 'table' 'bench',
        description [;
            print "A shiny, sterile-looking workbench. A pegboard with some tools is at hand. ";
@@ -476,7 +476,8 @@ Object Battery6 "dark cylinder"
      plural "dark cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
-    bulk BULK_HEAVY;
+    bulk BULK_HEAVY,
+    has scenery;
 Object ChargedCell5 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
     short_name "pulsing cylinder",
@@ -491,7 +492,7 @@ Object ChargedCell6 "pulsing cylinder"
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
-Object DroneSocket "wall socket"
+Object DroneSocket "wall socket" DroneWorkshop
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
        description "A recessed port set into the wall. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
        before [;
@@ -524,7 +525,7 @@ Object DroneSocket "wall socket"
        ],
     has static container open scenery;
 Object DroneCharger "drone charger" DroneWorkshop
-  with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole',
+  with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
        description [;
            print "A wall unit for recharging drones.";
            if (child(self) ~= 0) {
@@ -533,22 +534,29 @@ Object DroneCharger "drone charger" DroneWorkshop
                print " The charging slot is empty.";
            }
            new_line;
+           rtrue;
+       ],
+       describe [;
+           ! Returning rtrue here tells the library: 
+           ! "I've handled the room description for this object, don't print anything else."
+           rtrue; 
        ],
        before [;
             Receive:
+                if (noun == SecurityDrone or BrokenDrone) {
+                    "The drone is broken beyond your ability to repair, and it does not even register in the charger.";
+                }
                 if (noun provides charged) {
-                if (noun.charged == 0) "That battery is dead; it won't help the drone.";
-                ! If it reaches here, it provides charged and is NOT 0
-            } else {
+                    if (noun.charged == 0) "That battery is dead.";
+                } else {
                     "That doesn't fit the charging port.";
-                        }        LetGo: 
-                        ! This triggers when the player TAKES the battery out
-                        if (noun provides charged && parent(SecurityDrone) == location) {
-                        if (drone_move_count == 0) { 
+                }
+            LetGo: 
+                if (noun provides charged && parent(SecurityDrone) == location) {
+                    if (drone_move_count == 0) { 
                         drone_active = 0;
                         print "As you yank ", (the) noun, " out, the drone sparks violently! 
-                        Its red eye flickers and goes dark. It slumps to the floor, 
-                        permanently disabled.^^";
+                        Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
                     }
                 }
        ],

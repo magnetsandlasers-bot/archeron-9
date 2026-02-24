@@ -55,7 +55,7 @@ Object  BulkheadDoor "bulkhead"
         ],
   has   static door locked scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object EngineeringDoor "security door" ! This door needs to open automatically
+Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
             if (location == Corridor) {
@@ -63,17 +63,27 @@ Object EngineeringDoor "security door" ! This door needs to open automatically
                 if (battery_count == 0) print " The lock's display is dead.";
                 else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
             } else print "The inner face is smooth steel.";
-            print "^"; return true;
+            new_line; return true;
        ],
        found_in Corridor Engineering,
        door_dir [; if (location == Corridor) return e_to; return w_to; ],
        door_to [; if (location == Corridor) return Engineering; return Corridor; ],
        with_key Keycard,
        before [;
-            Unlock, Open:
+            Open:
+                if (location == Engineering) "Use the green panel.";
+                if (location == Corridor && self has locked) "The door is locked tight; you'll need a card.";
+            Unlock:
                 if (location == Engineering) "Use the green panel.";
                 if (battery_count == 0) "The electronic lock appears dead.";
-       ], has static door openable lockable locked scenery;
+       ],
+       after [;
+            Unlock:
+                give self ~locked; ! Ensure the lock state is toggled
+                give self open;    ! Physically open the door
+                "As you slide the card through, the lock chirps and the heavy door hums open.";
+       ],
+       has static door openable lockable locked scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object BrigDoor "reinforced door"
   with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
