@@ -129,9 +129,11 @@
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! THE DRONE
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ DroneDaemon dir next_room;
+[ DroneDaemon dir next_room charger_loc battery; 
+    ! charger_loc and battery are now declared above as local variables
     if (drone_active == 0 || power_restored == 0) return;
-
+    charger_loc = parent(DroneCharger);
+    battery = child(DroneCharger);
     ! --- 1. Interaction Logic ---
     if (parent(SecurityDrone) == location) {
         if (drone_alert == 1) {
@@ -160,8 +162,30 @@
             print "^The security drone hovers past, its sensors failing to pick you up.^";
         }
     }
+! --- Charging Logic ---
+drone_alert = 0;
+    drone_move_count++;
 
-! --- 2. Algorithmic Movement ---
+    if (drone_move_count > 10) {
+        if (parent(SecurityDrone) == charger_loc) {
+            ! Check if the item in the charger is a valid, charged battery
+            if (battery ~= 0 && battery provides charged && battery.charged == 1) {
+                drone_move_count = 0; 
+                if (location == charger_loc)
+                    print "^The Security Drone docks with the wall unit, its eye dimming as it recharges.^";
+            } else {
+                if (location == charger_loc)
+                    print "^The Security Drone hovers near the charger, beeping urgently for power.^";
+            }
+            return; 
+        } else {
+            move SecurityDrone to charger_loc;
+            if (parent(SecurityDrone) == location) 
+                print "^The Security Drone floats in, heading straight for the charger.^";
+            return;
+        }
+    }
+! --- Algorithmic Movement ---
     drone_alert = 0;
     dir = random(6); 
     
