@@ -41,7 +41,7 @@ AlienRoom OpsCenter "Ops Center"
        description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, Northwest, South, and East.",
        e_to SecurityCheck,
        n_to ServerRoom,   ! Leads to the terminal and chips
-       nw_to ServerFarm,  ! Leads to the backup server area
+       w_to DroneWorkshop,
        s_to CommsRelay;
 
 AlienRoom CommsRelay "Comms Relay"
