@@ -28,6 +28,7 @@
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
     move OperatingTable to MedicalBay;
+    move DroneBench to DroneWorkshop;
     move BrokenDrone to DroneBench;
     move AudioModuleFried to BrokenDrone;
     move OpticalModuleFried to BrokenDrone;
