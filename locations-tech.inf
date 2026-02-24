@@ -21,7 +21,8 @@ AlienRoom SpineFore "Spine Fore"
 AlienRoom SpineMid "Spine Mid"
   with zh_name "POHYB STAVR SRED",
        description "The central segment of the spine corridor. The air here feels colder, and the emergency lights are almost completely dead. The corridor continues North and South.",
-       s_to SpineFore, n_to Atrium;
+       s_to SpineFore, 
+       n_to Atrium;
 AlienRoom Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
        description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",

@@ -1,7 +1,66 @@
 AlienRoom CargoBay "Cargo Bay"
   with zh_name "VZDYK DRAZK",
-       description "A dark, cavernous storage area. The exit is Up.", u_to Atrium;
-Object -> CargoCrates "crates" with name 'crate' 'crates', description "Standard shipping crates.", has static scenery;
-Object -> DataWafer "data wafer"
-  with name 'wafer' 'disk' 'chip' 'admin', bulk BULK_POCKET,
-       description [; print "A small data chip. Label: "; PrintVisual("ZRAAVEK: VZ-STYRZ"); print ".^"; return true; ];
+       description "A dark, cavernous storage area. The exit is Up.", 
+       u_to Atrium,
+       nw_to PilotRoom;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom PilotRoom "Pilot Room"
+  with zh_name "NAME HERE",
+       description "The control room for piloting the swarm.", 
+       s_to CargoBay;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom Garage "Garage"
+  with zh_name "NAME HERE",
+       description "The garage/hangar.", 
+       n_to Closet,
+       se_to Airlock,
+       w_to CargoBay;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom Closet "Closet"
+  with zh_name "NAME HERE",
+       description "A closet.", 
+       s_to Garage;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom Airlock "Airlock"
+  with zh_name "NAME HERE",
+       description "Airlock for spacewalking.", 
+       nw_to Garage;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom LowerSpineFore "Lower Spine Fore"
+  with zh_name "NAME HERE",
+       description "The corridor continues North and South.",
+       s_to LowerSpineMid, 
+       n_to CargoBay;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom LowerSpineMid "Lower Spine Mid"
+  with zh_name "NAME HERE",
+       description "The corridor continues North and South.",
+       s_to LowerSpineMid, 
+       n_to LowerSpineFore;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom LowerSpineAft "Lower Spine Aft"
+  with zh_name "NAME HERE",
+       description "The corridor continues North and South.",
+       s_to MechanicalRoom, 
+       n_to LowerSpineMid;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom MechanicalRoom "Mechanical Room"
+  with zh_name "NAME HERE",
+       description "A room with machinery.",
+       e_to BroomCloset, 
+       n_to LowerSpineAft;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom BroomCloset "Broom Closet"
+  with zh_name "NAME HERE",
+       description "A closet for brooms. A grating in the floor looks loose.",
+       w_to MechanicalRoom,
+       d_to TightCrawl;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AlienRoom TightCrawl "Tight Crawl"
+  with zh_name "NAME HERE",
+       description "A claustrophobic crawlway.",
+       u_to BroomCloset;
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
