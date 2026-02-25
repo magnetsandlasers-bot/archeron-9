@@ -96,8 +96,8 @@ Object -> TerminalSlot "data slot"
        ],
        has static container open scenery;
 
-AlienRoom Brig "Security Brig"
-  with zh_name "ZAMER DRAZK",
+AlienRoom Brig "Brig"
+  with zh_name "DRAZK",
        description [;
            print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is South, through a thick door.^";
            return true;

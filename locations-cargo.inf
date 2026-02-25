@@ -58,7 +58,7 @@ AlienRoom BroomCloset "Broom Closet"
        d_to TightCrawl;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AlienRoom TightCrawl "Tight Crawl"
-  with zh_name "NAME HERE",
+  ! with zh_name "NAME HERE",
        description "A claustrophobic crawlway.",
        u_to BroomCloset;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
