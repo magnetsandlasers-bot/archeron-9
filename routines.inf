@@ -215,8 +215,7 @@
   !  }
 !];
 [ DroneLogic d dir next_room charger_loc battery; 
-    if (drone_active == 0 || power_restored == 0) return;
-    
+if (d.is_active == 0 || power_restored == 0) return;    
     charger_loc = parent(DroneCharger);
     battery = child(DroneCharger);
 ! --- NEW: If the drone is docked, it is "asleep" and cannot spot you ---

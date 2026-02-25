@@ -289,27 +289,15 @@ Object ChargedCell4 "pulsing cylinder"
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!Object SecurityDrone "security drone"
-!  with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
-!       description "A floating sphere of black metal with a glowing red eye.",
-!       initial "A Security Drone hovers here, scanning for thermal signatures.",
-!       before [;
-!           Open:
-!                if (drone_active == 1) {
-           !         "You try to grab the hovering machine, but it emits a sharp 
-          !          electric spark that forces you to back off. It's not going 
-         !           to let you poke around its internals while it's powered on.";
-        !        }
-                ! If drone_active is 0, the library takes over and opens it normally.
-       !],
-       !  has static container openable;
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
     drone_alert 0,
+    is_active 1,  ! Each drone now tracks its own life
     drone_id 1;
 SecurityDrone SecurityDrone2 "security drone" 
     with move_count 8,
     drone_alert 0,
+    is_active 1,  ! Each drone now tracks its own life
     drone_id 2;
 Object BrokenDrone "broken drone"
   with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
@@ -597,22 +585,18 @@ Object DroneCharger "drone charger" DroneWorkshop
                 } else {
                     "That doesn't fit the charging port.";
                 }
-            LetGo: 
-                ! Fixed the brackets and the 'or' logic here
-                if (noun provides charged && (parent(SecurityDrone1) == location || parent(SecurityDrone2) == location)) {
-                    
-                    ! Identify which drone is present
-                    d = SecurityDrone1;
-                    if (parent(SecurityDrone2) == location) d = SecurityDrone2;
+LetGo: 
+    if (noun provides charged && (parent(SecurityDrone1) == location || parent(SecurityDrone2) == location)) {
+        
+        d = SecurityDrone1;
+        if (parent(SecurityDrone2) == location) d = SecurityDrone2;
 
-                    ! Only kill the drone if it was actually in the middle of charging
-                    if (d.move_count > 15) {
-                        drone_active = 0; 
-                        ! You might also want to move the drone to a 'dead' state
-                        print "As you yank ", (the) noun, " out, the drone sparks violently! 
-                        Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
-                    }
-                }
+        if (d.move_count > 15) {
+            d.is_active = 0; ! ONLY kills the drone in the room
+            print "As you yank ", (the) noun, " out, the drone sparks violently! 
+            Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
+        }
+    }
        ],
   has static container open scenery;
 Object CargoCrates "crates" CargoBay

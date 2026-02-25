@@ -23,14 +23,19 @@ Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description "A floating sphere of black metal with a glowing red eye.",
        initial "A Security Drone hovers here, scanning for thermal signatures.",
-       move_count 0, ! Each drone now has its own internal timer
+       move_count 0,
+       is_active 1, ! The new per-drone health property
+       drone_alert 0,
        before [;
             Open:
-                if (drone_active == 1) {
+                ! Check the property on this specific drone instance
+                if (self.is_active == 1) {
                     "You try to grab the hovering machine, but it emits a sharp 
                     electric spark that forces you to back off. It's not going 
                     to let you poke around its internals while it's powered on.";
                 }
+                ! If is_active is 0, the library will proceed to open it 
+                ! (assuming you want it to be a container when dead).
        ],
-  has static container openable;
+  has static container openable; ! Add 'container' if you want them to 'Open' it later
 

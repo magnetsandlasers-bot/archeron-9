@@ -2,14 +2,15 @@ AlienRoom CargoBay "Cargo Bay"
   with zh_name "VZDYK DRAZK",
        description "A dark, cavernous storage area. The exit is Up.", 
        u_to Atrium,
-       nw_to PilotRoom;
+       nw_to PilotRoom,
+       s_to LowerSpineFore;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AlienRoom PilotRoom "Pilot Room"
   with zh_name "NAME HERE",
        description "The control room for piloting the swarm.", 
        s_to CargoBay;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AlienRoom Garage "Garage"
+AlienRoom Hangar "Hangar"
   with zh_name "NAME HERE",
        description "The garage/hangar.", 
        n_to Closet,
@@ -19,12 +20,12 @@ AlienRoom Garage "Garage"
 AlienRoom Closet "Closet"
   with zh_name "NAME HERE",
        description "A closet.", 
-       s_to Garage;
+       s_to Hangar;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AlienRoom Airlock "Airlock"
   with zh_name "NAME HERE",
        description "Airlock for spacewalking.", 
-       nw_to Garage;
+       nw_to Hangar;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AlienRoom LowerSpineFore "Lower Spine Fore"
   with zh_name "NAME HERE",

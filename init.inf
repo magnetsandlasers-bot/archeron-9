@@ -18,7 +18,7 @@
     move SecurityDrone1 to Atrium; 
     move OpticalModule1 to SecurityDrone1;
     move AudioModule1 to SecurityDrone1;
-    move SecurityDrone2 to Garage; 
+    move SecurityDrone2 to Hangar; 
     move OpticalModule2 to SecurityDrone2;
     move AudioModule2 to SecurityDrone2;
         StartDaemon(SecurityDrone);

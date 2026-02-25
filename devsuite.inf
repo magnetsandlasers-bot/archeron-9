@@ -13,7 +13,7 @@
     print "Visual:  [", visual_cortex_active, "] | Audio:   [", audio_codec_active, "] | Identity: [", identity_hacked, "]^";
     print "Bulkhead:[", bulkhead_passed, "] | Arpi Aw:  [", arpi_aware, "] | Arpi Act: [", arpi_active, "]^";
     print "Oxygen:  [", oxygen, "] | Hidden:  [", player_hidden, "] | Jumpsuit: [", jumpsuit_worn, "]^";
-    print "Batteries:[", battery_count, "] | DroneAct:[", drone_active, "]^";
+    print "Batteries:[", battery_count, "] ^";
 
     new_line;
     style underline;
