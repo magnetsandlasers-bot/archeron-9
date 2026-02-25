@@ -23,18 +23,3 @@ AlienRoom Bridge "The Bridge"
 ! AlienRoom Airlock "Escape Pod Airlock"
 !  with zh_name "ZAMER SMRNK",
  
-Object -> RecallTerminal "recall terminal"
-  with name 'terminal' 'screen' 'console',
-       description [;
-            print "The screen controls the automated security systems. ";
-            if (identity_hacked) print "It is active. You see a command: [RECALL PATROL DRONE].";
-            else print "It is locked. [ACCESS DENIED: COMMANDER ONLY].";
-            print "^"; return true;
-       ],
-       before [;
-            Recall, Push:
-                if (identity_hacked == 0) "Access Denied.";
-                if (drone_active == 0) "The drone is already recalled.";
-                drone_active = 0; move SecurityDrone to nothing;
-                print "You type the command. [COMMAND ACCEPTED]. The drone flies into a wall chute.^"; return true;
-       ], has static scenery;

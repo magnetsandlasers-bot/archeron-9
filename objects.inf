@@ -289,27 +289,41 @@ Object ChargedCell4 "pulsing cylinder"
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object SecurityDrone "security drone"
-  with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
-       description "A floating sphere of black metal with a glowing red eye.",
-       initial "A Security Drone hovers here, scanning for thermal signatures.",
-       before [;
-            Open:
-                if (drone_active == 1) {
-                    "You try to grab the hovering machine, but it emits a sharp 
-                    electric spark that forces you to back off. It's not going 
-                    to let you poke around its internals while it's powered on.";
-                }
+!Object SecurityDrone "security drone"
+!  with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
+!       description "A floating sphere of black metal with a glowing red eye.",
+!       initial "A Security Drone hovers here, scanning for thermal signatures.",
+!       before [;
+!           Open:
+!                if (drone_active == 1) {
+           !         "You try to grab the hovering machine, but it emits a sharp 
+          !          electric spark that forces you to back off. It's not going 
+         !           to let you poke around its internals while it's powered on.";
+        !        }
                 ! If drone_active is 0, the library takes over and opens it normally.
-       ],
-  has static container openable;
+       !],
+       !  has static container openable;
+SecurityDrone SecurityDrone1 "security drone" with drone_id 1;
+SecurityDrone SecurityDrone2 "security drone" with drone_id 2;
 Object BrokenDrone "broken drone"
   with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description "An inert sphere of black metal, split open to reveal its insides.",
        initial "A broken drone sits here.",
   has static container open scenery;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Object OpticalModule "bio-chip (green)"
+Object OpticalModule1 "bio-chip (green)"
+  with name 'driver' 'module' 'chip' 'green' 'wafer',
+       bulk BULK_POCKET,
+       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
+                visual_cortex_active = 1; remove self;
+                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
+                rtrue;
+       ];
+Object OpticalModule2 "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
        bulk BULK_POCKET,
        description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
@@ -333,7 +347,18 @@ Object OpticalModuleFried "fried bio-chip (green)"
                 print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
                 rtrue;
        ];
-Object AudioModule "bio-chip (silver)"
+Object AudioModule1 "bio-chip (silver)"
+  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
+       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                audio_codec_active = 1; remove self;
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                rtrue;
+       ];
+Object AudioModule2 "bio-chip (silver)"
   with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
        description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
        before [;

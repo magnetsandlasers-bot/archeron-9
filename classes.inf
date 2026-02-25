@@ -18,3 +18,19 @@ Class ServerFarm with short_name [;
     }
     rfalse;
 ], has light;
+
+Class SecurityDrone
+  with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
+       description "A floating sphere of black metal with a glowing red eye.",
+       initial "A Security Drone hovers here, scanning for thermal signatures.",
+       move_count 0, ! Each drone now has its own internal timer
+       before [;
+            Open:
+                if (drone_active == 1) {
+                    "You try to grab the hovering machine, but it emits a sharp 
+                    electric spark that forces you to back off. It's not going 
+                    to let you poke around its internals while it's powered on.";
+                }
+       ],
+  has static container openable;
+

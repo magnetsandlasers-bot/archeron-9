@@ -129,13 +129,99 @@
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! THE DRONE
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ DroneDaemon dir next_room charger_loc battery; 
-    ! charger_loc and battery are now declared above as local variables
+![ DroneDaemon dir next_room charger_loc battery; 
+!    ! charger_loc and battery are now declared above as local variables
+!    if (drone_active == 0 || power_restored == 0) return;
+!    charger_loc = parent(DroneCharger);
+!    battery = child(DroneCharger);
+!    ! --- 1. Interaction Logic ---
+!    if (parent(SecurityDrone) == location) {
+!        if (drone_alert == 1) {
+!            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The !world goes black.^^^";
+!            style bold;
+!            print "     *** You have... NOT died ***^";
+!            style roman;!
+!
+!            print "^[MORE]^";
+!            @read_char 1 -> next_room; 
+!            @erase_window -1; 
+!            @set_cursor 1 1; 
+!
+!            print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of a blindingly white room.^";
+            
+!            drone_alert = 0;
+ !           player_hidden = 0;
+!            CapturePlayer(); 
+!            return;
+!        }
+!        if (player_hidden == 0) {
+!            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your instincts scream: RUN!^";
+!            drone_alert = 1;
+!            return;
+!        } else {
+!            print "^The security drone hovers past, its sensors failing to pick you up.^";
+!        }
+!    }
+! --- Charging Logic ---
+!drone_alert = 0;
+!    drone_move_count++;
+
+!    if (drone_move_count > 10) {
+!        if (parent(SecurityDrone) == charger_loc) {
+!            ! Check if the item in the charger is a valid, charged battery
+!            if (battery ~= 0 && battery provides charged && battery.charged == 1) {
+!                drone_move_count = 0; 
+!                if (location == charger_loc)
+!                    print "^The Security Drone docks with the wall unit, its eye dimming as it recharges.^";
+!            } else {
+!                if (location == charger_loc)
+!                    print "^The Security Drone hovers near the charger, beeping urgently for power.^";
+!            }
+!            return; 
+!        } else {
+!            move SecurityDrone to charger_loc;
+!            if (parent(SecurityDrone) == location) 
+            !    print "^The Security Drone floats in, heading straight for the charger.^";
+           ! return;
+      !  }
+   ! }
+! --- Algorithmic Movement ---
+!    drone_alert = 0;
+!    dir = random(6); 
+    
+    ! We use parent(SecurityDrone) so it moves from its OWN current room
+ !   switch(dir) {
+  !      1: next_room = (parent(SecurityDrone)).n_to; 
+   !     2: next_room = (parent(SecurityDrone)).s_to;
+    !    3: next_room = (parent(SecurityDrone)).e_to;
+     !   4: next_room = (parent(SecurityDrone)).w_to;
+      !  5: next_room = (parent(SecurityDrone)).u_to;
+       ! 6: next_room = (parent(SecurityDrone)).d_to;
+    !}
+    !if (next_room ~= 0 && metaclass(next_room) == Object) {
+        ! Consolidated check: Must have light AND NOT be a ServerFarm AND NOT be an AftRoom
+     !   if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm) && ~~(next_room ofclass AftRoom)) {
+      !      move SecurityDrone to next_room;
+       ! }
+   ! }
+    ! --- 3. Proximity Alerts ---
+    !if (parent(SecurityDrone) == location) {
+     !   print "^Suddenly, a security drone floats into the room!^";
+    !} else {
+     !   if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
+      !      parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
+       !     print "^You hear the unmistakable hum of a security drone nearby.^";
+        !}
+  !  }
+!];
+[ DroneLogic d dir next_room charger_loc battery; 
     if (drone_active == 0 || power_restored == 0) return;
+    
     charger_loc = parent(DroneCharger);
     battery = child(DroneCharger);
-    ! --- 1. Interaction Logic ---
-    if (parent(SecurityDrone) == location) {
+
+    ! --- 1. Interaction & Capture Logic ---
+    if (parent(d) == location) {
         if (drone_alert == 1) {
             print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^^";
             style bold;
@@ -162,15 +248,15 @@
             print "^The security drone hovers past, its sensors failing to pick you up.^";
         }
     }
-! --- Charging Logic ---
-drone_alert = 0;
-    drone_move_count++;
 
-    if (drone_move_count > 10) {
-        if (parent(SecurityDrone) == charger_loc) {
-            ! Check if the item in the charger is a valid, charged battery
+    ! --- 2. Charging Logic ---
+    drone_alert = 0;
+    d.move_count++;
+
+    if (d.move_count > 10) {
+        if (parent(d) == charger_loc) {
             if (battery ~= 0 && battery provides charged && battery.charged == 1) {
-                drone_move_count = 0; 
+                d.move_count = 0; 
                 if (location == charger_loc)
                     print "^The Security Drone docks with the wall unit, its eye dimming as it recharges.^";
             } else {
@@ -179,42 +265,47 @@ drone_alert = 0;
             }
             return; 
         } else {
-            move SecurityDrone to charger_loc;
-            if (parent(SecurityDrone) == location) 
+            move d to charger_loc;
+            if (parent(d) == location) 
                 print "^The Security Drone floats in, heading straight for the charger.^";
             return;
         }
     }
-! --- Algorithmic Movement ---
-    drone_alert = 0;
+
+    ! --- 3. Algorithmic Movement ---
     dir = random(6); 
-    
-    ! We use parent(SecurityDrone) so it moves from its OWN current room
     switch(dir) {
-        1: next_room = (parent(SecurityDrone)).n_to; 
-        2: next_room = (parent(SecurityDrone)).s_to;
-        3: next_room = (parent(SecurityDrone)).e_to;
-        4: next_room = (parent(SecurityDrone)).w_to;
-        5: next_room = (parent(SecurityDrone)).u_to;
-        6: next_room = (parent(SecurityDrone)).d_to;
+        1: next_room = (parent(d)).n_to; 
+        2: next_room = (parent(d)).s_to;
+        3: next_room = (parent(d)).e_to;
+        4: next_room = (parent(d)).w_to;
+        5: next_room = (parent(d)).u_to;
+        6: next_room = (parent(d)).d_to;
     }
+    
     if (next_room ~= 0 && metaclass(next_room) == Object) {
-        ! Consolidated check: Must have light AND NOT be a ServerFarm AND NOT be an AftRoom
         if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm) && ~~(next_room ofclass AftRoom)) {
-            move SecurityDrone to next_room;
+            move d to next_room;
         }
     }
-    ! --- 3. Proximity Alerts ---
-    if (parent(SecurityDrone) == location) {
+
+    ! --- 4. Proximity Alerts (THE RESTORED PART) ---
+    if (parent(d) == location) {
         print "^Suddenly, a security drone floats into the room!^";
     } else {
-        if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
-            parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
+        if (parent(d) == location.n_to || parent(d) == location.s_to ||
+            parent(d) == location.e_to || parent(d) == location.w_to) {
             print "^You hear the unmistakable hum of a security drone nearby.^";
         }
     }
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ DroneDaemon d;
+    objectloop (d ofclass SecurityDrone) {
+        DroneLogic(d);
+    }
+];
+
 [ CapturePlayer i next_obj;
     ! 1. Safe Inventory Strip
     i = child(player);

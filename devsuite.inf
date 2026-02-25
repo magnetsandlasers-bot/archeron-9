@@ -1,0 +1,116 @@
+! ==============================================================================
+! Developer Tools Suite
+! ==============================================================================
+! This file provides a centralized dashboard and diagnostic commands for testing.
+! Commands: DEV, TOGGLE [var], WARP [loc], WHERE, HEAL, TESTBRIG
+! ==============================================================================
+
+[ DevMenuSub d i;
+@erase_window -1;
+@set_cursor 1 1;
+style bold;
+print "--- [ SHIP MASTER CONTROL ] ---^";
+style roman;
+
+! --- System Status ---
+print "Power:   [", power_restored, "] | Med Pwr: [", medical_wing_powered, "] | Lockdown: [", lockdown_lifted, "]^";
+print "Visual:  [", visual_cortex_active, "] | Audio:   [", audio_codec_active, "] | Identity: [", identity_hacked, "]^";
+print "Bulkhead:[", bulkhead_passed, "] | Arpi Aw:  [", arpi_aware, "] | Arpi Act: [", arpi_active, "]^";
+
+! --- Survival & Stealth ---
+print "Oxygen:  [", oxygen, "] | Hidden:  [", player_hidden, "] | Jumpsuit: [", jumpsuit_worn, "]^";
+print "Batteries:[", battery_count, "] | DroneAct:[", drone_active, "]^";
+
+! --- Drone Tracking ---
+new_line;
+style underline;
+print "Drone Tracking:^";
+style roman;
+i = 0;
+objectloop (d ofclass SecurityDrone) {
+    i++;
+    print "  ", i, ". ", (name) d, " (ID ", d.drone_id, ") -> ", (name) parent(d);
+    print " [Energy: ", 10 - d.move_count, "/10]^";
+}
+
+new_line;
+print "--- [ COMMANDS ] ---^";
+print "  TOGGLE [var] | WARP [loc] | HEAL | WHERE | TESTBRIG^";
+"--------------------------------------------------";
+
+
+];
+
+Verb 'dev' * -> DevMenu;
+
+! --- Toggle Logic with Shortcuts ---
+[ ToggleSub w;
+wn = consult_from;
+w = NextWord();
+
+switch(w) {
+    'power', 'p': power_restored = 1 - power_restored;
+    'med', 'm': medical_wing_powered = 1 - medical_wing_powered;
+    'lock', 'l', 'lockdown': lockdown_lifted = 1 - lockdown_lifted;
+    'vis', 'v', 'visual': visual_cortex_active = 1 - visual_cortex_active;
+    'aud', 'a', 'audio': audio_codec_active = 1 - audio_codec_active;
+    'bulk', 'b': bulkhead_passed = 1 - bulkhead_passed;
+    'id': identity_hacked = 1 - identity_hacked;
+    'arpi': arpi_aware = 1 - arpi_aware;
+    default: 
+        "Toggle what? (p)ower, (m)ed, (l)ockdown, (v)isual, (a)udio, (b)ulkhead, (id), (arpi)";
+}
+
+print "System updated.^^";
+<<DevMenu>>;
+
+
+];
+
+Verb 'toggle' 'set' * -> Toggle;
+
+! --- Warp Logic ---
+[ WarpSub w;
+wn = consult_from;
+w = NextWord();
+switch (w) {
+'bridge': PlayerTo(Bridge);
+'spine': PlayerTo(SpineMid);
+'med', 'medbay': PlayerTo(MedicalBay);
+'eng', 'engineering': PlayerTo(Engineering);
+'cargo': PlayerTo(CargoBay);
+'home', 'cryo': PlayerTo(CryoBay);
+'drone', 'd1': PlayerTo(parent(Drone1));
+'d2': PlayerTo(parent(Drone2));
+'brig': PlayerTo(Brig);
+'terminal': PlayerTo(ServerTerminal);
+default: "Teleport failed. Use: bridge, spine, med, eng, cargo, home, d1, d2, brig";
+}
+<<Look>>;
+];
+
+Verb 'warp' 'goto' * -> Warp;
+
+! --- Standalone Tracking ---
+[ WhereSub d;
+print "^--- [ CURRENT DRONE POSITIONS ] ---^";
+objectloop (d ofclass SecurityDrone) {
+print (name) d, " (ID ", d.drone_id, "): ", (name) parent(d), "^";
+}
+"------------------------------------";
+];
+
+Verb 'where' * -> Where;
+
+! --- Quick Utility Commands ---
+[ DevBrigSub; CapturePlayer(); ];
+Verb 'testbrig' * -> DevBrig;
+
+[ HealSub;
+power_restored = 1;
+lockdown_lifted = 1;
+arpi_aware = 1;
+"All systems stabilized. Power and lockdown flags set to true.";
+];
+
+Verb 'heal' 'fix' * -> Heal;

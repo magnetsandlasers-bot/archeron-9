@@ -15,9 +15,12 @@
     move BrokenDrone to DroneBench;
     move AudioModuleFried to BrokenDrone;
     move OpticalModuleFried to BrokenDrone;
-    move SecurityDrone to Atrium; 
-    move OpticalModule to SecurityDrone;
-    move AudioModule to SecurityDrone;
+    move SecurityDrone1 to Atrium; 
+    move OpticalModule1 to SecurityDrone1;
+    move AudioModule1 to SecurityDrone1;
+    move SecurityDrone2 to Garage; 
+    move OpticalModule2 to SecurityDrone2;
+    move AudioModule2 to SecurityDrone2;
         StartDaemon(SecurityDrone);
     ! --- Intro Sequence ---
     @erase_window $ffff;
