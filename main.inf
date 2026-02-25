@@ -1,5 +1,6 @@
 Constant Story "Archeron-9";
 Constant Headline "^An Interactive Sci-Fi Mystery^";
+Release 0;
 ! 1. Directives and Globals FIRST
 Replace PrintLocation;
 Include "constants.inf"; 
