@@ -7,7 +7,7 @@ Include "constants.inf";
 Include "parser";      
 Include "verblib";
 ! 3. YOUR LOGIC & CLASSES
-Include "dev.inf";
+Include "devsuite.inf";
 Include "routines.inf";
 Include "init.inf";
 Include "arpi-speech.inf";

@@ -34,6 +34,8 @@ Global bulkhead_passed = 0;
 Global battery_count = 0;
 Global medical_wing_powered = 0;
 Global arpi_aware = 0; ! 0 = Zerakthyn, 1 = player understands ARPI
+Global installed_optical_chip = 0;
+Global installed_audio_chip = 0;
 
 !Global last_location;
 ![ AfterPrompt;

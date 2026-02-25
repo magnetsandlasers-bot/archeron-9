@@ -316,17 +316,17 @@
     }
 
     ! 2. System Malfunctions (50/50)
-    if (visual_cortex_active == 1 && random(100) <= 50) {
-        visual_cortex_active = 0;
-        move OpticalModule to EvidenceLocker;
-        print "Your vision blurs and swims disorientingly. ^";
-    }
-    
-    if (audio_codec_active == 1 && random(100) <= 50) {
-        audio_codec_active = 0;
-        move AudioModule to EvidenceLocker;
-        print "A muffled ringing sound fills your ears for a moment, then fades. ^";
-    }
+if (visual_cortex_active == 1 && random(100) <= 50) {
+    visual_cortex_active = 0;
+    move installed_optical_chip to EvidenceLocker;
+    print "Your vision blurs and swims disorientingly. ^";
+}
+
+if (audio_codec_active == 1 && random(100) <= 50) {
+    audio_codec_active = 0;
+    move installed_audio_chip to EvidenceLocker;
+    print "A muffled ringing sound fills your ears for a moment, then fades. ^";
+}
 
     ! 3. Teleport and Dialogue
     PlayerTo(Brig);

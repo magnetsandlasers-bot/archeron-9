@@ -318,10 +318,13 @@ Object OpticalModule1 "bio-chip (green)"
        before [;
             Wear: <<Install self>>;
             Install:
-                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
-                visual_cortex_active = 1; remove self;
-                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
-                rtrue;
+                if (visual_cortex_active == 1) { 
+                    "You already have that upgrade."; 
+                }
+                visual_cortex_active = 1;
+                installed_optical_chip = self; ! Store the object ID (OpticalModule1)
+                remove self;
+                "You press the chip into the base of your skull. Your neural link integrates the new visual data.";
        ];
 Object OpticalModule2 "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
@@ -330,10 +333,13 @@ Object OpticalModule2 "bio-chip (green)"
        before [;
             Wear: <<Install self>>;
             Install:
-                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
-                visual_cortex_active = 1; remove self;
-                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
-                rtrue;
+                if (visual_cortex_active == 1) { 
+                    "You already have that upgrade."; 
+                }
+                visual_cortex_active = 1;
+                installed_optical_chip = self; ! Store the object ID (OpticalModule1)
+                remove self;
+                "You press the chip into the base of your skull. Your neural link integrates the new visual data.";
        ];
 Object OpticalModuleFried "fried bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
@@ -348,24 +354,31 @@ Object OpticalModuleFried "fried bio-chip (green)"
                 rtrue;
        ];
 Object AudioModule1 "bio-chip (silver)"
-  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
+  with name 'chip' 'module' 'silver' 'wafer', 
+       bulk BULK_POCKET,
        description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
        before [;
             Wear: <<Install self>>;
             Install:
                 if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1; remove self;
+                audio_codec_active = 1;
+                installed_audio_chip = self;
+                remove self;
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
-Object AudioModule2 "bio-chip (silver)"
-  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
-       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+
+Object AudioModule2 "bio-chip (gold)"
+  with name 'chip' 'module' 'gold' 'wafer', 
+       bulk BULK_POCKET,
+       description "A sleek gold bio-chip. It looks like a standard Neural Auditory Processor.",
        before [;
             Wear: <<Install self>>;
             Install:
                 if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1; remove self;
+                audio_codec_active = 1;
+                installed_audio_chip = self;
+                remove self;
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
