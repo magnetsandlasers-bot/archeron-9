@@ -25,7 +25,7 @@ Global last_qr_source = 0;
 Global drone_active = 1;
 Global drone_move_count = 0;
 Global player_hidden = 0;
-Global drone_alert = 0;
+! Global drone_alert = 0;
 Global turn_count = 0;
 Global jumpsuit_timer = 0;
 Global jumpsuit_worn = 0;
@@ -33,7 +33,7 @@ Global alarm_lights_active = 0;
 Global bulkhead_passed = 0;
 Global battery_count = 0;
 Global medical_wing_powered = 0;
-Global arpi_aware = 0; ! 0 = Zerakthyn, 1 = player understands ARPI
+Global arpi_aware = 0; 
 Global installed_optical_chip = 0;
 Global installed_audio_chip = 0;
 

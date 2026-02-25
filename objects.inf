@@ -303,8 +303,14 @@ Object ChargedCell4 "pulsing cylinder"
                 ! If drone_active is 0, the library takes over and opens it normally.
        !],
        !  has static container openable;
-SecurityDrone SecurityDrone1 "security drone" with drone_id 1;
-SecurityDrone SecurityDrone2 "security drone" with drone_id 2;
+SecurityDrone SecurityDrone1 "security drone" 
+    with move_count 0,
+    drone_alert 0,
+    drone_id 1;
+SecurityDrone SecurityDrone2 "security drone" 
+    with move_count 8,
+    drone_alert 0,
+    drone_id 2;
 Object BrokenDrone "broken drone"
   with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description "An inert sphere of black metal, split open to reveal its insides.",
@@ -402,7 +408,7 @@ Object CotUnmade "unmade cot" Brig
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
-           print "A kind of secure storage unit. It has a serious-looking electronic lock. ";
+           print "A secure storage unit with a serious-looking electronic lock. ";
            if (self has open) {
                if (child(self) == nothing) "It is currently empty.";
                "Inside, you see your confiscated belongings.";
@@ -413,32 +419,39 @@ Object EvidenceLocker "evidence locker" SecurityCheck
            print "A reinforced locker is set into the wall under a sign reading ";
            TranslateVisual("KOVRAZHSK." , "EVIDENCE.");
        ],
-       when_open "The locker stands open, its contents long since ransacked.",
        before [;
            Open:
-               if (self has locked) {
-                   if (arpi_active == 1) {
+               ! 1. If it's already open, let the system handle it
+               if (self has open) rfalse;
+
+               ! 2. The Logic: If it has items, Arpi/The Computer unlocks it
+               if (child(self) ~= nothing) {
+                   if (self has locked) {
                        give self ~locked;
                        print "As you reach for the locker, the electronic bolt slides back with a sharp click. ";
-                       ArpiNarrative("The intercom voice speaks up:^", "Arpi sighs:^");
-                       style underline;
-                       ArpiLocker();
-                       style roman;
+                       if (arpi_active == 1) {
+                           ArpiNarrative("The intercom voice speaks up:^", "Arpi sighs:^");
+                           style underline;
+                           ArpiLocker();
+                           style roman;
+                       }
                        new_line;
-                       ! We let the action continue so it actually opens.
-                   } else {
-                       "The locker is firmly sealed. You'll need some way to override the electronic lock.";
+                       ! The 'Open' action continues and the locker opens.
                    }
+               } else {
+                   ! 3. If it's empty, it stays locked.
+                   "The locker is firmly sealed. Without any items to retrieve, the security system refuses to cycle the lock.";
                }
        ],
-       daemon [;
-           ! Reset logic: if it's empty and shouldn't be accessible, relock it.
-           if (child(self) == nothing && self hasnt open) {
-               give self locked;
-           }
+       after [;
+           Close:
+               ! Automatically re-lock it when closed if it's empty
+               if (child(self) == nothing) {
+                   give self locked;
+                   print "^The locker clicks shut and the electronic lock re-engages immediately.^";
+               }
        ],
-  has static container open locked; 
-  ! This assumes Global arpi_active is defined in your other file.
+  has static container openable locked; ! Added 'openable' so the player can use the 'open' command
 
 Object Arpi "Arpi's voice"
     with name 'arpi' 'voice' 'ai' 'system',
