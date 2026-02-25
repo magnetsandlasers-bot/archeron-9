@@ -1,5 +1,5 @@
 AlienRoom SpineFore "Spine Fore"
-  with zh_name "POHYB STAVR PRE",
+  with zh_name "POHYB STAVR NIZK",
        description [;
            print "Another segment of the long, dark corridor. The emergency lights flicker erratically. The corridor continues North.";
            if (BulkheadDoor has open) {

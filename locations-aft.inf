@@ -26,7 +26,7 @@ AftRoom TubeInterior "Inside the Cryo Tube"
   has light;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom Corridor "Aft Corridor"
-  with zh_name "POHYB STAVR",
+  with zh_name "POHYB STAVR SCERN",
        description [;
            print "A long, dark metal corridor. Emergency lights cast long shadows.^";
            if (BulkheadDoor has locked) {
