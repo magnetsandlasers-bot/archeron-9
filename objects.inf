@@ -598,7 +598,8 @@ LetGo:
         }
     }
        ],
-  has static container open scenery;
+    occupied_by 0, ! Stores which drone is using it
+    has static container open scenery;
 Object CargoCrates "crates" CargoBay
     with name 'crate' 'crates', 
     description "Standard shipping crates.", 

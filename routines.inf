@@ -215,7 +215,13 @@
   !  }
 !];
 [ DroneLogic d dir next_room charger_loc battery; 
-if (d.is_active == 0 || power_restored == 0) return;    
+if (d.is_active == 0 || power_restored == 0) return;  
+! WAKE UP: If the drone is inside the charger but finished its cycle
+    if (parent(d) == DroneCharger && d.move_count <= 15) {
+        move d to parent(DroneCharger); ! Move back into the room
+        if (location == parent(d))
+            print "^The ", (name) d, " detaches from the charger, its eye flared to a bright, predatory red.^";
+    }  
     charger_loc = parent(DroneCharger);
     battery = child(DroneCharger);
 ! --- NEW: If the drone is docked, it is "asleep" and cannot spot you ---
@@ -240,24 +246,39 @@ if (d.is_active == 0 || power_restored == 0) return;
         }
     }
 
-    ! 2. CHARGING (Staggered by the move_count we set above)
-    d.drone_alert = 0;
+! --- 2. Staggered & Queued Charging Logic ---
     d.move_count++;
 
     if (d.move_count > 15) {
         if (parent(d) == charger_loc) {
-            if (battery ~= 0 && battery.charged == 1) {
-                d.move_count = 0; ! Reset battery
-                if (location == charger_loc) print "^The drone docks to recharge.^";
+            ! 1. Is the charger already taken?
+            if (DroneCharger.occupied_by ~= 0 && DroneCharger.occupied_by ~= d) {
+                if (location == charger_loc)
+                    print "^The ", (name) d, " hovers nearby, waiting for the other unit to finish charging.^";
+                return;
             }
-            return; 
+
+            ! 2. Try to start charging
+            if (battery ~= 0 && battery provides charged && battery.charged == 1) {
+                DroneCharger.occupied_by = d; ! Claim the charger
+                d.move_count = random(3); ! This "resets" them so they leave later
+                
+                if (location == charger_loc) 
+                    print "^The ", (name) d, " connects to the wall unit. Its eye dims as it draws power.^";
+                return; 
+            }
         } else {
             move d to charger_loc;
-            if (parent(d) == location) print "^The drone floats in to charge.^";
             return;
         }
     }
 
+    ! 3. Release the charger when done
+    if (DroneCharger.occupied_by == d && d.move_count <= 15) {
+        DroneCharger.occupied_by = 0;
+        if (location == charger_loc)
+            print "^The ", (name) d, " disconnects from the charger, fully powered.^";
+    }
     ! 3. MOVE RANDOMLY
     dir = random(6); 
     switch(dir) {

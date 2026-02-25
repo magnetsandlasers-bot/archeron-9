@@ -22,6 +22,16 @@ Class ServerFarm with short_name [;
 Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description "A floating sphere of black metal with a glowing red eye.",
+       describe [;
+           if (self == SecurityDrone1) {
+               if (parent(SecurityDrone2) == parent(self)) {
+                   "Two security drones hover here, their red eyes criss-crossing the room.";
+               }
+               "A security drone hovers here, scanning for thermal signatures.";
+           }
+           if (self == SecurityDrone2 && parent(SecurityDrone1) == parent(self)) rtrue; 
+           ! Drone 2 remains silent if Drone 1 already described the pair
+       ],
        initial "A Security Drone hovers here, scanning for thermal signatures.",
        move_count 0,
        is_active 1, ! The new per-drone health property
