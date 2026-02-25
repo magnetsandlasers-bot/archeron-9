@@ -586,14 +586,10 @@ Object DroneCharger "drone charger" DroneWorkshop
            new_line;
            rtrue;
        ],
-       describe [;
-           ! Returning rtrue here tells the library: 
-           ! "I've handled the room description for this object, don't print anything else."
-           rtrue; 
-       ],
-       before [;
+       describe [; rtrue; ],
+       before [ d; ! <--- Added 'd' here to declare it as a local variable
             Receive:
-                if (noun == SecurityDrone or BrokenDrone) {
+                if (noun == SecurityDrone1 or SecurityDrone2 or BrokenDrone) {
                     "The drone is broken beyond your ability to repair, and it does not even register in the charger.";
                 }
                 if (noun provides charged) {
@@ -602,9 +598,17 @@ Object DroneCharger "drone charger" DroneWorkshop
                     "That doesn't fit the charging port.";
                 }
             LetGo: 
-                if (noun provides charged && parent(SecurityDrone) == location) {
-                    if (drone_move_count == 0) { 
-                        drone_active = 0;
+                ! Fixed the brackets and the 'or' logic here
+                if (noun provides charged && (parent(SecurityDrone1) == location || parent(SecurityDrone2) == location)) {
+                    
+                    ! Identify which drone is present
+                    d = SecurityDrone1;
+                    if (parent(SecurityDrone2) == location) d = SecurityDrone2;
+
+                    ! Only kill the drone if it was actually in the middle of charging
+                    if (d.move_count > 15) {
+                        drone_active = 0; 
+                        ! You might also want to move the drone to a 'dead' state
                         print "As you yank ", (the) noun, " out, the drone sparks violently! 
                         Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
                     }

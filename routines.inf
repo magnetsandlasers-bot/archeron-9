@@ -219,7 +219,8 @@
     
     charger_loc = parent(DroneCharger);
     battery = child(DroneCharger);
-
+! --- NEW: If the drone is docked, it is "asleep" and cannot spot you ---
+    if (parent(d) == charger_loc && d.move_count > 15) return;
     ! 1. ARE YOU IN THE ROOM?
     if (parent(d) == location) {
         ! If it saw you last turn: CATCH
@@ -230,7 +231,7 @@
         }
 
         ! If it just saw you now: SPOT
-        if (player_hidden == 1 && random(100) <= 50) {
+        if (player_hidden == 1) {
             print "^The drone hovers past, missing you in the shadows.^";
             d.drone_alert = 0;
         } else {
