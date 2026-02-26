@@ -17,7 +17,9 @@ Class ServerFarm with short_name [;
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-], has light;
+], 
+    hide_spot "realize there is no place to hide from anyone here, including yourself.", 
+has light;
 
 Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 

@@ -49,6 +49,7 @@ Global installed_audio_chip = 0;
 Property zh_name;
 Property bulk;
 Property qr_content;
+Property hide_spot;
 
 [ PrintLocation the_location;
     if (the_location == nothing) rtrue;

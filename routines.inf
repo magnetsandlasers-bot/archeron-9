@@ -107,9 +107,19 @@
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ HideSub;
+    if (player_hidden == 1) "You are already as hidden as you can be.";
+
     player_hidden = 1;
-    print "You dive behind cover, curling tight to minimize your silhouette. You hold your breath.^";
-    return true;
+    print "You quickly ";
+    
+    ! Check if the room has a specific hide_spot string
+    if (location provides hide_spot) {
+        print (string) location.hide_spot;
+    } else {
+        print "duck into the nearest shadows"; ! Fallback if no property is defined
+    }
+    
+    ". You hold your breath, hoping to remain unnoticed.";
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ RecallSub; "You can't recall that."; ];
