@@ -5,6 +5,16 @@ Class AlienRoom with short_name [;
     rfalse;
 ], has light;
 
+Class Corridor with short_name [;
+    if (visual_cortex_active == 0 && self provides zh_name) {
+        print (string) self.zh_name; rtrue;
+    }
+    rfalse;
+], 
+    hide_spot "quickly press yourself against the wall, avoiding the scan.", 
+
+has light;
+
 Class AftRoom with short_name [;
     if (visual_cortex_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
@@ -23,31 +33,43 @@ has light;
 
 Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
-       description "A floating sphere of black metal with a glowing red eye.",
+       description [;
+           if (self.is_active == 1) 
+               "A floating sphere of black metal with a glowing red eye.";
+           "An inert sphere of black metal. Its red eye is dark, and a faint smell of ozone clings to its scorched casing.";
+       ],
        describe [;
+           ! Logic for paired drones
            if (self == SecurityDrone1) {
                if (parent(SecurityDrone2) == parent(self)) {
-                   "Two security drones hover here, their red eyes criss-crossing the room.";
+                   if (SecurityDrone1.is_active == 1 && SecurityDrone2.is_active == 1)
+                       "Two security drones hover here, their red eyes criss-crossing the room.";
+                   "A live security drone hovers here, keeping watch over its fallen comrade.";
                }
-               "A security drone hovers here, scanning for thermal signatures.";
+               ! Logic for single drone
+               if (self.is_active == 1) 
+                   "A security drone hovers here, scanning for thermal signatures.";
+               "The scorched remains of a security drone lie on the floor.";
            }
+           ! Drone 2 remains silent if Drone 1 already described the pair or if it's dead/alone
            if (self == SecurityDrone2 && parent(SecurityDrone1) == parent(self)) rtrue; 
-           ! Drone 2 remains silent if Drone 1 already described the pair
+           
+           if (self.is_active == 0) "The lifeless shell of a drone sits nearby.";
        ],
-       initial "A Security Drone hovers here, scanning for thermal signatures.",
+       initial [;
+           if (self.is_active == 1) "A Security Drone hovers here, scanning for thermal signatures.";
+           "A dead security drone lies here, trailing a thin wisp of smoke.";
+       ],
        move_count 0,
-       is_active 1, ! The new per-drone health property
+       is_active 1, 
        drone_alert 0,
        before [;
             Open:
-                ! Check the property on this specific drone instance
                 if (self.is_active == 1) {
                     "You try to grab the hovering machine, but it emits a sharp 
                     electric spark that forces you to back off. It's not going 
                     to let you poke around its internals while it's powered on.";
                 }
-                ! If is_active is 0, the library will proceed to open it 
-                ! (assuming you want it to be a container when dead).
        ],
-  has static container openable; ! Add 'container' if you want them to 'Open' it later
+  has static container openable;
 

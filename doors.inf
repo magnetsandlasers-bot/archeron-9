@@ -1,6 +1,6 @@
 Object  BulkheadDoor "bulkhead"
   with  name 'bulkhead' 'massive' 'north' 'blast' 'south',
-        found_in Corridor SpineFore,
+        found_in AftCorridor SpineFore,
         description [;
             print "A massive bulkhead separating the aft section from the main ship. ";
             if (power_restored == 0) "It is dark and unresponsive, its heavy bolts engaged.";
@@ -19,7 +19,7 @@ Object  BulkheadDoor "bulkhead"
         ],
         before [;
             Open, Unlock:
-                if (location == Corridor) {
+                if (location == AftCorridor) {
                     if (power_restored == 0) "The electronic systems appear dead.";
                     if (lockdown_lifted == 0) "The lock is still engaged. You need to release it first.";
                     if (self has open) "The door is already open.";
@@ -46,11 +46,11 @@ Object  BulkheadDoor "bulkhead"
                 }
         ],
         door_to [;
-            if (location == Corridor) return SpineFore;
+            if (location == AftCorridor) return SpineFore;
             return Corridor;
         ],
         door_dir [;
-            if (location == Corridor) return n_to;
+            if (location == AftCorridor) return n_to;
             return s_to;
         ],
   has   static door locked scenery;
@@ -58,21 +58,21 @@ Object  BulkheadDoor "bulkhead"
 Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
-            if (location == Corridor) {
+            if (location == AftCorridor) {
                 print "A heavy steel door with a card reader slot.";
                 if (battery_count == 0) print " The lock's display is dead.";
                 else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
             } else print "The inner face is smooth steel.";
             new_line; return true;
        ],
-       found_in Corridor Engineering,
-       door_dir [; if (location == Corridor) return e_to; return w_to; ],
-       door_to [; if (location == Corridor) return Engineering; return Corridor; ],
+       found_in AftCorridor Engineering,
+       door_dir [; if (location == AftCorridor) return e_to; return w_to; ],
+       door_to [; if (location == AftCorridor) return Engineering; return AftCorridor; ],
        with_key Keycard,
        before [;
             Open:
                 if (location == Engineering) "Use the green panel.";
-                if (location == Corridor && self has locked) "The door is locked tight; you'll need a card.";
+                if (location == AftCorridor && self has locked) "The door is locked tight; you'll need a card.";
             Unlock:
                 if (location == Engineering) "Use the green panel.";
                 if (battery_count == 0) "The electronic lock appears dead.";

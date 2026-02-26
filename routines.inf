@@ -39,21 +39,21 @@
 
     return 0; 
 ];
-[ FastRoute current_loc target_loc;
-    if (current_loc == target_loc) return target_loc;
-
+![ FastRoute current_loc target_loc;
+!    if (current_loc == target_loc) return target_loc;
+!
     ! Check each direction to see which one leads to the charger
-    if (current_loc.n_to == target_loc) return target_loc;
-    if (current_loc.s_to == target_loc) return target_loc;
-    if (current_loc.e_to == target_loc) return target_loc;
-    if (current_loc.w_to == target_loc) return target_loc;
-    if (current_loc.u_to == target_loc) return target_loc;
-    if (current_loc.d_to == target_loc) return target_loc;
+!    if (current_loc.n_to == target_loc) return target_loc;
+!    if (current_loc.s_to == target_loc) return target_loc;
+!    if (current_loc.e_to == target_loc) return target_loc;
+!    if (current_loc.w_to == target_loc) return target_loc;
+!    if (current_loc.u_to == target_loc) return target_loc;
+!    if (current_loc.d_to == target_loc) return target_loc;
 
     ! If the drone isn't adjacent to the charger, it picks a default path.
     ! For a more complex map, we can expand this, but this clears the error.
-    return current_loc.n_to; 
-];
+!    return current_loc.n_to; 
+!];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ! HUD & AUDIO INTERFACE
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,13 +110,13 @@
     if (player_hidden == 1) "You are already as hidden as you can be.";
 
     player_hidden = 1;
-    print "You quickly ";
+    print "You ";
     
     ! Check if the room has a specific hide_spot string
     if (location provides hide_spot) {
         print (string) location.hide_spot;
     } else {
-        print "duck into the nearest shadows"; ! Fallback if no property is defined
+        print "swiftly duck into the nearest shadows"; ! Fallback if no property is defined
     }
     
     ". You hold your breath, hoping to remain unnoticed.";

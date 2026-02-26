@@ -1,4 +1,4 @@
-AlienRoom SpineFore "Spine Fore"
+Corridor SpineFore "Spine Fore"
   with zh_name "POHYB STAVR NIZK",
        description [;
            print "Another segment of the long, dark corridor. The emergency lights flicker erratically. The corridor continues North.";
@@ -18,12 +18,12 @@ AlienRoom SpineFore "Spine Fore"
                print "^^As you step into the forward section, you hear a heavy CLUNK behind you. The bulkhead door slams shut and seals itself. You're committed now.^";
            }
        ];
-AlienRoom SpineMid "Spine Mid"
+Corridor SpineMid "Spine Mid"
   with zh_name "POHYB STAVR SRED",
        description "The central segment of the spine corridor. The air here feels colder, and the emergency lights are almost completely dead. The corridor continues North and South.",
        s_to SpineFore, 
        n_to Atrium;
-AlienRoom Atrium "Central Atrium"
+Corridor Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
        description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",
        s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;

@@ -10,7 +10,7 @@ AftRoom CryoBay "Cryo Bay"
            }
            return true;
         ],
-        n_to Corridor;
+        n_to AftCorridor;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AftRoom TubeInterior "Inside the Cryo Tube"
     with description "It is cramped and smelly in here, but at least it's warm.",
@@ -25,7 +25,7 @@ AftRoom TubeInterior "Inside the Cryo Tube"
        ],
   has light;
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AftRoom Corridor "Aft Corridor"
+AftRoom AftCorridor "Aft Corridor"
   with zh_name "POHYB STAVR SCERN",
        description [;
            print "A long, dark metal corridor. Emergency lights cast long shadows.^";
@@ -80,4 +80,4 @@ AftRoom ReactorRoom "Reactor Room"
            print " The exit lies to the East.^";
            return true;
         ],
-        e_to Corridor;
+        e_to AftCorridor;
