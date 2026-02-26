@@ -28,7 +28,7 @@
         ! --- Status & Pathing Logic ---
         if (DroneCharger.occupied_by == d) {
             print "CHARGING";
-        } else if (d.move_count > 15) {
+        } else if (d.move_count > 30) {
             print "GOING HOME (currently in ", (name) parent(d), ")";
         } else {
             print (name) parent(d);
