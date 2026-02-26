@@ -625,3 +625,30 @@ Object DroneHatch "drone hatch"
                  "It's built into the very frame of the ship's hull.";
          ],
     has  scenery static;
+Object EquipmentShelf "equipment shelf" ServerFarm3
+  with name 'shelf' 'shelves' 'rack' 'metal',
+       description [;
+           print "A metal shelf bolted to a server. Perusing its jumbled contents, ";
+           
+           if (child(self) == 0) "you notice nothing of value.";
+           
+           print "you see ";
+           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
+           ".";
+       ],
+       before [;
+           Receive:
+                if (noun.shelvable ~= 1) {
+                    print "That doesn't look like it belongs on the shelf.^";
+                    return true;
+                }
+                move noun to self;
+                "You nestle ", (the) noun, " among the other items on the shelf.";
+       ],
+  has static supporter scenery;
+
+Object RetinalScanner "retinal scanner"
+    with name 'glasses' 'reader' 'scanner' 'retinal',
+    description "A set of retinal scanning glasses",
+    shelvable 1,
+    bulk BULK_POCKET;

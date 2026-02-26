@@ -20,6 +20,7 @@
     move SecurityDrone2 to Hangar; 
     move OpticalModule2 to SecurityDrone2;
     move AudioModule2 to SecurityDrone2;
+    move RetinalScanner to EquipmentShelf;
         StartDaemon(SecurityDrone);
     ! --- Intro Sequence ---
     @erase_window $ffff;
