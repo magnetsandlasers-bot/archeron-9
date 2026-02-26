@@ -7,7 +7,6 @@
     move Battery2 to BatteryShelf;
     move Battery3 to BatteryShelf;
     move Battery4 to BatteryShelf;
-    move Battery6 to DroneBench;
     move ChargedCell5 to DroneCharger;
     move DiagnosticConsole to MedicalBay;
     move MedicalLogTerminal to MedicalBay;
