@@ -1,7 +1,46 @@
 ! ==============================================================================
 ! Developer Tools Suite - Final Stable Version
 ! ==============================================================================
+[ VHelpSub;
+    @erase_window -1;
+    @set_cursor 1 1;
+    style bold;
+    print "MAINFRAME SYSTEM ADMINISTRATION - MANUAL PAGES (v4.0)^";
+    style roman;
+    print "------------------------------------------------------------^";
+    
+    style bold; print "NAME^"; style roman;
+    print "    devsuite - ship systems debugging and drone management^^";
 
+    style bold; print "SYNOPSIS^"; style roman;
+    print "    vtog [flag]     - Toggles boolean state (1/0) of ship systems.^";
+    print "    vjump [loc]     - Instant translocation to specified sector.^";
+    print "    vsummon [id]    - Force drone battery depletion (d1, d2, all).^";
+    print "    vwhere          - Real-time coordinate tracking for all units.^";
+    print "    sysdev          - Launch Master Control dashboard.^";
+    print "    vrestore        - Global system recovery and heal.^^";
+
+    style bold; print "FLAGS (for vtog)^"; style roman;
+    print "    power           - Main ship-wide power grid.^";
+    print "    med             - Medical wing power and scanners.^";
+    print "    lock            - Sector-wide security lockdown status.^";
+    print "    vis             - Player's visual cortex/interface.^";
+    print "    aud             - Audio codec/translation protocols.^";
+    print "    bulk            - Bulkhead clearance/permission level.^";
+    print "    id              - Identity masking/hacked status.^";
+    print "    arpi            - ARPI awareness/active logic.^^";
+
+    style bold; print "LOCATION CODES (for vjump)^"; style roman;
+    print "    ws (workshop), bridge, spine, med, eng, cargo, cryo, brig^^";
+    
+    style bold; print "DRONE CODES (for vsummon)^"; style roman;
+    print "    d1 (SecurityDrone1), d2 (SecurityDrone2), all^^";
+
+    print "------------------------------------------------------------^";
+    "Press any key to exit manual.";
+];
+
+Verb 'vhelp' 'vman' * -> VHelp;
 [ DevMenuSub d i energy; ! <--- 'energy' must be declared here!
     @erase_window -1;
     @set_cursor 1 1;
@@ -83,6 +122,7 @@ Verb 'vtog' 'vtoggle' 'devpower' * topic -> Toggle;
         'eng', 'engineering': PlayerTo(Engineering);
         'cargo': PlayerTo(CargoBay);
         'home', 'cryo': PlayerTo(CryoBay);
+        'workshop', 'ws': PlayerTo(DroneWorkshop); ! <--- NEW JUMP POINT
         'drone', 'd1':
             if (SecurityDrone1 ~= 0) PlayerTo(parent(SecurityDrone1));
             else "SecurityDrone1 not defined.";
@@ -91,12 +131,38 @@ Verb 'vtog' 'vtoggle' 'devpower' * topic -> Toggle;
             else "SecurityDrone2 not defined.";
         'brig': PlayerTo(Brig);
         'terminal': PlayerTo(ServerTerminal);
-        default: "Teleport failed. Use: bridge, spine, med, eng, cargo, home, d1, d2, brig";
+        default: "Teleport failed. Use: bridge, spine, med, eng, workshop, d1, d2, brig";
     }
-    !<<Look>>;
 ];
 
 Verb 'vjump' 'vwarp' 'vgoto' * topic -> Warp;
+
+[ SummonSub w d;
+    wn = consult_from;
+    w = NextWord();
+    
+    switch(w) {
+        'd1': 
+            d = SecurityDrone1;
+        'd2': 
+            d = SecurityDrone2;
+        'all':
+            objectloop (d ofclass SecurityDrone) {
+                d.move_count = 31;
+            }
+            "All drones depleted. Summoning sequence initiated.^";
+        default: 
+            "Usage: vsummon d1, vsummon d2, or vsummon all";
+    }
+
+    if (d == 0) "Error: Target drone not found.";
+
+    d.move_count = 31; ! Forces the 'Battery Check' logic to trigger
+    print (name) d, " (ID ", d.drone_id, ") battery depleted. Summoning...^";
+    rtrue;
+];
+
+Verb 'vsummon' 'vcall' * topic -> Summon;
 
 ! --- Tracking & Utils ---
 [ WhereSub d;

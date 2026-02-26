@@ -1,26 +1,19 @@
-! ==============================================================================
-! Custom Verbs
-! ==============================================================================
-
-Verb 'install' 'slot' * held -> Install;
-Extend 'insert'       * held -> Install;
-
-Verb 'blink'
-    * -> Blink
-    * 'twice' -> BlinkTwice;
-
-Verb 'freeze' 'stop' * -> Freeze;
-Verb 'hide' 'duck'   * -> Hide;
-Verb 'recall'        * noun -> Recall;
-
+! Custom verbss
+    Verb 'install' 'slot' * held -> Install;
+    Extend 'insert'       * held -> Install;
+    Verb 'blink'
+        * -> Blink
+        * 'twice' -> BlinkTwice;
+    Verb 'freeze' 'stop' * -> Freeze;
+    Verb 'hide' 'duck'   * -> Hide;
+    Verb 'recall'        * noun -> Recall;
 ! Developer Tools
-Verb 'dev' 'stats' 'diag' * -> DevMenu;
-Verb 'warp' 'goto' * topic -> Warp;
-Verb 'heal' * -> Heal;
-Verb 'toggle' 
-    * topic -> Toggle;
-
-Verb 'swipe'
-    * held -> Swipe
-    * held 'in'/'at'/'through'/'on' noun -> Swipe
-    * held 'in'/'at'/'through'/'on' 'reader' -> Swipe;
+    Verb 'dev' 'stats' 'diag' * -> DevMenu;
+    Verb 'warp' 'goto' * topic -> Warp;
+    Verb 'heal' * -> Heal;
+    Verb 'toggle' 
+        * topic -> Toggle;
+    Verb 'swipe'
+        * held -> Swipe
+        * held 'in'/'at'/'through'/'on' noun -> Swipe
+        * held 'in'/'at'/'through'/'on' 'reader' -> Swipe;

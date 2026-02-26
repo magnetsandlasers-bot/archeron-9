@@ -54,7 +54,6 @@ Object  BulkheadDoor "bulkhead"
             return s_to;
         ],
   has   static door locked scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
@@ -84,7 +83,6 @@ Object EngineeringDoor "security door"
                 "As you slide the card through, the lock chirps and the heavy door hums open.";
        ],
        has static door openable lockable locked scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object BrigDoor "reinforced door"
   with name 'door' 'brig' 'reinforced' 'security' 'north' 'south',
        description [;
@@ -126,4 +124,3 @@ Object BrigDoor "reinforced door"
        ],
        found_in SecurityCheck Brig,
        has static door openable lockable locked scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

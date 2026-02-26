@@ -1,10 +1,6 @@
-! ==============================================================================
-! Developer Tools
-! ==============================================================================
-
-[ DevBrigSub; CapturePlayer(); ];
-Verb 'testbrig' * -> DevBrig;
-
+[ DevBrigSub; 
+    CapturePlayer(); ];
+    Verb 'testbrig' * -> DevBrig;
 [ DevMenuSub;
     print "^--- [ SYSTEM DIAGNOSTICS ] ---^";
     print "Main Power: ", power_restored, " | Med Power:  ", medical_wing_powered, "^";
@@ -14,7 +10,6 @@ Verb 'testbrig' * -> DevBrig;
         
     "-------------------------------";
     ];
-
 [ ToggleSub w;
     wn = consult_from;
     w = NextWord();
@@ -33,7 +28,7 @@ Verb 'testbrig' * -> DevBrig;
     
     print "System toggled.^";
     <<DevMenu>>;
-];
+    ];
 
 [ WarpSub;
     ! We manually check the next word in the input buffer
@@ -49,11 +44,10 @@ Verb 'testbrig' * -> DevBrig;
         'terminal': PlayerTo(ServerTerminal);
         default: "Teleport failed. Use: WARP [bridge, spine, med, eng, cargo, home, drone, terminal]";
     }
-];
-
+    ];
 [ HealSub;
     power_restored = 1; 
     lockdown_lifted = 1; 
     arpi_aware = 1;
     "All systems stabilized.";
-];
+    ];

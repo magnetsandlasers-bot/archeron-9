@@ -287,14 +287,15 @@ Object ChargedCell4 "pulsing cylinder"
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
     home_base Atrium,
+    is_active 1,
     drone_alert 0,
-    is_active 1,  ! Each drone now tracks its own life
     drone_id 1;
+
 SecurityDrone SecurityDrone2 "security drone" 
     with move_count 15,
     home_base Hangar,
+    is_active 1,
     drone_alert 0,
-    is_active 1,  ! Each drone now tracks its own life
     drone_id 2;
 Object BrokenDrone "broken drone"
   with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
@@ -591,10 +592,9 @@ Object DroneCharger "drone charger" DroneWorkshop
             give d ~static;      ! Optional: Allow the player to pick up the dead drone
             self.occupied_by = 0; ! The station is now empty
             
-            print "As you yank ", (the) noun, " out, the drone sparks violently! 
-            Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
-            
-            move noun to player;  ! battery to inventory
+            print "As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
+            The drone's red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
+            ! move noun to player;  ! battery to inventory
             rtrue;                ! This stops the default "Taken." message from appearing
         }
     }

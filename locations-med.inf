@@ -23,11 +23,7 @@ AlienRoom MedicalBay "Medical Bay"
                }
        ],
        n_to CrewQuarters;
-! ==============================================================================
-! ARCHERON-9 - MEDICAL WING ENHANCEMENTS (CORRECTED)
-! ==============================================================================
 
-! --- Diagnostic Console Object ---
 Object DiagnosticConsole "diagnostic console"
   with name 'console' 'diagnostic' 'terminal' 'panel' 'scanner' 'medical',
        description [;
@@ -60,7 +56,6 @@ Object DiagnosticConsole "diagnostic console"
        ],
        has static scenery;
 
-! --- Medical Log Terminal Object ---
 Object MedicalLogTerminal "data terminal"
   with name 'terminal' 'data' 'log' 'records' 'medical',
        qr_content [;
@@ -89,7 +84,6 @@ Object MedicalLogTerminal "data terminal"
        ],
        has static scenery;
 
-! --- Operating Table Object ---
 Object OperatingTable "operating table"
   with name 'table' 'operating' 'surgical' 'lasers',
        description [;

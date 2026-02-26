@@ -4,7 +4,6 @@ ServerFarm ServerFarm1 "Server Farm"
         description "Towering black server racks. A doorway to the southeast leads to a landing.",
         se_to Landing,
         n_to ServerFarm2;
-
 ! --- The SW Corner ---
 ServerFarm ServerFarm2 "Server Farm"
     with description "Towering black server racks.",

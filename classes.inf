@@ -1,36 +1,41 @@
-Class AlienRoom with short_name [;
+! Room Classes
+Class AlienRoom 
+    with short_name [;
     if (visual_cortex_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-], has light;
+    ], has light;
 
-Class Corridor with short_name [;
+Class Corridor 
+    with short_name [;
     if (visual_cortex_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-], 
+        ], 
     hide_spot "quickly press yourself against the wall, avoiding the scan.", 
 
-has light;
+        has light;
 
-Class AftRoom with short_name [;
+Class AftRoom 
+    with short_name [;
     if (visual_cortex_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-], has light;
+    ], has light;
 
-Class ServerFarm with short_name [;
+Class ServerFarm 
+    with short_name [;
     if (visual_cortex_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-], 
-    hide_spot "realize there is no place to hide from anyone here, including yourself.", 
-has light;
-
+    ], 
+    hide_spot "realize there is no place to hide from anyone here, including yourself", 
+    has light;
+! Object Classes
 Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 
        description [;
@@ -39,6 +44,9 @@ Class SecurityDrone
            "An inert sphere of black metal. Its red eye is dark, and a faint smell of ozone clings to its scorched casing.";
        ],
        describe [;
+           ! --- WORKSHOP SILENCE ---
+           if (location == DroneWorkshop) rtrue;
+
            ! Logic for paired drones
            if (self == SecurityDrone1) {
                if (parent(SecurityDrone2) == parent(self)) {
@@ -51,12 +59,16 @@ Class SecurityDrone
                    "A security drone hovers here, scanning for thermal signatures.";
                "The scorched remains of a security drone lie on the floor.";
            }
+           
            ! Drone 2 remains silent if Drone 1 already described the pair or if it's dead/alone
            if (self == SecurityDrone2 && parent(SecurityDrone1) == parent(self)) rtrue; 
            
            if (self.is_active == 0) "The lifeless shell of a drone sits nearby.";
        ],
        initial [;
+           ! --- WORKSHOP SILENCE ---
+           if (location == DroneWorkshop) rtrue;
+
            if (self.is_active == 1) "A Security Drone hovers here, scanning for thermal signatures.";
            "A dead security drone lies here, trailing a thin wisp of smoke.";
        ],
@@ -72,4 +84,3 @@ Class SecurityDrone
                 }
        ],
   has static container openable;
-

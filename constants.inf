@@ -1,65 +1,45 @@
-! ==============================================================================
-! CONSTANTS & INCLUDES
-! ==============================================================================
-
-Constant BULK_POCKET = 1;
-Constant BULK_NORMAL = 2;
-Constant BULK_HEAVY  = 8;
-Constant MAX_CAPACITY = 10;
-
-! Attribute is_shelvable;
-
-! ==============================================================================
+! CONSTANTS
+    Constant BULK_POCKET = 1;
+    Constant BULK_NORMAL = 2;
+    Constant BULK_HEAVY  = 8;
+    Constant MAX_CAPACITY = 10;
 ! GLOBAL VARIABLES
-! ==============================================================================
-
-Global power_restored = 0;
-Global lockdown_lifted = 0;
-Global visual_cortex_active = 0;
-Global audio_codec_active = 0;
-Global identity_hacked = 0;
-Global oxygen = 30;
-Global brig_timer = 0;
-Global arpi_active = 0;
-Global last_qr_source = 0;
-! Global drone_active = 1;
-! Global drone_move_count = 0;
-Global player_hidden = 0;
-! Global drone_alert = 0;
-Global drone_reported_this_turn = 0;
-Global turn_count = 0;
-Global jumpsuit_timer = 0;
-Global jumpsuit_worn = 0;
-Global alarm_lights_active = 0;
-Global bulkhead_passed = 0;
-Global battery_count = 0;
-Global medical_wing_powered = 0;
-Global arpi_aware = 0; 
-Global installed_optical_chip = 0;
-Global installed_audio_chip = 0;
-
-!Global last_location;
-![ AfterPrompt;
-!    last_location = location;
-!];
-! ==============================================================================
-! ZERAKTHYN SYSTEM CLASSES
-! ==============================================================================
-
-Property zh_name; 
-Property bulk; 
-Property qr_content; ! Don't remember what this does
-Property hide_spot; ! Custom descriptions for how player hides when needed
-Property home_base; ! Drones teleport here at init and after charging
-
-[ PrintLocation the_location;
-    if (the_location == nothing) rtrue;
-    new_line;
-    style bold;
-    if (visual_cortex_active == 0 && the_location provides zh_name)
-        print (string) the_location.zh_name;
-    else
-        print (name) the_location;
-    style roman;
-    new_line;
-];
+    Global power_restored = 0;
+    Global lockdown_lifted = 0;
+    Global visual_cortex_active = 0;
+    Global audio_codec_active = 0;
+    Global identity_hacked = 0;
+    Global oxygen = 30;
+    Global brig_timer = 0;
+    Global arpi_active = 0;
+    Global last_qr_source = 0;
+    Global player_hidden = 0;
+    Global drone_reported_this_turn = 0;
+    Global turn_count = 0;
+    Global jumpsuit_timer = 0;
+    Global jumpsuit_worn = 0;
+    Global alarm_lights_active = 0;
+    Global bulkhead_passed = 0;
+    Global battery_count = 0;
+    Global medical_wing_powered = 0;
+    Global arpi_aware = 0; 
+    Global installed_optical_chip = 0;
+    Global installed_audio_chip = 0;
+! DECLARED PROPERITES
+    Property zh_name; ! Provides Zerakthyn room name
+    Property bulk; ! Inventory carry limit property
+    Property qr_content; ! Don't remember what this does
+    Property hide_spot; ! Custom descriptions for how player hides when needed
+    Property home_base; ! Drones teleport here at init and after charging
+! ROOM NAME 
+    [ PrintLocation the_location;
+        if (the_location == nothing) rtrue;
+        new_line;
+        style bold;
+        if (visual_cortex_active == 0 && the_location provides zh_name)
+            print (string) the_location.zh_name;
+        else
+            print (name) the_location;
+        style roman;
+        new_line;
+        ];
