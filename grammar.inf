@@ -7,13 +7,21 @@
     Verb 'freeze' 'stop' * -> Freeze;
     Verb 'hide' 'duck'   * -> Hide;
     Verb 'recall'        * noun -> Recall;
+    Verb 'swipe'
+        * held -> Swipe
+        * held 'in'/'at'/'through'/'on' noun -> Swipe
+        * held 'in'/'at'/'through'/'on' 'reader' -> Swipe;
 ! Developer Tools
     Verb 'dev' 'stats' 'diag' * -> DevMenu;
     Verb 'warp' 'goto' * topic -> Warp;
     Verb 'heal' * -> Heal;
     Verb 'toggle' 
         * topic -> Toggle;
-    Verb 'swipe'
-        * held -> Swipe
-        * held 'in'/'at'/'through'/'on' noun -> Swipe
-        * held 'in'/'at'/'through'/'on' 'reader' -> Swipe;
+    Verb 'sysdev' 'diagnose' * -> DevMenu;
+    Verb 'vwhere' * -> Where;
+    Verb 'vbrig' * -> DevBrig;
+    Verb 'vrestore' 'vheal' * -> Heal;
+    Verb 'vtog' 'vtoggle' 'devpower' * topic -> Toggle;
+    Verb 'vjump' 'vwarp' 'vgoto' * topic -> Warp;
+    Verb 'vsummon' 'vcall' * topic -> Summon;
+    Verb 'vhelp' 'vman' * -> VHelp;

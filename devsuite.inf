@@ -38,9 +38,7 @@
 
     print "------------------------------------------------------------^";
     "Press any key to exit manual.";
-];
-
-Verb 'vhelp' 'vman' * -> VHelp;
+    ];
 [ DevMenuSub d i energy; ! <--- 'energy' must be declared here!
     @erase_window -1;
     @set_cursor 1 1;
@@ -82,12 +80,7 @@ Verb 'vhelp' 'vman' * -> VHelp;
     print "--- [ COMMANDS ] ---^";
     print "  VTOG [var] | VJUMP [loc] | VRESTORE | VWHERE | VBRIG^";
     "--------------------------------------------------";
-];
-
-! System Level Verbs - Prefixed with 'V' to avoid ANY dictionary collisions
-Verb 'sysdev' 'diagnose' * -> DevMenu;
-Verb 'vwhere' * -> Where;
-Verb 'vbrig' * -> DevBrig;
+    ];
 
 ! --- Toggle Logic ---
 [ ToggleSub w;
@@ -106,11 +99,9 @@ Verb 'vbrig' * -> DevBrig;
     }
     print "System updated.^^";
     <<DevMenu>>;
-];
+    ];
 
 ! Defining 'vtog' as the primary toggle verb
-Verb 'vtog' 'vtoggle' 'devpower' * topic -> Toggle;
-
 ! --- Warp Logic ---
 [ WarpSub w;
     wn = consult_from;
@@ -133,9 +124,7 @@ Verb 'vtog' 'vtoggle' 'devpower' * topic -> Toggle;
         'terminal': PlayerTo(ServerTerminal);
         default: "Teleport failed. Use: bridge, spine, med, eng, workshop, d1, d2, brig";
     }
-];
-
-Verb 'vjump' 'vwarp' 'vgoto' * topic -> Warp;
+    ];
 
 [ SummonSub w d;
     wn = consult_from;
@@ -160,9 +149,7 @@ Verb 'vjump' 'vwarp' 'vgoto' * topic -> Warp;
     d.move_count = 31; ! Forces the 'Battery Check' logic to trigger
     print (name) d, " (ID ", d.drone_id, ") battery depleted. Summoning...^";
     rtrue;
-];
-
-Verb 'vsummon' 'vcall' * topic -> Summon;
+    ];
 
 ! --- Tracking & Utils ---
 [ WhereSub d;
@@ -171,17 +158,18 @@ Verb 'vsummon' 'vcall' * topic -> Summon;
         print (name) d, " (ID ", d.drone_id, "): ", (name) parent(d), "^";
     }
     "------------------------------------";
-];
+    ];
 
 [ DevBrigSub; 
     CapturePlayer(); 
-];
+    ];
 
 [ HealSub;
     power_restored = 1;
     lockdown_lifted = 1;
     arpi_aware = 1;
     "All systems stabilized.";
-];
+    ];
 
-Verb 'vrestore' 'vheal' * -> Heal;
+
+
