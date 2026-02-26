@@ -285,19 +285,30 @@
             return; 
         }
     }
-
-    ! --- BATTERY CHECK & TELEPORT ---
+! --- BATTERY CHECK & TELEPORT TO WORKSHOP ---
     d.move_count++;
 
     if (d.move_count > 30) {
-        if (parent(d) == DronePort) {
-            ! [Docking Logic...]
-        } else {
-            if (parent(d) == location) {
-                print "^The ", (name) d, "'s red eye dims. With a mechanical whir, it ascends toward the ceiling. A circular hatch irises open just long enough for the unit to disappear inside before snapping shut.^";
+        if (parent(d) == DroneWorkshop) {
+            ! If already in the Workshop, try to dock
+            if (DroneCharger.occupied_by == 0) {
+                DroneCharger.occupied_by = d;
+                ! We keep move_count at 31 so the "Charging" state stays active
+                if (location == DroneWorkshop)
+                    print "^The ", (name) d, " slots into the charging unit with a metallic click.^";
+                return;
             }
-            move d to DronePort;
-            d.drone_alert = 0;
+        } else {
+            ! Teleport from current room to the Workshop
+            if (parent(d) == location) {
+                print "^The ", (name) d, " eye dims. It ascends into the ceiling hatch and vanishes.^";
+            }
+            move d to DroneWorkshop;
+            
+            ! If the player is ALREADY in the workshop, show it arriving
+            if (location == DroneWorkshop && parent(d) == DroneWorkshop) {
+                print "^A hatch in the ceiling opens and a ", (name) d, " lowers into the room, heading for the charging station.^";
+            }
             return;
         }
     }
@@ -315,12 +326,16 @@
         move d to next_room;
     }
 
-    ! --- PROXIMITY NOTIFICATIONS ---
-    if (parent(d) == location) {
-        print "^Suddenly, a security drone floats into the room!^";
-    } else if (parent(d) == (location).n_to || parent(d) == (location).s_to ||
-               parent(d) == (location).e_to || parent(d) == (location).w_to) {
-        print "^You hear the unmistakable hum of a security drone nearby.^";
+! --- PROXIMITY NOTIFICATIONS ---
+    if (drone_reported_this_turn == 0) {
+        if (parent(d) == location) {
+            print "^Suddenly, a security drone floats into the room!^";
+            drone_reported_this_turn = 1;
+        } else if (parent(d) == (location).n_to || parent(d) == (location).s_to ||
+                   parent(d) == (location).e_to || parent(d) == (location).w_to) {
+            print "^You hear the unmistakable hum of a security drone nearby.^";
+            drone_reported_this_turn = 1;
+        }
     }
 ];
 ! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -392,6 +407,7 @@ if (child(EvidenceLocker) ~= nothing) {
 [ TimePasses;
     turn_count++;
     DroneDaemon();
+    drone_reported_this_turn = 0; ! Reset for the new turn
     ZerakthynAtmosphere();
     if (power_restored == 0) {
         oxygen = oxygen - 1;
