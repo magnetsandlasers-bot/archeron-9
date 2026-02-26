@@ -1,4 +1,3 @@
-! CryoBay ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object PlayerCryoTube "empty tube you came out of" CryoBay with parse_name [;
            if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
            return 0;
@@ -76,7 +75,6 @@ Object Battery1 "dark cylinder"
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
-! Corridor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object Corpse "desiccated corpse" AftCorridor
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
@@ -110,7 +108,6 @@ Object Keycard "plastic keycard"
     has concealed;
 
 
-! Engineering ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object Battery2 "dark cylinder"
      with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
      short_name "dark cylinder",
@@ -188,7 +185,6 @@ Object IronLever "heavy iron lever" Engineering
         return true;
   ],
   has static scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object WallSocket "wall socket" ReactorRoom
   with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
        description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
@@ -288,7 +284,6 @@ Object ChargedCell4 "pulsing cylinder"
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
     drone_alert 0,
@@ -304,7 +299,6 @@ Object BrokenDrone "broken drone"
        description "An inert sphere of black metal, split open to reveal its insides.",
        initial "A broken drone sits here.",
   has static container open scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object OpticalModule1 "bio-chip (green)"
   with name 'driver' 'module' 'chip' 'green' 'wafer',
        bulk BULK_POCKET,
@@ -387,12 +381,10 @@ Object AudioModuleFried "fried bio-chip (silver)"
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in."
     has static scenery;
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
@@ -587,7 +579,7 @@ Object DroneCharger "drone charger" DroneWorkshop
                 } else {
                     "That doesn't fit the charging port.";
                 }
-LetGo: 
+    LetGo: 
     if (noun provides charged) {
         ! Use the property you already defined to find the drone
         d = self.occupied_by; 
