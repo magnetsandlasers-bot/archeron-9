@@ -14,11 +14,8 @@
     if (code == 2) { 
         ! 1. THE JUMPSUIT
         if (obj == HighTechJumpsuit && obj in location) return 1; ! Changed to 1
-
         ! 2. THE CYLINDER
-        ! This was likely blocking you from taking the battery out of the charger
         if (obj == Battery1 && obj in location) return 1; ! Changed to 1
-
         ! 3. TUBE LOGIC
         if (action_to_be == ##Enter or ##Go) {
             if (obj == PlayerCryoTube) return 3; 
@@ -26,13 +23,11 @@
             if (obj == OccupiedTube or EmptyCryoTubes) return 1; ! Changed to 1
         }
     }
-
     ! 4. THE BATTERY/CHARGED LOGIC
     if (obj provides charged) {
         if (code == 2) return 3; ! Tell the parser: "YES, pick the battery for TAKE"
         if (code == 1) return 1; ! Let it be included in "TAKE ALL"
     }
-
     return 0; 
     ];
 [ PrintVisual real_text;
@@ -143,8 +138,10 @@
             if (location == DroneWorkshop) {
                 print "^The ", (name) d, " detaches from the wall, its eye turning from amber to a steady blue. It ascends into the ceiling hatch and vanishes.^^";
             }
-            move d to d.home_base; ! <--- Sending it back to its starting area
-            return; 
+        move d to d.home_base;
+            if (location == d.home_base) {
+        print "A ceiling hatch whirrs open and a ", (name) d, " lowers into the room, resuming its patrol.^";
+            }            return; 
         } else {
             return; 
         }
