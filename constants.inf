@@ -46,10 +46,11 @@ Global installed_audio_chip = 0;
 ! ZERAKTHYN SYSTEM CLASSES
 ! ==============================================================================
 
-Property zh_name;
-Property bulk;
-Property qr_content;
-Property hide_spot;
+Property zh_name; 
+Property bulk; 
+Property qr_content; ! Don't remember what this does
+Property hide_spot; ! Custom descriptions for how player hides when needed
+Property home_base; ! Drones teleport here at init and after charging
 
 [ PrintLocation the_location;
     if (the_location == nothing) rtrue;

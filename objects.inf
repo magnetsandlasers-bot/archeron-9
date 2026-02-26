@@ -286,11 +286,13 @@ Object ChargedCell4 "pulsing cylinder"
     bulk BULK_HEAVY;
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
+    home_base Atrium,
     drone_alert 0,
     is_active 1,  ! Each drone now tracks its own life
     drone_id 1;
 SecurityDrone SecurityDrone2 "security drone" 
     with move_count 15,
+    home_base Hangar,
     drone_alert 0,
     is_active 1,  ! Each drone now tracks its own life
     drone_id 2;
@@ -592,12 +594,12 @@ Object DroneCharger "drone charger" DroneWorkshop
             print "As you yank ", (the) noun, " out, the drone sparks violently! 
             Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
             
-            move noun to player;  ! <--- THIS ensures it shows up in your inventory (i)
+            move noun to player;  ! battery to inventory
             rtrue;                ! This stops the default "Taken." message from appearing
         }
     }
        ],
-        has container open; ! <--- ADD THIS LINE HERE
+        has container open;
 Object CargoCrates "crates" CargoBay
     with name 'crate' 'crates', 
     description "Standard shipping crates.", 

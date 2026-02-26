@@ -1,10 +1,7 @@
-! UTILITY ROUTINES
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ Mod a b;
     if (b == 0) return 0;
     return a - (a / b) * b;
-]; 
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ]; 
 [ GetCurrentBulk i k;
     k = 0;
     objectloop(i in player) {
@@ -12,8 +9,7 @@
         else k = k + BULK_NORMAL;
     }
     return k;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ ChooseObjects obj code;
     if (code == 2) { 
         ! 1. THE JUMPSUIT
@@ -38,43 +34,21 @@
     }
 
     return 0; 
-];
-![ FastRoute current_loc target_loc;
-!    if (current_loc == target_loc) return target_loc;
-!
-    ! Check each direction to see which one leads to the charger
-!    if (current_loc.n_to == target_loc) return target_loc;
-!    if (current_loc.s_to == target_loc) return target_loc;
-!    if (current_loc.e_to == target_loc) return target_loc;
-!    if (current_loc.w_to == target_loc) return target_loc;
-!    if (current_loc.u_to == target_loc) return target_loc;
-!    if (current_loc.d_to == target_loc) return target_loc;
-
-    ! If the drone isn't adjacent to the charger, it picks a default path.
-    ! For a more complex map, we can expand this, but this clears the error.
-!    return current_loc.n_to; 
-!];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-! HUD & AUDIO INTERFACE
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ PrintVisual real_text;
     if (visual_cortex_active == 1) {
         print (string) real_text;
         return;
     }
     print "ZERAKTHYN: [STYRZOSH ZGRT]";
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ PrintAudio real_text;
     if (audio_codec_active == 1) {
         print (string) real_text;
         return;
     }
     print "~VZDYK... TSKOR... VESKRACH... NAADEN...~";
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-! CUSTOM ACTIONS & ROUTINES
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ InstallSub;
     if (noun == nothing) { print "Install what?"; rtrue; }
     if (noun notin player) { print "You don't have that."; rtrue; }
@@ -82,10 +56,9 @@
         if (noun.before(action)) return;
     }
     rtrue;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ BlinkSub; "You blink, clearing the sweat from your eyes."; ];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
+[ BlinkSub; "You blink, clearing the sweat from your eyes."; 
+    ];
 [ BlinkTwiceSub;
     if (visual_cortex_active == 0) return false;
     if (last_qr_source == 0 || (last_qr_source notin location && last_qr_source ~= location)) {
@@ -98,14 +71,12 @@
         return true;
     }
     return false;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ FreezeSub;
     player_hidden = 1;
     print "You freeze instantly. You slow your breathing and force your heart rate down, lowering your thermal signature.^";
     return true;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ HideSub;
     if (player_hidden == 1) "You are already as hidden as you can be.";
 
@@ -120,12 +91,9 @@
     }
     
     ". You hold your breath, hoping to remain unnoticed.";
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ RecallSub; "You can't recall that."; ];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-! DAEMONS & SYSTEMS
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
+[ RecallSub; "You can't recall that."; 
+    ];
 [ ZerakthynAtmosphere r;
     ! 1. Do not run if the player is in the Brig
     if (location == Brig) return;
@@ -159,148 +127,64 @@
             new_line;
         }
     }
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-! THE DRONE
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-![ DroneDaemon dir next_room charger_loc battery; 
-!    ! charger_loc and battery are now declared above as local variables
-!    if (drone_active == 0 || power_restored == 0) return;
-!    charger_loc = parent(DroneCharger);
-!    battery = child(DroneCharger);
-!    ! --- 1. Interaction Logic ---
-!    if (parent(SecurityDrone) == location) {
-!        if (d.drone_alert == 1) {
-!            print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The !world goes black.^^^";
-!            style bold;
-!            print "     *** You have... NOT died ***^";
-!            style roman;!
-!
-!            print "^[MORE]^";
-!            @read_char 1 -> next_room; 
-!            @erase_window -1; 
-!            @set_cursor 1 1; 
-!
-!            print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of a blindingly white room.^";
-            
-!            d.drone_alert = 0;
- !           player_hidden = 0;
-!            CapturePlayer(); 
-!            return;
-!        }
-!        if (player_hidden == 0) {
-!            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your instincts scream: RUN!^";
-!            d.drone_alert = 1;
-!            return;
-!        } else {
-!            print "^The security drone hovers past, its sensors failing to pick you up.^";
-!        }
-!    }
-! --- Charging Logic ---
-!d.drone_alert = 0;
-!    drone_move_count++;
+    ];
 
-!    if (drone_move_count > 10) {
-!        if (parent(SecurityDrone) == charger_loc) {
-!            ! Check if the item in the charger is a valid, charged battery
-!            if (battery ~= 0 && battery provides charged && battery.charged == 1) {
-!                drone_move_count = 0; 
-!                if (location == charger_loc)
-!                    print "^The Security Drone docks with the wall unit, its eye dimming as it recharges.^";
-!            } else {
-!                if (location == charger_loc)
-!                    print "^The Security Drone hovers near the charger, beeping urgently for power.^";
-!            }
-!            return; 
-!        } else {
-!            move SecurityDrone to charger_loc;
-!            if (parent(SecurityDrone) == location) 
-            !    print "^The Security Drone floats in, heading straight for the charger.^";
-           ! return;
-      !  }
-   ! }
-! --- Algorithmic Movement ---
-!    d.drone_alert = 0;
-!    dir = random(6); 
-    
-    ! We use parent(SecurityDrone) so it moves from its OWN current room
- !   switch(dir) {
-  !      1: next_room = (parent(SecurityDrone)).n_to; 
-   !     2: next_room = (parent(SecurityDrone)).s_to;
-    !    3: next_room = (parent(SecurityDrone)).e_to;
-     !   4: next_room = (parent(SecurityDrone)).w_to;
-      !  5: next_room = (parent(SecurityDrone)).u_to;
-       ! 6: next_room = (parent(SecurityDrone)).d_to;
-    !}
-    !if (next_room ~= 0 && metaclass(next_room) == Object) {
-        ! Consolidated check: Must have light AND NOT be a ServerFarm AND NOT be an AftRoom
-     !   if (next_room has light && next_room ~= ServerFarm && ~~(next_room ofclass ServerFarm) && ~~(next_room ofclass AftRoom)) {
-      !      move SecurityDrone to next_room;
-       ! }
-   ! }
-    ! --- 3. Proximity Alerts ---
-    !if (parent(SecurityDrone) == location) {
-     !   print "^Suddenly, a security drone floats into the room!^";
-    !} else {
-     !   if (parent(SecurityDrone) == location.n_to || parent(SecurityDrone) == location.s_to ||
-      !      parent(SecurityDrone) == location.e_to || parent(SecurityDrone) == location.w_to) {
-       !     print "^You hear the unmistakable hum of a security drone nearby.^";
-        !}
-  !  }
-!];
-[ DroneLogic d dir next_room charger_loc battery; 
-    
+[ DroneLogic d dir next_room charger_loc battery;  
     if (d.is_active == 0 || power_restored == 0) return;    
-
     charger_loc = parent(DroneCharger); 
     battery = child(DroneCharger);
-
     ! --- CHARGING STATE ---
     if (DroneCharger.occupied_by == d) {
         d.move_count++;
         if (d.move_count >= 5) { 
             DroneCharger.occupied_by = 0;
             d.move_count = 0; 
-            ! Drone is now finished charging, but we continue so it can move/act this turn
+    ! TELEPORT HOME
+            if (location == DroneWorkshop) {
+                print "^The ", (name) d, " detaches from the wall, its eye turning from amber to a steady blue. It ascends into the ceiling hatch and vanishes.^^";
+            }
+            move d to d.home_base; ! <--- Sending it back to its starting area
+            return; 
         } else {
-            return; ! THIS IS KEY: It stops the drone from looking at you while charging
+            return; 
         }
     }
-
     ! --- STEALTH & CAPTURE ---
     if (parent(d) == location) {
+        
+        ! 1. CHECK STEALTH FIRST (The "Lock Breaker")
+        if (player_hidden == 1) {
+            if (d.drone_alert == 1) {
+                print "^The drone scans the area where you were standing, its red eye flickering, but it fails to find you in the shadows.^";
+                d.drone_alert = 0; ! Reset alert because you successfully hid
+            } else {
+                print "^The drone hovers past, missing you in the shadows.^";
+            }
+            return; ! Stop the drone's turn here
+        }
+        ! 2. CHECK EXISTING ALERT SECOND (The "Execution")
         if (d.drone_alert == 1) {
-            ! Restored dramatic capture sequence
             print "^^THE DRONE FIRES!^A taser dart hits your neck. Your muscles seize up. The world goes black.^^^";
             style bold;
             print "     *** You have... NOT died ***^";
             style roman;
-
             print "^[Press a key to continue]^";
             @read_char 1 -> next_room; 
             @erase_window -1; 
             @set_cursor 1 1; 
-
             print "But the way your head feels, you wish you had.^^You force your eyelids open against the glare of a blindingly white room.^";
-            
             d.drone_alert = 0;
             player_hidden = 0;
             CapturePlayer(); 
             return;
         }
-
-        if (player_hidden == 1) {
-            print "^The drone hovers past, missing you in the shadows.^";
-            d.drone_alert = 0;
-        } else {
-            print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your instincts scream: RUN!^";
-            d.drone_alert = 1;
-            return; 
-        }
+        ! 3. NEW DETECTION THIRD (The "Spot")
+        print "^^THE DRONE SPOTS YOU! Its red eye flares.^Your instincts scream: RUN!^";
+        d.drone_alert = 1;
+        return; 
     }
-! --- BATTERY CHECK & TELEPORT TO WORKSHOP ---
+ ! --- BATTERY CHECK & TELEPORT TO WORKSHOP ---
     d.move_count++;
-
     if (d.move_count > 30) {
         if (parent(d) == DroneWorkshop) {
             ! If already in the Workshop, try to dock
@@ -333,13 +217,11 @@
         3: next_room = (parent(d)).e_to; 4: next_room = (parent(d)).w_to;
         5: next_room = (parent(d)).u_to; 6: next_room = (parent(d)).d_to;
     }
-    
     ! Drone won't move into the DronePort via random patrol
     if (next_room ~= 0 && next_room ~= DronePort && metaclass(next_room) == Object && next_room has light) {
         move d to next_room;
     }
-
-! --- PROXIMITY NOTIFICATIONS ---
+    ! --- PROXIMITY NOTIFICATIONS ---
     if (drone_reported_this_turn == 0) {
         if (parent(d) == location) {
             print "^Suddenly, a security drone floats into the room!^";
@@ -350,13 +232,12 @@
             drone_reported_this_turn = 1;
         }
     }
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ DroneDaemon d;
     objectloop (d ofclass SecurityDrone) {
         DroneLogic(d);
     }
-];
+    ];
 
 [ CapturePlayer i next_obj;
     ! 1. Safe Inventory Strip
@@ -368,17 +249,17 @@
     }
 
     ! 2. System Malfunctions (50/50)
-if (visual_cortex_active == 1 && random(100) <= 50) {
+    if (visual_cortex_active == 1 && random(100) <= 50) {
     visual_cortex_active = 0;
     move installed_optical_chip to EvidenceLocker;
     print "Your vision blurs and swims disorientingly. ^";
-}
+    }
 
-if (audio_codec_active == 1 && random(100) <= 50) {
+    if (audio_codec_active == 1 && random(100) <= 50) {
     audio_codec_active = 0;
     move installed_audio_chip to EvidenceLocker;
     print "A muffled ringing sound fills your ears for a moment, then fades. ^";
-}
+    }
 
     ! 3. Teleport and Dialogue
     PlayerTo(Brig);
@@ -403,20 +284,18 @@ if (audio_codec_active == 1 && random(100) <= 50) {
         ArpiBrig1(); 
         style roman;
     }
-if (child(EvidenceLocker) ~= nothing) {
+    if (child(EvidenceLocker) ~= nothing) {
         give EvidenceLocker ~open locked;
         StartDaemon(EvidenceLocker); ! Start the 'watchdog' to see when it's emptied
     }
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ ArpiNarrative unaware_str aware_str;
     if (arpi_aware == 0) {
         print (string) unaware_str;
     } else {
         print (string) aware_str;
     }
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ TimePasses;
     turn_count++;
     DroneDaemon();
@@ -450,8 +329,7 @@ if (child(EvidenceLocker) ~= nothing) {
             print "^Your body is starting to feel the extreme cold. You need protection soon.^^";
         }
     }
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ GamePreRoutine;
     if (action ~= ##Freeze && action ~= ##Hide && action ~= ##Look && action ~= ##Wait) {
         if (player_hidden == 1) {
@@ -467,10 +345,7 @@ if (child(EvidenceLocker) ~= nothing) {
         }
     }
     return false;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-! Diagnostic Scan Routine
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ PerformDiagnosticScan;
     if (HighTechJumpsuit in player || jumpsuit_worn == 1) {
         print "The diagnostic beam intensifies. Your internal sensors flare with activity. You feel a strange warmth spreading through your body, a sensation of... belonging.^";
@@ -482,8 +357,7 @@ if (child(EvidenceLocker) ~= nothing) {
         print "The scanner runs, but detects no anomalous bio-integration. Perhaps the suit is not present or not active.^";
     }
     return;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ TranslateAudio str_alien str_human;
     if (audio_codec_active) {
         print (string) str_human;
@@ -491,8 +365,7 @@ if (child(EvidenceLocker) ~= nothing) {
         print (string) str_alien;
     }
     rtrue;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ];
 [ TranslateVisual str_alien str_human;
     if (visual_cortex_active) {
         print (string) str_human;
@@ -500,17 +373,7 @@ if (child(EvidenceLocker) ~= nothing) {
         print (string) str_alien;
     }
     rtrue;
-];
-! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-![ SwipeSub;
-    ! Case 1: "swipe card" (noun is card, second is nothing)
- !   if (second == nothing) {
- !       if (noun == Keycard) "You swipe the card through the air idly. You'll need a reader for that.";
- !       "You'd need to swipe that through something, but it's not even a card. Are you OK?";
- !   }
-    ! Case 2: "swipe card at [something that isn't a door]"
-!    "Swiping the ~@<<noun~@>> at the ~@<<second~@>> does nothing.";
-!];
+    ];
 [ SwipeSub;
     if (noun == 0) "Swipe what?";
     if (second == 0) {
@@ -525,6 +388,6 @@ if (child(EvidenceLocker) ~= nothing) {
         <<Unlock EngineeringDoor Keycard>>;
     }
     "That doesn't have a card reader.";
-];
+    ];
 
 
