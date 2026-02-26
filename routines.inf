@@ -239,17 +239,16 @@
     
     if (d.is_active == 0 || power_restored == 0) return;  
 
-    charger_loc = parent(DroneCharger);
+    charger_loc = parent(DroneCharger); ! This is usually the DronePort now
     battery = child(DroneCharger);
 
     ! --- CHARGING STATE ---
     if (DroneCharger.occupied_by == d) {
         d.move_count++;
-        if (d.move_count >= 3) {
+        if (d.move_count >= 5) { ! Time spent "plugged in"
             DroneCharger.occupied_by = 0;
             d.move_count = 0; 
-            if (location == charger_loc)
-                print "^The ", (name) d, " disconnects from the charger, fully powered.^";
+            ! No print message here because the player can't see into DronePort
         } else {
             return; 
         }
@@ -265,7 +264,7 @@
             style roman;
 
             print "^[Press a key to continue]^";
-            @read_char 1 -> next_room; ! Using next_room as a temp variable for the keypress
+            @read_char 1 -> next_room; 
             @erase_window -1; 
             @set_cursor 1 1; 
 
@@ -273,7 +272,7 @@
             
             d.drone_alert = 0;
             player_hidden = 0;
-            CapturePlayer(); ! This function should handle the actual 'move player to cell' logic
+            CapturePlayer(); 
             return;
         }
 
@@ -287,38 +286,23 @@
         }
     }
 
-! --- MOVEMENT & CHARGER SEARCH ---
+    ! --- BATTERY CHECK & TELEPORT ---
     d.move_count++;
 
-    ! If drone is low on power (threshold 15)
-    if (d.move_count > 15) {
-        if (parent(d) == charger_loc) {
-            ! Check if the charger is busy
-            if (DroneCharger.occupied_by ~= 0 && DroneCharger.occupied_by ~= d) {
-                if (location == charger_loc)
-                    print "^The ", (name) d, " hovers nearby, waiting for the other unit to finish charging.^";
-                return;
-            }
-
-            ! Attempt to dock if battery is present and charged
-            if (battery ~= 0 && battery provides charged && battery.charged == 1) {
-                DroneCharger.occupied_by = d; 
-                d.move_count = 0; 
-                if (location == charger_loc) 
-                    print "^The ", (name) d, " connects to the wall unit. Its eye dims as it draws power.^";
-                return; 
-            }
+    if (d.move_count > 30) {
+        if (parent(d) == DronePort) {
+            ! [Docking Logic...]
         } else {
-            ! The drone moves toward the charger room by room
-            next_room = FastRoute(parent(d), charger_loc);
-            if (next_room ~= 0 && metaclass(next_room) == Object) {
-                move d to next_room;
+            if (parent(d) == location) {
+                print "^The ", (name) d, "'s red eye dims. With a mechanical whir, it ascends toward the ceiling. A circular hatch irises open just long enough for the unit to disappear inside before snapping shut.^";
             }
-            return; ! Stop here so it doesn't do a random patrol move too
+            move d to DronePort;
+            d.drone_alert = 0;
+            return;
         }
     }
-
     ! --- RANDOM PATROL ---
+    ! (Only runs if move_count < 30 and drone isn't charging)
     dir = random(6); 
     switch(dir) {
         1: next_room = (parent(d)).n_to; 2: next_room = (parent(d)).s_to;
@@ -326,7 +310,8 @@
         5: next_room = (parent(d)).u_to; 6: next_room = (parent(d)).d_to;
     }
     
-    if (next_room ~= 0 && metaclass(next_room) == Object && next_room has light) {
+    ! Drone won't move into the DronePort via random patrol
+    if (next_room ~= 0 && next_room ~= DronePort && metaclass(next_room) == Object && next_room has light) {
         move d to next_room;
     }
 

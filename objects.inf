@@ -607,3 +607,20 @@ Object DataWafer "data wafer"
     with name 'wafer' 'disk' 'chip' 'admin',
     description "A small data chip.",
     bulk BULK_POCKET;
+
+Object DroneHatch "drone hatch"
+    with name 'hatch' 'ceiling' 'opening' 'vent' 'shutter' 'iris',
+         description "A small, circular iris-shutter recessed into the ceiling panels. It's designed for automated units; there are no manual controls, and the gap is far too narrow for a human to squeeze through.",
+         found_in [;
+             if (location has light) rtrue; ! Exists in every lit room
+             rfalse;
+         ],
+         before [;
+             Enter, Go, Climb:
+                 "The hatch is high above you and sealed by a biometric lock. It's strictly for the drones.";
+             Open:
+                 "You can't find any interface to open it. It only responds to drone proximity signals.";
+             Take, Pull, Remove:
+                 "It's built into the very frame of the ship's hull.";
+         ],
+    has  scenery static;

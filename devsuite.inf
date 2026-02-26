@@ -35,11 +35,10 @@
         }
 
         ! --- Energy Math ---
-        energy = 15 - d.move_count;
-        if (energy < 0) energy = 0;
-        print " [Energy: ", energy, "/15]^";
+    energy = 30 - d.move_count;
+    if (energy < 0) energy = 0;
+    print " [Energy: ", energy, "/30]^";
     }
-
     new_line;
     print "--- [ COMMANDS ] ---^";
     print "  VTOG [var] | VJUMP [loc] | VRESTORE | VWHERE | VBRIG^";
