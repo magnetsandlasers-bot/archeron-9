@@ -126,3 +126,14 @@ AlienRoom DroneWorkshop "Drone Workshop"
     with zh_name "VZRAC MAJSTRZ",
            description "This is a small workshop that looks like it must be used for working on security drones. On a workbench you see a half-disassembled drone and a heavy, dark cylinder. One of the charging units is on the south wall, its cylindrical slot empty. Next to it, another station looks to be powered by one of the pulsing cylinders. This station has an opening that looks like it could accomodate one of the drones.",
            e_to OpsCenter;
+
+AlienRoom DronePort "Drone Port"
+    with description "You shouldn't be here.",
+         e_to DroneWorkshop,
+         before [;
+             Enter, Go:
+                 if (sender == player) {
+                     "The hatch to the Drone Port is sealed tight. Only authorized maintenance units can trigger the biometric lock.";
+                 }
+         ],
+    has  light;

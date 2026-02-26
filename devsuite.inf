@@ -2,7 +2,7 @@
 ! Developer Tools Suite - Final Stable Version
 ! ==============================================================================
 
-[ DevMenuSub d i;
+[ DevMenuSub d i energy; ! <--- 'energy' must be declared here!
     @erase_window -1;
     @set_cursor 1 1;
     style bold;
@@ -19,11 +19,25 @@
     style underline;
     print "Drone Tracking:^";
     style roman;
+    
     i = 0;
     objectloop (d ofclass SecurityDrone) {
         i++;
-        print "  ", i, ". ", (name) d, " (ID ", d.drone_id, ") -> ", (name) parent(d);
-        print " [Energy: ", 10 - d.move_count, "/10]^";
+        print "  ", i, ". ", (name) d, " (ID ", d.drone_id, ") -> ";
+        
+        ! --- Status & Pathing Logic ---
+        if (DroneCharger.occupied_by == d) {
+            print "CHARGING";
+        } else if (d.move_count > 15) {
+            print "GOING HOME (currently in ", (name) parent(d), ")";
+        } else {
+            print (name) parent(d);
+        }
+
+        ! --- Energy Math ---
+        energy = 15 - d.move_count;
+        if (energy < 0) energy = 0;
+        print " [Energy: ", energy, "/15]^";
     }
 
     new_line;

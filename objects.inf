@@ -295,7 +295,7 @@ SecurityDrone SecurityDrone1 "security drone"
     is_active 1,  ! Each drone now tracks its own life
     drone_id 1;
 SecurityDrone SecurityDrone2 "security drone" 
-    with move_count 8,
+    with move_count 15,
     drone_alert 0,
     is_active 1,  ! Each drone now tracks its own life
     drone_id 2;
@@ -525,6 +525,7 @@ Object ChargedCell5 "pulsing cylinder"
     bulk BULK_HEAVY;
 Object ChargedCell6 "pulsing cylinder"
   with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+  
     short_name "pulsing cylinder",
     plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
@@ -564,7 +565,8 @@ Object DroneSocket "wall socket" DroneWorkshop
     has static container open scenery;
 Object DroneCharger "drone charger" DroneWorkshop
   with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
-       description [;
+        occupied_by 0,
+        description [;
            print "A wall unit for recharging drones.";
            if (child(self) ~= 0) {
                print " ", (The) child(self), " is seated in the charging slot.";
@@ -586,20 +588,17 @@ Object DroneCharger "drone charger" DroneWorkshop
                     "That doesn't fit the charging port.";
                 }
 LetGo: 
-    if (noun provides charged && (parent(SecurityDrone1) == location || parent(SecurityDrone2) == location)) {
-        
-        d = SecurityDrone1;
-        if (parent(SecurityDrone2) == location) d = SecurityDrone2;
+    if (noun provides charged) {
+        ! 'self' is the DroneCharger. This checks if a drone is inside it.
+        d = child(self); 
 
-        if (d.move_count > 15) {
-            d.is_active = 0; ! ONLY kills the drone in the room
+        if (d == SecurityDrone1 or SecurityDrone2) {
+            d.is_active = 0; 
             print "As you yank ", (the) noun, " out, the drone sparks violently! 
             Its red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
         }
     }
-       ],
-    occupied_by 0, ! Stores which drone is using it
-    has static container open scenery;
+       ];
 Object CargoCrates "crates" CargoBay
     with name 'crate' 'crates', 
     description "Standard shipping crates.", 
