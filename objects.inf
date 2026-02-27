@@ -386,7 +386,7 @@ Object AudioModuleFried "fried bio-chip (silver)"
        ];
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
-    description "Dingy would be a kind way to describe the filthy nest you woke up in.",
+    description "Dingy would be a kind way to describe the filthy nest you woke up in. The cot itself is just a slab of metal cantilevered out from the wall.",
     before [;
         LookUnder, Search:
             if (LooseGrating.is_found == false) {

@@ -35,6 +35,10 @@ Class ServerFarm
     ], 
     hide_spot "realize there is no place to hide from anyone here, including yourself", 
     has light;
+Class CrawlSpace
+    with 
+    hide_spot "cannot be serious.", 
+        has light;
 ! Object Classes
 Class SecurityDrone
   with name 'drone' 'robot' 'machine' 'patrol' 'sphere', 

@@ -97,10 +97,11 @@ Object -> TerminalSlot "data slot"
 AlienRoom Brig "Brig"
   with zh_name "DRAZK",
        description [;
-           print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is South, through a thick door.^";
+           print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is south, through a thick door.^";
            return true;
        ],
        s_to BrigDoor,
+       d_to CrampedSpace,
        daemon [;
            if (brig_timer > 0) {
                brig_timer--;
@@ -158,7 +159,7 @@ AlienRoom DroneWorkshop "Drone Workshop"
     w_to DronePort;
 
 
-AlienRoom DronePort "Drone Port"
+Crawlspace DronePort "Drone Port"
     with description "You shouldn't be here.",
          e_to DroneWorkshop,
          before [;
@@ -168,6 +169,7 @@ AlienRoom DronePort "Drone Port"
                  }
          ],
     has  light;
-AlienRoom CrampedSpace "cramped space"
+CrawlSpace CrampedSpace "cramped space"
     with description "Eep, a tight fit",
+    u_to Brig,
     has light;
