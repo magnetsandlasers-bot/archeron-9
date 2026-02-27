@@ -1,53 +1,53 @@
-AlienRoom CargoBay "Cargo Bay"
+ArcheronRoom CargoBay "Cargo Bay"
   with zh_name "VZDYK DRAZK",
        description "A dark, cavernous storage area. The exit is Up.", 
        u_to Atrium,
        nw_to PilotRoom,
        s_to LowerSpineFore;
-AlienRoom PilotRoom "Pilot Room"
+ArcheronRoom PilotRoom "Pilot Room"
   with zh_name "VZRAC DOMN",
        description "The control room for piloting the swarm.", 
        s_to CargoBay;
-AlienRoom Hangar "Hangar"
+ArcheronRoom Hangar "Hangar"
   with zh_name "POHYBI MAJSTRZ",
        description "A large hangar area for staging equipment.", 
        n_to LockerRoom,
        se_to Airlock,
        w_to CargoBay;
-AlienRoom LockerRoom "Locker Room"
+ArcheronRoom LockerRoom "Locker Room"
   with zh_name "CERNYV DRAZK",
        description "A locker room with spacesuits.", 
        s_to Hangar;
-AlienRoom Airlock "Airlock"
+ArcheronRoom Airlock "Airlock"
   with zh_name "ZRAAV ZAMER",
        description "Airlock for spacewalking.", 
        nw_to Hangar;
-AlienRoom LowerSpineFore "Lower Spine Fore"
+ArcheronRoom LowerSpineFore "Lower Spine Fore"
   with zh_name "POHYB STAVRPODZ NIZK",
        description "The corridor continues North and South.",
        s_to LowerSpineMid, 
        n_to CargoBay;
-AlienRoom LowerSpineMid "Lower Spine Mid"
+ArcheronRoom LowerSpineMid "Lower Spine Mid"
   with zh_name "POHYB STAVRPODZ SRED",
        description "The corridor continues North and South.",
        s_to LowerSpineMid, 
        n_to LowerSpineFore;
-AlienRoom LowerSpineAft "Lower Spine Aft"
+ArcheronRoom LowerSpineAft "Lower Spine Aft"
   with zh_name "POHYB STAVRPODZ SCERN",
        description "The corridor continues North and South.",
        s_to MechanicalRoom, 
        n_to LowerSpineMid;
-AlienRoom MechanicalRoom "Mechanical Room"
+ArcheronRoom MechanicalRoom "Mechanical Room"
   with zh_name "STAVR MAJSTRZ",
        description "A room with machinery.",
        e_to BroomCloset, 
        n_to LowerSpineAft;
-AlienRoom BroomCloset "Broom Closet"
+ArcheronRoom BroomCloset "Broom Closet"
   with zh_name "ZGRT DRAZK",
        description "A closet for brooms. A grating in the floor looks loose.",
        w_to MechanicalRoom,
        d_to TightCrawl;
-AlienRoom TightCrawl "Tight Crawl"
+ArcheronRoom TightCrawl "Tight Crawl"
     with 
        description "A claustrophobic crawlway.",
        u_to BroomCloset;

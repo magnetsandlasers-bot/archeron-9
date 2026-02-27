@@ -1,12 +1,12 @@
-AlienRoom MessHall "Mess Hall"
+ArcheronRoom MessHall "Mess Hall"
   with zh_name "CERNYV VESKR",
        description "Overturned tables. Exits lead East and West.", w_to Atrium, e_to CrewQuarters;
 
-AlienRoom CrewQuarters "Crew Quarters"
+ArcheronRoom CrewQuarters "Crew Quarters"
   with zh_name "CERNYV DRAZK",
        description "Rows of bunks. Exits lead West and South.", w_to MessHall, s_to MedicalBay;
 
-AlienRoom MedicalBay "Medical Bay"
+ArcheronRoom MedicalBay "Medical Bay"
   with zh_name "VESKRAC STAVR",
        description [;
            if (medical_wing_powered == 0) {

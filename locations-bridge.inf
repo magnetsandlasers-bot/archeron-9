@@ -14,12 +14,12 @@ Object BridgeDoor "blast door"
                 give self ~locked open; return true;
        ], door_dir n_to, door_to Bridge, has static door locked scenery;
 
-AlienRoom Bridge "The Bridge"
+ArcheronRoom Bridge "The Bridge"
   with zh_name "VZDRAK SMRNK",
        description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",
        s_to Atrium;
 
 
-! AlienRoom Airlock "Escape Pod Airlock"
+! ArcheronRoom Airlock "Escape Pod Airlock"
 !  with zh_name "ZAMER SMRNK",
  

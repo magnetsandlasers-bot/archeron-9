@@ -1,5 +1,5 @@
 ! Room Classes
-Class AlienRoom 
+Class ArcheronRoom 
     with short_name [;
     if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
@@ -89,7 +89,7 @@ Class SecurityDrone
        ],
   has static container openable;
 
-Class   AVModule
+Class AVModule
   with  name 'chip' 'module' 'silver' 'wafer',
         bulk BULK_POCKET,
         description "A sleek silver bio-chip. It looks like a standard codec processor.",

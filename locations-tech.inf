@@ -28,7 +28,7 @@ Corridor Atrium "Central Atrium"
        description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",
        s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;
 
-AlienRoom SecurityCheck "Security Checkpoint"
+ArcheronRoom SecurityCheck "Security Checkpoint"
   with zh_name "VZRAC ZAMER",
        description [;
            print "A reinforced checkpoint. Exits lead East and West. To the North, a heavy, reinforced door leads to what appears to be a detention area.^";
@@ -37,7 +37,7 @@ AlienRoom SecurityCheck "Security Checkpoint"
        ],
        e_to Atrium, w_to OpsCenter, n_to BrigDoor;
 
-AlienRoom OpsCenter "Ops Center"
+ArcheronRoom OpsCenter "Ops Center"
   with zh_name "KRZHDYN VZRAC",
        description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, Northwest, South, and East.",
        e_to SecurityCheck,
@@ -45,18 +45,18 @@ AlienRoom OpsCenter "Ops Center"
        w_to DroneWorkshop,
        s_to CommsRelay;
 
-AlienRoom CommsRelay "Comms Relay"
+ArcheronRoom CommsRelay "Comms Relay"
   with zh_name "STYRZEN POHYB",
        description "Banks of radio equipment line the walls. The air hums with static. The exit is North.",
        n_to OpsCenter;
 
-AlienRoom ServerRoom "Server Room"
+ArcheronRoom ServerRoom "Server Room"
   with zh_name "CERNYV STYRZ",
        description "Rows of server banks hum quietly. The exit is South. A short stairway leads up to a small landing." ,
        s_to OpsCenter,
        u_to Landing;
 
-AlienRoom Landing "Landing"
+ArcheronRoom Landing "Landing"
     with zh_name "KAELTH",
         description "A landing in a stairwell. There is a locked door on the West wall. You can go up or down.",
         u_to ServerFarm1,
@@ -94,7 +94,7 @@ Object -> TerminalSlot "data slot"
        ],
        has static container open scenery;
 
-AlienRoom Brig "Brig"
+ArcheronRoom Brig "Brig"
   with zh_name "DRAZK",
        description [;
            print "A small, heavily reinforced room. A single, uncomfortable-looking cot is bolted to the far wall. The air is cold and stale. The only exit is south, through a thick door.^";
@@ -121,7 +121,7 @@ AlienRoom Brig "Brig"
                }
            }
        ];
-AlienRoom DroneWorkshop "Drone Workshop"
+ArcheronRoom DroneWorkshop "Drone Workshop"
     with zh_name "VZRAC MAJSTRZ",
     description [;
         print "This is a small workshop that looks like it must be used for working on security drones. 
