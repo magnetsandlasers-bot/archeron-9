@@ -386,7 +386,41 @@ Object AudioModuleFried "fried bio-chip (silver)"
        ];
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
-    description "Dingy would be a kind way to describe the filthy nest you woke up in."
+    description "Dingy would be a kind way to describe the filthy nest you woke up in.",
+    before [;
+        LookUnder, Search:
+            if (LooseGrating.is_found == false) {
+                LooseGrating.is_found = true;
+                "Peering under the bed, you notice a loose metal grating tucked against the wall.";
+            }
+            "You see the loose grating you found earlier.";
+    ]
+    has static scenery;
+
+Object LooseGrating "loose grating" Brig
+    with name 'grating' 'grate' 'loose' 'metal',
+    is_found false,
+    is_removed false,
+    description "It's heavy and rusted, but it looks like it could be moved.",
+    before [;
+        Examine:
+            if (self.is_found == false) "You don't see any such thing.";
+        Take, Push, Pull, Remove:
+            if (self.is_found == false) "You don't see any such thing.";
+            if (self.is_removed) "You've already moved it aside.";
+            self.is_removed = true;
+            "You heave the grating aside, revealing a dark, narrow gap.";
+        Enter:
+            if (self.is_found == false) "You don't see any such thing.";
+            if (self.is_removed == false) "The grating is still in the way.";
+            "You exhale deeply and squeeze your way into the tight crawlspace.";
+            PlayerTo(CrampedSpace); 
+            rtrue; 
+    ],
+    short_name [;
+        if (self.is_found == false) rfalse;
+        print "loose grating"; rtrue;
+    ]
     has static scenery;
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',

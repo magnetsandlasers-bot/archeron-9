@@ -31,6 +31,8 @@
     Property qr_content; ! Don't remember what this does
     Property hide_spot; ! Custom descriptions for how player hides when needed
     Property home_base; ! Drones teleport here at init and after charging
+    Property is_found; ! Grating
+    Property is_removed; ! More grating work
 ! ROOM NAME 
     [ PrintLocation the_location;
         if (the_location == nothing) rtrue;

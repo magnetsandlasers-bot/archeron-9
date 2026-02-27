@@ -168,3 +168,6 @@ AlienRoom DronePort "Drone Port"
                  }
          ],
     has  light;
+AlienRoom CrampedSpace "cramped space"
+    with description "Eep, a tight fit",
+    has light;
