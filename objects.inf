@@ -386,7 +386,7 @@ Object AudioModuleFried "fried bio-chip (silver)"
        ];
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
-    description "Dingy would be a kind way to describe the filthy nest you woke up in. The cot itself is just a slab of metal cantilevered out from the wall.",
+    description "Dingy would be a kind way to describe the filthy nest you woke up in.",
     before [;
         LookUnder, Search:
             if (LooseGrating.is_found == false) {
@@ -396,34 +396,46 @@ Object CotUnmade "unmade cot" Brig
             "You see the loose grating you found earlier.";
     ]
     has static scenery;
-
-Object LooseGrating "loose grating" Brig
-    with name 'grating' 'grate' 'loose' 'metal',
+Object LooseGrating "loose grating"
+    with name 'grating' 'grate' 'loose' 'metal' 'gap' 'hole',
     is_found false,
     is_removed false,
-    description "It's heavy and rusted, but it looks like it could be moved.",
+    description [;
+        if (self.is_removed) "The grating has been shoved aside, leaving a dark gap.";
+        "It's a heavy metal grating. It looks like it might be loose.";
+    ],
+    found_in Brig CrampedSpace,
+    door_to [;
+        if (location == Brig) return CrampedSpace;
+        return Brig;
+    ],
+    door_dir [;
+        if (location == Brig) return d_to; ! Down from Brig
+        return u_to;                ! Up from CrampedSpace
+    ],
     before [;
-        Examine:
-            if (self.is_found == false) "You don't see any such thing.";
+        Examine, Search:
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
         Take, Push, Pull, Remove:
-            if (self.is_found == false) "You don't see any such thing.";
-            if (self.is_removed) "You've already moved it aside.";
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
+            if (self.is_removed) "It's already out of the way.";
             self.is_removed = true;
-            "You heave the grating aside, revealing a dark, narrow gap.";
+            "With a loud metallic scrape, you heave the grating aside.";
         Enter:
-            if (self.is_found == false) "You don't see any such thing.";
-            if (self.is_removed == false) "The grating is still in the way.";
-            
-            ! Use print_ret to print AND move, or print + PlayerTo
-            print "You exhale deeply and squeeze your way into the tight crawlspace.^";
-            PlayerTo(CrampedSpace); 
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
+            if (self.is_removed == false) "The grating is blocking the way.";
+            ! The library handles the move automatically for Doors if we return false here
+            ! or we can force it:
+            print "You exhale deeply and squeeze through the tight gap...^";
+            PlayerTo(self.door_to());
             rtrue;
     ],
     short_name [;
-        if (self.is_found == false) rfalse;
+        if (self.is_found == false && location == Brig) rfalse;
+        if (self.is_removed) { print "dark gap"; rtrue; }
         print "loose grating"; rtrue;
     ]
-    has static scenery;
+    has static door open; ! 'open' refers to the Door state, not our 'is_removed'
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
