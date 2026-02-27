@@ -413,9 +413,11 @@ Object LooseGrating "loose grating" Brig
         Enter:
             if (self.is_found == false) "You don't see any such thing.";
             if (self.is_removed == false) "The grating is still in the way.";
-            "You exhale deeply and squeeze your way into the tight crawlspace.";
+            
+            ! Use print_ret to print AND move, or print + PlayerTo
+            print "You exhale deeply and squeeze your way into the tight crawlspace.^";
             PlayerTo(CrampedSpace); 
-            rtrue; 
+            rtrue;
     ],
     short_name [;
         if (self.is_found == false) rfalse;
