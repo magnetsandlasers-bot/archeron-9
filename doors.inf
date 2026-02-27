@@ -124,3 +124,43 @@ Object BrigDoor "reinforced door"
        ],
        found_in SecurityCheck Brig,
        has static door openable lockable locked scenery;
+Object LooseGrating "loose grating"
+    with name 'grating' 'grate' 'loose' 'metal' 'gap' 'hole',
+    is_found false,
+    is_removed false,
+    description [;
+        if (self.is_removed) "The grating has been shoved aside, leaving a dark gap.";
+        "It's a heavy metal grating. It looks like it might be loose.";
+    ],
+    found_in Brig CrampedSpace,
+    door_to [;
+        if (location == Brig) return CrampedSpace;
+        return Brig;
+    ],
+    door_dir [;
+        if (location == Brig) return d_to; ! Down from Brig
+        return u_to;                ! Up from CrampedSpace
+    ],
+    before [;
+        Examine, Search:
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
+        Take, Push, Pull, Remove:
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
+            if (self.is_removed) "It's already out of the way.";
+            self.is_removed = true;
+            "With a loud metallic scrape, you heave the grating aside.";
+        Enter:
+            if (self.is_found == false && location == Brig) "You don't see any such thing.";
+            if (self.is_removed == false) "The grating is blocking the way.";
+            ! The library handles the move automatically for Doors if we return false here
+            ! or we can force it:
+            print "You exhale deeply and squeeze through the tight gap...^";
+            PlayerTo(self.door_to());
+            rtrue;
+    ],
+    short_name [;
+        if (self.is_found == false && location == Brig) rfalse;
+        if (self.is_removed) { print "dark gap"; rtrue; }
+        print "loose grating"; rtrue;
+    ]
+    has static door open; ! 'open' refers to the Door state, not our 'is_removed'
