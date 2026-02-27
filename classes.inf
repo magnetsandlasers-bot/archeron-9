@@ -15,7 +15,6 @@ Class Corridor
     rfalse;
         ], 
     hide_spot "quickly press yourself against the wall, avoiding the scan.", 
-
         has light;
 
 Class AftRoom 
@@ -24,7 +23,10 @@ Class AftRoom
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-    ], has light;
+    ], 
+        hide_spot "dive into the nearest shadow, holding your breath.", 
+
+    has light;
 
 Class ServerFarm 
     with short_name [;
@@ -45,7 +47,7 @@ Class SecurityDrone
        description [;
            if (self.is_active == 1) 
                "A floating sphere of black metal with a glowing red eye.";
-           "An inert sphere of black metal. Its red eye is dark, and a faint smell of ozone clings to its scorched casing.";
+           "An inert sphere of black metal. Its red eye is dark. Its carapace has a seam down the middle, which looks like it could be opened fairly easily.";
        ],
        describe [;
            ! --- WORKSHOP SILENCE ---
@@ -61,7 +63,7 @@ Class SecurityDrone
                ! Logic for single drone
                if (self.is_active == 1) 
                    "A security drone hovers here, scanning for thermal signatures.";
-               "The scorched remains of a security drone lie on the floor.";
+               "A dead security drone lies on the floor.";
            }
            
            ! Drone 2 remains silent if Drone 1 already described the pair or if it's dead/alone
@@ -82,9 +84,7 @@ Class SecurityDrone
        before [;
             Open:
                 if (self.is_active == 1) {
-                    "You try to grab the hovering machine, but it emits a sharp 
-                    electric spark that forces you to back off. It's not going 
-                    to let you poke around its internals while it's powered on.";
+                    "You consider grabbing the drone right out of the air, but think the better of it. You've just gotten used to having fingers.";
                 }
        ],
   has static container openable;

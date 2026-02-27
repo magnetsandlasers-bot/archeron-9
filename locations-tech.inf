@@ -157,6 +157,11 @@ AlienRoom DroneWorkshop "Drone Workshop"
     ],
     e_to OpsCenter,
     w_to DronePort;
+    ! There should be a sign poster thing near the charger that says PREVENT DRONE FAILURE / POWER CELL MUST BE PRESENT / IF DRONES ARE TO CHARGE
+    ! SCERN Y VZRAC-DRAZK NE
+    ! JADROZ ULMK ZRAAVEK 
+    ! VO I MAJSTRZ ZA I STAVRSZERN
+    ! ZA VZRAC-KRZHD
 
 
 Crawlspace DronePort "Drone Port"
