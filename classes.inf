@@ -6,7 +6,6 @@ Class ArcheronRoom
     }
     rfalse;
     ], has light;
-
 Class Corridor 
     with short_name [;
     if (AV_codec_active == 0 && self provides zh_name) {
@@ -101,12 +100,9 @@ Class AVModule
                     print "You hear a tiny buzzer sound and the chip refuses to insert.^"; 
                     rtrue; 
                 }
-                
                 AV_codec_active = 1;
-
                 installed_audio_chip = self;
-                
-                move self to (0); 
-                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
+                remove self; ! This replaces move self to (0);                
+                    print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
                 rtrue;
         ];

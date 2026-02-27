@@ -290,7 +290,6 @@ SecurityDrone SecurityDrone1 "security drone"
     is_active 1,
     drone_alert 0,
     drone_id 1;
-
 SecurityDrone SecurityDrone2 "security drone" 
     with move_count 15,
     home_base Hangar,
@@ -304,7 +303,6 @@ Object BrokenDrone "broken drone"
   has static container open scenery;
 AVModule AVModule1 "bio-chip (silver)";
 AVModule AVModule2 "bio-chip (silver)";
-
 Object AVModuleFried "fried bio-chip (silver)"
   with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
        description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
