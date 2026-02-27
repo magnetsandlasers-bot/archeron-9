@@ -48,17 +48,17 @@ AftRoom Engineering "Engineering Room"
            
            if (battery_count == 0) {
                print "you notice most of them are green, except for one status light next to a metal lever marked ";
-            TranslateVisual("POHYB ZANER", "BULKHEAD CONTROL");
+            TranslateAV("POHYB ZANER", "BULKHEAD CONTROL");
                ", which is glowing an ominous red.";  
            } 
            else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
-            TranslateVisual("POHYB ZANER", "BULKHEAD CONTROL");
+            TranslateAV("POHYB ZANER", "BULKHEAD CONTROL");
                " is flashing amber.";
            } 
            else {
                print "you see that all status lights are green, including the one next to the lever marked  ";
-            TranslateVisual("POHYB ZANER.", "BULKHEAD CONTROL.");
+            TranslateAV("POHYB ZANER.", "BULKHEAD CONTROL.");
            }
            print " A metal shelf is bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and other detritus. The only exit is West.^";
            return true;

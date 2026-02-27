@@ -4,7 +4,7 @@ Object PlayerCryoTube "empty tube you came out of" CryoBay with parse_name [;
        ],
        description [;
            print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
-           TranslateVisual("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
+           TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
            new_line;
            if (self hasnt open) "The heavy glass lid is now permanently sealed.";
            return true;
@@ -39,7 +39,7 @@ Object OccupiedTube "occupied cryo tube" CryoBay
      with name 'occupied' 'tube' 'pod' 'closed' 'glass' 'sealed',
           description [;
               print "You see the deathly-still silhouette of a misshapen figure slumped in the sealed tube. The bio-monitor display reads: ";
-              TranslateVisual("DOMN 012 KRZSHDOSH- NESTAV. ", "SUBJECT 012 STATUS- DEFECTIVE. ");
+              TranslateAV("DOMN 012 KRZSHDOSH- NESTAV. ", "SUBJECT 012 STATUS- DEFECTIVE. ");
               new_line;
               rtrue;
           ],
@@ -96,7 +96,7 @@ Object Keycard "plastic keycard"
        bulk BULK_POCKET,
        description [;
            print "A standard plastic ID card. The label reads: ";
-           TranslateVisual("CERNYV ZRAAV", "ACCESS CARD");
+           TranslateAV("CERNYV ZRAAV", "ACCESS CARD");
            "."; 
        ],
        after [;
@@ -160,7 +160,7 @@ Object ControlStation "control station" Engineering
   with name 'panel' 'station' 'control' 'status' 'amber', 
        description [;
            print "It features a Heavy Iron Lever. A sign above the lever reads ";
-           TranslateVisual("POHYB ZANER.", "BULKHEAD LEVER.");
+           TranslateAV("POHYB ZANER.", "BULKHEAD LEVER.");
        ],
        has static scenery supporter;
 
@@ -341,7 +341,7 @@ Object EvidenceLocker "evidence locker" SecurityCheck
        ],
        when_closed [;
            print "A reinforced locker is set into the wall under a sign reading ";
-           TranslateVisual("KOVRAZHSK." , "EVIDENCE.");
+           TranslateAV("KOVRAZHSK." , "EVIDENCE.");
        ],
        before [;
            Open:

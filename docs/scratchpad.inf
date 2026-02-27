@@ -71,3 +71,15 @@ Object AudioModule2 "bio-chip (gold)"
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
+
+
+
+
+ [ TranslateVisual str_alien str_human;
+    if (AV_codec_active) {
+        print (string) str_human;
+    } else {
+        print (string) str_alien;
+    }
+    rtrue;
+    ];      
