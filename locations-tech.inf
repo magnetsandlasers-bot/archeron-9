@@ -69,7 +69,7 @@ Object ServerTerminal "main terminal" ServerFarm
        qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
        description [;
             print "The screen displays the ship's crew manifest. ";
-            if (visual_cortex_active == 0) print "Your vision cannot parse the glyphs.";
+            if (AV_codec_active == 0) print "Your vision cannot parse the glyphs.";
             else {
                  print "CURRENT USER: ID 009. RANK: UNLISTED.";
                  if (identity_hacked) print "^STATUS: OVERRIDDEN (COMMANDER ACCESS).";
@@ -86,7 +86,7 @@ Object -> TerminalSlot "data slot"
        before [;
             Receive:
                 if (noun == DataWafer) {
-                    if (visual_cortex_active == 0) { print "You cannot parse the terminal interface to perform the hack.^"; rtrue; }
+                    if (AV_codec_active == 0) { print "You cannot parse the terminal interface to perform the hack.^"; rtrue; }
                     remove DataWafer; identity_hacked = 1;
                     print "You insert the wafer. You overwrite the 'UNLISTED' tag with 'COMMANDER'.^";
                     rtrue;
@@ -175,6 +175,6 @@ Crawlspace DronePort "Drone Port"
          ],
     has  light;
 CrawlSpace CrampedSpace "cramped space"
-    with description "Eep, a tight fit",
+    with description "Eep, a tight fit. You can only move up.",
     u_to Brig,
     has light;

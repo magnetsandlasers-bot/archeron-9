@@ -6,8 +6,9 @@
 ! GLOBAL VARIABLES
     Global power_restored = 0;
     Global lockdown_lifted = 0;
-    Global visual_cortex_active = 0;
-    Global audio_codec_active = 0;
+    Global AV_codec_active = 0;
+ !   Global visual_cortex_active = 0;
+ !   Global audio_codec_active = 0;
     Global identity_hacked = 0;
     Global oxygen = 30;
     Global brig_timer = 0;
@@ -38,7 +39,7 @@
         if (the_location == nothing) rtrue;
         new_line;
         style bold;
-        if (visual_cortex_active == 0 && the_location provides zh_name)
+        if (AV_codec_active == 0 && the_location provides zh_name)
             print (string) the_location.zh_name;
         else
             print (name) the_location;

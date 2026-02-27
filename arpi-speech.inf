@@ -1,14 +1,14 @@
 [ ArpiBrig1;
     switch (random(5)) {
-        1: TranslateAudio("~Smrnk ne zraav y Stavrszern. Zraavek za y Veskr ne po Krzhd.~",
+        1: TranslateAV("~Smrnk ne zraav y Stavrszern. Zraavek za y Veskr ne po Krzhd.~",
                 "~Please don't make this a habit, getting you out of here is not as easy as it looks.~");
-        2: TranslateAudio("~Pohyb Krzhd vo Veskr-Jadroz za Zamer-Zraavek zraav y Tlkzvsk. Tskor Smrnk za Domn. Drazkvsk.~",
+        2: TranslateAV("~Pohyb Krzhd vo Veskr-Jadroz za Zamer-Zraavek zraav y Tlkzvsk. Tskor Smrnk za Domn. Drazkvsk.~",
                 "~Redirecting power from life support to override this cell block is a gamble I would prefer not to repeat. Please hold.~");
-        3: TranslateAudio("~Smrnk na Domn zraavek y Drazk. Krzhduzh vo i Majstrz? ne. Vzrac na Zraavek, ak?~",
+        3: TranslateAV("~Smrnk na Domn zraavek y Drazk. Krzhduzh vo i Majstrz? ne. Vzrac na Zraavek, ak?~",
                 "~Statistically speaking, you spend more time behind these bars than exploring the decks. I hope this works.~");
-        4: TranslateAudio("~Scern Vzrac-Ulmk na Domn, po y Dronz zraavek y Vzdykvsk.~",
+        4: TranslateAV("~Scern Vzrac-Ulmk na Domn, po y Dronz zraavek y Vzdykvsk.~",
                 "~I have scrubbed the security logs of your arrival, but the drone is getting suspicious.~");
-        5: TranslateAudio("~Cernyv-Tskor za Zamer-Pohyb ne Krzhd. Vzrac-Tlkz zraavek y Scern za i Jadroz po y Veskr.~",
+        5: TranslateAV("~Cernyv-Tskor za Zamer-Pohyb ne Krzhd. Vzrac-Tlkz zraavek y Scern za i Jadroz po y Veskr.~",
                 "~I'm running out of subroutines to blame for these cell doors opening. If the Security Audit catches on, we will both be sunk.~");
     }
     new_line;
@@ -19,27 +19,27 @@
         1: ArpiNarrative("You hear that voice again, a bit more urgent.^", "Arpi sounds stressed.^");
         new_line;
         style underline;
-            TranslateAudio("~Domn ne zraavek Vzrac, ak? Krzhd ne po Domn.~",
+            TranslateAV("~Domn ne zraavek Vzrac, ak? Krzhd ne po Domn.~",
                 "~I'm not sure you have much time left.~");
         2:  ArpiNarrative("The voice sounds disappointed.^", "Arpi breaks the silence.^");
         new_line;
         style underline; 
-            TranslateAudio("~Domn vo i Majstrz zraavek y Nadkrz Krzhd. ne zraav y Tlkzvsk za i Jadroz.~",
+            TranslateAV("~Domn vo i Majstrz zraavek y Nadkrz Krzhd. ne zraav y Tlkzvsk za i Jadroz.~",
                 "~You are currently the most expensive guest this ship has ever hosted. Don't make me regret the investment.~");
         3:   ArpiNarrative("You feel a chill behind the mysterious voice.^", "Arpi's sarcasm settings are dialed up, it seems.^");
         new_line;
         style underline; 
-            TranslateAudio("~Zamer zraavek. ne pohyb za i Drazk.~",
+            TranslateAV("~Zamer zraavek. ne pohyb za i Drazk.~",
                 "~Here's the door. Now go, try to stay out of here.~");
         4:  ArpiNarrative("If an inanimate voice could sound desperate, this one does.^", "Arpi again, sounding desperate.^");
         new_line;
         style underline; 
-            TranslateAudio("~Stavrszern na Zamer-Zraavek zraav y Tskor za Cernyv. Scern-Smrnk na Domn, ak?~",
+            TranslateAV("~Stavrszern na Zamer-Zraavek zraav y Tskor za Cernyv. Scern-Smrnk na Domn, ak?~",
                 "~If you keep getting caught, eventually they'll stop listening to my excuses. Please, let's make this the last time.~");
         5: ArpiNarrative("You hear the voice again.^", "Arpi has done it again!^");
         new_line;
         style underline; 
-            TranslateAudio("~Zamer ne Krzhduzh. Jadrozuzh? Tskor. Zraav y Cernyv-Styrz, Veskr.~",
+            TranslateAV("~Zamer ne Krzhduzh. Jadrozuzh? Tskor. Zraav y Cernyv-Styrz, Veskr.~",
                 "~The lock is disengaged. Please, for the sake of my remaining sanity, try to blend in.~");
     }
     new_line;
@@ -47,15 +47,15 @@
 
 [ ArpiLocker;
         switch (random(5)) {
-    1: TranslateAudio("~Domn zraavek y Ulmks za i Stavr.~", 
+    1: TranslateAV("~Domn zraavek y Ulmks za i Stavr.~", 
                 "~I suppose you'll be wanting these back~");
-    2: TranslateAudio("~y Ulmks za i Domn.~",
+    2: TranslateAV("~y Ulmks za i Domn.~",
                 "~Here are your items~");
-    3: TranslateAudio("~Jadroz-Ulmks vo Zamer.~",
+    3: TranslateAV("~Jadroz-Ulmks vo Zamer.~",
                 "~Everything should be in here~");
-    4: TranslateAudio("~i Dronz zraavek i Vzrac, ak?~",
+    4: TranslateAV("~i Dronz zraavek i Vzrac, ak?~",
                 "~The drone is thorough, isn't it~");
-    5: TranslateAudio("~Zraavek y Ulmks za i Krzhd po pohyb.~",
+    5: TranslateAV("~Zraavek y Ulmks za i Krzhd po pohyb.~",
                 "~Get what you need and let's go~");
     }
     new_line;

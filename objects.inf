@@ -302,96 +302,28 @@ Object BrokenDrone "broken drone"
        description "An inert sphere of black metal, split open to reveal its insides.",
        initial "A broken drone sits here.",
   has static container open scenery;
-Object OpticalModule1 "bio-chip (green)"
-  with name 'driver' 'module' 'chip' 'green' 'wafer',
-       bulk BULK_POCKET,
-       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (visual_cortex_active == 1) { 
-                    "You already have that upgrade."; 
-                }
-                visual_cortex_active = 1;
-                installed_optical_chip = self; ! Store the object ID (OpticalModule1)
-                remove self;
-                "You press the chip into the base of your skull. Your neural link integrates the new visual data.";
-       ];
-Object OpticalModule2 "bio-chip (green)"
-  with name 'driver' 'module' 'chip' 'green' 'wafer',
-       bulk BULK_POCKET,
-       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (visual_cortex_active == 1) { 
-                    "You already have that upgrade."; 
-                }
-                visual_cortex_active = 1;
-                installed_optical_chip = self; ! Store the object ID (OpticalModule1)
-                remove self;
-                "You press the chip into the base of your skull. Your neural link integrates the new visual data.";
-       ];
-Object OpticalModuleFried "fried bio-chip (green)"
-  with name 'driver' 'module' 'chip' 'green' 'wafer',
-       bulk BULK_POCKET,
-       description "A green bio-chip labeled 'OPTICAL CORTEX LINK v4.0'.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (visual_cortex_active == 1) { print "You already have that upgrade."; rtrue; }
-                visual_cortex_active = 1; remove self;
-                print "You press the chip into the base of your skull. Your neural link integrates the new visual data.^";
-                rtrue;
-       ];
-Object AudioModule1 "bio-chip (silver)"
-  with name 'chip' 'module' 'silver' 'wafer', 
-       bulk BULK_POCKET,
-       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1;
-                installed_audio_chip = self;
-                remove self;
-                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
-                rtrue;
-       ];
+AVModule AVModule1 "bio-chip (silver)";
+AVModule AVModule2 "bio-chip (silver)";
 
-Object AudioModule2 "bio-chip (gold)"
-  with name 'chip' 'module' 'gold' 'wafer', 
-       bulk BULK_POCKET,
-       description "A sleek gold bio-chip. It looks like a standard Neural Auditory Processor.",
-       before [;
-            Wear: <<Install self>>;
-            Install:
-                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1;
-                installed_audio_chip = self;
-                remove self;
-                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
-                rtrue;
-       ];
-Object AudioModuleFried "fried bio-chip (silver)"
+Object AVModuleFried "fried bio-chip (silver)"
   with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
        description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
        before [;
             Wear: <<Install self>>;
             Install:
-                if (audio_codec_active == 1) { print "You already have that upgrade."; rtrue; }
-                audio_codec_active = 1; remove self;
+                if (AV_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                AV_codec_active = 1; remove self;
                 print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
                 rtrue;
        ];
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
-    description "Dingy would be a kind way to describe the filthy nest you woke up in.",
+    description "Dingy would be a kind way to describe the filthy nest you woke up in. The dark and dusty space underneath the cot looks as if it has been disturbed recently.",
     before [;
         LookUnder, Search:
             if (LooseGrating.is_found == false) {
                 LooseGrating.is_found = true;
-                "Peering under the bed, you notice a loose metal grating tucked against the wall.";
+                "Peering under the bed, you notice a loose metal grating tucked against the wall. From the way the dust has been disturbed, it looks like someone or something has been in there.";
             }
             "You see the loose grating you found earlier.";
     ]
@@ -432,7 +364,7 @@ Object EvidenceLocker "evidence locker" SecurityCheck
                    }
                } else {
                    ! 3. If it's empty, it stays locked.
-                   "The locker is firmly sealed. Without any items to retrieve, the security system refuses to cycle the lock.";
+                   "The locker is firmly sealed.";
                }
        ],
        after [;
@@ -661,3 +593,10 @@ Object RetinalScanner "retinal scanner"
     description "A set of retinal scanning glasses",
     shelvable 1,
     bulk BULK_POCKET;
+
+
+
+
+
+
+

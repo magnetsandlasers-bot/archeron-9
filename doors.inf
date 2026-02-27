@@ -29,10 +29,10 @@ Object  BulkheadDoor "bulkhead"
                 ! Logic for the North side (SpineFore)
                 print "The scanner sweeps a laser over your retina. ";
                 if (identity_hacked == 0) {
-                    TranslateAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.", "ACCESS DENIED: UNKNOWN BIOMETRICS.");
+                    TranslateAV("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.", "ACCESS DENIED: UNKNOWN BIOMETRICS.");
                     "^The door remains locked.";
                 }
-                TranslateAudio("VELMAR, CERNYV.", "IDENTITY VERIFIED. WELCOME, COMMANDER.");
+                TranslateAV("VELMAR, CERNYV.", "IDENTITY VERIFIED. WELCOME, COMMANDER.");
                 give self ~locked open;
                 "^The heavy bolts retract. The door grinds open.";
         ],
@@ -163,4 +163,4 @@ Object LooseGrating "loose grating"
         if (self.is_removed) { print "dark gap"; rtrue; }
         print "loose grating"; rtrue;
     ]
-    has static door open; ! 'open' refers to the Door state, not our 'is_removed'
+    has static door openable scenery; ! 'open' refers to the Door state, not our 'is_removed'

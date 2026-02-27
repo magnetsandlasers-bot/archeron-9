@@ -31,14 +31,14 @@
     return 0; 
     ];
 [ PrintVisual real_text;
-    if (visual_cortex_active == 1) {
+    if (AV_codec_active == 1) {
         print (string) real_text;
         return;
     }
     print "ZERAKTHYN: [STYRZOSH ZGRT]";
     ];
 [ PrintAudio real_text;
-    if (audio_codec_active == 1) {
+    if (AV_codec_active == 1) {
         print (string) real_text;
         return;
     }
@@ -55,7 +55,7 @@
 [ BlinkSub; "You blink, clearing the sweat from your eyes."; 
     ];
 [ BlinkTwiceSub;
-    if (visual_cortex_active == 0) return false;
+    if (AV_codec_active == 0) return false;
     if (last_qr_source == 0 || (last_qr_source notin location && last_qr_source ~= location)) {
         print "No active data streams detected.^";
         return true;
@@ -101,7 +101,7 @@
             print "An intercom in the ceiling crackles to life!^";
             new_line;
             style underline;
-            if (audio_codec_active == 1) {
+            if (AV_codec_active == 1) {
                 switch(r) {
                     1: print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.";
                     2: print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.";
@@ -271,14 +271,14 @@
     }
 
     ! 2. System Malfunctions (50/50)
-    if (visual_cortex_active == 1 && random(100) <= 50) {
-    visual_cortex_active = 0;
+    if (AV_codec_active == 1 && random(100) <= 50) {
+    AV_codec_active = 0;
     move installed_optical_chip to EvidenceLocker;
     print "Your vision blurs and swims disorientingly. ^";
     }
 
-    if (audio_codec_active == 1 && random(100) <= 50) {
-    audio_codec_active = 0;
+    if (AV_codec_active == 1 && random(100) <= 50) {
+    AV_codec_active = 0;
     move installed_audio_chip to EvidenceLocker;
     print "A muffled ringing sound fills your ears for a moment, then fades. ^";
     }
@@ -295,7 +295,7 @@
         print "A crackle of static erupts from the intercom, followed by a new voice. Not the administrative bark of the ship, but something that sounds like it wants to communicate.^";
         new_line;
         style underline;
-        TranslateAudio("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
+        TranslateAV("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
                     "~You should be able to hear my voice now, but this little episode will cost you. The drone has figured out you're here, so we have to figure out how to disable it and... wait a minute, you have no idea what I'm saying do you? Hello?~^");
         style roman;
     } else {
@@ -380,8 +380,8 @@
     }
     return;
     ];
-[ TranslateAudio str_alien str_human;
-    if (audio_codec_active) {
+[ TranslateAV str_alien str_human;
+    if (AV_codec_active) {
         print (string) str_human;
     } else {
         print (string) str_alien;
@@ -389,7 +389,7 @@
     rtrue;
     ];
 [ TranslateVisual str_alien str_human;
-    if (visual_cortex_active) {
+    if (AV_codec_active) {
         print (string) str_human;
     } else {
         print (string) str_alien;

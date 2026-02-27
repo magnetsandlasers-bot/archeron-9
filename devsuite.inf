@@ -47,7 +47,7 @@
     style roman;
 
     print "Power:   [", power_restored, "] | Med Pwr: [", medical_wing_powered, "] | Lockdown: [", lockdown_lifted, "]^";
-    print "Visual:  [", visual_cortex_active, "] | Audio:   [", audio_codec_active, "] | Identity: [", identity_hacked, "]^";
+    print "Visual:  [", AV_codec_active, "] | Audio:   [", AV_codec_active, "] | Identity: [", identity_hacked, "]^";
     print "Bulkhead:[", bulkhead_passed, "] | Arpi Aw:  [", arpi_aware, "] | Arpi Act: [", arpi_active, "]^";
     print "Oxygen:  [", oxygen, "] | Hidden:  [", player_hidden, "] | Jumpsuit: [", jumpsuit_worn, "]^";
     print "Batteries:[", battery_count, "] ^";
@@ -90,8 +90,8 @@
         'power', 'p': power_restored = 1 - power_restored;
         'med', 'm': medical_wing_powered = 1 - medical_wing_powered;
         'lock', 'l', 'lockdown': lockdown_lifted = 1 - lockdown_lifted;
-        'vis', 'v', 'visual': visual_cortex_active = 1 - visual_cortex_active;
-        'aud', 'a', 'audio': audio_codec_active = 1 - audio_codec_active;
+        'vis', 'v', 'visual': AV_codec_active = 1 - AV_codec_active;
+        'aud', 'a', 'audio': AV_codec_active = 1 - AV_codec_active;
         'bulk', 'b': bulkhead_passed = 1 - bulkhead_passed;
         'id': identity_hacked = 1 - identity_hacked;
         'arpi': arpi_aware = 1 - arpi_aware;

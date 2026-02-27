@@ -15,7 +15,7 @@ AftRoom TubeInterior "Inside the Cryo Tube"
             give PlayerCryoTube ~open; ! The door slams shut behind them
             print "^Suddenly, the glass lid slides shut with the speed of a guillotine. The bolts engage with a sickening thud.^^";
             print "The lights go red and the floor vents hiss. You hear a strangely calm voice intones ",
-                TranslateAudio("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
+                TranslateAV("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
             print "Before you can even scream, jets of white-hot plasma erupt from the wall-ports, turning the tube into a high-pressure incinerator and you into a pile of dust.^^";
            deadflag = 1;
            return true;
@@ -31,7 +31,7 @@ AftRoom AftCorridor "Aft Corridor"
                print "To the North, the bulkhead door stands open, leading deeper into the ship.";
            }
            print " To the East, a security door marked ";
-           if (visual_cortex_active) {
+           if (AV_codec_active) {
                print "ENGINEERING is closed. An open archway leads West towards an area marked REACTOR. ";
            } else {
                print "KRZHDYN is closed. An open archway leads West towards an area marked JADROZ. ";

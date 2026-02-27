@@ -28,7 +28,7 @@ Object DiagnosticConsole "diagnostic console"
   with name 'console' 'diagnostic' 'terminal' 'panel' 'scanner' 'medical',
        description [;
            print "A sleek, metallic console. The screen displays a complex array of alien glyphs and readouts. ";
-           if (visual_cortex_active == 0 || audio_codec_active == 0) {
+           if (AV_codec_active == 0) {
                print "You can't understand any of it. It seems to be waiting for input, but you have no idea what to do.";
            } else {
                print "With your upgrades, you can decipher some of the interface. It appears to be a bio-diagnostic unit. The primary function is labeled 'INITIATE FULL SPECTRUM SCAN'. There are also options for 'SYSTEM REBOOT' and 'LOG ACCESS'.";
@@ -44,7 +44,7 @@ Object DiagnosticConsole "diagnostic console"
                    print "The console is dead. It needs power to function.^";
                    rtrue;
                }
-               if (visual_cortex_active == 0 || audio_codec_active == 0) {
+               if (AV_codec_active == 0) {
                    print "You press a series of alien symbols at random, hoping for the best. Suddenly, the console emits a high-pitched whine! A searing pain shoots through your head as your neural interface is overloaded by the incomprehensible data stream!^";
                    deadflag = 1;
                    rtrue;
@@ -59,7 +59,7 @@ Object DiagnosticConsole "diagnostic console"
 Object MedicalLogTerminal "data terminal"
   with name 'terminal' 'data' 'log' 'records' 'medical',
        qr_content [;
-           if (visual_cortex_active == 0) {
+           if (AV_codec_active == 0) {
                print "The screen displays incomprehensible alien script. You can't read it.";
                return;
            }
@@ -72,7 +72,7 @@ Object MedicalLogTerminal "data terminal"
        ],
        description [;
            print "A small data terminal mounted on the wall. It displays a blinking cursor and a title: 'ARCHERON PROJECT - SUBJECT 009'. ";
-           if (visual_cortex_active == 0) {
+           if (AV_codec_active == 0) {
                print "The text is in an alien language.";
            } else {
                print "You can read the logs here. Accessing them might reveal crucial information.";

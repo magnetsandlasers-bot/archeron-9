@@ -1,7 +1,7 @@
 ! Room Classes
 Class AlienRoom 
     with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
+    if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
@@ -9,7 +9,7 @@ Class AlienRoom
 
 Class Corridor 
     with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
+    if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
@@ -19,7 +19,7 @@ Class Corridor
 
 Class AftRoom 
     with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
+    if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
@@ -30,7 +30,7 @@ Class AftRoom
 
 Class ServerFarm 
     with short_name [;
-    if (visual_cortex_active == 0 && self provides zh_name) {
+    if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
@@ -88,3 +88,25 @@ Class SecurityDrone
                 }
        ],
   has static container openable;
+
+Class   AVModule
+  with  name 'chip' 'module' 'silver' 'wafer',
+        bulk BULK_POCKET,
+        description "A sleek silver bio-chip. It looks like a standard codec processor.",
+        before [;
+            Wear: <<Install self>>;
+            Install:
+                ! Check if EITHER system is already occupied
+                if (AV_codec_active == 1) { 
+                    print "You hear a tiny buzzer sound and the chip refuses to insert.^"; 
+                    rtrue; 
+                }
+                
+                AV_codec_active = 1;
+
+                installed_audio_chip = self;
+                
+                move self to (0); 
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
+                rtrue;
+        ];
