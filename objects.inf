@@ -60,6 +60,7 @@ Object HighTechJumpsuit "high-tech jumpsuit"
        before [;
             Take, Wear:
                 if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                achieved(0); ! Task 0: put on jumpsuit
                 jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
                 print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
                 rtrue;
@@ -167,22 +168,23 @@ Object ControlStation "control station" Engineering
 Object IronLever "heavy iron lever" Engineering
   with name 'lever' 'iron' 'heavy',
   before [;
-     Pull:
+     Pull, Push, SwitchOn: ! Catching multiple likely player inputs
         if (battery_count < 2) {
             print "The lever is locked in place. The status light is ";
             if (battery_count == 0) print "red.";
             else print "amber.";
-            return true;
+            new_line;
+            rtrue;
         }
         if (lockdown_lifted == 1) {
-            print "The lever has already been pulled. The bulkhead door is unlocked.^";
-            return true;
+            "The lever has already been pulled. The bulkhead door is unlocked.";
         }
-        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
-        print "[STATUS: Bulkhead lock released. The door is now open.]^";
+        achieved(4); ! Task 4: Open Bulkhead Door
         lockdown_lifted = 1;
-        give BulkheadDoor ~locked open;
-        return true;
+        give BulkheadDoor ~locked;
+        give BulkheadDoor open; 
+        
+        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
   ],
   has static scenery;
 Object WallSocket "wall socket" ReactorRoom
@@ -234,14 +236,17 @@ Object MainColumn "central column" ReactorRoom
                     print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
                     
                     if (battery_count == 1) {
+                        achieved(1); ! Task 1: restore emergency power
                         print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.";
                         power_restored = 1;
                         alarm_lights_active = 0;
                     } 
                     else if (battery_count == 2) {
+                        achieved(2); !Task 2: restore main power
                         print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.";
                     } 
                     else if (battery_count >= 3) {
+                        achieved(3); !Task 3: restore auxiliary power
                         print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.";
                         medical_wing_powered = 1;
                     }
@@ -499,8 +504,8 @@ Object DroneSocket "wall socket" DroneWorkshop
     has static container open scenery;
 Object DroneCharger "drone charger" DroneWorkshop
   with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
-        occupied_by 0,
-        description [;
+       occupied_by 0,
+       description [;
            print "A wall unit for recharging drones.";
            if (child(self) ~= 0) {
                print " ", (The) child(self), " is seated in the charging slot.";
@@ -511,7 +516,7 @@ Object DroneCharger "drone charger" DroneWorkshop
            rtrue;
        ],
        describe [; rtrue; ],
-       before [ d; ! <--- Added 'd' here to declare it as a local variable
+       before [ d; 
             Receive:
                 if (noun == SecurityDrone1 or SecurityDrone2 or BrokenDrone) {
                     "The drone is broken beyond your ability to repair, and it does not even register in the charger.";
@@ -521,24 +526,30 @@ Object DroneCharger "drone charger" DroneWorkshop
                 } else {
                     "That doesn't fit the charging port.";
                 }
-    LetGo: 
-    if (noun provides charged) {
-        ! Use the property you already defined to find the drone
-        d = self.occupied_by; 
+            LetGo: 
+                if (noun provides charged) {
+                    d = self.occupied_by; 
 
-        if (d == SecurityDrone1 or SecurityDrone2) {
-            d.is_active = 0; 
-            give d ~static;      ! Optional: Allow the player to pick up the dead drone
-            self.occupied_by = 0; ! The station is now empty
-            
-            print "As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
-            The drone's red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
-            ! move noun to player;  ! battery to inventory
-            rtrue;                ! This stops the default "Taken." message from appearing
-        }
-    }
+                    if (d == SecurityDrone1 or SecurityDrone2) {
+                        ! Only award points if the drone is currently alive
+                        if (d.is_active == 1) {
+                            d.is_active = 0; 
+                            give d ~static;
+                            
+                            ! --- SCORING LOGIC ---
+                            if (d == SecurityDrone1) achieved(7);
+                            if (d == SecurityDrone2) achieved(8);
+                        }
+                        
+                        self.occupied_by = 0; 
+                        
+                        print "As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
+                        The drone's red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
+                        rtrue; 
+                    }
+                }
        ],
-        has container open;
+  has container open;
 Object CargoCrates "crates" CargoBay
     with name 'crate' 'crates', 
     description "Standard shipping crates.", 

@@ -1,4 +1,4 @@
-! CONSTANTS
+! INVENTORY WEIGHT AND CAPACITY
     Constant BULK_POCKET = 1;
     Constant BULK_NORMAL = 2;
     Constant BULK_HEAVY  = 8;

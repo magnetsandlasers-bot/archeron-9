@@ -1,3 +1,38 @@
+[ PrintRank;
+    print ", giving you the rank of ";
+    if (score >= 100) "Grandmaster Adventurer.";
+    if (score >= 50)  "Competent Explorer.";
+    if (score >= 10)  "Disoriented Liability.";
+    "Unfortunate Casualty.";
+    ];
+[ TaskScore task_id;
+    switch (task_id) {
+        0: return 10; ! put on jumpsuit
+        1: return 10; ! restore emergency power
+        2: return 10; ! restore main power
+        3: return 10; ! restore auxiliary power
+        4: return 10; ! open Bulkhead door
+        5: return 10; ! captured by drone
+        6: return 10; ! meet ARPI
+        7: return 10; ! disable drone 1
+        8: return 10; ! disable drone 2
+        default: return 0;
+    }
+    ];
+
+[ PrintTaskName task_id;
+    switch (task_id) {
+        0: print "put on jumpsuit";
+        1: print "restore emergency power";
+        2: print "restore main power";
+        3: print "restore auxiliary power";
+        4: print "open Bulkhead door";
+        5: print "captured by drone";
+        6: print "meet ARPI";
+        7: print "disable drone 1";
+        8: print "disable drone 2";
+    }
+    ];
 [ Mod a b;
     if (b == 0) return 0;
     return a - (a / b) * b;
@@ -200,14 +235,20 @@
         if (parent(d) == DroneWorkshop) {
             
             ! --- THE "DEAD ON ARRIVAL" CHECK ---
-            ! If the drone is here to charge but the battery is missing...
-            if (battery == 0) {
-                d.is_active = 0;
-                if (location == DroneWorkshop) {
-                    print "^The ", (name) d, " attempts to dock with the charging station, but finds no power source. It emits a mournful, descending whine before its eye goes dark and it clatters lifelessly to the floor.^";
-                }
-                return;
-            }
+    ! If the drone is here to charge but the battery is missing...
+    if (battery == 0) {
+        d.is_active = 0;
+        give d ~static; ! Now the player can pick up the dead drone
+        
+        ! --- AWARD POINTS FOR SABOTAGING THE CHARGER ---
+        if (d == SecurityDrone1) achieved(7);
+        if (d == SecurityDrone2) achieved(8);
+
+        if (location == DroneWorkshop) {
+            print "^The ", (name) d, " attempts to dock with the charging station, but finds no power source. It emits a mournful, descending whine before its eye goes dark and it clatters lifelessly to the floor.^";
+        }
+        return;
+    }
 
             ! DOCKING LOGIC (Only reached if battery is present)
             if (DroneCharger.occupied_by == 0) {
@@ -285,6 +326,8 @@
 
     ! 3. Teleport and Dialogue
     PlayerTo(Brig);
+    achieved(5); ! Task 5: captured by drone
+
     brig_timer = 3;
     StartDaemon(Brig);
     

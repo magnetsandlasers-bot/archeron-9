@@ -1,5 +1,6 @@
 [ Initialise;
     location = CryoBay;
+    notify_mode = false; ! Suppress the "score has gone up" message
     move HighTechJumpsuit to CryoBay;
     move Keycard to Corpse;
     move ExitButton to Engineering;

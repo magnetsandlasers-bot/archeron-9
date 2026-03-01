@@ -3,6 +3,10 @@ Constant Headline "^An Interactive Sci-Fi Mystery^";
 Release 0;
 ! 1. Directives and Globals FIRST
 Replace PrintLocation;
+Replace TaskScore;
+Replace PrintRank;
+Constant MAX_SCORE = 90; ! Define it HERE, before the library does
+Constant NUMBER_TASKS = 9; ! How many tasks in the array
 Include "constants.inf"; 
 ! 2. THE LIBRARIES (These define 'location')
 Include "parser";      
