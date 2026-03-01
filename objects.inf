@@ -225,7 +225,7 @@ Object MainColumn "central column" ReactorRoom
        before [;
             Receive:
                 ! First, check if it's even a battery type
-                if (noun.charged == nothing) {
+                if ((noun provides charged) == false) {
                     "The column slot is designed for specific cylindrical units; that doesn't belong there.";
                 }
 
