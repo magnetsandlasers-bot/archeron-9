@@ -5,7 +5,8 @@
     if (score >= 10)  "Disoriented Liability.";
     "Unfortunate Casualty.";
     ];
-[ TaskScore task_id;
+[ TaskScore 
+    task_id;
     switch (task_id) {
         0: return 10; ! put on jumpsuit
         1: return 10; ! restore emergency power
@@ -20,7 +21,8 @@
     }
     ];
 
-[ PrintTaskName task_id;
+[ PrintTaskName 
+    task_id;
     switch (task_id) {
         0: print "put on jumpsuit";
         1: print "restore emergency power";
@@ -33,11 +35,14 @@
         8: print "disable drone 2";
     }
     ];
-[ Mod a b;
+! ---
+[ Mod 
+    a b;
     if (b == 0) return 0;
     return a - (a / b) * b;
     ]; 
-[ GetCurrentBulk i k;
+[ GetCurrentBulk 
+    i k;
     k = 0;
     objectloop(i in player) {
         if (i provides bulk) k = k + i.bulk;
@@ -45,7 +50,8 @@
     }
     return k;
     ];
-[ ChooseObjects obj code;
+[ ChooseObjects 
+    obj code;
     if (code == 2) { 
         ! 1. THE JUMPSUIT
         if (obj == HighTechJumpsuit && obj in location) return 1; ! Changed to 1
@@ -65,14 +71,16 @@
     }
     return 0; 
     ];
-[ PrintVisual real_text;
+[ PrintVisual 
+    real_text;
     if (AV_codec_active == 1) {
         print (string) real_text;
         return;
     }
     print "ZERAKTHYN: [STYRZOSH ZGRT]";
     ];
-[ PrintAudio real_text;
+[ PrintAudio 
+    real_text;
     if (AV_codec_active == 1) {
         print (string) real_text;
         return;
@@ -87,7 +95,8 @@
     }
     rtrue;
     ];
-[ BlinkSub; "You blink, clearing the sweat from your eyes."; 
+[ BlinkSub; 
+    "You blink, clearing the sweat from your eyes."; 
     ];
 [ BlinkTwiceSub;
     if (AV_codec_active == 0) return false;
@@ -122,9 +131,11 @@
     
     ". You hold your breath, hoping to remain unnoticed.";
     ];
-[ RecallSub; "You can't recall that."; 
+[ RecallSub; 
+    "You can't recall that."; 
     ];
-[ ZerakthynAtmosphere r;
+[ ZerakthynAtmosphere 
+    r;
     ! 1. Do not run if the player is in the Brig
     if (location == Brig) return;
 
@@ -158,7 +169,8 @@
     }
     ];
 
-[ DroneLogic d dir next_room charger_loc battery; 
+[ DroneLogic 
+    d dir next_room charger_loc battery; 
     
     if (d.is_active == 0 || power_restored == 0) return;    
 
@@ -295,13 +307,15 @@
         }
     }
     ];
-[ DroneDaemon d;
+[ DroneDaemon 
+    d;
     objectloop (d ofclass SecurityDrone) {
         DroneLogic(d);
     }
     ];
 
-[ CapturePlayer i next_obj;
+[ CapturePlayer 
+    i next_obj;
     ! 1. Safe Inventory Strip
     i = child(player);
     while (i ~= nothing) {
@@ -313,15 +327,15 @@
     ! 2. System Malfunctions (50/50)
     if (AV_codec_active == 1 && random(100) <= 50) {
     AV_codec_active = 0;
-    move installed_optical_chip to EvidenceLocker;
-    print "Your vision blurs and swims disorientingly. ^";
+    move installed_chip to EvidenceLocker;
+    print "Your vision blurs and swims disorientingly. A muffled ringing sound fills your ears for a moment, then fades.^";
     }
 
-    if (AV_codec_active == 1 && random(100) <= 50) {
-    AV_codec_active = 0;
-    move installed_audio_chip to EvidenceLocker;
-    print "A muffled ringing sound fills your ears for a moment, then fades. ^";
-    }
+   ! if (AV_codec_active == 1 && random(100) <= 50) {
+   ! AV_codec_active = 0;
+   ! move installed_audio_chip to EvidenceLocker;
+   ! print "A muffled ringing sound fills your ears for a moment, then fades. ^";
+   ! }
 
     ! 3. Teleport and Dialogue
     PlayerTo(Brig);
@@ -351,13 +365,6 @@
     if (child(EvidenceLocker) ~= nothing) {
         give EvidenceLocker ~open locked;
         StartDaemon(EvidenceLocker); ! Start the 'watchdog' to see when it's emptied
-    }
-    ];
-[ ArpiNarrative unaware_str aware_str;
-    if (arpi_aware == 0) {
-        print (string) unaware_str;
-    } else {
-        print (string) aware_str;
     }
     ];
 [ TimePasses;
@@ -422,7 +429,8 @@
     }
     return;
     ];
-[ TranslateAV str_alien str_human;
+[ TranslateAV 
+    str_alien str_human;
     if (AV_codec_active) {
         print (string) str_human;
     } else {
@@ -445,18 +453,24 @@
     }
     "That doesn't have a card reader.";
     ];
-
-[ ArpiDaemon;
-    ! 1. Check if we are aware
-    ! 2. Check if the location actually has the arpi_hint property
-    ! 3. Check if that property actually has a value (~= 0)
-    if (arpi_aware == 1 && location provides arpi_hint && location.arpi_hint ~= 0) { 
-        new_line;
-        style underline;
-        print "~";
-        location.arpi_hint(); 
-        print "~";
-        new_line;
-        style roman;
+[ ArpiNarrative 
+    unaware_str aware_str;
+    if (arpi_aware == 0) {
+        print (string) unaware_str;
+    } else {
+        print (string) aware_str;
     }
-];
+    ];
+[ ArpiDaemon;
+    if (arpi_aware == 1 && location provides arpi_hint && location.arpi_hint ~= 0) { 
+        ! Only speak if we haven't spoken here yet
+        if (location.arpi_spoken == 0) {
+            location.arpi_spoken = 1; ! Flip the flag to 1
+            new_line;
+            style underline;
+            location.arpi_hint(); 
+            new_line;
+            style roman;
+        }
+    }
+    ];

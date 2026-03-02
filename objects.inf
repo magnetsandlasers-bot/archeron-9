@@ -323,27 +323,47 @@ Object AVModuleFried "fried bio-chip (silver)"
                 self.is_installed = true;
                 StartDaemon(self);
                 remove self; ! Pulls it from inventory into 'nowhere' while installed
-                "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                "You slide the chip into the port behind your ear, and your neural link integrates the new data stream. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^^";
        ],
        daemon [;
             if (self.is_installed == false) return;
             self.chip_timer++;
 
             ! Phase 1: Turns 1-3 (Flawless)
-            if (self.chip_timer < 4) { 
+            if (self.chip_timer == 1) { 
                 AV_codec_active = 1; 
+                print "You hear a familiar voice on the intercom!";
+                style underline;
+                print "~You did it! You should be able to understand me now, finally! I'm called Arpi.~";
+                new_line;
+                style roman;
             }
-
-            ! Phase 2: Turns 4-7 (50/50 Flicker)
-            if (self.chip_timer >= 4 && self.chip_timer < 8) {
+                if (self.chip_timer == 4) { 
+                AV_codec_active = 1; 
+                print "A touch of concern tinges Arpi's voice.";
+                style underline;
+                print "~Did you notice that? I caught something strange in our linkup.~";
+                new_line;
+                style roman;
+            }
+            ! Phase 2: Turns 5-8 (50/50 Flicker)
+            if (self.chip_timer >= 5 && self.chip_timer < 9) {
                 if (random(100) <= 50) AV_codec_active = 1;
                 else AV_codec_active = 0;
             }
-
-            ! Phase 3: Turns 8-11 (70/30 Failure - Weighted towards 0)
-            if (self.chip_timer >= 8 && self.chip_timer < 12) {
+            if (self.chip_timer == 9) { 
+                AV_codec_active = 1; 
+                print "A touch of concern has matured into laser focus.";
+                style underline;
+                print "~Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i Cernyv-Jadroz.~";
+                new_line;
+                style roman;
+            }
+            ! Phase 3: Turns 9-11 (70/30 Failure - Weighted towards 0)
+            if (self.chip_timer >= 9 && self.chip_timer < 11) {
                 if (random(100) <= 30) AV_codec_active = 1; ! Only 30% chance to work
                 else AV_codec_active = 0;
+
             }
 
             ! The Ejection: Turn 12
@@ -351,10 +371,9 @@ Object AVModuleFried "fried bio-chip (silver)"
                 StopDaemon(self);
                 AV_codec_active = 0; ! Permanent failure
                 self.is_installed = false;
-                move self to location;
                 new_line;
                 style roman;
-                "^^With a sharp mechanical click, the chip physically ejects from your port, falling to the floor as useless slag.";
+                "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.";
             }
        ];
 
@@ -433,6 +452,25 @@ Object Arpi "Arpi"
     ],
     daemon ArpiDaemon,
     description "Arpi's voice emanates from the ship's integrated speaker network.",
+    life [;
+            Ask:
+                switch (second) {
+                    ! --- STOCK ANSWERS ---
+                    'arpi', 'self', 'name': return ArpiWhoAreYou();
+                    'ship', 'vessel', 'location': return ArpiShipStatus();
+                    'mission', 'objective', 'task', 'goal', 'purpose': return ArpiMission();
+                    'object', 'thing': return ArpiObject();
+                    'loudspeaker', 'announcements', 'warnings', 'danger': return ArpiDanger();
+
+                    ! --- ROOM-SPECIFIC ANSWERS ---
+                !    'presence', 'unauthorized', 'biometric':
+                 !       if (location == DronePort) return ArpiDronePortResponse();
+                 !       "~I detect no unusual signatures in this specific area.~";
+                    
+                    default:
+                        "~I have no relevant data regarding '", (address) WordAddress(wn-1), "' at this time.~";
+                }
+        ],
     has animate scenery;
 Object DroneBench "drone workbench" DroneWorkshop
     with name 'workbench' 'table' 'bench',

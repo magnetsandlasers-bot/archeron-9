@@ -7,6 +7,7 @@ Class ArcheronRoom
     rfalse;
     ], 
     arpi_access 1,
+    arpi_spoken 0, ! 0 means he hasn't spoken yet
     has light;
 Class Corridor 
     with short_name [;
@@ -16,6 +17,7 @@ Class Corridor
     rfalse;
         ],
         arpi_access 1,
+        arpi_spoken 0, ! 0 means he hasn't spoken yet
         hide_spot "quickly press yourself against the wall, avoiding the scan.",
     has light;
 
@@ -26,7 +28,8 @@ Class AftRoom
     }
     rfalse;
     ],
-        arpi_access 1, 
+        arpi_access 1,
+        arpi_spoken 0, ! 0 means he hasn't spoken yet
         hide_spot "dive into the nearest shadow, holding your breath.", 
     has light;
 Class ServerFarm 
@@ -37,12 +40,14 @@ Class ServerFarm
     rfalse;
     ],
     arpi_access 1,
+    arpi_spoken 0, ! 0 means he hasn't spoken yet
     arpi_hint ArpiServerFarmHint,
     hide_spot "realize there is no place to hide from anyone here, including yourself", 
     has light;
 Class CrawlSpace
     with 
     arpi_access 1,
+    arpi_spoken 0, ! 0 means he hasn't spoken yet
     arpi_hint ArpiCrawlHint,
     hide_spot "cannot be serious.", 
         has light;
@@ -108,7 +113,7 @@ Class AVModule
                 }
                 achieved(6); ! Task 6: Meet ARPI
                 AV_codec_active = 1;
-                installed_audio_chip = self;
+                installed_chip = self;
                 remove self; ! This replaces move self to (0);                
                     print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
                 rtrue;

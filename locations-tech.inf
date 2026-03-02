@@ -165,7 +165,12 @@ ArcheronRoom DroneWorkshop "Drone Workshop"
 
 
 Crawlspace DronePort "Drone Port"
-    with description "You shouldn't be here.",
+    with description [;
+        print "You shouldn't be here.^";
+        if (self.arpi_spoken == 1) {
+            print "^You have been warned.^";
+        }
+    ],
          e_to DroneWorkshop,
          before [;
              Enter, Go:

@@ -65,5 +65,25 @@
     print "Gooooood luck."; 
     ];
 [ ArpiCrawlHint; 
-    print "You REALLY don't belong here."; 
+    print "~You REALLY don't belong here.~"; 
     ];
+! Stock Answers
+[ ArpiWhoAreYou;
+    print "~You can call me Arpi.~";
+    ];
+[ ArpiShipStatus;
+    TranslateAV("~i Majstrz zraavek Archeron-9 za i Dobyv. i Domn po y Flot za i Dobyv na i Krug vo i Trcz Gora-Svet.~",
+                "~This ship was a mining vessel, the Archeron-9. It was part of a fleet sent here to mine the rings of the third rocky planet in the Archeron system.~");    
+                ];
+[ ArpiMission;
+    TranslateAV("~i Cernyv zraavek i Smrnk za i Domn! y Tlkzvsk: po i Cernyv za y Ulmk na i Jadroz.~",
+                "~We are trying to get you out of here! I just have one request. Help me get an object to the surface.~");    
+                ];
+[ ArpiObject;
+    TranslateAV("~i Vzrac zraavek y Styrz po i Domn.~",
+                "~It's probably easier to show you.~");
+                ];
+[ ArpiDanger;
+TranslateAV("~i Vzdyk! i Krzhd-Scern na i Smrnk.~",
+                "~Yes it's dangerous!~");  
+                ];

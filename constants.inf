@@ -22,8 +22,8 @@
     Global battery_count = 0;
     Global medical_wing_powered = 0;
     Global arpi_aware = 0; 
-    Global installed_optical_chip = 0;
-    Global installed_audio_chip = 0;
+    Global installed_chip = 0;
+    ! Global installed_audio_chip = 0;
 ! DECLARED PROPERITES
     Property zh_name; ! Provides Zerakthyn room name
     Property bulk; ! Inventory carry limit property
@@ -34,6 +34,7 @@
     Property is_removed; ! More grating work
     Property chip_timer; ! Keep track of fried chip life cycle
     Property arpi_access;
+    Property arpi_spoken;
 ! ROOM NAME 
     [ PrintLocation the_location;
         if (the_location == nothing) rtrue;
