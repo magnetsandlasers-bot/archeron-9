@@ -83,3 +83,17 @@ Object AudioModule2 "bio-chip (gold)"
     }
     rtrue;
     ];      
+
+Object AVModuleFried "fried bio-chip (silver)"
+  with name 'chip' 'module' 'silver' 'wafer', bulk BULK_POCKET,
+       description "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.",
+       before [;
+            Wear: <<Install self>>;
+            Install:
+                if (AV_codec_active == 1) { print "You already have that upgrade."; rtrue; }
+                AV_codec_active = 1; remove self;
+                print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream.^";
+                rtrue;
+       ];
+
+
