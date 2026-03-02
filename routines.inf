@@ -132,7 +132,6 @@
     if (power_restored == 1) { 
         if (random(10) == 1) {
             r = random(5);
-            new_line;
             print "An intercom in the ceiling crackles to life!^";
             new_line;
             style underline;
@@ -447,4 +446,17 @@
     "That doesn't have a card reader.";
     ];
 
-
+[ ArpiDaemon;
+    ! 1. Check if we are aware
+    ! 2. Check if the location actually has the arpi_hint property
+    ! 3. Check if that property actually has a value (~= 0)
+    if (arpi_aware == 1 && location provides arpi_hint && location.arpi_hint ~= 0) { 
+        new_line;
+        style underline;
+        print "~";
+        location.arpi_hint(); 
+        print "~";
+        new_line;
+        style roman;
+    }
+];

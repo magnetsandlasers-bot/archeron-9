@@ -22,7 +22,10 @@
     ! move OpticalModule2 to SecurityDrone2;
     move AVModule2 to SecurityDrone2;
     move RetinalScanner to EquipmentShelf;
-        StartDaemon(SecurityDrone);
+
+    StartDaemon(SecurityDrone);
+    StartDaemon(Arpi);
+
     ! --- Intro Sequence ---
     @erase_window $ffff;
     new_line;

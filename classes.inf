@@ -5,16 +5,19 @@ Class ArcheronRoom
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-    ], has light;
+    ], 
+    arpi_access 1,
+    has light;
 Class Corridor 
     with short_name [;
     if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-        ], 
-    hide_spot "quickly press yourself against the wall, avoiding the scan.", 
-        has light;
+        ],
+        arpi_access 1,
+        hide_spot "quickly press yourself against the wall, avoiding the scan.",
+    has light;
 
 Class AftRoom 
     with short_name [;
@@ -22,22 +25,25 @@ Class AftRoom
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-    ], 
+    ],
+        arpi_access 1, 
         hide_spot "dive into the nearest shadow, holding your breath.", 
-
     has light;
-
 Class ServerFarm 
     with short_name [;
     if (AV_codec_active == 0 && self provides zh_name) {
         print (string) self.zh_name; rtrue;
     }
     rfalse;
-    ], 
+    ],
+    arpi_access 1,
+    arpi_hint ArpiServerFarmHint,
     hide_spot "realize there is no place to hide from anyone here, including yourself", 
     has light;
 Class CrawlSpace
     with 
+    arpi_access 1,
+    arpi_hint ArpiCrawlHint,
     hide_spot "cannot be serious.", 
         has light;
 ! Object Classes

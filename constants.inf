@@ -33,6 +33,7 @@
     Property is_found; ! Grating
     Property is_removed; ! More grating work
     Property chip_timer; ! Keep track of fried chip life cycle
+    Property arpi_access;
 ! ROOM NAME 
     [ PrintLocation the_location;
         if (the_location == nothing) rtrue;

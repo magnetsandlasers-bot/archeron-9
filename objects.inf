@@ -1,4 +1,5 @@
-Object PlayerCryoTube "empty tube you came out of" CryoBay with parse_name [;
+Object PlayerCryoTube "empty tube you came out of" CryoBay 
+        with parse_name [;
            if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
            return 0;
        ],
@@ -67,15 +68,6 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
        ];
-Object Battery1 "dark cylinder"
-     with initial "A heavy, dark cylinder lies on the floor.",
-     name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
-     short_name "dark cylinder",
-     plural "dark cylinders",
-     list_together "heavy, dark cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    charged 0, shelvable 1,     
-    bulk BULK_HEAVY;
 Object Corpse "desiccated corpse" AftCorridor
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
@@ -91,7 +83,6 @@ Object Corpse "desiccated corpse" AftCorridor
             return true;
        ],
   has static container open scenery;
-
 Object Keycard "plastic keycard"
   with name 'card' 'key' 'keycard' 'pass',
        bulk BULK_POCKET,
@@ -107,8 +98,15 @@ Object Keycard "plastic keycard"
                }
        ],
     has concealed;
-
-
+Object Battery1 "dark cylinder"
+     with initial "A heavy, dark cylinder lies on the floor.",
+     name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     list_together "heavy, dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
 Object Battery2 "dark cylinder"
      with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
      short_name "dark cylinder",
@@ -303,8 +301,10 @@ Object BrokenDrone "broken drone"
        description "An inert sphere of black metal, split open to reveal its insides.",
        initial "A broken drone sits here.",
   has static container open scenery;
-AVModule AVModule1 "bio-chip (silver)";
-AVModule AVModule2 "bio-chip (silver)";
+AVModule AVModule1 "bio-chip (silver)"
+    ;
+AVModule AVModule2 "bio-chip (silver)"
+    ;
 Object AVModuleFried "fried bio-chip (silver)"
   with name 'chip' 'module' 'silver' 'wafer' 'fried',
        bulk BULK_POCKET,
@@ -352,7 +352,6 @@ Object AVModuleFried "fried bio-chip (silver)"
                 AV_codec_active = 0; ! Permanent failure
                 self.is_installed = false;
                 move self to location;
-                
                 new_line;
                 style roman;
                 "^^With a sharp mechanical click, the chip physically ejects from your port, falling to the floor as useless slag.";
@@ -420,45 +419,21 @@ Object EvidenceLocker "evidence locker" SecurityCheck
        ],
   has static container openable locked; ! Added 'openable' so the player can use the 'open' command
 
-Object Arpi "Arpi's voice"
-    with name 'arpi' 'voice' 'ai' 'system',
-    arpi_state 0,
-
-    React_Before [;
-        ! We use 'Answer' because that's the internal 
-        ! action name for 'saying' something.
-        Answer, Ask, Tell:
-            if (arpi_active == 1) {
-                if (noun == 0 || noun == player) <<Answer self>>;
-            }
+Object Arpi "Arpi"
+    with parse_name [;
+        ! If player is not aware, Arpi has no recognizable name
+        if (arpi_aware == 0) return 0; 
+        ! If they are aware, recognize these words
+        if (NextWord() == 'arpi' or 'voice' or 'system' or 'ai') return 1;
+        return 0;
     ],
-
-    Life [;
-        ! 'Answer' handles "SAY HELLO", "HI", or "ARPI, [WHATEVER]"
-        Answer:
-            return self.greet_routine();
-        
-        Ask:
-            switch (second) {
-                'mission', 'orders': "Arpi clarifies, 'Our objective is retrieval.'";
-                'status': "Arpi chirps, 'All systems nominal.'";
-                default: "The voice pauses. 'Data on that topic is restricted.'";
-            }
+    found_in [;
+        if (location provides arpi_access && location.arpi_access == 1) rtrue;
+        rfalse;
     ],
-
-    greet_routine [;
-        switch (self.arpi_state) {
-            0: 
-                self.arpi_state = 1;
-                "The speakers crackle. 'Hello, Operator. I am Arpi. Systems are online.'";
-            1: 
-                "Arpi's voice is calm. 'Yes? I am still here, Operator.'";
-            default: 
-                "Arpi sounds slightly impatient. 'We really should be moving.'";
-        }
-    ],
+    daemon ArpiDaemon,
+    description "Arpi's voice emanates from the ship's integrated speaker network.",
     has animate scenery;
-
 Object DroneBench "drone workbench" DroneWorkshop
     with name 'workbench' 'table' 'bench',
        description [;

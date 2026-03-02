@@ -60,4 +60,10 @@
     }
     new_line;
     ];
-
+! Hints
+[ ArpiServerFarmHint; 
+    print "Gooooood luck."; 
+    ];
+[ ArpiCrawlHint; 
+    print "You REALLY don't belong here."; 
+    ];

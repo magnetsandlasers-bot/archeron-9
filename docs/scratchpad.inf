@@ -97,3 +97,21 @@ Object AVModuleFried "fried bio-chip (silver)"
        ];
 
 
+[ ArpiDaemon;
+    ! Check if Arpi is active AND the player is in an Archeron-class room
+    if (arpi_active == 1 && location ofclass ArcheronRoom) {
+        
+        ! We only trigger the random chatter if Arpi is in a 'normal' state
+        if (Arpi.arpi_state == 1 && random(10) == 1) { 
+            new_line;
+            print "Arpi's voice hums through the bulkhead speakers. ";
+            ! You can even vary the message based on the specific room
+            switch(location) {
+                ServerRoom: "'Navigational arrays are locking to the nearest pulsar.'";
+                MedBay: "'Biological scans indicate your heart rate is slightly elevated.'";
+                default: "'Atmospheric scrubbers are operating at peak efficiency.'";
+            }
+            new_line;
+        }
+    }
+    ];
