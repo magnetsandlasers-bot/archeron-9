@@ -125,10 +125,9 @@ ArcheronRoom DroneWorkshop "Drone Workshop"
     with zh_name "VZRAC MAJSTRZ",
     description [;
         print "This is a small workshop that looks like it must be used for working on security drones. 
-        On a workbench you see a half-disassembled drone and a heavy, dark cylinder. 
-        One of the charging units is on the south wall, its cylindrical slot empty. 
-        Next to it, another station looks to be powered by one of the pulsing cylinders. 
-        This station has an opening that looks like it could accommodate one of the drones.^";
+        On a workbench you see an opened drone and a heavy, dark cylinder. 
+        One of the charging units is on the south wall, its cylindrical slot empty.^^";
+        print "Next to it, you see a place where drones can fly in to charge. It is powered by a pulsing cell.^";
 
         ! 1. Priority: Are BOTH drones dead?
         if (SecurityDrone1.is_active == 0 && SecurityDrone2.is_active == 0) {

@@ -298,7 +298,7 @@ SecurityDrone SecurityDrone2 "security drone"
     drone_id 2;
 Object BrokenDrone "broken drone"
   with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
-       description "An inert sphere of black metal, split open to reveal its insides.",
+       description "An inert sphere of black metal, split open to reveal its insides. You see a bright silver chip with some writing on it.",
        initial "A broken drone sits here.",
   has static container open scenery;
 AVModule AVModule1 "bio-chip (silver)"
@@ -310,11 +310,23 @@ Object AVModuleFried "fried bio-chip (silver)"
        bulk BULK_POCKET,
        chip_timer 0,  ! This uses the Property you just created
        is_installed false,
-       description [;
-            if (self.chip_timer >= 10) "A useless piece of slagged silver electronics.";
-            "A sleek silver bio-chip. It looks like a standard Neural Auditory Processor.";
+        description [;
+            if (self notin player) 
+                "It's too small to make out the writing while it's tucked in there. You'll need to pick it up.";
+            if (self.chip_timer >= 10) 
+                "A useless piece of slagged silver electronics.";
+            "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
+       ],
+        after [;
+            Take:
+                "As your fingers close around the silver wafer, a sharp, rhythmic pulsing begins behind your left ear. Your neural port has recognized the hardware and wants you to install it.";
        ],
        before [;
+            Examine:
+                ! If the chip is NOT in the player's inventory, 
+                ! the description logic above handles the 'too small' message.
+                ! This is just to ensure the 'examine' doesn't trigger 
+                ! other logic prematurely.
             Wear, Install:
                 if (self.chip_timer >= 10) "The chip is burnt out and won't interface with your port.";
                 if (AV_codec_active == 1) "You already have a working translation matrix active.";
@@ -332,7 +344,7 @@ Object AVModuleFried "fried bio-chip (silver)"
             ! Phase 1: Turns 1-3 (Flawless)
             if (self.chip_timer == 1) { 
                 AV_codec_active = 1; 
-                print "You hear a familiar voice on the intercom!";
+                print "You hear a familiar voice on the intercom!^^";
                 style underline;
                 print "~You did it! You should be able to understand me now, finally! I'm called Arpi.~";
                 new_line;
@@ -340,7 +352,7 @@ Object AVModuleFried "fried bio-chip (silver)"
             }
                 if (self.chip_timer == 4) { 
                 AV_codec_active = 1; 
-                print "A touch of concern tinges Arpi's voice.";
+                print "A touch of concern tinges Arpi's voice.^^";
                 style underline;
                 print "~Did you notice that? I caught something strange in our linkup.~";
                 new_line;
@@ -353,7 +365,7 @@ Object AVModuleFried "fried bio-chip (silver)"
             }
             if (self.chip_timer == 9) { 
                 AV_codec_active = 1; 
-                print "A touch of concern has matured into laser focus.";
+                print "A touch of concern has matured into laser focus.^^";
                 style underline;
                 print "~Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i Cernyv-Jadroz.~";
                 new_line;
@@ -373,7 +385,7 @@ Object AVModuleFried "fried bio-chip (silver)"
                 self.is_installed = false;
                 new_line;
                 style roman;
-                "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.";
+                "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.^";
             }
        ];
 
@@ -468,7 +480,7 @@ Object Arpi "Arpi"
                  !       "~I detect no unusual signatures in this specific area.~";
                     
                     default:
-                        "~I have no relevant data regarding '", (address) WordAddress(wn-1), "' at this time.~";
+                        "~I have no relevant data regarding that.~";
                 }
         ],
     has animate scenery;
