@@ -1,3 +1,42 @@
+Object Arpi "Arpi"
+    with parse_name [;
+        ! If player is not aware, Arpi has no recognizable name
+        if (arpi_aware == 0) return 0; 
+        ! If they are aware, recognize these words
+        if (NextWord() == 'arpi' or 'voice' or 'system' or 'ai') return 1;
+        return 0;
+    ],
+    found_in [;
+        if (location provides arpi_access && location.arpi_access == 1) rtrue;
+        rfalse;
+    ],
+    daemon ArpiDaemon,
+    description "Arpi's voice emanates from the ship's integrated speaker network.",
+    life [;
+            Ask:
+                switch (second) {
+                    ! --- STOCK ANSWERS ---
+                    'arpi', 'self', 'name': return ArpiWhoAreYou();
+                    'ship', 'vessel', 'location': return ArpiShipStatus();
+                    'mission', 'objective', 'task', 'goal', 'purpose': return ArpiMission();
+                    'object', 'thing': return ArpiObject();
+                    'loudspeaker', 'announcements', 'warnings', 'danger': return ArpiDanger();
+                    ! --- TOPICS ---
+                    'crawls': return ArpiCrawls();
+                    'mining': return ArpiMining();
+
+
+                    ! --- ROOM-SPECIFIC ANSWERS ---
+                !    'presence', 'unauthorized', 'biometric':
+                 !       if (location == DronePort) return ArpiDronePortResponse();
+                 !       "~I detect no unusual signatures in this specific area.~";
+                    
+                    default:
+                        "~I have no relevant data regarding that.~";
+                }
+        ],
+    has animate scenery;
+
 [ ArpiBrig1;
     switch (random(5)) {
         1: TranslateAV("~Smrnk ne zraav y Stavrszern. Zraavek za y Veskr ne po Krzhd.~",
@@ -13,7 +52,6 @@
     }
     new_line;
     ];
-
 [ ArpiBrig2;
     switch (random(5)) {
         1: ArpiNarrative("You hear that voice again, a bit more urgent.^", "Arpi sounds stressed.^");
@@ -65,7 +103,7 @@
     print "Gooooood luck."; 
     ];
 [ ArpiCrawlHint; 
-    print "~You REALLY don't belong here.~"; 
+    print "~You REALLY don't belong here. This place is for ", (Crawls) ".~^";
     ];
 ! Stock Answers
 [ ArpiWhoAreYou;
@@ -87,6 +125,34 @@
                 "~It's probably easier to show you.~^");
                 ];
 [ ArpiDanger;
-TranslateAV("~i Vzdyk! i Krzhd-Scern na i Smrnk.^~",
+    TranslateAV("~i Vzdyk! i Krzhd-Scern na i Smrnk.^~",
                 "~Yes it's dangerous!~^");  
                 ];
+
+
+! Bolded topic words unbold after you ask about them
+! Must set _known variable in Constants 
+[ Crawls;
+  if (crawls_known == 0) style bold;
+  print "Crawls";
+  style roman;
+    ];
+    [ ArpiCrawls;
+    crawls_known = 1;
+    print "^~The ";
+    Crawls();
+    print " keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
+    Mining();
+    print " ship like this.~^";
+    rtrue;
+    ];
+[ Mining;
+    if (mining_known == 0) style bold;
+    print "mining";
+    style roman;
+    ];
+    [ ArpiMining;
+    mining_known = 1;
+    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
+    rtrue;
+    ];
