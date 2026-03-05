@@ -1,14 +1,14 @@
 Object PlayerCryoTube "empty tube you came out of" CryoBay 
-        with parse_name [;
-           if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
+    with parse_name [;
+        if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
            return 0;
-       ],
-       description [;
-           print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
-           TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
-           new_line;
-           if (self hasnt open) "The heavy glass lid is now permanently sealed.";
-           return true;
+    ],
+        description [;
+            print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
+            TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
+            new_line;
+            if (self hasnt open) "The heavy glass lid is now permanently sealed.";
+            return true;
        ],
        door_to TubeInterior,
        door_dir in_to,
