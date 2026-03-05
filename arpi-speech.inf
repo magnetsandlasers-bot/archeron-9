@@ -1,3 +1,29 @@
+! Bolded topic words unbold after you ask about them
+! Must set _known variable in Constants 
+[ Crawls;
+  if (crawls_known == 0) style bold;
+  print "Crawls";
+  style roman;
+    ];
+    [ ArpiCrawls;
+    crawls_known = 1;
+    print "^~The ";
+    Crawls();
+    print " keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
+    Mining();
+    print " ship like this.~^";
+    rtrue;
+    ];
+[ Mining;
+    if (mining_known == 0) style bold;
+    print "mining";
+    style roman;
+    ];
+    [ ArpiMining;
+    mining_known = 1;
+    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
+    rtrue;
+    ];
 Object Arpi "Arpi"
     with parse_name [;
         ! If player is not aware, Arpi has no recognizable name
@@ -103,7 +129,9 @@ Object Arpi "Arpi"
     print "Gooooood luck."; 
     ];
 [ ArpiCrawlHint; 
-    print "~You REALLY don't belong here. This place is for ", (Crawls) ".~^";
+    print "~You REALLY don't belong here. This place is for "; 
+    Crawls(); 
+    print ".~^";
     ];
 ! Stock Answers
 [ ArpiWhoAreYou;
@@ -130,29 +158,3 @@ Object Arpi "Arpi"
                 ];
 
 
-! Bolded topic words unbold after you ask about them
-! Must set _known variable in Constants 
-[ Crawls;
-  if (crawls_known == 0) style bold;
-  print "Crawls";
-  style roman;
-    ];
-    [ ArpiCrawls;
-    crawls_known = 1;
-    print "^~The ";
-    Crawls();
-    print " keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
-    Mining();
-    print " ship like this.~^";
-    rtrue;
-    ];
-[ Mining;
-    if (mining_known == 0) style bold;
-    print "mining";
-    style roman;
-    ];
-    [ ArpiMining;
-    mining_known = 1;
-    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
-    rtrue;
-    ];

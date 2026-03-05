@@ -115,3 +115,47 @@ Object AVModuleFried "fried bio-chip (silver)"
         }
     }
     ];
+
+    Class SecurityDrone
+  with name 'drone' 'robot' 'machine' 'sphere', 
+       description [;
+           if (self.is_active == 1) 
+               "A floating sphere of black metal with a glowing red eye.";
+           "An inert sphere of black metal. Its red eye is dark. Its carapace has a seam down the middle, which looks like it could be opened fairly easily.";
+       ],
+       describe [;
+    ! 1. Silence drones in the workshop
+    if (location == DroneWorkshop) rtrue;
+
+    ! 2. Identify the "other" drone
+    other_drone = SecurityDrone1;
+    if (self == SecurityDrone1) other_drone = SecurityDrone2;
+
+    ! 3. Handle the "Paired" logic (only if both are in the same room)
+    if (parent(other_drone) == parent(self)) {
+        ! If both are in the room, only the first drone speaks
+        if (self == SecurityDrone2) rtrue; 
+
+        if (self.is_active == 1 && other_drone.is_active == 1)
+            "Two security drones hover here, their red eyes scanning the room.";
+        
+        "A live security drone hovers here, examining its fallen comrade.";
+    }
+
+    ! 4. Handle the "Single" logic (if only one drone is present)
+    if (self.is_active == 1) 
+        "A security drone hovers here, scanning for thermal signatures.";
+    
+    "A dead security drone lies on the floor.";
+],
+       move_count 0,
+       is_active 1, 
+       drone_alert 0,
+       before [;
+            Open:
+                if (self.is_active == 1) {
+                    "You consider grabbing the drone right out of the air, but think the better of it. You've just gotten used to having fingers.";
+                }
+       ],
+  has static container openable;
+

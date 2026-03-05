@@ -560,7 +560,7 @@ Object DataWafer "data wafer"
 
 Object DroneHatch "drone hatch"
     with name 'hatch' 'ceiling' 'opening' 'vent' 'shutter' 'iris',
-         description "A small, circular iris-shutter recessed into the ceiling panels. It's designed for automated units; there are no manual controls, and the gap is far too narrow for a human to squeeze through.",
+         description "A small iris hatch set into the ceiling.",
          found_in [;
              if (location has light) rtrue; ! Exists in every lit room
              rfalse;

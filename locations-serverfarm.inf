@@ -1,15 +1,12 @@
-! --- Room 1: The Entrance ---
 ServerFarm ServerFarm1 "Server Farm"
     with zh_name "JADROZ PARYN",
         description "Towering black server racks. There is a narrow passage north through the maze of equipment. A doorway to the southeast leads to a landing.",
         se_to Landing,
         n_to ServerFarm2;
-! --- The SW Corner ---
 ServerFarm ServerFarm2 "Server Farm"
     with description "Towering black server racks. You are lost.",
         n_to ServerFarm3,
         w_to ServerFarm1;
-! --- The Western Wall ---
 ServerFarm ServerFarm3 "Server Farm"
     with description "Towering black server racks. There is a small, cluttered equipment shelf here.",
         n_to ServerFarm4,
@@ -19,13 +16,11 @@ ServerFarm ServerFarm4 "Server Farm"
     with description "Towering black server racks. You are lost.",
         w_to ServerFarm3,
         e_to ServerFarm5;
-! --- The North Row ---
 ServerFarm ServerFarm5 "Server Farm"
     with description "Towering black server racks. You see a shelf here.",
         w_to ServerFarm4,
         nw_to ServerFarm8,
-        s_to ServerFarm5; ! Back to itself
-! --- The Central Hubs ---
+        s_to ServerFarm5;
 ServerFarm ServerFarm6 "Server Farm"
     with description "Towering black server racks. A window on the west wall looks down into the Atrium.",
         w_to ServerFarm3,
@@ -34,8 +29,7 @@ ServerFarm ServerFarm7 "Server Farm"
     with description "Towering black server racks. You are lost.",
         n_to ServerFarm6,
         e_to ServerFarm10,
-        w_to ServerFarm7; ! -- A loop back to itself to disorient --
-! --- The Eastern Section ---
+        w_to ServerFarm7; 
 ServerFarm ServerFarm8 "Server Farm"
     with description "Towering black server racks. You are lost.",
         w_to ServerFarm5,
@@ -44,23 +38,29 @@ ServerFarm ServerFarm8 "Server Farm"
 ServerFarm ServerFarm9 "Server Farm"
     with description "Towering black server racks. A window on the east wall looks down into the Atrium.",
         n_to ServerFarm8,
-        s_to ServerFarm9, ! Back to itself
+        s_to ServerFarm9,
         e_to ServerFarm12;
 ServerFarm ServerFarm10 "Server Farm"
     with description "A dead-end corridor between the humming towers. The only way out is the way you came in.",
         w_to ServerFarm7;
-! --- The Final Stretch ---
 ServerFarm ServerFarm11 "Server Farm"
     with description "Towering black server racks. You are lost.",
-        w_to ServerFarm11, ! Back to itself
+        w_to ServerFarm11, 
         s_to ServerFarm12;
 ServerFarm ServerFarm12 "Server Farm"
     with description "Towering black server racks. You see a shelf here.",
         n_to ServerFarm11,
         w_to ServerFarm9,
         se_to ServerTerminalRoom;
-! --- The Goal ---
 ServerFarm ServerTerminalRoom "Server Terminal"
-    with description "The chaotic hum of the farm fades, replaced by the steady glow of a master console.",
-        n_to ServerFarm12,
-        sw_to ServerFarm1;
+    with description [;
+        print "You slip through a narrow opening and into a little work area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space. ";
+            if (crawls_known == 0) {
+            print "You catch some movement in the crates out of the corner of your eye. ";
+            } else if (crawls_known == 1) {
+            print "A couple of Crawls are scuttling about in the crates, tiny spiders breaking down the equipment into its component parts even at this late hour. You admire their dedication. ";
+        }
+        "A passageway to the southwest leads to a long, well-lit corridor.";
+    ],
+    n_to ServerFarm12,
+    sw_to ServerFarm1;

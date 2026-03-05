@@ -56,14 +56,11 @@ ArcheronRoom ServerRoom "Server Room"
        s_to OpsCenter,
        u_to Landing;
 
-ArcheronRoom Landing "Landing"
+ArcheronRoom Landing "landing"
     with zh_name "KAELTH",
         description "A landing in a stairwell. There is a locked door on the West wall. You can go up or down.",
         u_to ServerFarm1,
         d_to ServerRoom;
-
-
-
 Object ServerTerminal "main terminal" ServerFarm
   with name 'terminal' 'computer' 'screen' 'code' 'image' 'qr' 'glyph',
        qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
