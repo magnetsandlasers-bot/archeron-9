@@ -27,7 +27,7 @@
 ! KNOWN KNOWNS    
     Global crawls_known = 0;
     Global mining_known = 0;
-
+    Global servers_known = 0;
 ! DECLARED PROPERITES
     Property zh_name; ! Provides Zerakthyn room name
     Property bulk; ! Inventory carry limit property

@@ -467,7 +467,6 @@
         if (location.arpi_spoken == 0) {
             location.arpi_spoken = 1; ! Flip the flag to 1
             new_line;
-            style underline;
             location.arpi_hint(); 
             new_line;
             style roman;

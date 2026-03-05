@@ -1,29 +1,3 @@
-! Bolded topic words unbold after you ask about them
-! Must set _known variable in Constants 
-[ Crawls;
-  if (crawls_known == 0) style bold;
-  print "Crawls";
-  style roman;
-    ];
-    [ ArpiCrawls;
-    crawls_known = 1;
-    print "^~The ";
-    Crawls();
-    print " keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
-    Mining();
-    print " ship like this.~^";
-    rtrue;
-    ];
-[ Mining;
-    if (mining_known == 0) style bold;
-    print "mining";
-    style roman;
-    ];
-    [ ArpiMining;
-    mining_known = 1;
-    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
-    rtrue;
-    ];
 Object Arpi "Arpi"
     with parse_name [;
         ! If player is not aware, Arpi has no recognizable name
@@ -42,7 +16,7 @@ Object Arpi "Arpi"
             Ask:
                 switch (second) {
                     ! --- STOCK ANSWERS ---
-                    'arpi', 'self', 'name': return ArpiWhoAreYou();
+                    'arpi', 'yourself', 'name': return ArpiWhoAreYou();
                     'ship', 'vessel', 'location': return ArpiShipStatus();
                     'mission', 'objective', 'task', 'goal', 'purpose': return ArpiMission();
                     'object', 'thing': return ArpiObject();
@@ -50,6 +24,7 @@ Object Arpi "Arpi"
                     ! --- TOPICS ---
                     'crawls': return ArpiCrawls();
                     'mining': return ArpiMining();
+                    'server': return ArpiServers();
 
 
                     ! --- ROOM-SPECIFIC ANSWERS ---
@@ -62,7 +37,42 @@ Object Arpi "Arpi"
                 }
         ],
     has animate scenery;
-
+! Bolded topic words unbold after you ask about them. Topic words are called in Arpi's daemon below
+[ Crawls;
+  if (crawls_known == 0) style bold; ! Must set _known variable in Constants 
+  print "Crawls";
+  style roman;
+    ];
+    [ ArpiCrawls;
+    crawls_known = 1;
+    print "^~The Crawls keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
+    Mining();
+    print " ship like this.~^";
+    rtrue;
+    ];
+[ Mining;
+    if (mining_known == 0) style bold;
+    print "mining";
+    style roman;
+    ];
+    [ ArpiMining;
+    mining_known = 1;
+    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
+    rtrue;
+    ];
+[ Servers;
+  if (servers_known == 0) style bold; ! Must set _known variable in Constants 
+  print "servers";
+  style roman;
+    ];
+    [ ArpiServers;
+    servers_known = 1;
+    print "^~It's outdated and takes up a lot of space, but server farms of old equipment like this are cheap. The ";
+    Crawls();
+    print " can break down and recycle this equipment to make it last almost forever,~ Arpi explains.";
+    rtrue;
+    ];
+! Some older phrases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ArpiBrig1;
     switch (random(5)) {
         1: TranslateAV("~Smrnk ne zraav y Stavrszern. Zraavek za y Veskr ne po Krzhd.~",
@@ -126,7 +136,9 @@ Object Arpi "Arpi"
     ];
 ! Hints
 [ ArpiServerFarmHint; 
-    print "Gooooood luck."; 
+    print "~Have you ever seen a Zettabyte?~ Muses Arpi. ~You're standing in one now. These ";
+    Servers();
+    print " run most of the rest of the ship on waste heat alone.~";
     ];
 [ ArpiCrawlHint; 
     print "~You REALLY don't belong here. This place is for "; 

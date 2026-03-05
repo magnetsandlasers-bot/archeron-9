@@ -41,7 +41,6 @@ Class ServerFarm
     ],
     arpi_access 1,
     arpi_spoken 0, ! 0 means he hasn't spoken yet
-    arpi_hint ArpiServerFarmHint,
     hide_spot "realize there is no place to hide from anyone here, including yourself", 
     has light;
 Class CrawlSpace
