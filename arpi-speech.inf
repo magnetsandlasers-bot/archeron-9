@@ -12,8 +12,18 @@ Object Arpi "Arpi"
     ],
     daemon ArpiDaemon,
     description "Arpi's voice emanates from the ship's integrated speaker network.",
-    life [;
+    life [w; ! Add 'w' as a local variable for the routine
             Ask:
+        ! 1. Look at the topic the player typed
+        wn = consult_from;
+        w = NextWord(); 
+        
+        ! 2. If the first word is a 'noise' word, skip it and take the next one
+        if (w == 'the' or 'a' or 'an' or 'about') {
+            second = NextWord(); 
+        } else {
+            second = w;
+        }
                 switch (second) {
                     ! --- STOCK ANSWERS ---
                     'arpi', 'yourself', 'name': return ArpiWhoAreYou();
