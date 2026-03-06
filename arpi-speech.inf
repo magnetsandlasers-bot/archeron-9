@@ -26,7 +26,13 @@ Object Arpi "Arpi"
                     'mining': return ArpiMining();
                     'servers': return ArpiServers();
 
-
+                ! --- THE SECRET EXIT TRIGGER ---
+                    'help', 'maze', 'path', 'shortcut', 'exit':
+                        if (location ofclass ServerFarm) {
+                            arpi_shortcut_active = 1;
+                            "~The internal mapping here is deliberately obfuscated,~ Arpi whispers through a nearby speaker. ~However, there is a bypass. Follow me to the southeast.~";
+                        }
+                        "~I can provide navigation data once you are within the server clusters.~";
                     ! --- ROOM-SPECIFIC ANSWERS ---
                 !    'presence', 'unauthorized', 'biometric':
                  !       if (location == DronePort) return ArpiDronePortResponse();

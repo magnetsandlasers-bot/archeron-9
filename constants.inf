@@ -23,6 +23,7 @@
     Global medical_wing_powered = 0;
     Global arpi_aware = 0; 
     Global installed_chip = 0;
+    Global arpi_shortcut_active = 0;
     ! Global installed_audio_chip = 0;
 ! KNOWN KNOWNS    
     Global crawls_known = 0;
