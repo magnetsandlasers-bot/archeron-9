@@ -24,7 +24,7 @@ Object Arpi "Arpi"
                     ! --- TOPICS ---
                     'crawls': return ArpiCrawls();
                     'mining': return ArpiMining();
-                    'server': return ArpiServers();
+                    'servers': return ArpiServers();
 
 
                     ! --- ROOM-SPECIFIC ANSWERS ---
@@ -69,7 +69,7 @@ Object Arpi "Arpi"
     servers_known = 1;
     print "^~It's outdated and takes up a lot of space, but server farms of old equipment like this are cheap. The ";
     Crawls();
-    print " can break down and recycle this equipment to make it last almost forever,~ Arpi explains.";
+    print " can break down and recycle this equipment to make it last almost forever,~ Arpi explains.^";
     rtrue;
     ];
 ! Some older phrases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,13 +138,17 @@ Object Arpi "Arpi"
 [ ArpiServerFarmHint; 
     print "~Have you ever seen a Zettabyte?~ Muses Arpi. ~You're standing in one now. These ";
     Servers();
-    print " run most of the rest of the ship on waste heat alone.~";
+    print " run most of the rest of the ship on waste heat alone.~^";
     ];
 [ ArpiCrawlHint; 
     print "~You REALLY don't belong here. This place is for "; 
     Crawls(); 
     print ".~^";
     ];
+[ ArpiTerminalRoomHint; 
+    print "Arpi says something here.^";
+    ];
+
 ! Stock Answers
 [ ArpiWhoAreYou;
     style underline;

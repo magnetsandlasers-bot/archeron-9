@@ -63,5 +63,6 @@ ServerFarm ServerTerminalRoom "Server Terminal"
         }
         "A passageway to the southwest leads to a long, well-lit corridor.";
     ],
+    
     n_to ServerFarm12,
     sw_to ServerFarm1;
