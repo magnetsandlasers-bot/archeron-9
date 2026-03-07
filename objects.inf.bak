@@ -98,14 +98,36 @@ Object Keycard "plastic keycard"
                }
        ],
     has concealed;
-Battery Battery1 "dark cylinder"
-     ;
-Battery Battery2 "dark cylinder"
-     ;
-Battery Battery3 "dark cylinder"
-    ;
-Battery Battery4 "dark cylinder"
-    ;
+Object Battery1 "dark cylinder"
+     with initial "A heavy, dark cylinder lies on the floor.",
+     name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     list_together "heavy, dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
+Object Battery2 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
+Object Battery3 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
+Object Battery4 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
 Object ExitButton "exit button"
   with name 'button' 'exit',
        before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
@@ -234,14 +256,34 @@ Object MainColumn "central column" ReactorRoom
                 }
        ], 
     has static container open scenery;
-ChargedBattery ChargedCell1 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell2 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell3 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell4 "pulsing cylinder"
-    ;
+Object ChargedCell1 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
+Object ChargedCell2 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
+Object ChargedCell3 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
+Object ChargedCell4 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
     home_base Atrium,
@@ -429,14 +471,36 @@ Object DroneBench "drone workbench" DroneWorkshop
                 "You put ", (the) noun, " on the workbench.";
        ],
   has static supporter scenery;
-Battery Battery5 "dark cylinder"
-     ;
-Battery Battery6 "dark cylinder"
-     ;
-ChargedBattery ChargedCell5 "pulsing cylinder"
-    ;
+Object Battery5 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY;
+Object Battery6 "dark cylinder"
+     with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+     short_name "dark cylinder",
+     plural "dark cylinders",
+     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+    charged 0, shelvable 1,     
+    bulk BULK_HEAVY,
+    has scenery;
+Object ChargedCell5 "pulsing cylinder"
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
 Object ChargedCell6 "pulsing cylinder"
-    ;
+  with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+  
+    short_name "pulsing cylinder",
+    plural "pulsing cylinders",
+    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    charged 1, shelvable 1,
+    bulk BULK_HEAVY;
 Object DroneCharger "drone charger" DroneWorkshop
   with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
        occupied_by 0,

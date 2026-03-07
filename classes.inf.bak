@@ -128,17 +128,3 @@ Class AVModule
                     print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
                 rtrue;
         ];
-Class Battery
-         with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
-     short_name "dark cylinder",
-     plural "dark cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
-    charged 0, shelvable 1,     
-    bulk BULK_HEAVY;
-Class ChargedBattery
-    with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
-    short_name "pulsing cylinder",
-    plural "pulsing cylinders",
-    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
-    charged 1, shelvable 1,
-    bulk BULK_HEAVY;

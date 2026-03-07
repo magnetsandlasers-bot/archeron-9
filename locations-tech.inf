@@ -25,7 +25,7 @@ Corridor SpineMid "Spine Mid"
        n_to Atrium;
 Corridor Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
-       description "A massive, multi-level atrium. Exits lead North, South, East, and West. A freight elevator leads down. ",
+       description "A massive, multi-level atrium. Exits lead North, South, East, and West. Windows above you are mirrored. A central staircase leads down. ",
        s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;
 
 ArcheronRoom SecurityCheck "Security Checkpoint"

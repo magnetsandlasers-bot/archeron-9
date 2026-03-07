@@ -14,12 +14,9 @@
     move OperatingTable to MedicalBay;
     move BrokenDrone to DroneBench;
     move AVModuleFried to BrokenDrone;
-    ! move OpticalModuleFried to BrokenDrone;
     move SecurityDrone1 to Atrium; 
-    ! move OpticalModule1 to SecurityDrone1;
     move AVModule1 to SecurityDrone1;
     move SecurityDrone2 to Hangar; 
-    ! move OpticalModule2 to SecurityDrone2;
     move AVModule2 to SecurityDrone2;
     move RetinalScanner to EquipmentShelf;
 

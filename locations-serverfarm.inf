@@ -55,13 +55,13 @@ ServerFarm ServerFarm12 "Server Farm"
         se_to ServerTerminalRoom;
 ServerFarm ServerTerminalRoom "Server Terminal"
     with description [;
-        print "You slip through a narrow opening and into a little work area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space. ";
+        print "You slip through a narrow opening and into a little sorting area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space. ";
             if (crawls_known == 0) {
             print "You catch some movement in the crates out of the corner of your eye. ";
             } else if (crawls_known == 1) {
-            print "A couple of Crawls are scuttling about in the crates, tiny spiders breaking down the equipment into its component parts even at this late hour. You admire their dedication. ";
-        }
-        "A passageway to the southwest leads to a long, well-lit corridor.";
+            print "A couple of Crawls are scuttling about in the crates, tiny spiders breaking down the equipment into its component parts even at this late hour. You admire their dedication.^^";
+            }
+        "A passageway to the southwest leads to a long, well-lit corridor.^^";
     ],
     
     n_to ServerFarm12,
