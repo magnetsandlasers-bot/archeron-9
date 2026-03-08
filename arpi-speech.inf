@@ -83,7 +83,7 @@ Object Arpi "Arpi"
     ];
     [ ArpiServers;
     servers_known = 1;
-    print "^~It's outdated and takes up a lot of space, but server farms of old equipment like this are cheap. The ";
+    print "^~It's outdated and takes up a lot of space, but server farms of old equipment are cheap. The ";
     Crawls();
     print " can break down and recycle this equipment to make it last almost forever,~ Arpi explains.^";
     rtrue;
@@ -161,10 +161,9 @@ Object Arpi "Arpi"
     Crawls(); 
     print ".~^";
     ];
-[ ArpiTerminalRoomHint; 
-    print "Arpi says something here.^";
-    ];
-
+![ ArpiTerminalRoomHint; 
+    !    print "~Recycling areas like this are gold mines,~ Arpi says.~^";
+    !    ];
 ! Stock Answers
 [ ArpiWhoAreYou;
     style underline;

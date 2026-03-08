@@ -20,7 +20,6 @@ Class Corridor
         arpi_spoken 0, ! 0 means he hasn't spoken yet
         hide_spot "quickly press yourself against the wall, avoiding the scan.",
     has light;
-
 Class AftRoom 
     with short_name [;
     if (AV_codec_active == 0 && self provides zh_name) {
@@ -69,7 +68,6 @@ Class SecurityDrone
        describe [ other_drone;  
     ! 1. Silence drones in the workshop
     if (location == DroneWorkshop) rtrue;
-
     ! 2. Identify the "other" drone
     other_drone = SecurityDrone1;
     if (self == SecurityDrone1) other_drone = SecurityDrone2;
@@ -87,8 +85,7 @@ Class SecurityDrone
 
     ! 4. Handle the "Single" logic (if only one drone is present)
     if (self.is_active == 1) 
-        "A security drone hovers here, scanning for thermal signatures.";
-    
+        "A security drone hovers here, scanning for thermal signatures."; 
     "A dead security drone lies on the floor.";
         ],
        initial [;
@@ -129,14 +126,14 @@ Class AVModule
                 rtrue;
         ];
 Class Battery
-         with name 'cell' 'battery' 'cylinder' 'heavy' 'dark',
+         with name 'cell' 'battery' 'cylinder' 'heavy' 'dark' 'batteries//p' 'cells//p' 'cylinders//p',
      short_name "dark cylinder",
      plural "dark cylinders",
      description "A heavy, dark cylinder. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 Class ChargedBattery
-    with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell',
+    with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell' 'batteries//p' 'cells//p' 'cylinders//p',
     short_name "pulsing cylinder",
     plural "pulsing cylinders",
     description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",

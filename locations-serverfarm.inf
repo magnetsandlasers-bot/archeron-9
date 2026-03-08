@@ -9,7 +9,7 @@ ServerFarm ServerFarm2 "Server Farm"
         n_to ServerFarm3,
         w_to ServerFarm1;
 ServerFarm ServerFarm3 "Server Farm"
-    with description "Towering black server racks. There is a small, cluttered equipment shelf here.",
+    with description "Towering black server racks. There is a small, cluttered equipment shelf here. ",
         n_to ServerFarm4,
         e_to ServerFarm6,
         s_to ServerFarm2;
@@ -63,6 +63,5 @@ ServerFarm ServerTerminalRoom "Server Terminal"
             }
         "A passageway to the southwest leads to a long, well-lit corridor.^^";
     ],
-    
     n_to ServerFarm12,
     sw_to ServerFarm1;

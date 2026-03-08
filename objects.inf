@@ -35,7 +35,6 @@ Object EmptyCryoTubes "bank of cryo tubes" CryoBay
                   "They are already sealed tight.";
           ],
           has static scenery;
-
 Object OccupiedTube "occupied cryo tube" CryoBay
      with name 'occupied' 'tube' 'pod' 'closed' 'glass' 'sealed',
           description [;
@@ -105,6 +104,22 @@ Battery Battery2 "dark cylinder"
 Battery Battery3 "dark cylinder"
     ;
 Battery Battery4 "dark cylinder"
+    ;
+Battery Battery5 "dark cylinder"
+     ;
+Battery Battery6 "dark cylinder"
+     ;
+ChargedBattery ChargedCell1 "pulsing cylinder"
+    ;
+ChargedBattery ChargedCell2 "pulsing cylinder"
+    ;
+ChargedBattery ChargedCell3 "pulsing cylinder"
+    ;
+ChargedBattery ChargedCell4 "pulsing cylinder"
+    ;
+ChargedBattery ChargedCell5 "pulsing cylinder"
+    ;
+ChargedBattery ChargedCell6 "pulsing cylinder"
     ;
 Object ExitButton "exit button"
   with name 'button' 'exit',
@@ -234,14 +249,6 @@ Object MainColumn "central column" ReactorRoom
                 }
        ], 
     has static container open scenery;
-ChargedBattery ChargedCell1 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell2 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell3 "pulsing cylinder"
-    ;
-ChargedBattery ChargedCell4 "pulsing cylinder"
-    ;
 SecurityDrone SecurityDrone1 "security drone" 
     with move_count 0,
     home_base Atrium,
@@ -259,11 +266,11 @@ Object BrokenDrone "broken drone"
        description "An inert sphere of black metal, split open to reveal its insides. You see a bright silver chip with some writing on it.",
        initial "A broken drone sits here.",
   has static container open scenery;
-AVModule AVModule1 "bio-chip (silver)"
+AVModule AVModule1 "silver bio-chip"
     ;
-AVModule AVModule2 "bio-chip (silver)"
+AVModule AVModule2 "silver bio-chip"
     ;
-Object AVModuleFried "fried bio-chip (silver)"
+Object AVModuleFried "fried silver bio-chip"
   with name 'chip' 'module' 'silver' 'wafer' 'fried',
        bulk BULK_POCKET,
        chip_timer 0,  ! This uses the Property you just created
@@ -429,14 +436,6 @@ Object DroneBench "drone workbench" DroneWorkshop
                 "You put ", (the) noun, " on the workbench.";
        ],
   has static supporter scenery;
-Battery Battery5 "dark cylinder"
-     ;
-Battery Battery6 "dark cylinder"
-     ;
-ChargedBattery ChargedCell5 "pulsing cylinder"
-    ;
-Object ChargedCell6 "pulsing cylinder"
-    ;
 Object DroneCharger "drone charger" DroneWorkshop
   with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
        occupied_by 0,
@@ -492,8 +491,7 @@ Object CargoCrates "crates" CargoBay
 Object DataWafer "data wafer"
     with name 'wafer' 'disk' 'chip' 'admin',
     description "A small data chip.",
-    bulk BULK_POCKET;
-
+        bulk BULK_POCKET;
 Object DroneHatch "drone hatch"
     with name 'hatch' 'ceiling' 'opening' 'vent' 'shutter' 'iris',
          description "A small iris hatch set into the ceiling.",
@@ -532,8 +530,8 @@ Object EquipmentShelf "equipment shelf" ServerFarm3
        ],
   has static supporter scenery;
 
-Object RetinalScanner "goggles"
-    with name 'glasses' 'goggles' 'scanner',
+Object RetinalScanner "pair of goggles"
+    with name 'glasses' 'goggles' 'scanner' 'pair',
     description "Some kind of goggles, you would guess from the shape.",
     shelvable 1,
     bulk BULK_POCKET;
@@ -541,10 +539,13 @@ Object Crates "crates" ServerTerminalRoom
     with name 'crates' 'equipment' 'machines' 'junk',
     description "Crates of broken-down equipment, useless as working tech but brimming with spare parts.",
     has static scenery;
-
-
-
-
-
-
-
+Object Tricorder "handheld communicator"
+    with name 'tricorder' 'communicator',
+    description "A small, wearable communication device.",
+        shelvable 1,
+        bulk BULK_POCKET;
+Object FluxCapacitor "burned-out capacitive motherboard"
+    with name 'motherboard' 'board' 'capacitor',
+    description "Some circuitry and electronics in a small enclosure. Its central manifold is burned out.",
+        shelvable 1,
+        bulk BULK_NORMAL;
