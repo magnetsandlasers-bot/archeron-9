@@ -2,17 +2,17 @@ Object PlayerCryoTube "empty tube you came out of" CryoBay
     with parse_name [;
         if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
            return 0;
-    ],
-        description [;
-            print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
-            TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
-            new_line;
-            if (self hasnt open) "The heavy glass lid is now permanently sealed.";
-            return true;
+        ],
+    description [;
+        print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
+        TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
+        new_line;
+        if (self hasnt open) "The heavy glass lid is now permanently sealed.";
+        return true;
        ],
-       door_to TubeInterior,
-       door_dir in_to,
-       before [;
+    door_to TubeInterior,
+    door_dir in_to,
+    before [;
            Enter:
                if (self hasnt open) "It's sealed shut.";
                PlayerTo(TubeInterior); rtrue;
@@ -23,8 +23,8 @@ Object PlayerCryoTube "empty tube you came out of" CryoBay
                }
            Open:
                if (self hasnt open) "The locking mechanism has engaged fully; it's sealed for good.";
-       ],
-       has static scenery door open enterable;
+    ],
+    has static scenery door open enterable;
 Object EmptyCryoTubes "bank of cryo tubes" CryoBay
      with name 'bank' 'row' 'tubes' 'pods' 'open' 'empty' 'vacant',
           description "A row of closed upright tubes with frosted glass fronts. Most are vacant, but one near you appears occupied.",
@@ -535,17 +535,36 @@ Object RetinalScanner "pair of goggles"
     description "Some kind of goggles, you would guess from the shape.",
     shelvable 1,
     bulk BULK_POCKET;
+Object Tricorder "portable sensing array"
+    with name 'tricorder' 'sensor' 'array',
+    description "A portable array of sensors for things you can not even begin to understand.",
+        shelvable 1,
+        bulk BULK_NORMAL;
+Object FluxCapacitor "burned-out capacitive motherboard"
+    with name 'motherboard' 'board' 'capacitor',
+    description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",
+        shelvable 1,
+        bulk BULK_NORMAL;
+Object JeeJah "handheld communicator"
+    with name 'handheld' 'communicator' 'phone',
+    description "A featureless dark glass rectangle.",
+        shelvable 1,
+        bulk BULK_POCKET;
+Object SonicScrewdriver "resonant manipulator"
+    with name 'manipulator' 'wand' 'screwdriver',
+    description "A wand-shaped tool. The button on the side is missing.",
+    before [;
+        Take:
+            print "An electric spark arcs out of the manipulator the moment your fingers touch it.^^";
+            if (self in parent(player)) { 
+                "You recoil so fast it simply clatters back onto the deck."; 
+            }
+            move self to parent(player); ! This drops it to the floor of the current room
+            "The device is jolted off the shelf and hits the floor with a heavy thunk.";
+    ],
+        shelvable 1,
+        bulk BULK_POCKET;
 Object Crates "crates" ServerTerminalRoom
     with name 'crates' 'equipment' 'machines' 'junk',
     description "Crates of broken-down equipment, useless as working tech but brimming with spare parts.",
     has static scenery;
-Object Tricorder "handheld communicator"
-    with name 'tricorder' 'communicator',
-    description "A small, wearable communication device.",
-        shelvable 1,
-        bulk BULK_POCKET;
-Object FluxCapacitor "burned-out capacitive motherboard"
-    with name 'motherboard' 'board' 'capacitor',
-    description "Some circuitry and electronics in a small enclosure. Its central manifold is burned out.",
-        shelvable 1,
-        bulk BULK_NORMAL;
