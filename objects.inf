@@ -536,7 +536,7 @@ Object RetinalScanner "pair of goggles"
     shelvable 1,
     bulk BULK_POCKET;
 Object Tricorder "portable sensing array"
-    with name 'tricorder' 'sensor' 'array',
+    with name 'tricorder' 'sensor' 'scanner',
     description "A portable array of sensors for things you can not even begin to understand.",
         shelvable 1,
         bulk BULK_NORMAL;
@@ -546,10 +546,45 @@ Object FluxCapacitor "burned-out capacitive motherboard"
         shelvable 1,
         bulk BULK_NORMAL;
 Object JeeJah "handheld communicator"
-    with name 'handheld' 'communicator' 'phone',
-    description "A featureless dark glass rectangle.",
-        shelvable 1,
-        bulk BULK_POCKET;
+    with name 'handheld' 'communicator' 'phone' 'jeejah',
+    description [;
+        ! 1. Not holding it? Show the basic look.
+        if (parent(self) ~= player) {
+            "A featureless dark glass rectangle.";
+        }
+
+        ! 2. Handle Scripted Moments
+        if (self.script_node > 0) {
+            switch (self.script_node) {
+                1: print "The glass shimmers: 'SYSTEM INITIALIZING...'^";
+                2: print "A distorted face appears in the static. 'Can you hear me?'^";
+                3: print "Coordinates flicker on the screen: 42.36N, 71.05W.^";
+                4: print "The casing is hot. A warning reads: 'BATTERY CRITICAL'.^";
+                5: print "A final text scrolls by: 'They are already inside.'^";
+            }
+            self.script_node = 0; ! NOW this line is guaranteed to run
+            rtrue;
+        }
+
+        ! 3. Default random flavor text
+        switch(random(3)) {
+            1: "The screen reflects your face in the dark glass.";
+            2: "A small status icon in the corner indicates 'No Service'.";
+            3: "The device hums with a vibration so faint you almost miss it.";
+        }
+    ],
+    after [;
+        Take:
+            if (self.first_pickup == 0) {
+                self.first_pickup = 1;
+                self.script_node = 1;
+                ! The player gets the "Taken." message, then they can EXAMINE it.
+            }
+    ],
+    script_node 0,
+    first_pickup 0,
+    shelvable 1,
+    bulk BULK_POCKET;
 Object SonicScrewdriver "resonant manipulator"
     with name 'manipulator' 'wand' 'screwdriver',
     description "A wand-shaped tool. The button on the side is missing.",
