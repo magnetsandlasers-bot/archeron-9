@@ -143,7 +143,7 @@
     if (power_restored == 1) { 
         if (random(10) == 1) {
             r = random(5);
-            print "An intercom in the ceiling crackles to life!^";
+            print "^An intercom in the ceiling crackles to life!^";
             new_line;
             style underline;
             if (AV_codec_active == 1) {
@@ -472,4 +472,12 @@
             style roman;
         }
     }
+    ];
+[ DisplayDroneMap 
+    d;
+    print "The screen lights up with a map of the ship. Two dots pulse:^";
+    objectloop (d ofclass SecurityDrone) {
+        print "- ", (name) d, " is currently at: ", (name) parent(d), "^";
+    }
+    rtrue;
     ];

@@ -556,7 +556,10 @@ Object JeeJah "handheld communicator"
         ! 2. Handle Scripted Moments
         if (self.script_node > 0) {
             switch (self.script_node) {
-                1: print "The glass shimmers: 'SYSTEM INITIALIZING...'^";
+                1: print "The glass comes to life as you turn it towards your face. It vibrates briefly in your hand and displays a line of text on its smooth, flat surface: ";
+                TranslateAV("CERNYV KRZHDUZH",
+                "PAIRING SUCCESSFUL");
+                print "!^";
                 2: print "A distorted face appears in the static. 'Can you hear me?'^";
                 3: print "Coordinates flicker on the screen: 42.36N, 71.05W.^";
                 4: print "The casing is hot. A warning reads: 'BATTERY CRITICAL'.^";
@@ -570,7 +573,7 @@ Object JeeJah "handheld communicator"
         switch(random(3)) {
             1: "The screen reflects your face in the dark glass.";
             2: "A small status icon in the corner indicates 'No Service'.";
-            3: "The device hums with a vibration so faint you almost miss it.";
+            3: return DisplayDroneMap(); ! This calls the routine we made above        
         }
     ],
     after [;
