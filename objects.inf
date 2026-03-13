@@ -532,21 +532,21 @@ Object EquipmentShelf "equipment shelf" ServerFarm3
 
 Object RetinalScanner "pair of goggles"
     with name 'glasses' 'goggles' 'scanner' 'pair',
-    description "Some kind of goggles, you would guess from the shape.",
+    description "A fairly bulky set of goggles that would completely block your vision if worn. They ",
     shelvable 1,
     bulk BULK_POCKET;
-Object Tricorder "portable sensing array"
-    with name 'tricorder' 'sensor' 'scanner',
-    description "A portable array of sensors for things you can not even begin to understand.",
-        shelvable 1,
-        bulk BULK_NORMAL;
-Object FluxCapacitor "burned-out capacitive motherboard"
-    with name 'motherboard' 'board' 'capacitor',
+! Object Tricorder "portable sensing array"
+!     with name 'tricorder' 'sensor' 'scanner',
+!     description "A portable array of sensors for things you can not even begin to understand.",
+!         shelvable 1,
+!         bulk BULK_NORMAL;
+Object FluxCapacitor "burned-out circuitboard"
+    with name 'circuitboard' 'board',
     description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",
         shelvable 1,
         bulk BULK_NORMAL;
-Object JeeJah "handheld communicator"
-    with name 'handheld' 'communicator' 'phone' 'jeejah',
+Object JeeJah "smooth piece of glass"
+    with name 'glass' 'mobile' 'handheld' 'communicator' 'phone' 'jeejah',
     description [;
         ! 1. Not holding it? Show the basic look.
         if (parent(self) ~= player) {
@@ -556,7 +556,7 @@ Object JeeJah "handheld communicator"
         ! 2. Handle Scripted Moments
         if (self.script_node > 0) {
             switch (self.script_node) {
-                1: print "The glass comes to life as you turn it towards your face. It vibrates briefly in your hand and displays a line of text on its smooth, flat surface: ";
+                1: print "The Glass comes to life as you turn it towards your face. It vibrates briefly in your hand and displays a line of text on its smooth, flat surface: ";
                 TranslateAV("CERNYV KRZHDUZH",
                 "PAIRING SUCCESSFUL");
                 print "!^";
