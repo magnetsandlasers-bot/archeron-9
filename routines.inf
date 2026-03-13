@@ -148,19 +148,19 @@
             style underline;
             if (AV_codec_active == 1) {
                 switch(r) {
-                    1: print "~COOLANT LEAK DETECTED IN PRIMARY REACTOR CORE.";
-                    2: print "~ATMOSPHERIC SCRUBBERS OFFLINE. CARBON TOXICITY RISING.";
-                    3: print "~HULL INTEGRITY COMPROMISED. DECOMPRESSION IMMINENT.";
-                    4: print "~GRAVITY WELL STABILIZERS AT ZERO PERCENT.";
-                    5: print "~NEURAL BUFFER OVERFLOW. EMERGENCY SHUTDOWN FAILED.";
+                    1: print "~STATUS: CORE FLUID LEAK DETECTED.";
+                    2: print "~STATUS: SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.";
+                    3: print "~STATUS: SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.";
+                    4: print "~STATUS: CORE MOTION FAILURE. ZERO PERCENT.";
+                    5: print "~STATUS: DATA LOG ERROR. PURGE SEQUENCE FAILED.";
                 }
             } else {
                 switch(r) {
-                    1: print "~KRZHDAR JADROZ... VZDYK... VZDYK.";
-                    2: print "~POHYB STAVR... SCERNOSH ZRAAV.";
-                    3: print "~SMRNK DRAZK... VESKRACH KRZHD.";
-                    4: print "~JADROZ POHYB... VZDRAK TSKOR.";
-                    5: print "~STYRZOSH KRZHD... DRAZKARY.";
+                    1: print "~STAVR: VODOJADRO I NE-KRZHDUZH.";
+                    2: print "~STAVR: NESTAV STAVR. I VESKRA NE-KRZHD.";
+                    3: print "~STAVR: NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.";
+                    4: print "~STAVR: JADROPOHYB NE-KRZHDUZH. 0 TSKOR.";
+                    5: print "~STAVR: I VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.";
                 }
             }
             style roman;
@@ -348,11 +348,11 @@
     if (arpi_active == 0) {
         arpi_active = 1;
         new_line;
-        print "A crackle of static erupts from the intercom, followed by a new voice. Not the administrative bark of the ship, but something that sounds like it wants to communicate.^";
+        print "A crackle of static erupts from the intercom, followed by a new voice. Not the administrative bark of the ship, but something with intelligence behind it.^";
         new_line;
-        style underline;
-        TranslateAV("~Domn zraavek i Jadroz-Pohyb, po y Zgrt-Ulmk zraav y Tlkzvsk. Dronz zraavek i Vzrac. Scern za i Dronz... ne. Domn ne zraavek Vzrac, ak? Jadrozuzh?~^",
-                    "~You should be able to hear my voice now, but this little episode will cost you. The drone has figured out you're here, so we have to figure out how to disable it and... wait a minute, you have no idea what I'm saying do you? Hello?~^");
+        TranslateAV("The voice sounds conspiratorial, yet completely incomprehensible. ~Ak. Slukh mluv o, i chas Chast tskor Veskrachas ne Krzhduzh, y Drazk SPribor vzdyk Osob jest. Pohyb vzdyk ty jest, tak i ne Rozum Osob, ne? Ak?~^",
+        
+        "~You should be able to hear my voice now, but this little episode will cost you. The drone has figured out you're here, so we have to figure out how to disable it and... wait a minute, you have no idea what I'm saying do you? Hello?~^");
         style roman;
     } else {
         new_line;
