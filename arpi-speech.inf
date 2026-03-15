@@ -35,6 +35,7 @@ Object Arpi "Arpi"
                     'crawls': return ArpiCrawls();
                     'mining': return ArpiMining();
                     'servers': return ArpiServers();
+                    'drones': return ArpiDrones();
 
                 ! --- THE SECRET EXIT TRIGGER ---
                     'help', 'maze', 'path', 'shortcut', 'exit':
@@ -63,7 +64,7 @@ Object Arpi "Arpi"
     crawls_known = 1;
     print "^~The Crawls keep this ship and every ship like it together,~ Arpi says with surprising vigor. Their tone turns more neutral as they continue. ~They are in charge of everything from maintenance to janitorial, and a lot of things in between on a ";
     Mining();
-    print " ship like this.~^";
+    print " ship like this.~^^";
     rtrue;
     ];
 [ Mining;
@@ -73,7 +74,7 @@ Object Arpi "Arpi"
     ];
     [ ArpiMining;
     mining_known = 1;
-    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^";
+    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^^";
     rtrue;
     ];
 [ Servers;
@@ -86,6 +87,29 @@ Object Arpi "Arpi"
     print "^~It's outdated and takes up a lot of space, but server farms of old equipment are cheap. The ";
     Crawls();
     print " can break down and recycle this equipment to make it last almost forever,~ Arpi explains.^";
+    rtrue;
+    ];
+[ Drones;
+    if (drones_known == 0) style bold; 
+    print "drones";
+    style roman;
+    ];
+    [ ArpiDrones;
+    drones_known = 1;
+    print "^~They're not as tough or as smart as they look, but most people don't get past the tasers to find out.~";
+    new_line;
+    print "Arpi's tone turns more serious. ~Their weakness is their power source. The charging station. Disable it!~^";
+    rtrue;
+    ];
+[ Ship;
+    if (ship_known == 0) style bold;
+    print "ship";
+    style roman;
+    ];
+    [ ArpiShip;
+    ship_known = 1;
+    print "^~This is the Archeron-9, a mining vessel.";
+    new_line;
     rtrue;
     ];
 ! Some older phrases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,7 +201,7 @@ Object Arpi "Arpi"
     ];
 [ ArpiShipStatus;
     TranslateAV("~i Majstrz zraavek Archeron-9 za i Dobyv. i Domn po y Flot za i Dobyv na i Krug vo i Trcz Gora-Svet.~^",
-                "~This ship was a mining vessel, the Archeron-9. It was part of a fleet sent here to mine the rings of the third rocky planet in the Archeron system.~^");    
+                "~This ship was a mining vessel, part of a bigger fleet sent here to mine the rings of this.~^");    
                 ];
 [ ArpiMission;
     TranslateAV("~i Cernyv zraavek i Smrnk za i Domn! y Tlkzvsk: po i Cernyv za y Ulmk na i Jadroz.~^",

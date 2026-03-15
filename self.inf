@@ -1,0 +1,68 @@
+! ============================================================
+! self.inf — Player self-examination with examinable hotspots
+! ============================================================
+
+Global ports_examined = 0;
+Global suit_examined = 0;
+
+Object data_ports "data ports"
+  with name 'data' 'port' 'ports' 'jack' 'jacks',
+       description [;
+         if (ports_examined == 0) {
+           ports_examined = 1;
+           "You tilt your head. Three ports run in a neat row behind
+            your right ear -- matte black, flush with the skin. Except
+            they're not flush anymore. The edges have gone pink and
+            slightly raised. Your body is absorbing them.";
+         }
+         "The ports are still there. Still growing in.";
+       ],
+       before [;
+         Touch:
+           "You press a fingertip to the rim of the nearest jack.
+            There's no seam you can feel. Just... you.";
+         Insert:
+           "You'd need a cable for that.";
+       ],
+  has scenery;
+
+Object jumpsuit "jumpsuit"
+  with name 'jumpsuit' 'suit' 'uniform' 'fabric' 'seam' 'seams',
+       description [;
+         if (suit_examined == 0) {
+           suit_examined = 1;
+           "You pinch the fabric at your forearm and pull. It stretches
+            like skin -- because it has become skin, at least along the
+            inner arm. You can see where the boundary used to be.
+            Now it's just a faint ridge, like an old scar.";
+         }
+         "The suit is still fusing. You try not to think about it.";
+       ],
+       before [;
+         Pull, Take:
+           "You try. There's resistance -- not mechanical. Biological.
+            You stop trying.";
+         Touch:
+           "Warm. It's always warm now.";
+       ],
+  has scenery;
+
+! Standalone routines that can be assigned as property values
+
+[ SelfDescription;
+    "You glance down at yourself. The jumpsuit has started to
+     blur at the edges -- where fabric meets wrist, where collar
+     meets throat. Behind your ear, you can feel the faint weight
+     of the data ports. You could examine the data ports or
+     the jumpsuit.";
+];
+
+[ SelfScope;
+    PlaceInScope(data_ports);
+    PlaceInScope(jumpsuit);
+];
+
+[ SetupSelf;
+    selfobj.description = SelfDescription;
+    selfobj.add_to_scope = SelfScope;
+];

@@ -17,6 +17,7 @@ Include "routines.inf";
 Include "init.inf";
 Include "arpi-speech.inf";
 Include "classes.inf";
+Include "self.inf";
 ! 4. THE MAP (Now 'location' is safely defined for these files)
 Include "locations-aft.inf";
 Include "locations-bridge.inf";

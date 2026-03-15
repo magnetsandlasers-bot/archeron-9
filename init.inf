@@ -1,4 +1,5 @@
 [ Initialise;
+    SetupSelf();          ! Set up the selfobj description and scope
     location = CryoBay;
     notify_mode = false; ! Suppress the "score has gone up" message
     move HighTechJumpsuit to CryoBay;

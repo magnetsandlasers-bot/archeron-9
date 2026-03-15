@@ -305,23 +305,20 @@ Object AVModuleFried "fried silver bio-chip"
        daemon [;
             if (self.is_installed == false) return;
             self.chip_timer++;
-
             ! Phase 1: Turns 1-3 (Flawless)
             if (self.chip_timer == 1) { 
                 AV_codec_active = 1; 
-                print "You hear a familiar voice on the intercom!^^";
-                style underline;
-                print "~You did it! You should be able to understand me now, finally! I'm called Arpi.~";
-                new_line;
-                style roman;
-            }
+                print "From the center of your head, you hear a perfectly modulated voice.^^";
+                print "~Link successful! Great job. I knew you could do it. Welcome to the universe, I'm sorry it's not a better one right now. I'm Arpi, and I'm your only friend on this ";
+                Ship();
+                print ". And the thing is, you're my only friend too. We're going to have to trust each other.~";
+                new_line;            
+                }
                 if (self.chip_timer == 4) { 
                 AV_codec_active = 1; 
                 print "A touch of concern tinges Arpi's voice.^^";
-                style underline;
                 print "~Did you notice that? I caught something strange in our linkup.~";
                 new_line;
-                style roman;
             }
             ! Phase 2: Turns 5-8 (50/50 Flicker)
             if (self.chip_timer >= 5 && self.chip_timer < 9) {
@@ -331,10 +328,8 @@ Object AVModuleFried "fried silver bio-chip"
             if (self.chip_timer == 9) { 
                 AV_codec_active = 1; 
                 print "A touch of concern has matured into laser focus.^^";
-                style underline;
                 print "~Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i Cernyv-Jadroz.~";
                 new_line;
-                style roman;
             }
             ! Phase 3: Turns 9-11 (70/30 Failure - Weighted towards 0)
             if (self.chip_timer >= 9 && self.chip_timer < 11) {
@@ -353,7 +348,6 @@ Object AVModuleFried "fried silver bio-chip"
                 "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.^";
             }
        ];
-
 Object CotUnmade "unmade cot" Brig
     with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
     description "Dingy would be a kind way to describe the filthy nest you woke up in. The dark and dusty space underneath the cot looks as if it has been disturbed recently.",
@@ -588,12 +582,12 @@ Object JeeJah "smooth piece of glass"
     first_pickup 0,
     shelvable 1,
     bulk BULK_POCKET;
-Object SonicScrewdriver "resonant manipulator"
+Object SonicScrewdriver "some kind of wand"
     with name 'manipulator' 'wand' 'screwdriver',
-    description "A wand-shaped tool. The button on the side is missing.",
+    description "A wand-shaped tool. The button on the side is missing, a strand of wire peeking from the hole.",
     before [;
         Take:
-            print "An electric spark arcs out of the manipulator the moment your fingers touch it.^^";
+            print "An electric spark arcs out of the wand the moment your fingers touch it.^^";
             if (self in parent(player)) { 
                 "You recoil so fast it simply clatters back onto the deck."; 
             }
@@ -603,6 +597,10 @@ Object SonicScrewdriver "resonant manipulator"
         shelvable 1,
         bulk BULK_POCKET;
 Object Crates "crates" ServerTerminalRoom
-    with name 'crates' 'equipment' 'machines' 'junk',
+    with name 'crate' 'crates' 'equipment' 'machines' 'junk',
     description "Crates of broken-down equipment, useless as working tech but brimming with spare parts.",
+    before [;
+        Take:
+            "There is no way you are going to be able to manage that.";
+    ],
     has static scenery;
