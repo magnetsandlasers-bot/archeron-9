@@ -509,6 +509,8 @@ Object DroneHatch "drone hatch"
     has  scenery static;
 Object EquipmentShelf "equipment shelf" ServerFarm3
   with name 'shelf' 'shelves' 'rack' 'metal',
+            shelf_examined 0,  ! <-- Add this flag
+
        description [;
            print "A metal shelf bolted to a server. Perusing its jumbled contents, ";
            
@@ -533,12 +535,22 @@ Object RetinalScanner "pair of goggles"
     with name 'glasses' 'goggles' 'scanner' 'pair',
     description "A fairly bulky set of goggles that would completely block your vision if worn. They ",
     shelvable 1,
-    bulk BULK_POCKET;
+    bulk BULK_POCKET,
+    initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a pair of goggles on the equipment shelf.^";
+        rtrue;
+    ];
 Object FluxCapacitor "burned-out circuitboard"
     with name 'circuitboard' 'board',
     description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",
         shelvable 1,
-        bulk BULK_NORMAL;
+        bulk BULK_NORMAL,
+        initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a burned-out circuitboard on the equipment shelf.^";
+        rtrue;
+    ];
 Object JeeJah "smooth piece of glass"
     with name 'glass' 'mobile' 'handheld' 'communicator' 'phone' 'jeejah',
     description [;
@@ -578,6 +590,11 @@ Object JeeJah "smooth piece of glass"
                 ! The player gets the "Taken." message, then they can EXAMINE it.
             }
     ],
+    initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a smooth piece of glass on the equipment shelf.^";
+        rtrue;
+    ],
     script_node 0,
     first_pickup 0,
     shelvable 1,
@@ -594,6 +611,11 @@ Object SonicScrewdriver "some kind of wand"
             move self to parent(player); ! This drops it to the floor of the current room
             "The device is jolted off the shelf and hits the floor with a heavy thunk.";
     ],
+        initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is some kind of wand on the equipment shelf.^";
+        rtrue;
+        ],
         shelvable 1,
         bulk BULK_POCKET;
 Object Crates "crates" ServerTerminalRoom
