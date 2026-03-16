@@ -61,8 +61,11 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Take, Wear:
                 if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
                 achieved(0); ! Task 0: put on jumpsuit
-                jumpsuit_worn = 1; jumpsuit_timer = 0; remove self;
-                print "You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                jumpsuit_worn = 1; jumpsuit_timer = 0; 
+                give self concealed;  ! <-- Add this
+    
+                remove self;
+                print "^You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
                 rtrue;
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
@@ -311,7 +314,9 @@ Object AVModuleFried "fried silver bio-chip"
                 print "From the center of your head, you hear a perfectly modulated voice.^^";
                 print "~Link successful! Great job. I knew you could do it. Welcome to the universe, I'm sorry it's not a better one right now. I'm Arpi, and I'm your only friend on this ";
                 Ship();
-                print ". And the thing is, you're my only friend too. We're going to have to trust each other.~";
+                print ". And the thing is, you're my only friend too. We're going to have to trust each other. First, we need to do something about the ";
+                Drones();
+                print ".~";
                 new_line;            
                 }
                 if (self.chip_timer == 4) { 
@@ -529,11 +534,6 @@ Object RetinalScanner "pair of goggles"
     description "A fairly bulky set of goggles that would completely block your vision if worn. They ",
     shelvable 1,
     bulk BULK_POCKET;
-! Object Tricorder "portable sensing array"
-!     with name 'tricorder' 'sensor' 'scanner',
-!     description "A portable array of sensors for things you can not even begin to understand.",
-!         shelvable 1,
-!         bulk BULK_NORMAL;
 Object FluxCapacitor "burned-out circuitboard"
     with name 'circuitboard' 'board',
     description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",

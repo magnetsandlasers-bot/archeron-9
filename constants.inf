@@ -29,7 +29,8 @@
     Global mining_known = 0;
     Global servers_known = 0;
     Global drones_known = 0;
-    Global ship_known = 0; 
+    Global ship_known = 0;
+
 ! DECLARED PROPERITES
     Property zh_name; ! Provides Zerakthyn room name
     Property bulk; ! Inventory carry limit property

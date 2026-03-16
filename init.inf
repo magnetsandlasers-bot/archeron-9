@@ -20,7 +20,6 @@
     move SecurityDrone2 to Hangar; 
     move AVModule2 to SecurityDrone2;
     move RetinalScanner to EquipmentShelf;
-    ! move Tricorder to EquipmentShelf;
     move FluxCapacitor to EquipmentShelf;
     move JeeJah to EquipmentShelf;
     move SonicScrewdriver to EquipmentShelf;
