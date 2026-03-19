@@ -47,7 +47,7 @@ Object  BulkheadDoor "bulkhead"
         ],
         door_to [;
             if (location == AftCorridor) return SpineFore;
-            return Corridor;
+            return AftCorridor;
         ],
         door_dir [;
             if (location == AftCorridor) return n_to;
