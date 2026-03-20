@@ -1,5 +1,6 @@
 Object BridgeDoor "blast door"
   with name 'door' 'blast' 'bridge' 'north',
+       found_in Atrium Bridge,
        description "A reinforced door protecting the Bridge. It has a biometric scanner.",
        before [;
             Open, Unlock:
@@ -13,7 +14,6 @@ Object BridgeDoor "blast door"
                 print "^The heavy bolts retract. The door opens.^";
                 give self ~locked open; return true;
        ], door_dir n_to, door_to Bridge, has static door locked scenery;
-
 ArcheronRoom Bridge "The Bridge"
   with zh_name "VZDRAK SMRNK",
        description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",

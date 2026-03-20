@@ -1,4 +1,4 @@
-Object  BulkheadDoor "bulkhead"
+Object BulkheadDoor "bulkhead"
   with  name 'bulkhead' 'massive' 'north' 'blast' 'south',
         found_in AftCorridor SpineFore,
         description [;
