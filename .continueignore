@@ -1,0 +1,12 @@
+# Ignore all Inform 6 source files to stop indexer loops
+*.inf
+*.h
+
+# Ignore build artifacts
+*.z5
+*.z8
+*.ulx
+
+# Standard big folders
+node_modules/
+.git/x
