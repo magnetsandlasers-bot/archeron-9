@@ -561,6 +561,8 @@ Object RetinalScanner "pair of goggles"
             rfalse;  ! Allow normal wear to proceed
     ],
     after [;
+        Take:
+            if (self has concealed) { give self ~concealed; }
         Wear:
             if (self.scanned == 0) {
                 print "You put on the goggles. With the chair's optical calibration, your vision becomes crystal clear.^";
@@ -646,6 +648,7 @@ Object JeeJah "smooth piece of glass"
     ],
     after [;
         Take:
+            if (self has concealed) { give self ~concealed; }
             if (self.first_pickup == 0) {
                 self.first_pickup = 1;
                 self.script_node = 1;
