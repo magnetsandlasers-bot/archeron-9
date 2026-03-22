@@ -36,6 +36,7 @@ Object Arpi "Arpi"
                     'mining': return ArpiMining();
                     'servers': return ArpiServers();
                     'drones': return ArpiDrones();
+                    'wand': return ArpiExplainWand();
 
                 ! --- THE SECRET EXIT TRIGGER ---
                     'help', 'maze', 'path', 'shortcut', 'exit':
@@ -191,20 +192,23 @@ Object Arpi "Arpi"
     Crawls(); 
     print ".~^";
     ];
+[ ArpiMazeHint1;
+    print "~Finally, something useful!~ Arpi sounds excited. ~That Glass will come in handy. Not sure about that other junk.~^"; ];
 ![ ArpiTerminalRoomHint; 
     !    print "~Recycling areas like this are gold mines,~ Arpi says.~^";
     !    ];
 ! Stock Answers
 [ ArpiWhoAreYou;
-    style underline;
-    print "~You can call me Arpi.~";
-    new_line;
-    style roman;
+    print "~You can call me Arpi.~^";
     ];
+[ ArpiExplainWand;
+    print "You could swear you hear the suppressed laughter in Arpi's voice. ~I don't think that thing is fit for service.~^";
+];
+
 ![ ArpiShipStatus;
-!    TranslateAV("~i Majstrz zraavek Archeron-9 za i Dobyv. i Domn po y Flot za i Dobyv na i Krug vo i Trcz Gora-Svet.~^",
-!                "~This ship was a mining vessel, part of a bigger fleet sent here to mine the rings of this.~^");    
-!                ];
+ !    TranslateAV("~i Majstrz zraavek Archeron-9 za i Dobyv. i Domn po y Flot za i Dobyv na i Krug vo i Trcz Gora-Svet.~^",
+ !                "~This ship was a mining vessel, part of a bigger fleet sent here to mine the rings of this.~^");    
+ !                ];
 [ ArpiMission;
     TranslateAV("~i Cernyv zraavek i Smrnk za i Domn! y Tlkzvsk: po i Cernyv za y Ulmk na i Jadroz.~^",
                 "~We are trying to get you out of here! I just have one request. Help me get an object to the surface.~^^");    

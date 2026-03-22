@@ -126,7 +126,8 @@ Object JeeJah "smooth piece of glass"
                 "The scan has already been performed.";
             }
             print "^A message appears on the screen:^";
-            print "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY?~^^";
+            TranslateAV("~VZDYK I OSOBVZRAC KORABSTRAZHNIK ZAMER Y ROZUMSTAV? Y/N~^^", "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY? Y/N~^^");
+            ! print "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY?~^^";
             if (YesOrNo()) {
                 print "^^The goggles flare with light as the scan completes. Your retinal data is uploaded.^";
                 identity_hacked = 1;

@@ -10,6 +10,7 @@ ServerFarm ServerFarm2 "Server Farm"
         w_to ServerFarm1;
 ServerFarm ServerFarm3 "Server Farm"
     with description "Towering black server racks. There is a small, cluttered equipment shelf here. ",
+        arpi_hint ArpiMazeHint1,
         n_to ServerFarm4,
         e_to ServerFarm6,
         s_to ServerFarm2;

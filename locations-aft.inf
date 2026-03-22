@@ -1,20 +1,20 @@
 AftRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
        description [;
-           print "The air is freezing here, stinging your exposed skin. There is a bank of empty, frosted glass tubes on the East wall. Most of them are open, like the one you just stepped out of. The only exit is a door leading North.";
+           print "You are naked, and cooling off fast. The air is freezing here, stinging your exposed skin. You are standing in front of a bank of glass-fronted pods. Most of them are open, like the one you just stepped out of. One next to you appears occupied. The only exit is a door leading north.";
            new_line;
            if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
-               print "^A high-tech grey jumpsuit hangs next to the cryo-tube you just stepped out of. It looks warm, and just your size.^";
+               print "^A high-tech grey jumpsuit hangs next to the pod you just stepped out of. It looks warm.^";
            }
            return true;
         ],
         n_to AftCorridor;
-AftRoom TubeInterior "Inside the Cryo Tube"
+AftRoom TubeInterior "Inside the pod"
     with description "It is cramped and smelly in here, but at least it's warm.",
         after [;
-            give PlayerCryoTube ~open; ! The door slams shut behind them
-            print "^Suddenly, the glass lid slides shut with the speed of a guillotine. The bolts engage with a sickening thud.^^";
-            print "The lights go red and the floor vents hiss. You hear a strangely calm voice intones ",
+            give PlayerCryoTube ~open;
+            print "^Suddenly, the glass lid slides shut with the speed of a guillotine. A series of bolts shoot into place, sealing you in.^^";
+            print "The lights go red and the floor vents hiss. A strangely calm voice intones ",
                 TranslateAV("~TSKOR VZNIK. TSKOR VZNIK. ", "INCINERATION IMMINENT. INCINERATION IMMINENT. ");
             print "Before you can even scream, jets of white-hot plasma erupt from the wall-ports, turning the tube into a high-pressure incinerator and you into a pile of dust.^^";
            deadflag = 1;

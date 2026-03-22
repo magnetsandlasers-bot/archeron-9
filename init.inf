@@ -33,9 +33,8 @@
     style underline;
     print "~Jadroz: veskrach... Domn: pohyb.~^";
     style roman;
-    print "^You wake slowly, your breath misting in the chill air. The glass door of your cryo-tube slides open with a smooth hydraulic hiss. You step out onto the metal grating, shivering as the stasis fluid evaporates from your skin. From all around you, a voice barks:^";
-    jumpsuit_timer = 3; ! Set the timer for 3 turns
-    ! --- Place the HighTechJumpsuit in the CryoBay ---
+    print "^As you wake, you find yourself already standing on a cold metal grate, your breath misting in the chill air. Having gently ejected you from its interior, the coffin-like pod behind you is already recalibrating for its next guest. You shiver as your skin dries, wicking away any residual heat you may have been holding. From all around you, a voice barks:^";
+    jumpsuit_timer = 3; ! Put on jumpsuit in 3 turns or die
     move HighTechJumpsuit to CryoBay;
     ! --- Activate Alarm Lights ---
     alarm_lights_active = 1;
@@ -50,7 +49,7 @@
     @erase_window $ffff; ! Clear screen for game start
     ! --- Pre-Game Urgency Text ---
     new_line;
-    print "^Red alarm lights begin flashing! You hear the announcement again, and though you can't understand the strange words, you can feel their urgency.^";
+    print "^Red alarm lights begin flashing! You hear the announcement again, and though you can't understand the strange words, you can tell they sound urgent.^";
     new_line;
     style underline;
     print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~";
