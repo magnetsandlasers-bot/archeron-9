@@ -1,0 +1,230 @@
+Object PlayerCryoTube "empty tube you came out of" CryoBay 
+    with parse_name [;
+        if (wn > 0 && (NextWord() == 'mine' or 'empty' or 'tube' or 'pod')) return 3;
+           return 0;
+        ],
+    description [;
+        print "This is the tube you woke up in. The curved door has recessed into its pocket and steam is wafting from its still-warm interior. Tubes and wires, many of which were only recently attached to you in ways you'd rather not think about again, hang limp and useless. The bio-monitor display reads: ";
+        TranslateAV("DOMN 009 KRZSHDOSH- NESTAV", "SUBJECT 009 STATUS- DEFECTIVE");
+        new_line;
+        if (self hasnt open) "The heavy glass lid is now permanently sealed.";
+        return true;
+       ],
+    door_to TubeInterior,
+    door_dir in_to,
+    before [;
+           Enter:
+               if (self hasnt open) "It's sealed shut.";
+               PlayerTo(TubeInterior); rtrue;
+           Close:
+               if (self has open) {
+                   give self ~open;
+                   "You pull the glass lid shut. With a hiss of hydraulics and a final, heavy 'clunk,' the seals lock permanently. You won't be getting back in there.";
+               }
+           Open:
+               if (self hasnt open) "The locking mechanism has engaged fully; it's sealed for good.";
+    ],
+    has static scenery door open enterable;
+Object EmptyCryoTubes "bank of cryo tubes" CryoBay
+     with name 'bank' 'row' 'tubes' 'pods' 'open' 'empty' 'vacant',
+          description "A row of closed upright tubes with frosted glass fronts. Most are vacant, but one near you appears occupied.",
+          before [;
+              Open:
+                  "The heavy seals are fused shut; no amount of prying will budge them.";
+              Close:
+                  "They are already sealed tight.";
+          ],
+          has static scenery;
+Object OccupiedTube "occupied cryo tube" CryoBay
+     with name 'occupied' 'tube' 'pod' 'closed' 'glass' 'sealed',
+          description [;
+              print "You see the deathly-still silhouette of a misshapen figure slumped in the sealed tube. The bio-monitor display reads: ";
+              TranslateAV("DOMN 012 KRZSHDOSH- NESTAV. ", "SUBJECT 012 STATUS- DEFECTIVE. ");
+              new_line;
+              rtrue;
+          ],
+          before [;
+              Open:
+                  "The heavy seals are fused shut; no amount of prying will budge them. Probably for the best. It doesn't look good.";
+              Close:
+                  "It is already sealed tight.";
+          ],
+          has static scenery container ~open;
+
+Object HighTechJumpsuit "high-tech jumpsuit"
+  with name 'jumpsuit' 'suit' 'grey' 'tech', bulk BULK_NORMAL,
+       description "A sleek, form-fitting jumpsuit made of a dark grey, advanced material. It feels surprisingly light yet durable. As you look at it, the fabric seems to shimmer invitingly.",
+       describe [;
+           rtrue; ! This "describe" trick hides it from the "You can also see" list
+       ],
+       before [;
+            Take, Wear:
+                if (jumpsuit_worn == 1) { print "You are already wearing the jumpsuit."; rtrue; }
+                achieved(0); ! Task 0: put on jumpsuit
+                jumpsuit_worn = 1; jumpsuit_timer = 0; 
+                give self concealed;  ! <-- Add this
+    
+                remove self;
+                print "^You slip on the jumpsuit. It conforms to your body like a second skin. The advanced nano-material immediately adjusts to your body temperature, providing perfect insulation against the biting cold. You feel secure and protected.^";
+                rtrue;
+            Remove:
+                if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
+       ];
+Object Corpse "desiccated corpse" AftCorridor
+  with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
+       description [;
+            print "A crew member, long dead. He wears a standard technician's uniform.";
+            if (Keycard in self) { 
+                give Keycard ~concealed; 
+                print " You notice a plastic card tucked into his breast pocket."; 
+            }
+            print "^"; 
+            return true;
+       ],
+       search [;
+            return true;
+       ],
+  has static container open scenery;
+Object Keycard "plastic keycard"
+  with name 'card' 'key' 'keycard' 'pass',
+       bulk BULK_POCKET,
+       description [;
+           print "A standard plastic ID card. The label reads: ";
+           TranslateAV("CERNYV ZRAAV", "ACCESS CARD");
+           "."; 
+       ],
+       after [;
+           Take:
+               if (self has concealed) {
+                   give self ~concealed;
+               }
+       ],
+    has concealed;
+Object ExitButton "exit button"
+  with name 'button' 'exit',
+       before [; Push: print "The door slides open.^"; give EngineeringDoor ~locked open; return true; ], has static scenery;
+Object BatteryShelf "metal shelf" Engineering
+  with name 'shelf' 'shelves' 'rack' 'metal',
+       description [;
+           print "A sturdy metal shelf bolted to the wall. It has three levels. 
+           The top level is a mess of manuals, while the second contains broken servos. 
+           On the bottom shelf, ";
+           
+           if (child(self) == 0) "you see nothing but dust.";
+           
+           print "you see ";
+           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
+           ".";
+       ],
+       before [;
+           Receive:
+                if (noun.shelvable ~= 1) {
+                    print "That doesn't look like it belongs on the metal shelf.^";
+                    return true;
+                }
+                move noun to self;
+                "You slide ", (the) noun, " back onto the bottom shelf.";
+       ],
+  has static supporter scenery;
+
+Object ControlStation "control station" Engineering
+  with name 'panel' 'station' 'control' 'status' 'amber', 
+       description [;
+           print "It features a Heavy Iron Lever. A sign above the lever reads ";
+           TranslateAV("POHYB ZANER.", "BULKHEAD LEVER.");
+       ],
+       has static scenery supporter;
+
+Object IronLever "heavy iron lever" Engineering
+  with name 'lever' 'iron' 'heavy',
+  before [;
+     Pull, Push, SwitchOn: ! Catching multiple likely player inputs
+        if (battery_count < 2) {
+            print "The lever is locked in place. The status light is ";
+            if (battery_count == 0) print "red.";
+            else print "amber.";
+            new_line;
+            rtrue;
+        }
+        if (lockdown_lifted == 1) {
+            "The lever has already been pulled. The bulkhead door is unlocked.";
+        }
+        achieved(4); ! Task 4: Open Bulkhead Door
+        lockdown_lifted = 1;
+        give BulkheadDoor ~locked;
+        give BulkheadDoor open; 
+        
+        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
+  ],
+  has static scenery;
+Object WallSocket "wall socket" ReactorRoom
+  with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
+       description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
+       before [;
+            Receive:
+                if (child(self) ~= 0) "The slot is occupied.";
+                
+                ! 1. First, check if the object even HAS a 'charged' property
+                if (noun provides charged) {
+                    
+                    ! 2. Now it is safe to check the value of 'charged'
+                    if (noun.charged == 1) {
+                        move noun to self;
+                        "You slide the pulsing cylinder in, but it's already fully charged.";
+                    }
+
+                    if (noun.charged == 0) {
+                        if (noun == Battery1) { remove Battery1; move ChargedCell1 to self; }
+                        if (noun == Battery2) { remove Battery2; move ChargedCell2 to self; }
+                        if (noun == Battery3) { remove Battery3; move ChargedCell3 to self; }
+                        if (noun == Battery4) { remove Battery4; move ChargedCell4 to self; }
+                        if (noun == Battery5) { remove Battery5; move ChargedCell5 to self; }
+                        if (noun == Battery6) { remove Battery6; move ChargedCell6 to self; }
+                        "You slide the cylinder into the wall port. It locks with a clunk. 
+                        A high-pitched whine builds up, and the unit begins to glow.";
+                    }
+                }
+
+                ! 3. If it doesn't provide 'charged', it's not a battery.
+                "That doesn't fit.";
+       ],
+    has static container open scenery;
+Object MainColumn "central column" ReactorRoom
+  with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
+       description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
+       before [;
+            Receive:
+                ! First, check if it's even a battery type
+                if ((noun provides charged) == false) {
+                    "The column slot is designed for specific cylindrical units; that doesn't belong there.";
+                }
+                ! If it's a charged battery (Value 1)
+                if (noun.charged == 1) {
+                    remove noun;
+                    battery_count++;
+                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
+                    if (battery_count == 1) {
+                        achieved(1); ! Task 1: restore emergency power
+                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.";
+                        power_restored = 1;
+                        alarm_lights_active = 0;
+                    } 
+                    else if (battery_count == 2) {
+                        achieved(2); !Task 2: restore main power
+                        print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.";
+                    } 
+                    else if (battery_count >= 3) {
+                        achieved(3); !Task 3: restore auxiliary power
+                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.";
+                        medical_wing_powered = 1;
+                    }
+                    new_line;
+                    return true;
+                }
+                ! If it's a dead battery (Value 0)
+                if (noun.charged == 0) {
+                    move noun to self; ! This physically puts it in the column
+                    "The cylinder fits the slot perfectly, but the contact points remain cold. Nothing happens.";
+                }
+       ], 
+    has static container open scenery;

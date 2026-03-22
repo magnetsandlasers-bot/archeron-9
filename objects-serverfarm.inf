@@ -1,0 +1,191 @@
+
+Object EquipmentShelf "equipment shelf" ServerFarm3
+  with name 'shelf' 'shelves' 'rack' 'metal',
+            shelf_examined 0,  ! <-- Add this flag
+
+       description [;
+           print "A metal shelf bolted to a server. Perusing its jumbled contents, ";
+           
+           if (child(self) == 0) "you notice nothing of value.";
+           
+           print "you see ";
+           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
+           ".";
+       ],
+       before [;
+            Examine:
+               if (self.shelf_examined == 0) {
+                   self.shelf_examined = 1;
+                   give RetinalScanner ~concealed;
+                   give FluxCapacitor ~concealed;
+                   give JeeJah ~concealed;
+                   give SonicScrewdriver ~concealed;
+               }
+               rfalse;
+           Receive:
+                if (noun.shelvable ~= 1) {
+                    print "That doesn't look like it belongs on the shelf.^";
+                    return true;
+                }
+                move noun to self;
+                "You nestle ", (the) noun, " among the other items on the shelf.";
+       ],
+  has static supporter scenery;
+
+Object RetinalScanner "pair of goggles"
+    with name 'glasses' 'goggles' 'scanner' 'pair',
+    description "A fairly bulky set of goggles that would completely block your vision if worn. They ",
+    shelvable 1,
+    bulk BULK_POCKET,
+    scanned 0,
+    initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a pair of goggles on the equipment shelf.^";
+        rtrue;
+    ],
+    before [;
+        Wear:
+            if (parent(player) ~= ExamChair) {
+                print "As you put on the goggles, your vision goes completely black! You can't see anything!^";
+                print "You hastily remove them.^";
+                rtrue;
+            }
+            rfalse;  ! Allow normal wear to proceed
+    ],
+    after [;
+        Take:
+            if (self has concealed) { give self ~concealed; }
+        Wear:
+            if (self.scanned == 0) {
+                print "You put on the goggles. With the chair's optical calibration, your vision becomes crystal clear.^";
+            }
+            rtrue;
+        Remove:
+            print "You remove the goggles.^";
+            rtrue;
+    ],
+    has clothing concealed;
+Object FluxCapacitor "burned-out circuitboard"
+    with name 'circuitboard' 'board',
+    description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",
+        shelvable 1,
+        bulk BULK_NORMAL,
+        initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a burned-out circuitboard on the equipment shelf.^";
+        rtrue;
+    ],
+    has concealed;
+Object JeeJah "smooth piece of glass"
+    with name 'glass' 'mobile' 'handheld' 'communicator' 'phone' 'jeejah',
+    each_turn [;
+        if (identity_hacked == 1) return;
+        if (parent(self) == player && parent(player) == ExamChair && RetinalScanner has worn) {
+            print "^The JeeJah vibrates in your hand.^";
+        }
+    ],
+    description [;
+        ! 1. Not holding it? Show the basic look.
+        if (parent(self) ~= player) {
+            "A featureless dark glass rectangle.";
+        }
+
+        ! 2. Handle Scripted Moments
+        if (self.script_node > 0) {
+            switch (self.script_node) {
+                1: print "The Glass comes to life as you turn it towards your face. It vibrates briefly in your hand and displays a line of text on its smooth, flat surface: ";
+                TranslateAV("CERNYV KRZHDUZH",
+                "PAIRING SUCCESSFUL");
+                print "!^";
+                2: print "A distorted face appears in the static. 'Can you hear me?'^";
+                3: print "Coordinates flicker on the screen: 42.36N, 71.05W.^";
+                4: print "The casing is hot. A warning reads: 'BATTERY CRITICAL'.^";
+                5: print "A final text scrolls by: 'They are already inside.'^";
+            }
+            self.script_node = 0; ! NOW this line is guaranteed to run
+            rtrue;
+        }
+
+        ! 3. Default random flavor text
+        switch(random(3)) {
+            1: "The screen reflects your face in the dark glass.";
+            2: "A small status icon in the corner indicates 'No Service'.";
+            3: return DisplayDroneMap(); ! This calls the routine we made above        
+        }
+    ],
+    before [;
+        Examine:
+            if (identity_hacked == 1) "The JeeJah is dormant.";
+            if (parent(player) ~= ExamChair) {
+                "You need to be seated in the examination chair to use this.";
+            }
+            if (RetinalScanner hasnt worn) {
+                "You need to be wearing the goggles for this to work.";
+            }
+            if (RetinalScanner.scanned == 1) {
+                "The scan has already been performed.";
+            }
+            print "^A message appears on the screen:^";
+            print "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY?~^^";
+            if (YesOrNo()) {
+                print "^^The goggles flare with light as the scan completes. Your retinal data is uploaded.^";
+                identity_hacked = 1;
+                RetinalScanner.scanned = 1;
+                print "The goggles go dark and the chair releases you.^";
+                rtrue;
+            } else {
+                print "You cancel the scan.^";
+                rtrue;
+            }
+    ],
+    after [;
+        Take:
+            if (self has concealed) { give self ~concealed; }
+            if (self.first_pickup == 0) {
+                self.first_pickup = 1;
+                self.script_node = 1;
+                ! The player gets the "Taken." message, then they can EXAMINE it.
+            }
+    ],
+    initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is a smooth piece of glass on the equipment shelf.^";
+        rtrue;
+    ],
+    script_node 0,
+    first_pickup 0,
+    shelvable 1,
+    bulk BULK_POCKET,
+    has concealed;
+Object SonicScrewdriver "some kind of wand"
+    with name 'manipulator' 'wand' 'screwdriver',
+    description "A wand-shaped tool. The button on the side is missing, a strand of wire peeking from the hole.",
+    before [;
+        Take:
+            print "An electric spark arcs out of the wand the moment your fingers touch it.^^";
+            if (self in parent(player)) { 
+                "You recoil so fast it simply clatters back onto the deck."; 
+            }
+            move self to parent(player); ! This drops it to the floor of the current room
+            "The device is jolted off the shelf and hits the floor with a heavy thunk.";
+    ],
+        initial [;
+        if (EquipmentShelf.shelf_examined == 0) rfalse;
+        print "There is some kind of wand on the equipment shelf.^";
+        rtrue;
+        ],
+        shelvable 1,
+        bulk BULK_POCKET,
+        has concealed;
+Object Crates "crates" ServerTerminalRoom
+    with name 'crate' 'crates' 'equipment' 'machines' 'junk',
+    description "Crates of broken-down equipment, useless as working tech but brimming with spare parts.",
+    before [;
+        Take:
+            "There is no way you are going to be able to manage that.";
+    ],
+    has static scenery;
+    Object ExamChair "examination chair" ServerTerminalRoom
+    with name 'chair' 'examination' 'seat',
+    description "A large, mechanical examination chair with articulated arms and strange optical equipment mounted overhead. It looks designed for medical or technical analysis.",
+    has static enterable supporter;

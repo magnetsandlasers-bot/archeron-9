@@ -1,25 +1,17 @@
-Object BridgeDoor "blast door"
-  with name 'door' 'blast' 'bridge' 'north',
-       found_in Atrium Bridge,
-       description "A reinforced door protecting the Bridge. It has a biometric scanner.",
-       before [;
-            Open, Unlock:
-                if (location == Bridge) { give self ~locked open; "Unlocked."; }
-                print "The scanner sweeps a laser over your retina. ";
-                if (identity_hacked == 0) {
-                    print "^VOICE: "; PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
-                    print "^The door remains locked.^"; return true;
-                }
-                print "^VOICE: "; PrintAudio("VELMAR, CERNYV.");
-                print "^The heavy bolts retract. The door opens.^";
-                give self ~locked open; return true;
-       ], door_dir n_to, door_to Bridge, has static door locked scenery;
 ArcheronRoom Bridge "The Bridge"
   with zh_name "VZDRAK SMRNK",
-       description "The command deck. The viewport shows a massive red planet looming close. A heavy door leads South. The airlock is North.",
-       s_to Atrium;
-
-
+       description "The central area of the command deck. The viewport shows a massive reddish planet looming close. A heavy door leads South. The bridge stretches east and west, with more consoles lining the walls.",
+       s_to BridgeDoor,
+       e_to EastBridge,
+       w_to WestBridge;
+ArcheronRoom EastBridge "East Bridge"
+  with zh_name "VZDRAK SMRNK - VYCHOD",
+       description "The eastern section of the Bridge. Consoles line the walls.",
+       w_to Bridge;
+ArcheronRoom WestBridge "West Bridge"
+  with zh_name "VZDRAK SMRNK - ZAPAD",
+       description "The western section of the Bridge. Consoles line the walls. A sealed airlock leads east.",
+       e_to Bridge;
 ! ArcheronRoom Airlock "Escape Pod Airlock"
 !  with zh_name "ZAMER SMRNK",
  

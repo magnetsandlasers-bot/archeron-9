@@ -1,24 +1,24 @@
 Constant Story "Archeron-9";
 Constant Headline "^An Interactive Sci-Fi Mystery^";
 Release 0;
-! 1. Directives and Globals FIRST
+! Directives and Globals
 Replace PrintLocation;
 Replace TaskScore;
 Replace PrintRank;
 Constant MAX_SCORE = 90; ! Define it HERE, before the library does
 Constant NUMBER_TASKS = 9; ! How many tasks in the array
 Include "constants.inf"; 
-! 2. THE LIBRARIES (These define 'location')
+! THE LIBRARIES (These define 'location')
 Include "parser";      
 Include "verblib";
-! 3. YOUR LOGIC & CLASSES
+! LOGIC & CLASSES
 Include "devsuite.inf";
 Include "routines.inf";
 Include "init.inf";
 Include "arpi-speech.inf";
 Include "classes.inf";
 Include "self.inf";
-! 4. THE MAP (Now 'location' is safely defined for these files)
+! THE MAP
 Include "locations-aft.inf";
 Include "locations-bridge.inf";
 Include "locations-cargo.inf";  
@@ -26,7 +26,13 @@ Include "locations-med.inf";
 Include "locations-tech.inf";
 Include "locations-serverfarm.inf";
 Include "doors.inf";
-Include "objects.inf";
+! THE OBJECTS
+Include "objects-aft.inf";
+Include "objects-batteries.inf";
+Include "objects-cargobay.inf";
+Include "objects-drones.inf";
+Include "objects-security.inf";
+Include "objects-serverfarm.inf";
 ! 5. GRAMMAR LAST
 Include "grammar"; 
 Include "grammar.inf";

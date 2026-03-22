@@ -1,3 +1,24 @@
+Object BridgeDoor "blast door"
+  with name 'door' 'security',
+       found_in Atrium Bridge,
+       description "A reinforced door protecting the Bridge. It has a biometric scanner.",
+       before [;
+            Open, Unlock:
+                if (location == Bridge) { give self ~locked open; "Unlocked."; }
+                print "The scanner sweeps a laser over your retina. ";
+                if (identity_hacked == 0) {
+                    print "^VOICE: "; PrintAudio("ZRAAVEK TSKOR. VESKRACH DOMN NAADEN.");
+                    print "^The door remains locked.^"; return true;
+                }
+                print "^VOICE: "; PrintAudio("VELMAR, CERNYV.");
+                print "^The heavy bolts retract. The door opens.^";
+                give self ~locked open; return true;
+        ],
+       after [;
+            Go:
+                give self ~open locked;
+                "^The heavy door slides shut behind you with a pneumatic hiss.";
+       ], door_dir n_to, door_to Bridge, has static door locked scenery;
 Object BulkheadDoor "bulkhead"
   with  name 'bulkhead' 'massive' 'north' 'blast' 'south',
         found_in AftCorridor SpineFore,
@@ -164,3 +185,4 @@ Object LooseGrating "loose grating"
         print "loose grating"; rtrue;
     ]
     has static door openable scenery; ! 'open' refers to the Door state, not our 'is_removed'
+

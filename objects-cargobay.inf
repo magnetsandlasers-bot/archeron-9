@@ -1,0 +1,8 @@
+Object CargoCrates "crates" CargoBay
+    with name 'crate' 'crates', 
+    description "Standard shipping crates.", 
+    has static scenery;
+Object DataWafer "data wafer"
+    with name 'wafer' 'disk' 'chip' 'admin',
+    description "A small data chip.",
+        bulk BULK_POCKET;

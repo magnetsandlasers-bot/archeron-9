@@ -1,0 +1,61 @@
+Object CotUnmade "unmade cot" Brig
+    with name 'bed' 'cot' 'bunk' 'sheets' 'blanket',
+    description "Dingy would be a kind way to describe the filthy nest you woke up in. The dark and dusty space underneath the cot looks as if it has been disturbed recently.",
+    before [;
+        LookUnder, Search:
+            if (LooseGrating.is_found == false) {
+                LooseGrating.is_found = true;
+                "Peering under the bed, you notice a loose metal grating tucked against the wall. From the way the dust has been disturbed, it looks like someone or something has been in there.";
+            }
+            "You see the loose grating you found earlier.";
+    ]
+    has static scenery;
+
+Object EvidenceLocker "evidence locker" SecurityCheck
+  with name 'locker' 'evidence' 'cabinet' 'drawer',
+       description [;
+           print "A secure storage unit with a serious-looking electronic lock. ";
+           if (self has open) {
+               if (child(self) == nothing) "It is currently empty.";
+               "Inside, you see your confiscated belongings.";
+           }
+           "It is currently sealed tight.";
+       ],
+       when_closed [;
+           print "A reinforced locker is set into the wall under a sign reading ";
+           TranslateAV("KOVRAZHSK." , "EVIDENCE.");
+       ],
+       before [;
+           Open:
+               ! 1. If it's already open, let the system handle it
+               if (self has open) rfalse;
+
+               ! 2. The Logic: If it has items, Arpi/The Computer unlocks it
+               if (child(self) ~= nothing) {
+                   if (self has locked) {
+                       give self ~locked;
+                       print "As you reach for the locker, the electronic bolt slides back with a sharp click. ";
+                       if (arpi_active == 1) {
+                           ArpiNarrative("The intercom voice speaks up:^", "Arpi sighs:^");
+                           style underline;
+                           ArpiLocker();
+                           style roman;
+                       }
+                       new_line;
+                       ! The 'Open' action continues and the locker opens.
+                   }
+               } else {
+                   ! 3. If it's empty, it stays locked.
+                   "The locker is firmly sealed.";
+               }
+       ],
+       after [;
+           Close:
+               ! Automatically re-lock it when closed if it's empty
+               if (child(self) == nothing) {
+                   give self locked;
+                   print "^The locker clicks shut and the electronic lock re-engages immediately.^";
+               }
+       ],
+  has static container openable locked; ! Added 'openable' so the player can use the 'open' command
+

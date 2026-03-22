@@ -1,0 +1,186 @@
+SecurityDrone SecurityDrone1 "security drone" 
+    with move_count 0,
+    home_base Atrium,
+    is_active 1,
+    drone_alert 0,
+    drone_id 1;
+SecurityDrone SecurityDrone2 "security drone" 
+    with move_count 15,
+    home_base Hangar,
+    is_active 1,
+    drone_alert 0,
+    drone_id 2;
+Object BrokenDrone "broken drone"
+  with name 'broken' 'disassembled' 'drone' 'robot' 'machine' 'patrol' 'sphere', 
+       description "An inert sphere of black metal, split open to reveal its insides. You see a bright silver chip with some writing on it.",
+       initial "A broken drone sits here.",
+  has static container open scenery;
+AVModule AVModule1 "silver bio-chip"
+    ;
+AVModule AVModule2 "silver bio-chip"
+    ;
+Object AVModuleFried "fried silver bio-chip"
+  with name 'chip' 'module' 'silver' 'wafer' 'fried',
+       bulk BULK_POCKET,
+       chip_timer 0,  ! This uses the Property you just created
+       is_installed false,
+        description [;
+            if (self notin player) 
+                "It's too small to make out the writing while it's tucked in there. You'll need to pick it up.";
+            if (self.chip_timer >= 10) 
+                "A useless piece of slagged silver electronics.";
+            "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
+       ],
+        after [;
+            Take:
+                "As your fingers close around the silver wafer, a sharp, rhythmic pulsing begins behind your left ear. Your neural port has recognized the hardware and wants you to install it.";
+       ],
+       before [;
+            Examine:
+                ! If the chip is NOT in the player's inventory, 
+                ! the description logic above handles the 'too small' message.
+                ! This is just to ensure the 'examine' doesn't trigger 
+                ! other logic prematurely.
+            Wear, Install:
+                if (self.chip_timer >= 10) "The chip is burnt out and won't interface with your port.";
+                if (AV_codec_active == 1) "You already have a working translation matrix active.";
+                
+                AV_codec_active = 1; 
+                self.is_installed = true;
+                StartDaemon(self);
+                remove self; ! Pulls it from inventory into 'nowhere' while installed
+                "You slide the chip into the port behind your ear, and your neural link integrates the new data stream. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^^";
+       ],
+       daemon [;
+            if (self.is_installed == false) return;
+            self.chip_timer++;
+            ! Phase 1: Turns 1-3 (Flawless)
+            if (self.chip_timer == 1) { 
+                AV_codec_active = 1; 
+                print "From the center of your head, you hear a perfectly modulated voice.^^";
+                print "~Link successful! Great job. I knew you could do it. Welcome to the universe, I'm sorry it's not a better one right now. I'm Arpi, and I'm your only friend on this ";
+                Ship();
+                print ". And the thing is, you're my only friend too. We're going to have to trust each other. First, we need to do something about the ";
+                Drones();
+                print ".~";
+                new_line;            
+                }
+                if (self.chip_timer == 4) { 
+                AV_codec_active = 1; 
+                print "A touch of concern tinges Arpi's voice.^^";
+                print "~Did you notice that? I caught something strange in our linkup.~";
+                new_line;
+            }
+            ! Phase 2: Turns 5-8 (50/50 Flicker)
+            if (self.chip_timer >= 5 && self.chip_timer < 9) {
+                if (random(100) <= 50) AV_codec_active = 1;
+                else AV_codec_active = 0;
+            }
+            if (self.chip_timer == 9) { 
+                AV_codec_active = 1; 
+                print "A touch of concern has matured into laser focus.^^";
+                print "~Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i Cernyv-Jadroz.~";
+                new_line;
+            }
+            ! Phase 3: Turns 9-11 (70/30 Failure - Weighted towards 0)
+            if (self.chip_timer >= 9 && self.chip_timer < 11) {
+                if (random(100) <= 30) AV_codec_active = 1; ! Only 30% chance to work
+                else AV_codec_active = 0;
+
+            }
+
+            ! The Ejection: Turn 12
+            if (self.chip_timer >= 12) {
+                StopDaemon(self);
+                AV_codec_active = 0; ! Permanent failure
+                self.is_installed = false;
+                new_line;
+                style roman;
+                "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.^";
+            }
+       ];
+Object DroneBench "drone workbench" DroneWorkshop
+    with name 'workbench' 'table' 'bench',
+       description [;
+           print "A shiny, sterile-looking workbench. A pegboard with some tools is at hand. ";
+           
+           if (child(self) == 0) "Otherwise, the workbench is empty.";
+           
+           print "On the workbench, you see ";
+           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
+           ".";
+       ],
+       before [;
+           Receive:
+                if (noun.shelvable ~= 1) {
+                    print "That doesn't look like it belongs on the metal shelf.^";
+                    return true;
+                }
+                move noun to self;
+                "You put ", (the) noun, " on the workbench.";
+       ],
+  has static supporter scenery;
+Object DroneCharger "drone charger" DroneWorkshop
+  with name 'charger' 'machine' 'generator' 'housing' 'slot' 'cavity' 'hole' 'wall' 'unit',
+       occupied_by 0,
+       description [;
+           print "A wall unit for recharging drones.";
+           if (child(self) ~= 0) {
+               print " ", (The) child(self), " is seated in the charging slot.";
+           } else {
+               print " The charging slot is empty.";
+           }
+           new_line;
+           rtrue;
+       ],
+       describe [; rtrue; ],
+       before [ d; 
+            Receive:
+                if (noun == SecurityDrone1 or SecurityDrone2 or BrokenDrone) {
+                    "The drone is broken beyond your ability to repair, and it does not even register in the charger.";
+                }
+                if (noun provides charged) {
+                    if (noun.charged == 0) "That battery is dead.";
+                } else {
+                    "That doesn't fit the charging port.";
+                }
+            LetGo: 
+                if (noun provides charged) {
+                    d = self.occupied_by; 
+
+                    if (d == SecurityDrone1 or SecurityDrone2) {
+                        ! Only award points if the drone is currently alive
+                        if (d.is_active == 1) {
+                            d.is_active = 0; 
+                            give d ~static;
+                            
+                            ! --- SCORING LOGIC ---
+                            if (d == SecurityDrone1) achieved(7);
+                            if (d == SecurityDrone2) achieved(8);
+                        }
+                        
+                        self.occupied_by = 0; 
+                        
+                        print "As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
+                        The drone's red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
+                        rtrue; 
+                    }
+                }
+       ],
+  has container open;
+Object DroneHatch "drone hatch"
+    with name 'hatch' 'ceiling' 'opening' 'vent' 'shutter' 'iris',
+         description "A small iris hatch set into the ceiling.",
+         found_in [;
+             if (location has light) rtrue; ! Exists in every lit room
+             rfalse;
+         ],
+         before [;
+             Enter, Go, Climb:
+                 "The hatch is high above you and sealed by a biometric lock. It's strictly for the drones.";
+             Open:
+                 "You can't find any interface to open it. It only responds to drone proximity signals.";
+             Take, Pull, Remove:
+                 "It's built into the very frame of the ship's hull.";
+         ],
+    has  scenery static;
