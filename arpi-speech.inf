@@ -99,9 +99,8 @@ Object Arpi "Arpi"
     ];
     [ ArpiDrones;
     drones_known = 1;
-    print "^~They're not as tough or as smart as they look, but most people don't get past the tasers to find out.~";
-    new_line;
-    print "Arpi's tone turns more serious. ~Their weakness is their power source. The charging station. Disable it!~^";
+    print "^~They're not as tough or as smart as they look, but most people don't get past the tasers to find out.~^^
+    Arpi's tone turns more serious. ~Their weakness is their power source. The charging station. Disable it!~^";
     rtrue;
     ];
 [ Ship;
@@ -183,10 +182,26 @@ Object Arpi "Arpi"
     ];
 ! Hints
 [ ArpiServerFarmHint; 
-    print "~Have you ever seen a Zettabyte?~ Muses Arpi. ~You're standing in one now. These ";
-    Servers();
-    print " run most of the rest of the ship on waste heat alone.~^";
-    ];
+    ! Part 1: Translate the first half. 
+    ! The Russian side has the full question, the English side stops at "These ".
+    TranslateAV(
+        "i Zettabyt videl si koga? V nem stoyish ty seiches.", 
+        "~Have you ever seen a Zettabyte?~ Muses Arpi. ~You're standing in one now. These "
+    );
+
+    ! Part 2: Only show the server info if we are NOT in Russian mode.
+    ! (Assuming 'language_is_russian' or similar is your global flag)
+    if (AV_codec_active == 1) {
+        Servers(); 
+    }
+
+    ! Part 3: Translate the conclusion.
+    ! The Russian side handles the 'ship remnant' part, the English side finishes the sentence.
+    TranslateAV(
+        " Servery onosti korab-ostatek na teplo-otpad samoten musy.", 
+        " run most of the rest of the ship on waste heat alone.~^"
+    );
+];
 [ ArpiCrawlHint; 
     print "~You REALLY don't belong here. This place is for "; 
     Crawls(); 
