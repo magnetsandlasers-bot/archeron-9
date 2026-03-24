@@ -1,0 +1,658 @@
+Start of a transcript of
+Archeron-9
+An Interactive Sci-Fi Mystery
+Release 0 / Serial number 260322 / Inform v6.44 Library v6.12.8 S
+Standard interpreter 1.1 (1F) / Library Serial Number 251226
+
+>
+get suit. take cell. n. w. put cell in wall. put cell in column. e. take card. open door with card. e. 
+(the high-tech jumpsuit)
+
+You slip on the jumpsuit. It conforms to your body like a second skin. The
+advanced nano-material immediately adjusts to your body temperature, providing
+perfect insulation against the biting cold. You feel secure and protected.
+Taken.
+
+Red alarm lights flash! A siren sounds! A voice booms!
+
+"KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+KRZHDAR JADROZ
+The air here smells of ozone. A complex mechanism is set into the north wall,
+and a massive column dominates the center of the room. The room is silent and
+dark. The exit lies to the East.
+
+Red alarm lights flash! A siren sounds! A voice booms!
+
+"KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+(first taking the pulsing cylinder out of the wall socket)
+You slide the pulsing cylinder into the column's slot. It clicks home and
+recedes into the housing. A new empty slot takes its place.
+
+THOOM!
+
+The room groans to life. Lights flicker on overhead. A steady hum replaces the
+dead silence of the ship.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+Taken.
+As you slide the card through, the lock chirps and the heavy door hums open.
+
+KRZHDYN STAVR
+A claustrophobic little closet smelling of magic smoke and hot circuitry. Status
+panels of various sizes fill the walls. Cables and wires snake in and out,
+around and under them. Looking at the panels, you notice one light next to a
+metal lever marked POHYB ZANER is flashing amber.
+
+On the metal shelf are three dark cylinders.
+
+>take cell. w. w. put cell in wall. put cell in column. e. e.
+Taken.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+KRZHDAR JADROZ
+The air here smells of ozone. A complex mechanism is set into the north wall,
+and a massive column dominates the center of the room. The column hums with a
+deep, bone-shaking rhythm. The exit lies to the East.
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+(first taking the pulsing cylinder out of the wall socket)
+You slide the pulsing cylinder into the column's slot. It clicks home and
+recedes into the housing. A new empty slot takes its place.
+
+The reactor hums louder, power surging through the ship's systems. You feel a
+slight vibration in the floor plates.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+An intercom in the ceiling crackles to life!
+
+"STAVR: I VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.
+
+KRZHDYN STAVR
+A claustrophobic little closet smelling of magic smoke and hot circuitry. Status
+panels of various sizes fill the walls. Cables and wires snake in and out,
+around and under them. Looking at the panels, you see that all status lights are
+green, including the one next to the lever marked  POHYB ZANER. A metal shelf is
+bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and
+other detritus. The only exit is West.
+
+On the metal shelf are two dark cylinders.
+
+>take cell. w. w. put cell in wall. put cell in column. e. e. pull lever. w.
+Taken.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+KRZHDAR JADROZ
+The air here smells of ozone. A complex mechanism is set into the north wall,
+and a massive column dominates the center of the room. The column hums with a
+deep, bone-shaking rhythm. The exit lies to the East.
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+(first taking the pulsing cylinder out of the wall socket)
+You slide the pulsing cylinder into the column's slot. It clicks home and
+recedes into the housing. A new empty slot takes its place.
+
+The entire ship shudders as full power floods through every system. Far in the
+distance, you hear the heavy clunk of bulkheads and machinery coming to life.
+
+An intercom in the ceiling crackles to life!
+
+"STAVR: NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+KRZHDYN STAVR
+A claustrophobic little closet smelling of magic smoke and hot circuitry. Status
+panels of various sizes fill the walls. Cables and wires snake in and out,
+around and under them. Looking at the panels, you see that all status lights are
+green, including the one next to the lever marked  POHYB ZANER. A metal shelf is
+bolted to one wall. It looks cluttered with boxes, manuals, spare parts, and
+other detritus. The only exit is West.
+
+On the metal shelf is a dark cylinder.
+With the status light glowing green, you pull the lever. The machinery groans
+with a deep THRUM throughout the ship!
+
+The heavy iron lever is fixed in place.
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, the bulkhead door stands open, leading deeper into the ship. To
+the East, a security door marked KRZHDYN is closed. An open archway leads West
+towards an area marked JADROZ. A desiccated corpse lies slumped against the
+wall.
+
+>n
+
+
+As you step into the forward section, you hear a heavy CLUNK behind you. The
+bulkhead door slams shut and seals itself. You're committed now.
+
+POHYB STAVR NIZK
+Another segment of the long, dark corridor. The emergency lights flicker
+erratically. The corridor continues North. To the South, the bulkhead door is
+closed.
+
+>n
+
+POHYB STAVR SRED
+The central segment of the spine corridor. The air here feels colder, and the
+emergency lights are almost completely dead. The corridor continues North and
+South.
+
+>n
+
+JADROZ POHYB
+A massive, multi-level atrium. Exits lead North, South, East, and West. Windows
+above you are mirrored. A central staircase leads down. 
+
+>w
+
+VZRAC ZAMER
+A reinforced checkpoint. Exits lead East and West. To the North, a heavy,
+reinforced door leads to what appears to be a detention area.
+
+A reinforced locker is set into the wall under a sign reading KOVRAZHSK.
+>w
+
+KRZHDYN VZRAC
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>w
+
+VZRAC MAJSTRZ
+This is a small workshop that looks like it must be used for working on security
+drones. On a workbench you see an opened drone.
+
+Against the south wall, you see a place where drones can fly in to charge. It is
+powered by a pulsing cell.
+
+>take chip
+As your fingers close around the silver wafer, a sharp, rhythmic pulsing begins
+behind your left ear. Your neural port has recognized the hardware and wants you
+to install it.
+
+>install chip
+You slide the chip into the port behind your ear, and your neural link
+integrates the new data stream. You blink, and your vision seems to shift focus
+for a moment. Your hearing gets muffled in one ear after another, then pings
+into clarity.
+
+
+From the center of your head, you hear a perfectly modulated voice.
+
+"Link successful! Great job. I knew you could do it. Welcome to the universe,
+I'm sorry it's not a better one right now. I'm Arpi, and I'm your only friend on
+this ship. And the thing is, you're my only friend too. We're going to have to
+trust each other. First, we need to do something about the drones."
+
+>tell me about the drones
+You talk to yourself for a while.
+
+>arpi, tell me about the drones
+
+"They're not as tough or as smart as they look, but most people don't get past
+the tasers to find out."
+
+Arpi's tone turns more serious. "Their weakness is their power source. The
+charging station. Disable it!"
+
+A hatch in the ceiling opens and a security drone lowers into the room, heading
+for the charging station.
+
+An intercom in the ceiling crackles to life!
+
+"STATUS: SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.
+
+>hide
+You swiftly duck into the nearest shadows. You hold your breath, hoping to
+remain unnoticed.
+A touch of concern tinges Arpi's voice.
+
+"Did you notice that? I caught something strange in our linkup."
+
+The drone hovers past, missing you in the shadows.
+
+With its path clear, the security drone slots into the charging unit with a
+metallic click.
+
+>e
+You move, breaking your concealment.
+
+Ops Center
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>r
+That's not a verb I recognise.
+
+>w
+
+VZRAC MAJSTRZ
+This is a small workshop that looks like it must be used for working on security
+drones. On a workbench you see an opened drone.
+
+Against the south wall, you see a place where drones can fly in to charge. It is
+powered by a pulsing cell.
+
+>arpi, tell me about the drones
+
+"They're not as tough or as smart as they look, but most people don't get past
+the tasers to find out."
+
+Arpi's tone turns more serious. "Their weakness is their power source. The
+charging station. Disable it!"
+
+>take cell
+Taken.
+
+>drop cell
+Dropped.
+A touch of concern has matured into laser focus.
+
+"Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must
+have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i
+Cernyv-Jadroz."
+
+>s
+You can't go that way.
+
+>e
+
+KRZHDYN VZRAC
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+You hear the unmistakable hum of a security drone nearby.
+
+>d
+You can't go that way.
+
+With a sharp mechanical click, the chip physically ejects from your port,
+falling to the floor and bouncing away into a crevice. It's gone.
+
+
+You hear the unmistakable hum of a security drone nearby.
+
+>w
+
+VZRAC MAJSTRZ
+This is a small workshop that looks like it must be used for working on security
+drones. On a workbench you see an opened drone.
+
+Against the south wall, you see a place where drones can fly in to charge. It is
+powered by a pulsing cell.
+
+You can also see a pulsing cylinder here.
+
+>n
+You can't go that way.
+
+>e
+
+KRZHDYN VZRAC
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+You hear the unmistakable hum of a security drone nearby.
+
+>u
+You can't go that way.
+
+>n
+
+CERNYV STYRZ
+Rows of server banks hum quietly. The exit is South. A short stairway leads up
+to a small landing.
+
+>u
+
+KAELTH
+A landing in a stairwell. There is a locked door on the West wall. You can go up
+or down.
+
+>u
+
+JADROZ PARYN
+Towering black server racks. There is a narrow passage north through the maze of
+equipment. A doorway to the southeast leads to a landing.
+
+N. N. E. W. N. E. NW. S. E. SE.
+
+i Zettabyt videl si koga? V nem stoyish ty seiches. Servery onosti korab-ostatek
+na teplo-otpad samoten musy.
+
+>se
+
+KAELTH
+A landing in a stairwell. There is a locked door on the West wall. You can go up
+or down.
+
+>d
+
+CERNYV STYRZ
+Rows of server banks hum quietly. The exit is South. A short stairway leads up
+to a small landing.
+
+>w
+You can't go that way.
+
+>w
+You can't go that way.
+
+>e
+You can't go that way.
+
+>d
+You can't go that way.
+
+>s
+
+KRZHDYN VZRAC
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>w
+
+VZRAC MAJSTRZ
+This is a small workshop that looks like it must be used for working on security
+drones. On a workbench you see an opened drone.
+
+Against the south wall, you see a place where drones can fly in to charge. It is
+powered by a pulsing cell.
+
+An inert security drone lies on the floor, a smoking wreck.
+
+You can also see a pulsing cylinder here.
+
+An intercom in the ceiling crackles to life!
+
+"STAVR: NESTAV STAVR. I VESKRA NE-KRZHD.
+
+>open drone
+(the security drone)
+You open the security drone, revealing a silver bio-chip.
+
+>take chip
+Taken.
+
+>install chip
+You slide the chip into the port behind your ear. Your neural link integrates
+the new data stream, flickering your vision for a moment.
+
+>s
+You can't go that way.
+
+>e
+
+Ops Center
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>e
+
+Security Checkpoint
+A reinforced checkpoint. Exits lead East and West. To the North, a heavy,
+reinforced door leads to what appears to be a detention area.
+
+A reinforced locker is set into the wall under a sign reading EVIDENCE.
+>n
+You can't, since the reinforced door is in the way.
+
+>n
+You can't, since the reinforced door is in the way.
+
+>w
+
+Ops Center
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>n
+
+Server Room
+Rows of server banks hum quietly. The exit is South. A short stairway leads up
+to a small landing.
+
+>u
+
+landing
+A landing in a stairwell. There is a locked door on the West wall. You can go up
+or down.
+
+>u
+
+Server Farm
+Towering black server racks. There is a narrow passage north through the maze of
+equipment. A doorway to the southeast leads to a landing.
+
+N. N. E. W. N. E. NW. S. E. SE.
+
+>n
+
+Server Farm
+Towering black server racks. You are lost.
+
+An intercom in the ceiling crackles to life!
+
+"STATUS: SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.
+
+>n
+
+Server Farm
+Towering black server racks. There is a small, cluttered equipment shelf here. 
+
+"Finally, something useful!" Arpi sounds excited. "That Glass will come in
+handy. Not sure about that other junk."
+
+
+>n
+
+Server Farm
+Towering black server racks. You are lost.
+
+>s
+You can't go that way.
+
+>w
+
+Server Farm
+Towering black server racks. There is a small, cluttered equipment shelf here. 
+
+An intercom in the ceiling crackles to life!
+
+"STATUS: SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.
+
+>x shelf
+A metal shelf bolted to a server. Perusing its jumbled contents, you see a some
+kind of wand, a smooth piece of glass, a burned-out circuitboard and a pair of
+goggles.
+
+>take glass
+Taken.
+
+>take wand
+An electric spark arcs out of the wand the moment your fingers touch it.
+
+The device is jolted off the shelf and hits the floor with a heavy thunk.
+
+>take wand
+An electric spark arcs out of the wand the moment your fingers touch it.
+
+You recoil so fast it simply clatters back onto the deck.
+
+>arpi, tell me about this wand
+"I have no relevant data regarding that."
+
+>arpi, tell me about the wand
+You could swear you hear the suppressed laughter in Arpi's voice. "I don't think
+that thing is fit for service."
+
+>take goggles
+Taken.
+
+>put on goggles
+As you put on the goggles, your vision goes completely black! You can't see
+anything!
+You hastily remove them.
+
+>n
+
+Server Farm
+Towering black server racks. You are lost.
+
+>w
+
+Server Farm
+Towering black server racks. There is a small, cluttered equipment shelf here. 
+
+On the equipment shelf is a burned-out circuitboard.
+
+There is some kind of wand on the equipment shelf.
+
+>E. W. N. E. NW. S. E. SE.
+
+Server Farm
+Towering black server racks. A window on the west wall looks down into the
+Atrium.
+
+An intercom in the ceiling crackles to life!
+
+"STATUS: CORE FLUID LEAK DETECTED.
+
+Server Farm
+Towering black server racks. There is a small, cluttered equipment shelf here. 
+
+On the equipment shelf is a burned-out circuitboard.
+
+There is some kind of wand on the equipment shelf.
+
+Server Farm
+Towering black server racks. You are lost.
+
+Server Farm
+Towering black server racks. You see a shelf here.
+
+Server Farm
+Towering black server racks. You are lost.
+
+Server Farm
+Towering black server racks. A window on the east wall looks down into the
+Atrium.
+
+Server Farm
+Towering black server racks. You see a shelf here.
+You slip through a narrow opening and into a little sorting area carved out of
+the maze of server racks.
+
+Server Terminal
+A little sorting area carved out of the maze of server racks. Crates of
+discarded equipment define the perimeter of this space. You catch some movement
+in the crates out of the corner of your eye. A passageway to the southwest leads
+to a long, well-lit corridor.
+
+You can see an examination chair here.
+
+>sit in chair
+You get onto the examination chair.
+
+>put on goggles
+You put on the goggles. With the chair's optical calibration, your vision
+becomes crystal clear.
+
+The JeeJah vibrates in your hand.
+
+>x jeejah
+
+A message appears on the screen:
+"RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY? Y/N"
+
+y
+
+
+The goggles flare with light as the scan completes. Your retinal data is
+uploaded.
+The goggles go dark and the chair releases you.
+
+>drop goggles
+(first taking the pair of goggles off)
+Dropped.
+
+>sw
+(first getting off the examination chair)
+
+Server Farm
+Towering black server racks. There is a narrow passage north through the maze of
+equipment. A doorway to the southeast leads to a landing.
+
+N. N. E. W. N. E. NW. S. E. SE.
+
+>se
+
+landing
+A landing in a stairwell. There is a locked door on the West wall. You can go up
+or down.
+
+>d
+
+Server Room
+Rows of server banks hum quietly. The exit is South. A short stairway leads up
+to a small landing.
+
+>s
+
+Ops Center
+Banks of monitors display the ship's status. A Recall Terminal sits here. Exits
+lead North, Northwest, South, and East.
+
+>w
+
+Drone Workshop
+This is a small workshop that looks like it must be used for working on security
+drones. On a workbench you see an opened drone.
+
+Against the south wall, you see a place where drones can fly in to charge. It is
+powered by a pulsing cell.
+
+Two inert security drones lie on the floor, smoke still curling from their
+chassis.
+
+You can also see a pulsing cylinder here.
+
+An intercom in the ceiling crackles to life!
+
+"STATUS: CORE MOTION FAILURE. ZERO PERCENT.
+
+>
