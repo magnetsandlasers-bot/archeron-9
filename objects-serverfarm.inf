@@ -186,7 +186,10 @@ Object Crates "crates" ServerTerminalRoom
             "There is no way you are going to be able to manage that.";
     ],
     has static scenery;
-    Object ExamChair "examination chair" ServerTerminalRoom
+Object ExamChair "examination chair" ServerTerminalRoom
     with name 'chair' 'examination' 'seat',
     description "A large, mechanical examination chair with articulated arms and strange optical equipment mounted overhead. It looks designed for medical or technical analysis.",
     has static enterable supporter;
+Object Note "note" ServerFarm1
+    with name 'note' 'paper' 'scrap',
+    description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~";
