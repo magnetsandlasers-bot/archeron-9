@@ -147,19 +147,19 @@
             new_line;
             if (AV_codec_active == 1) {
                 switch(r) {
-                    1: print "~CORE FLUID LEAK DETECTED.";
-                    2: print "~SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.";
-                    3: print "~SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.";
-                    4: print "~CORE MOTION FAILURE. ZERO PERCENT.";
-                    5: print "~DATA LOG ERROR. PURGE SEQUENCE FAILED.";
+                    1: print "~CORE FLUID LEAK DETECTED. CORE FLUID LEAK DETECTED.~";
+                    2: print "~SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE. SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.~";
+                    3: print "~SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL. SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.~";
+                    4: print "~CORE MOTION FAILURE. ZERO PERCENT. CORE MOTION FAILURE. ZERO PERCENT.~";
+                    5: print "~DATA LOG ERROR. PURGE SEQUENCE FAILED. DATA LOG ERROR. PURGE SEQUENCE FAILED.~";
                 }
             } else {
                 switch(r) {
-                    1: print "~VODOJADRO i NE-KRZHDUZH.";
-                    2: print "~NESTAV STAVR. i VESKRA NE-KRZHD.";
-                    3: print "~NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.";
-                    4: print "~JADROPOHYB NE-KRZHDUZH. 0 TSKOR.";
-                    5: print "~i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.";
+                    1: print "~VODOJADRO i NE-KRZHDUZH. VODOJADRO i NE-KRZHDUZH.~";
+                    2: print "~NESTAV STAVR. i VESKRA NE-KRZHD. NESTAV STAVR. i VESKRA NE-KRZHD.~";
+                    3: print "~NESTAV KORABSTYRZ. KRZHD: 0 TSKOR. NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.~";
+                    4: print "~JADROPOHYB NE-KRZHDUZH. 0 TSKOR. JADROPOHYB NE-KRZHDUZH. 0 TSKOR.~";
+                    5: print "~i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH. i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.~";
                 }
             }
             new_line;
@@ -381,11 +381,8 @@
             if (Mod(turn_count, 2) == 0) {
                 print "^Red alarm lights flash! A siren sounds! A voice booms!^";
                 new_line;
-                style underline;
-                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!";
+                print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~";
                 new_line;
-                style roman;
-
             }
         }
     }

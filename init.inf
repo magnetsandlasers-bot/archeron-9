@@ -37,7 +37,7 @@
     ! --- Activate Alarm Lights ---
     alarm_lights_active = 1;
     new_line;
-    print "KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!";
+    print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH! KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~";
     new_line;
     Banner();
     print "^Press any key to begin... ";
@@ -47,7 +47,7 @@
     new_line;
     print "^Red alarm lights begin flashing! You hear the announcement again, and though you can't understand the strange words, you can tell they sound urgent.^";
     new_line;
-    print "KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!^";
+    print "~KRZHDYN: STAVR! DRAZKARY: ZAMEROSH! KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!~^";
     new_line;
     print "You are naked, and cooling off fast. The air is freezing here, stinging your exposed skin.^";
     return 2; ! Suppress banner, start game

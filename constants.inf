@@ -30,6 +30,7 @@
     Global servers_known = 0;
     Global drones_known = 0;
     Global ship_known = 0;
+    Global linkup_known = 0;
 
 ! DECLARED PROPERITES
     Property zh_name; ! Provides Zerakthyn room name

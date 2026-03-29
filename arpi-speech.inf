@@ -37,6 +37,7 @@ Object Arpi "Arpi"
                     'servers': return ArpiServers();
                     'drones': return ArpiDrones();
                     'wand': return ArpiExplainWand();
+                    'linkup': return ArpiLinkup();
 
                 ! --- THE SECRET EXIT TRIGGER ---
                     'help', 'maze', 'path', 'shortcut', 'exit':
@@ -110,7 +111,18 @@ Object Arpi "Arpi"
     ];
     [ ArpiShip;
     ship_known = 1;
-    print "^~This is the Archeron-9, a mining vessel.";
+    print "^~This is the Archeron-9, a mining vessel.~";
+    new_line;
+    rtrue;
+    ];
+[ Linkup;
+    if (linkup_known == 0) style bold;
+    print "linkup";
+    style roman;
+    ];
+    [ ArpiLinkup;
+    linkup_known = 1;
+    print "^~The chip you installed seems to be glitching a little on my end. Could be nothing, could be a bad chip. At least we know where we can find more.~";
     new_line;
     rtrue;
     ];

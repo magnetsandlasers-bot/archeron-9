@@ -78,7 +78,9 @@ Object AVModuleFried "fried silver bio-chip"
                 if (self.chip_timer == 4) { 
                 AV_codec_active = 1; 
                 print "A touch of concern tinges Arpi's voice.^^";
-                print "~Did you notice that? I caught something strange in our linkup.~";
+                print "~Did you notice that? I caught something strange in our ";
+                Linkup();
+                print ".~";
                 new_line;
             }
             ! Phase 2: Turns 5-8 (50/50 Flicker)
