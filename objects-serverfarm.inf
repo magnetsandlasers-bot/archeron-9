@@ -115,29 +115,37 @@ Object JeeJah "smooth piece of glass"
     ],
     before [;
         Examine:
-            if (identity_hacked == 1) "The JeeJah is dormant.";
-            if (parent(player) ~= ExamChair) {
-                "You need to be seated in the examination chair to use this.";
+            ! 1. If we ALREADY hacked it, skip all scan logic and show normal description.
+            if (identity_hacked == 1) rfalse;
+
+            ! 2. Check if the player is in the chair. 
+            ! If they ARE, try to run the scan.
+            if (parent(player) == ExamChair) {
+                if (RetinalScanner hasnt worn) {
+                    "You need to be wearing the goggles for the retinal scan to work.";
+                }
+                if (RetinalScanner.scanned == 1) {
+                    "The scan has already been performed.";
+                }
+                
+                print "^A message appears on the screen:^";
+                TranslateAV("~VZDYK I OSOBVZRAC KORABSTRAZHNIK ZAMER Y ROZUMSTAV? Y/N~^^", 
+                            "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY? Y/N~^^");
+                
+                if (YesOrNo()) {
+                    print "^^The goggles flare with light as the scan completes. Your retinal data is uploaded.^";
+                    identity_hacked = 1;
+                    RetinalScanner.scanned = 1;
+                    print "The goggles go dark and the chair releases you.^";
+                    rtrue;
+                } else {
+                    "You cancel the scan.";
+                }
             }
-            if (RetinalScanner hasnt worn) {
-                "You need to be wearing the goggles for this to work.";
-            }
-            if (RetinalScanner.scanned == 1) {
-                "The scan has already been performed.";
-            }
-            print "^A message appears on the screen:^";
-            TranslateAV("~VZDYK I OSOBVZRAC KORABSTRAZHNIK ZAMER Y ROZUMSTAV? Y/N~^^", "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY? Y/N~^^");
-            ! print "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY?~^^";
-            if (YesOrNo()) {
-                print "^^The goggles flare with light as the scan completes. Your retinal data is uploaded.^";
-                identity_hacked = 1;
-                RetinalScanner.scanned = 1;
-                print "The goggles go dark and the chair releases you.^";
-                rtrue;
-            } else {
-                print "You cancel the scan.^";
-                rtrue;
-            }
+            
+            ! 3. If we aren't in the chair (or the scan isn't happening), 
+            ! return false to let the 'description' property run normally.
+            rfalse;
     ],
     after [;
         Take:

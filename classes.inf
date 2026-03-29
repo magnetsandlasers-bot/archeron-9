@@ -113,16 +113,29 @@ Class AVModule
         before [;
             Wear: <<Install self>>;
             Install:
-                ! Check if EITHER system is already occupied
                 if (AV_codec_active == 1) { 
                     print "You hear a tiny buzzer sound and the chip refuses to insert.^"; 
                     rtrue; 
                 }
-                achieved(6); ! Task 6: Meet ARPI
+
+                ! --- NEW LOGIC START ---
+                if (arpi_aware == 1) {
+                    print "You slide the chip in. A familiar rhythmic pulsing begins, then settles. 
+                    ~We're back!~ Arpi's voice sounds clearer than before, relieved. ~I thought I lost you when that last module slagged out.~^";
+                } 
+                else {
+                    arpi_aware = 1; ! Now they are aware
+                    print "You slide the chip in. Your neural link integrates the data stream. 
+                    ~Link successful!~ a new voice chimes in your mind. ~I'm Arpi. We're going 
+                    to have to trust each other if we're getting off this ship.~^";
+                }
+                ! --- NEW LOGIC END ---
+
+                achieved(6); 
                 AV_codec_active = 1;
                 installed_chip = self;
-                remove self; ! This replaces move self to (0);                
-                    print "You slide the chip into the port behind your ear. Your neural link integrates the new data stream, flickering your vision for a moment.^";
+                StartDaemon(self); ! Ensure the daemon starts for standard chips too
+                remove self; 
                 rtrue;
         ];
 Class Battery

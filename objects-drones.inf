@@ -27,14 +27,10 @@ Object AVModuleFried "fried silver bio-chip"
         description [;
             if (self notin player) 
                 "It's too small to make out the writing while it's tucked in there. You'll need to pick it up.";
-            if (self.chip_timer >= 10) {
-                if (arpi_aware == 0) {
-                    arpi_aware = 1;
-                }
-                
-                "A useless piece of slagged silver electronics.";
-            "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
-            }
+            if (self.chip_timer >= 10) 
+             "A useless piece of slagged silver electronics.";
+        "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
+            
        ],
         after [;
             Take:

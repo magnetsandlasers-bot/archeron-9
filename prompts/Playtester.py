@@ -189,10 +189,12 @@ def run_playtester(valves, max_turns: int):
 
             messages = [{"role": "system", "content": strategist_prompt}]
             messages.extend(deepseek_history[-10:])
-            messages.append({
-                "role": "user",
-                "content": f"GAME MEMORY:\n{game_memory}\n\nCURRENT SCENE:\n{json.dumps(scene_json)}",
-            })
+            messages.append(
+                {
+                    "role": "user",
+                    "content": f"GAME MEMORY:\n{game_memory}\n\nCURRENT SCENE:\n{json.dumps(scene_json)}",
+                }
+            )
 
             try:
                 strat_comp = deepseek_client.chat.completions.create(
@@ -271,7 +273,10 @@ def run_playtester(valves, max_turns: int):
             last_command = command
 
             transcript.append(
-                f"\n--- TURN {turn} ---\n**STRATEGY**: {strategy_text}\n**COMMAND**: `> {command}`\n"
+                f"\n--- TURN {turn} ---\n"
+                f"**INTERNAL MEMORY**:\n{game_memory}\n\n" # <--- Add this line
+                f"**STRATEGY**: {strategy_text}\n"
+                f"**COMMAND**: `> {command}`\n"
             )
             raw_output = frotz.send_command(command)
             transcript.append(f"{raw_output}\n")
@@ -380,7 +385,7 @@ class Tools:
                 "- If an item is 'integrated' or 'biological', stop trying to TAKE/DROP it; EXAMINE it instead.\n"
                 "- If the description is identical to last turn, the game state is static. INTENT: wait.\n"
                 "- Never repeat the same INTENT two turns in a row.\n"
-                "- Before choosing an action, check the FAILED ACTIONS list in memory. Do not repeat any action on that list.\n\n" 
+                "- Before choosing an action, check the FAILED ACTIONS list in memory. Do not repeat any action on that list.\n\n"
                 "Format:\n"
                 "REASONING: <One sentence on the current goal>\n"
                 "INTENT: <The logical interaction>"

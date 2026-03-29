@@ -1,6 +1,6 @@
 ServerFarm ServerFarm1 "Server Farm"
     with zh_name "JADROZ PARYN",
-        description "Towering black server racks. There is a narrow passage north through the maze of equipment. A doorway to the southeast leads to a landing.^",
+        description "Towering black server racks. There is a narrow passage north through the maze of equipment. A doorway to the southeast leads to a landing.",
         se_to Landing,
         arpi_hint ArpiServerFarmHint,
         n_to ServerFarm2;
