@@ -17,10 +17,13 @@ FROTZ_BIN = "/usr/games/dfrotz"
 LOG_DIR = "/app/backend/data"
 STUCK_LIMIT = 6
 
+
 def clean_json_response(text: str) -> str:
     return re.sub(
         r"^```json[\s]*|^```[\s]*|[\s]*```$", "", text, flags=re.MULTILINE
     ).strip()
+
+
 class FrotzProcess:
     _PAUSE_RE = re.compile(
         r"(\[more\]|\[press any key\]|press any key to continue|press a key|press enter to continue|\(more\)|press any key to begin)",
@@ -126,6 +129,7 @@ def run_playtester(valves, max_turns: int):
     last_location_content = ""
     last_command = ""
     stuck_count = 0
+    game_memory = ""
     _ALARM_RE = re.compile(
         r"red alarm lights.*?booms!.*?$", re.IGNORECASE | re.MULTILINE
     )
@@ -147,6 +151,17 @@ def run_playtester(valves, max_turns: int):
                     "objects": [],
                     "exits": [],
                 }
+
+            # Update the persistent memory summary
+            memory_input = (
+                f"CURRENT MEMORY:\n{game_memory}\n\n"
+                f"LAST COMMAND: {last_command}\n"
+                f"CURRENT SCENE:\n{json.dumps(scene_json)}"
+            )
+            memory_resp = gemini_model.generate_content(
+                f"{valves.PROMPT_MEMORY}\n\n{memory_input}"
+            )
+            game_memory = memory_resp.text.strip()
 
             # Strip alarm boilerplate so repeating sirens don't mask real stuck state
             raw_description = scene_json.get("description", "")
@@ -174,13 +189,14 @@ def run_playtester(valves, max_turns: int):
 
             messages = [{"role": "system", "content": strategist_prompt}]
             messages.extend(deepseek_history[-10:])
-            messages.append({"role": "user", "content": json.dumps(scene_json)})
+            messages.append({
+                "role": "user",
+                "content": f"GAME MEMORY:\n{game_memory}\n\nCURRENT SCENE:\n{json.dumps(scene_json)}",
+            })
 
             try:
                 strat_comp = deepseek_client.chat.completions.create(
-                    model=valves.PLANNER_MODEL, 
-                    messages=messages,
-                    temperature=valves.PLANNER_TEMPERATURE
+                    model=valves.PLANNER_MODEL, messages=messages
                 )
                 strategy_text = strat_comp.choices[0].message.content
             except Exception as e:
@@ -328,19 +344,43 @@ class Tools:
             description="Prompt for the Gemini Reporter agent",
         )
 
+        PROMPT_MEMORY: str = Field(
+            default=(
+                "You are the memory system for an autonomous text adventure player. "
+                "Your job is to maintain a concise, accurate summary of everything learned so far.\n\n"
+                "You will receive the current memory, the last command issued, and the current scene.\n"
+                "Update the memory to reflect any new information from the current scene.\n\n"
+                "Track the following:\n"
+                "- ROOMS VISITED: Each room name and its key features and exits.\n"
+                "- INVENTORY: Items currently held by the player.\n"
+                "- FAILED ACTIONS: Commands that produced no result or an error, so they are not repeated.\n"
+                "- ESTABLISHED FACTS: Confirmed interactions, puzzle elements, and cause-effect relationships observed.\n"
+                "- LEADING HYPOTHESIS: The most promising next step based on everything known.\n\n"
+                "Rules:\n"
+                "- Be concise. Use short bullet points. Do not pad or repeat.\n"
+                "- Never invent information not present in the scene or prior memory.\n"
+                "- If the current memory is empty, start fresh from the current scene.\n"
+                "- Output only the updated memory text. No preamble, no explanation."
+            ),
+            description="Prompt for the Gemini Memory agent",
+        )
+
         PROMPT_STRATEGIST: str = Field(
             default=(
                 "You are playing a sci-fi text adventure. Your goal is to solve puzzles and explore.\n"
-                "Analyze the JSON summary and choose an action.\n\n"
+                "You will receive a GAME MEMORY summary of everything learned so far, followed by the CURRENT SCENE.\n"
+                "Use the memory to avoid repeating failed actions and to reason across turns.\n\n"
                 "CORE DIRECTIVES:\n"
                 "1. INTERACT: If a new object is visible (cylinder, card, corpse), try to TAKE or EXAMINE it.\n"
                 "2. EXPERIMENT: If you have an item and a logical target exists (card/slot, cylinder/port), try to combine them.\n"
-                "3. NAVIGATE: If a room is empty or a door is open, move to a new direction (N, S, E, W).\n\n"
+                "3. NAVIGATE: If a room is empty or a door is open, move to a new direction (N, S, E, W).\n"
+                "4. EXPLORE:If you have examined all visible objects in a room and have no new actions available, you MUST move to an unexplored exit. Do not stay in a room you have fully explored.\n\n"
                 "STRATEGY RULES:\n"
                 "- If you are 'Encumbered', your hands are full. DROP an item you've already used.\n"
                 "- If an item is 'integrated' or 'biological', stop trying to TAKE/DROP it; EXAMINE it instead.\n"
                 "- If the description is identical to last turn, the game state is static. INTENT: wait.\n"
-                "- Never repeat the same INTENT two turns in a row.\n\n"
+                "- Never repeat the same INTENT two turns in a row.\n"
+                "- Before choosing an action, check the FAILED ACTIONS list in memory. Do not repeat any action on that list.\n\n" 
                 "Format:\n"
                 "REASONING: <One sentence on the current goal>\n"
                 "INTENT: <The logical interaction>"
@@ -381,10 +421,6 @@ class Tools:
                 "If you are uncertain, default to: COMMAND: LOOK"
             ),
             description="Prompt for the Gemini Encoder agent",
-        )
-        PLANNER_TEMPERATURE: float = Field(
-            default=0.7,
-            description="Temperature for the DeepSeek Strategist (0.0 = deterministic, 2.0 = max creativity)"
         )
 
     def __init__(self):
