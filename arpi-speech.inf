@@ -111,7 +111,9 @@ Object Arpi "Arpi"
     ];
     [ ArpiShip;
     ship_known = 1;
-    print "^~This is the Archeron-9, a mining vessel.~";
+    print "^~This is a mining vessel from what remains of the Archeron Corporation's extraction fleet. 
+    
+    .~";
     new_line;
     rtrue;
     ];
@@ -226,7 +228,7 @@ Object Arpi "Arpi"
     !    ];
 ! Stock Answers
 [ ArpiWhoAreYou;
-    print "~You can call me Arpi.~^";
+    print "~That's actually a pretty complicated question. The short verson is, I used to be you. We'll have to go over the longer version later.~^";
     ];
 [ ArpiExplainWand;
     print "You could swear you hear the suppressed laughter in Arpi's voice. ~I don't think that thing is fit for service.~^";

@@ -66,6 +66,6 @@ ServerFarm ServerTerminalRoom "Server Terminal"
                 print "A couple of Crawls are scuttling about in the crates, tiny spiders breaking down the equipment into its component parts even at this late hour. You admire their dedication.";
             }
             
-            "A passageway to the southwest leads to a long, well-lit corridor.";
+            "A passageway to the southwest leads to a long, dimly lit corridor.";
         ],
         sw_to ServerFarm1;

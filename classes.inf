@@ -126,8 +126,7 @@ Class AVModule
                 else {
                     arpi_aware = 1; ! Now they are aware
                     print "You slide the chip in. Your neural link integrates the data stream. 
-                    ~Link successful!~ a new voice chimes in your mind. ~I'm Arpi. We're going 
-                    to have to trust each other if we're getting off this ship.~^";
+                    ~Link successful!~ a new voice chimes in your mind. ~I'm Arpi. We're going to have to trust each other if we're getting off this ship.~^";
                 }
                 ! --- NEW LOGIC END ---
 
