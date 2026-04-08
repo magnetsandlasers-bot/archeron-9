@@ -38,6 +38,7 @@ Object Arpi "Arpi"
                     'drones': return ArpiDrones();
                     'wand': return ArpiExplainWand();
                     'linkup': return ArpiLinkup();
+                    'rings': return ArpiRings();
 
                 ! --- THE SECRET EXIT TRIGGER ---
                     'help', 'maze', 'path', 'shortcut', 'exit':
@@ -76,7 +77,9 @@ Object Arpi "Arpi"
     ];
     [ ArpiMining;
     mining_known = 1;
-    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has rings, you know.~^^";
+    print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has ";
+    Rings();
+    ", you know.~^^";
     rtrue;
     ];
 [ Servers;
@@ -111,9 +114,7 @@ Object Arpi "Arpi"
     ];
     [ ArpiShip;
     ship_known = 1;
-    print "^~This is a mining vessel from what remains of the Archeron Corporation's extraction fleet. 
-    
-    .~";
+    print "^~This is a mining vessel from what remains of the Archeron Corporation's extraction fleet.~";
     new_line;
     rtrue;
     ];
@@ -128,6 +129,16 @@ Object Arpi "Arpi"
     new_line;
     rtrue;
     ];
+[ Rings;
+    if (rings_known == 0) style bold; 
+    print "rings";
+    style roman;
+    ];
+    [ ArpiRings;
+    rings_known = 1;
+    print "^~Oh these things?~^";
+    rtrue;
+    ];    
 ! Some older phrases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ArpiBrig1;
     switch (random(5)) {
