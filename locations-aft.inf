@@ -1,7 +1,7 @@
 AftRoom CryoBay "Cryo Bay"
   with zh_name "VESKRAN ZRAAV",
        description [;
-           print "You are standing in front of a bank of glass-fronted pods. Most of them are open, like the one you just stepped out of. One next to you appears occupied. The only exit is a door leading north.";
+           print "You are standing in front of a bank of glass-fronted pods. Most of them are open. One near you appears occupied. The only exit is a door leading north.";
            new_line;
            if (jumpsuit_timer > 0 && HighTechJumpsuit in self) {
                print "^A high-tech grey jumpsuit hangs next to the pod you just stepped out of. It looks warm.^";
