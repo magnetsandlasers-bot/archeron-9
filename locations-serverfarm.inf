@@ -58,7 +58,7 @@ ServerFarm ServerTerminalRoom "Server Terminal"
     with 
         initial "You slip through a narrow opening and into a little sorting area carved out of the maze of server racks.",
         description [;
-            print "A little sorting area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space. ";
+            print "A little sorting area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space, and some workbenches ";
             
             if (crawls_known == 0) {
                 print "You catch some movement in the crates out of the corner of your eye. ";

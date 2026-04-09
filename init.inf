@@ -33,7 +33,6 @@
     print "A soft voice in the darkness. ~Jadroz: veskrach... Domn: pohyb.~^";
     print "^As you wake, you find yourself already standing on a cold metal grate, your breath misting in the chill air. Having gently ejected you from its interior, the coffin-like pod behind you is already recalibrating for its next guest. You shiver as your skin dries, wicking away any residual heat you may have been holding. From all around you, a voice barks:^";
     jumpsuit_timer = 3; ! Put on jumpsuit in 3 turns or die
-    move HighTechJumpsuit to CryoBay;
     ! --- Activate Alarm Lights ---
     alarm_lights_active = 1;
     new_line;
@@ -43,6 +42,9 @@
     print "^Press any key to begin... ";
     @read_char 1 -> sp;
     @erase_window $ffff; ! Clear screen for game start
+    ! --- Transcript Check ---
+    if (transcript_mode == false)
+        print "^[Note: Type SCRIPT if you would like to keep a transcript of this session.]^";
     ! --- Pre-Game Urgency Text ---
     new_line;
     print "^Red alarm lights begin flashing! You hear the announcement again, and though you can't understand the strange words, you can tell they sound urgent.^";

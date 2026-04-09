@@ -79,7 +79,7 @@ Object Arpi "Arpi"
     mining_known = 1;
     print "^~Mining?~ Arpi says derisively. ~Dirty and dangerous as ever. The machines are fancier these days though. Nano-scale materials separation. It's the reason this planet has ";
     Rings();
-    ", you know.~^^";
+    print ", you know.~^^";
     rtrue;
     ];
 [ Servers;

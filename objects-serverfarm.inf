@@ -195,23 +195,15 @@ Object Crates "crates" ServerTerminalRoom
     ],
     has static scenery;
 Object ExamChair "exam chair" ServerTerminalRoom
-    with name 'chair' 'exam' 'seat' 'monitor' 'screen',
+    with name 'chair' 'exam' 'seat',
     description [;
         if (player in self) {
-            ! Logic for when the player is sitting in the chair
-            if (RetinalScanner in player && JeeJah in player) {
-                "The monitor displays a step-by-step guide for the retinal scan. Use EXAMINE JEEJAH to begin the process.";
-            }
-            if (JeeJah in player) {
-                "The monitor flickers to life, playing a short, looped video of a person sliding a pair of bulky goggles over their eyes.";
-            }
-            "The monitor glows faintly, displaying a diagram of a pair of goggles and a rectangular glass device. It seems to be a hint of what you need.";
+            "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing monitor is mounted directly in front of the seat.";
         }
         "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing monitor is mounted directly in front of the seat.";
     ],
     after [;
         Enter:
-            ! Logic triggers immediately upon sitting down
             if (RetinalScanner in player && JeeJah in player) {
                 "You settle into the chair. The monitor pulses green, recognizing both components. You are ready to begin.";
             }
@@ -222,6 +214,23 @@ Object ExamChair "exam chair" ServerTerminalRoom
             "You sit in the chair. The monitor flickers on, displaying a 'Required Hardware Missing' error with icons of goggles and a handheld glass pane.";
     ],
     has static enterable supporter;
+Object Monitor "monitor" ServerTerminalRoom
+    with name 'monitor' 'screen' 'display',
+    description [;
+        if (player in ExamChair) {
+            ! Player is sitting in the chair - show the active display
+            if (RetinalScanner in player && JeeJah in player) {
+                "The monitor displays a step-by-step guide for the retinal scan. Use EXAMINE JEEJAH to begin the process.";
+            }
+            if (JeeJah in player) {
+                "The monitor flickers to life, playing a short, looped video of a person sliding a pair of bulky goggles over their eyes.";
+            }
+            "The monitor glows faintly, displaying a diagram of a pair of goggles and a rectangular glass device. It seems to be a hint of what you need.";
+        }
+        ! Player is NOT sitting in the chair
+        "You can't really see it clearly unless you sit in the chair.";
+    ],
+    has static;
 Object Note "note" ServerFarm1
     with name 'note' 'paper' 'scrap',
     description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~";
