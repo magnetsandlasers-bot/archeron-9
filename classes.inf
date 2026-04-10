@@ -139,19 +139,18 @@ Class AVModule
         ];
 Class Battery
          with name 'cell' 'battery' 'cylinder' 'heavy' 'dark' 'batteries//p' 'cells//p' 'cylinders//p',
-     short_name "dark cylinder",
-     plural "dark cylinders",
-     description "A heavy, dark cylinder. A recessed groove runs around its middle.",
+     short_name "dark cell",
+     plural "dark cells",
+     description "A heavy, dark cylindrical object. A recessed groove runs around its middle.",
     charged 0, shelvable 1,     
     bulk BULK_HEAVY;
 Class ChargedBattery
     with name 'cylinder' 'canister' 'heavy' 'unit' 'battery' 'pulsing' 'cell' 'batteries//p' 'cells//p' 'cylinders//p',
-    short_name "pulsing cylinder",
-    plural "pulsing cylinders",
-    description "The cylinder has come to life. Blue light pulses from the recessed groove, and the casing feels warm.",
+    short_name "pulsing cell",
+    plural "pulsing cells",
+    description "The cylindrical object has come to life! Blue light pulses from the recessed groove, and the casing feels warm.",
     charged 1, shelvable 1,
     bulk BULK_HEAVY;
-
 Class ExamChair 
     with name 'chair' 'exam' 'seat',
     description [;

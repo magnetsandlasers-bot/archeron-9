@@ -1,24 +1,24 @@
-Battery Battery1 "dark cylinder"
+Battery Battery1 "dark cell"
      ;
-Battery Battery2 "dark cylinder"
+Battery Battery2 "dark cell"
      ;
-Battery Battery3 "dark cylinder"
+Battery Battery3 "dark cell"
     ;
-Battery Battery4 "dark cylinder"
+Battery Battery4 "dark cell"
     ;
-Battery Battery5 "dark cylinder"
+Battery Battery5 "dark cell"
      ;
-Battery Battery6 "dark cylinder"
+Battery Battery6 "dark cell"
      ;
-ChargedBattery ChargedCell1 "pulsing cylinder"
+ChargedBattery ChargedCell1 "pulsing cell"
     ;
-ChargedBattery ChargedCell2 "pulsing cylinder"
+ChargedBattery ChargedCell2 "pulsing cell"
     ;
-ChargedBattery ChargedCell3 "pulsing cylinder"
+ChargedBattery ChargedCell3 "pulsing cell"
     ;
-ChargedBattery ChargedCell4 "pulsing cylinder"
+ChargedBattery ChargedCell4 "pulsing cell"
     ;
-ChargedBattery ChargedCell5 "pulsing cylinder"
+ChargedBattery ChargedCell5 "pulsing cell"
     ;
-ChargedBattery ChargedCell6 "pulsing cylinder"
+ChargedBattery ChargedCell6 "pulsing cell"
     ;
