@@ -138,30 +138,38 @@
     r;
     ! 1. Do not run if the player is in the Brig
     if (location == Brig) return;
-
     ! 2. Only run the atmosphere logic if power has been restored
     if (power_restored == 1) { 
         if (random(10) == 1) {
             ! 3. Check if atmosphere announcements are silenced
             if (atmosphere_silenced == 1) return;
             r = random(5);
-            print "^An intercom in the ceiling crackles to life!^";
+            
+            ! Randomize the intercom activation message
+            switch(random(5)) {
+                1: print "^The intercom activates with a sharp tone!^";
+                2: print "^An overhead speaker emits a brief chime!^";
+                3: print "^The ceiling intercom comes to life!^";
+                4: print "^A warning tone sounds from the intercom system!^";
+                5: print "^The intercom springs to life with an urgent tone!^";
+            }
             new_line;
+            
             if (AV_codec_active == 1) {
                 switch(r) {
-                    1: print "~CORE FLUID LEAK DETECTED. CORE FLUID LEAK DETECTED.~";
-                    2: print "~SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE. SCRUBBER DEFECTIVE. LIFE-SIGNS UNSTABLE.~";
-                    3: print "~SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL. SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.~";
-                    4: print "~CORE MOTION FAILURE. ZERO PERCENT. CORE MOTION FAILURE. ZERO PERCENT.~";
-                    5: print "~DATA LOG ERROR. PURGE SEQUENCE FAILED. DATA LOG ERROR. PURGE SEQUENCE FAILED.~";
+                1: print "~SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL. SHIP SURFACE COMPROMISED. INTEGRITY CRITICAL.~";
+                2: print "~DATA LOG ERROR. PURGE SEQUENCE FAILED. DATA LOG ERROR. PURGE SEQUENCE FAILED.~";
+                3: print "~ATMOSPHERIC VENTING. CONTAINMENT BREACH. ATMOSPHERIC VENTING. CONTAINMENT BREACH.~";
+                4: print "~STRUCTURAL COLLAPSE IMMINENT. EVACUATION PROTOCOL. STRUCTURAL COLLAPSE IMMINENT. EVACUATION PROTOCOL.~";
+                5: print "~BIOLOGICAL CONTAMINANT DETECTED. PURIFICATION ACTIVE. BIOLOGICAL CONTAMINANT DETECTED. PURIFICATION ACTIVE.~";
                 }
             } else {
                 switch(r) {
-                    1: print "~VODOJADRO i NE-KRZHDUZH. VODOJADRO i NE-KRZHDUZH.~";
-                    2: print "~NESTAV STAVR. i VESKRA NE-KRZHD. NESTAV STAVR. i VESKRA NE-KRZHD.~";
-                    3: print "~NESTAV KORABSTYRZ. KRZHD: 0 TSKOR. NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.~";
-                    4: print "~JADROPOHYB NE-KRZHDUZH. 0 TSKOR. JADROPOHYB NE-KRZHDUZH. 0 TSKOR.~";
-                    5: print "~i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH. i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.~";
+                1: print "~VODOJADRO i NE-KRZHDUZH. VODOJADRO i NE-KRZHDUZH.~";
+                2: print "~NESTAV STAVR. i VESKRA NE-KRZHD. NESTAV STAVR. i VESKRA NE-KRZHD.~";
+                3: print "~NESTAV KORABSTYRZ. KRZHD: 0 TSKOR. NESTAV KORABSTYRZ. KRZHD: 0 TSKOR.~";
+                4: print "~JADROPOHYB NE-KRZHDUZH. 0 TSKOR. JADROPOHYB NE-KRZHDUZH. 0 TSKOR.~";
+                5: print "~i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH. i VZRACUZAPIS TLKZ. CERN NE-KRZHDUZH.~";
                 }
             }
             new_line;
