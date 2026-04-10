@@ -8,6 +8,7 @@
     Global lockdown_lifted = 0;
     Global AV_codec_active = 0;
     Global identity_hacked = 0;
+    Global atmosphere_silenced = 0; 
     Global oxygen = 30;
     Global brig_timer = 0;
     Global arpi_active = 0;

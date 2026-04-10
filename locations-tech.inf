@@ -39,7 +39,14 @@ ArcheronRoom SecurityCheck "Security Checkpoint"
 
 ArcheronRoom OpsCenter "Ops Center"
   with zh_name "KRZHDYN VZRAC",
-       description "Banks of monitors display the ship's status. A Recall Terminal sits here. Exits lead North, Northwest, South, and East.",
+       description [;
+           if (identity_hacked == 1) {
+               print "Banks of monitors display the ship's status. An alarm control panel is mounted on the wall. ";
+           } else {
+               print "The room seems awash in dull static. ";
+           }
+           print "Exits lead North, West, South, and East.";
+       ],
        e_to SecurityCheck,
        n_to ServerRoom,   ! Leads to the terminal and chips
        w_to DroneWorkshop,
