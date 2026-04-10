@@ -70,6 +70,10 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
        ];
+ExamChair ExamChair1 "exam chair" CryoBay
+    ;
+Monitor Monitor1 "monitor" CryoBay
+    ;
 Object Corpse "desiccated corpse" AftCorridor
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
