@@ -101,7 +101,7 @@ Object EngineeringDoor "security door"
             Unlock:
                 give self ~locked; ! Ensure the lock state is toggled
                 give self open;    ! Physically open the door
-                "As you slide the card through, the lock chirps and the heavy door hums open.";
+                "As you slide the card through, the lock chirps and the heavy door slides open.";
        ],
        has static door openable lockable locked scenery;
 Object BrigDoor "reinforced door"
