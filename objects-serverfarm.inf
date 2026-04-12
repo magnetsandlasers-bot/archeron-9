@@ -54,6 +54,7 @@ Object RetinalScanner "pair of goggles"
     ],
     after [;
         Take:
+            achieved(11); !Task 11: pick up goggles
             if (self has concealed) { give self ~concealed; }
         Wear:
             if (self.scanned == 0) {
@@ -149,6 +150,7 @@ Object JeeJah "smooth piece of glass"
     ],
     after [;
         Take:
+            achieved(10); !Task 10: pick up Glass
             if (self has concealed) { give self ~concealed; }
             if (self.first_pickup == 0) {
                 self.first_pickup = 1;
@@ -200,4 +202,9 @@ Monitor Monitor2 "monitor" ServerTerminalRoom
     ;
 Object Note "note" ServerFarm1
     with name 'note' 'paper' 'scrap',
-    description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~";
+    description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~",
+    after [;
+        Take:
+            achieved(9); !Task 9: pick up note
+    ];
+    

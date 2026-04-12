@@ -17,6 +17,12 @@
         6: return 10; ! meet ARPI
         7: return 10; ! disable drone 1
         8: return 10; ! disable drone 2
+        9: return 5; ! take note
+        10: return 5; ! take Glass
+        11: return 5; ! take goggles
+        ! solve maze
+        ! hack id
+        ! disable announcements
         default: return 0;
     }
     ];
@@ -33,6 +39,9 @@
         6: print "meet ARPI";
         7: print "disable drone 1";
         8: print "disable drone 2";
+        9: print "take note";
+        10: print "take Glass";
+        11: print "take goggles";
     }
     ];
 ! ---
