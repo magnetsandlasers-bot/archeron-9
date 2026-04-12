@@ -71,9 +71,20 @@ AftRoom Engineering "Engineering Room"
 AftRoom ReactorRoom "Reactor Room"
   with zh_name "KRZHDAR JADROZ",
        description [;
-           print "The air here smells of ozone. A complex mechanism is set into the north wall, and a massive column dominates the center of the room.";
-           if (battery_count > 0) print " The column hums with a deep, bone-shaking rhythm.";
-           else print " The room is silent and dark.";
+           if (power_restored == 0)
+               print "This circular room is cramped and stuffy, lit only with emergency lights at shin level. You can make out some kind of console set into the wall, and a massive column with a similar console dominates the center of the room. You appear to be standing on a metal grate. You can barely see dim, static shapes hanging in the air above you.";
+           else
+               print "This circular room is lit from above, and hums with energy. A console is set into the wall, and a massive column with a similar console dominates the center of the room. The column twinkles with status lights, indicating steady activity. You are standing on a metal grate above a den of snaking, pulsing cables and wires. Above you, the column sends out branches in every direction, connecting all parts of the ship.";
+           
+           if (battery_count == 1)
+               print " A ring of status panels line the wall just above eye level. Some status panels have turned from red to green.";
+           else if (battery_count == 2)
+               print " A ring of status panels line the wall just above eye level. Most are glowing green, but a few outliers remain in the red.";
+           else if (battery_count >= 3)
+               print " A ring of status panels line the wall just above eye level. The status panels are all green.";
+           else
+               print " The room is silent and still.";
+           
            print " The exit lies to the East.^";
            return true;
         ],

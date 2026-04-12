@@ -221,7 +221,7 @@ Object IronLever "heavy iron lever" Engineering
   ],
   has static scenery;
 Object WallSocket "wall socket" ReactorRoom
-  with name 'mechanism' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
+  with name 'console' 'slot' 'recess' 'dock' 'wall' 'port' 'hole',
        description "A recessed port set into the metal bulkhead. It features a deep, cylindrical cavity with heavily scarred contact points on the bottom.",
        before [;
             Receive:
@@ -233,7 +233,7 @@ Object WallSocket "wall socket" ReactorRoom
                     ! 2. Now it is safe to check the value of 'charged'
                     if (noun.charged == 1) {
                         move noun to self;
-                        "You slide the pulsing cylinder in, but it's already fully charged.";
+                        "You slide the pulsing cell in, but it's already fully charged.";
                     }
 
                     if (noun.charged == 0) {
@@ -259,26 +259,26 @@ Object MainColumn "central column" ReactorRoom
             Receive:
                 ! First, check if it's even a battery type
                 if ((noun provides charged) == false) {
-                    "The column slot is designed for specific cylindrical units; that doesn't belong there.";
+                    "The column slot is designed for specific units; that doesn't belong there.";
                 }
                 ! If it's a charged battery (Value 1)
                 if (noun.charged == 1) {
                     remove noun;
                     battery_count++;
-                    print "You slide the pulsing cylinder into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
+                    print "You slide the pulsing cell into the column's slot. It clicks home and recedes into the housing. A new empty slot takes its place.";
                     if (battery_count == 1) {
                         achieved(1); ! Task 1: restore emergency power
-                        print "^^THOOM!^^The room groans to life. Lights flicker on overhead. A steady hum replaces the dead silence of the ship.";
+                        print "^^THOOM!^^The room comes to life. Proper lights flicker on overhead. A low, idling hum replaces the dead silence. Above your head and below your feet, cables and wires snake off in all directions, pulsing with a dim blue glow. A ring of status panels light up on the wall, just above eye level. Some are green, but most are red.";
                         power_restored = 1;
                         alarm_lights_active = 0;
                     } 
                     else if (battery_count == 2) {
                         achieved(2); !Task 2: restore main power
-                        print "^^The reactor hums louder, power surging through the ship's systems. You feel a slight vibration in the floor plates.";
+                        print "^^The cables and wires pulse more brightly as power to the ship increases. The room begins to vibrate as an exhaust system starts up. The air begins to lose some of its staleness. More status panels turn green, but a few still show red.";
                     } 
                     else if (battery_count >= 3) {
                         achieved(3); !Task 3: restore auxiliary power
-                        print "^^The entire ship shudders as full power floods through every system. Far in the distance, you hear the heavy clunk of bulkheads and machinery coming to life.";
+                        print "^^Full power propagates through the ship's systems. In the distance, you hear the heavy clunk of bulkheads and other machinery coming to life. The status panels are all green now.";
                         medical_wing_powered = 1;
                     }
                     new_line;
