@@ -131,14 +131,73 @@ Object BatteryShelf "metal shelf" Engineering
        ],
   has static supporter scenery;
 
+Object DisplayPanels "display panels" Engineering
+    with name 'panels' 'displays' 'panel' 'display',
+         description [;
+             if (identity_hacked == 0) {
+                 print "The panels flicker with dull static, meaningless noise cascading across their screens.";
+                 return true;
+             }
+             
+             print "The display panels show the status of the ship's vital systems:^";
+             print "^";
+             
+             print "  POWER GRID: ";
+             if (power_restored == 1)
+                 print "Online - All systems nominal.^";
+             else
+                 print "OFFLINE - Critical systems down.^";
+             
+             print "  MEDICAL WING: ";
+             if (medical_wing_powered == 1)
+                 print "Operational.^";
+             else
+                 print "No power.^";
+             
+             print "  OXYGEN LEVELS: ", oxygen, "% - ";
+             if (oxygen > 75)
+                 print "Excellent.^";
+             else if (oxygen > 50)
+                 print "Good.^";
+             else if (oxygen > 25)
+                 print "Degraded.^";
+             else
+                 print "CRITICAL.^";
+             
+             print "  BULKHEAD INTEGRITY: ";
+             if (bulkhead_passed == 1)
+                 print "Sealed.^";
+             else
+                 print "Compromised.^";
+             
+             print "  BATTERY RESERVES: ", battery_count, " unit";
+             if (battery_count ~= 1) print "s";
+             print " available.^";
+             
+             print "  ARPI SYSTEM: ";
+             if (arpi_active == 1)
+                 print "Active and monitoring.^";
+             else if (arpi_aware == 1)
+                 print "Online but idle.^";
+             else
+                 print "Offline.^";
+             
+             print "  LOCKDOWN STATUS: ";
+             if (lockdown_lifted == 1)
+                 print "Disengaged.^";
+             else
+                 print "ACTIVE.^";
+             
+             return true;
+         ],
+    has scenery;
 Object ControlStation "control station" Engineering
-  with name 'panel' 'station' 'control' 'status' 'amber', 
+  with name 'station' 'control', 
        description [;
            print "It features a Heavy Iron Lever. A sign above the lever reads ";
            TranslateAV("POHYB ZANER.", "BULKHEAD LEVER.");
        ],
        has static scenery supporter;
-
 Object IronLever "heavy iron lever" Engineering
   with name 'lever' 'iron' 'heavy',
   before [;

@@ -44,17 +44,16 @@ AftRoom AftCorridor "Aft Corridor"
            print "A desiccated corpse lies slumped against the wall.^";
            return true;
         ],
-        s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;AftRoom Engineering "Engineering Room"
+        s_to CryoBay, w_to ReactorRoom, n_to BulkheadDoor, e_to EngineeringDoor;
+AftRoom Engineering "Engineering Room"
   with zh_name "KRZHDYN STAVR",
        description [;
-           print "A claustrophobic little closet smelling of magic smoke and hot circuitry. Status panels of various sizes fill the walls. Cables and wires snake in and out, around and under them.";
+           print "A claustrophobic little room with a tiny workbench and shelf. Display panels of all sizes line the walls. Cables and wires snake in and out, around and under them.";
            print " Looking at the panels, ";
            
-           if (battery_count == 0) {
-               print "you notice most of them are green, except for one status light next to a metal lever marked ";
-            TranslateAV("POHYB ZANER", "BULKHEAD CONTROL");
-               ", which is glowing an ominous red.";  
-           } 
+           if (identity_hacked == 0) {
+               print "you see only dull static crackling across all of them.";
+           }
            else if (battery_count == 1) {
                print "you notice one light next to a metal lever marked ";
             TranslateAV("POHYB ZANER", "BULKHEAD CONTROL");

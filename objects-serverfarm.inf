@@ -45,7 +45,7 @@ Object RetinalScanner "pair of goggles"
     ],
     before [;
         Wear:
-            if (parent(player) ~= ExamChair) {
+            if (parent(player) ~= ExamChair2) {
                 print "As you put on the goggles, your vision goes completely black! You can't see anything!^";
                 print "You hastily remove them.^";
                 rtrue;
@@ -120,7 +120,7 @@ Object JeeJah "smooth piece of glass"
 
             ! 2. Check if the player is in the chair. 
             ! If they ARE, try to run the scan.
-            if (parent(player) == ExamChair) {
+            if (parent(player) == ExamChair2) {
                 if (RetinalScanner hasnt worn) {
                     "You need to be wearing the goggles for the retinal scan to work.";
                 }

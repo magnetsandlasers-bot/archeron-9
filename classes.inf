@@ -153,6 +153,7 @@ Class ChargedBattery
     bulk BULK_HEAVY;
 Class ExamChair 
     with name 'chair' 'exam' 'seat',
+    short_name "exam chair",
     description [;
         if (player in self) {
             "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing monitor is mounted directly in front of the seat.";
