@@ -25,13 +25,13 @@ Corridor SpineMid "Spine Mid"
        n_to Atrium;
 Corridor Atrium "Central Atrium"
   with zh_name "JADROZ POHYB",
-       description "A massive, multi-level atrium. Exits lead North, South, East, and West. Windows above you are mirrored. A central staircase spirals down. ",
+       description "A massive, multi-level atrium. Exits lead north, south, east, and west. Windows above you are mirrored. A central staircase spirals down. ",
        s_to SpineMid, e_to MessHall, w_to SecurityCheck, n_to BridgeDoor, d_to CargoBay;
 
 ArcheronRoom SecurityCheck "Security Checkpoint"
   with zh_name "VZRAC ZAMER",
        description [;
-           print "A reinforced checkpoint. Exits lead East and West. To the North, a heavy, reinforced door leads to what appears to be a detention area.^";
+           print "A reinforced checkpoint. Exits lead east and west. To the north, a heavy, reinforced door leads to what appears to be a detention area.^";
            return true;
         
        ],
@@ -45,7 +45,7 @@ ArcheronRoom OpsCenter "Ops Center"
            } else {
                print "The room seems awash in dull static. ";
            }
-           print "Exits lead North, West, South, and East.";
+           print "Exits lead north, west, south, and east.";
        ],
        e_to SecurityCheck,
        n_to ServerRoom,   ! Leads to the terminal and chips
@@ -54,35 +54,21 @@ ArcheronRoom OpsCenter "Ops Center"
 
 ArcheronRoom CommsRelay "Comms Relay"
   with zh_name "STYRZEN POHYB",
-       description "Banks of radio equipment line the walls. The air hums with static. The exit is North.",
+       description "Banks of radio equipment line the walls. The air hums with static. The exit is north.",
        n_to OpsCenter;
 
 ArcheronRoom ServerRoom "Server Room"
   with zh_name "CERNYV STYRZ",
-       description "Rows of server banks hum quietly. The exit is South. A short stairway leads up to a small landing." ,
+       description "Rows of server banks hum quietly. The exit is south. A short stairway leads up to a small landing." ,
        s_to OpsCenter,
        u_to Landing;
 
 ArcheronRoom Landing "landing"
     with zh_name "KAELTH",
-        description "A landing in a stairwell. There is a locked door on the West wall. You can go up or down.",
+        description "A landing in a stairwell. There is a locked door on the west wall. You can go up or down.",
         u_to ServerFarm1,
         d_to ServerRoom;
-Object ServerTerminal "main terminal" ServerFarm
-  with name 'terminal' 'computer' 'screen' 'code' 'image' 'qr' 'glyph',
-       qr_content "PROTOCOL 99-DELTA: To override Subject status, insert a standard Admin Wafer into the slot.",
-       description [;
-            print "The screen displays the ship's crew manifest. ";
-            if (AV_codec_active == 0) print "Your vision cannot parse the glyphs.";
-            else {
-                 print "CURRENT USER: ID 009. RANK: UNLISTED.";
-                 if (identity_hacked) print "^STATUS: OVERRIDDEN (COMMANDER ACCESS).";
-                 last_qr_source = self;
-                 print "^^[ENCRYPTED DATA DETECTED. BLINK TWICE TO DECRYPT]";
-            }
-            print "^"; return true;
-       ],
-       has static scenery;
+
 
 Object -> TerminalSlot "data slot"
   with name 'slot' 'drive' 'reader',
