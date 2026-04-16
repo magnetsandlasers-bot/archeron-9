@@ -78,30 +78,28 @@ Object BulkheadDoor "bulkhead"
 Object EngineeringDoor "security door"
   with name 'door' 'security' 'heavy' 'engineering' 'east' 'west',
        description [;
-            if (location == AftCorridor) {
-                print "A heavy steel door with a card reader slot.";
-                if (battery_count == 0) print " The lock's display is dead.";
-                else { print " The display reads: "; PrintVisual("DRAZKOSH VZDYK"); }
-            } else print "The inner face is smooth steel.";
-            new_line; return true;
+            print "A heavy steel door with a card reader slot.";
+            if (battery_count == 0) print " The lock's display is dead.";
+            new_line;
+            return true;
        ],
        found_in AftCorridor Engineering,
        door_dir [; if (location == AftCorridor) return e_to; return w_to; ],
        door_to [; if (location == AftCorridor) return Engineering; return AftCorridor; ],
        with_key Keycard,
        before [;
-            Open:
-                if (location == Engineering) "Use the green panel.";
-                if (location == AftCorridor && self has locked) "The door is locked tight; you'll need a card.";
-            Unlock:
-                if (location == Engineering) "Use the green panel.";
-                if (battery_count == 0) "The electronic lock appears dead.";
-       ],
-       after [;
-            Unlock:
-                give self ~locked; ! Ensure the lock state is toggled
-                give self open;    ! Physically open the door
-                "As you slide the card through, the lock chirps and the heavy door slides open.";
+            Open, Go:
+                if (battery_count == 0) {
+                    print "The electronic lock is dead.";
+                    return true;
+                }
+                if (Keycard notin player) {
+                    print "The door is locked. You need a keycard to enter.";
+                    return true;
+                }
+                give self ~locked;
+                print "As you swipe your card, the lock chirps and the door slides open.";
+                return true;
        ],
        has static door openable lockable locked scenery;
 Object BrigDoor "reinforced door"
