@@ -81,7 +81,7 @@ Object JeeJah "smooth piece of glass"
     with name 'glass' 'mobile' 'handheld' 'communicator' 'phone' 'jeejah',
     each_turn [;
         if (identity_hacked == 1) return;
-        if (parent(self) == player && parent(player) == ExamChair && RetinalScanner has worn) {
+        if (parent(self) == player && parent(player) == ExamChair2 && RetinalScanner has worn) {
             print "^The JeeJah vibrates in your hand.^";
         }
     ],
@@ -196,10 +196,45 @@ Object Crates "crates" ServerTerminalRoom
             "There is no way you are going to be able to manage that.";
     ],
     has static scenery;
-ExamChair ExamChair2 "exam chair" ServerTerminalRoom
-    ;
-Monitor Monitor2 "monitor" ServerTerminalRoom
-    ;
+Object ExamChair2 "exam chair" ServerTerminalRoom
+    with name 'chair' 'exam' 'seat',
+    description [;
+        if (player in self) {
+            "You're settled in the chair, head held in place by the chinrest and forehead brace. The monitor glows directly in front of your eyes.";
+        }
+        "A chair with a chinrest and forehead brace, designed to immobilize a person's head. A monitor is mounted in front of the seat.";
+    ],
+    after [;
+        Enter:
+            if (RetinalScanner in player && JeeJah in player) {
+                print "You settle into the chair. The monitor pulses green, recognizing both components. You are ready to begin.^";
+                rtrue;
+            }
+            if (JeeJah in player) {
+                print "As you sit down, the JeeJah in your pocket gives a sharp, sustained buzz.^";
+                print "The monitor activates, showing a technician demonstrating how to wear the retinal goggles.^";
+                rtrue;
+            }
+            print "You sit in the chair. The monitor flickers on, displaying a 'Required Hardware Missing' error.^";
+            rtrue;
+    ],
+    has static enterable supporter;
+
+Object Monitor2 "monitor" ServerTerminalRoom
+    with name 'monitor' 'screen' 'display',
+    description [;
+        if (player notin ExamChair2)
+            "You can't really see it clearly unless you sit in the chair.";
+        
+        if (RetinalScanner in player && JeeJah in player)
+            "The monitor displays a step-by-step guide for the retinal scan.";
+        
+        if (JeeJah in player)
+            "The monitor flickers to life, showing goggles being put on.";
+        
+        "The monitor shows diagrams of goggles and a rectangular glass device.";
+    ],
+    has static;
 Object Note "note" ServerFarm1
     with name 'note' 'paper' 'scrap',
     description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~",
