@@ -56,7 +56,10 @@ ServerFarm ServerFarm12 "Server Farm"
         se_to ServerTerminalRoom;
 ServerFarm ServerTerminalRoom "Server Terminal"
     with 
-        initial "You slip through a narrow opening and into a little sorting area carved out of the maze of server racks.",
+        initial [;
+            achieved(12);
+            "You slip through a narrow opening and into a little sorting area carved out of the maze of server racks.";
+        ],
         description [;
             print "A little sorting area carved out of the maze of server racks. Crates of discarded equipment define the perimeter of this space, and some workbenches ";
             

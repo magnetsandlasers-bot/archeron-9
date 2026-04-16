@@ -20,13 +20,14 @@
         9: return 5; ! take note
         10: return 5; ! take Glass
         11: return 5; ! take goggles
+        12: return 5; ! finished maze
         ! solve maze
         ! hack id
         ! disable announcements
         default: return 0;
     }
     ];
-
+! Look in main.inf for max score and number of tasks
 [ PrintTaskName 
     task_id;
     switch (task_id) {
@@ -42,6 +43,7 @@
         9: print "take note";
         10: print "take Glass";
         11: print "take goggles";
+        12: print "finished maze";
     }
     ];
 ! ---
