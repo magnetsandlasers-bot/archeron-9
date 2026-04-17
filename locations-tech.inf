@@ -43,7 +43,7 @@ ArcheronRoom OpsCenter "Ops Center"
            if (identity_hacked == 1) {
                print "Banks of monitors display the ship's status. An alarm control panel is mounted on the wall. ";
            } else {
-               print "The room seems awash in dull static. ";
+               print "The room seems awash in dull static. Nearly everything is a display, aall showing various flavors of digital snow. ";
            }
            print "Exits lead North, West, South, and East.";
        ],
@@ -133,7 +133,7 @@ ArcheronRoom DroneWorkshop "Drone Workshop"
         print "Against the south wall, you see a place where drones can fly in to charge. It is powered by a pulsing cell.^";
         ! 1. Priority: Are BOTH drones dead?
         if (SecurityDrone1.is_active == 0 && SecurityDrone2.is_active == 0) {
-            print "^Two inert security drones lie on the floor, smoke still curling from their chassis.^";
+            print "^Two inert security drones lie on the floor.^";
             rtrue;
         }
         
@@ -143,7 +143,7 @@ ArcheronRoom DroneWorkshop "Drone Workshop"
                 (SecurityDrone2.is_active == 1 && SecurityDrone2 in self)) {
                 print "^A security drone hovers here, keeping watch over its fallen comrade.^";
             } else {
-                print "^An inert security drone lies on the floor, a smoking wreck.^";
+                print "^An inert security drone lies on the floor.^";
             }
             rtrue;
         }

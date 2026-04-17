@@ -10,7 +10,6 @@ Object CotUnmade "unmade cot" Brig
             "You see the loose grating you found earlier.";
     ]
     has static scenery;
-
 Object EvidenceLocker "evidence locker" SecurityCheck
   with name 'locker' 'evidence' 'cabinet' 'drawer',
        description [;
