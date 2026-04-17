@@ -70,11 +70,26 @@ Object HighTechJumpsuit "high-tech jumpsuit"
             Remove:
                 if (jumpsuit_worn == 1) { print "This suit is not coming off, no matter how hard you try. It's like a second skin, and your fingers can't get a purchase on the fabric."; rtrue; }
        ];
-ExamChair ExamChair1 "exam chair" CryoBay
-    ;
-Monitor Monitor1 "monitor" CryoBay
-    ;
-Object Corpse "desiccated corpse" AftCorridor
+Object ExamChair1 "exam chair" CryoBay
+    with name 'chair' 'exam' 'seat',
+    description [;
+        if (player in self) {
+            "You're settled in the chair, head held in place by the chinrest and forehead brace. The monitor glows directly in front of your eyes.";
+        }
+        "A chair with a chinrest and forehead brace, designed to immobilize a person's head. A monitor is mounted in front of the seat. It looks damaged.";
+    ],
+    after [;
+        Enter:
+            "You sit in the chair. The monitor flickers erratically, then goes dark. Nothing happens. The equipment seems broken beyond repair.";
+    ],
+    has static enterable supporter;
+
+Object Monitor1 "monitor" CryoBay
+    with name 'monitor' 'screen' 'display',
+    description [;
+        "The monitor is dark and unresponsive. Sparks occasionally flicker inside its casing. This equipment is ruined.";
+    ],
+    has static;Object Corpse "desiccated corpse" AftCorridor
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
             print "A crew member, long dead. He wears a standard technician's uniform.";
@@ -194,12 +209,12 @@ Object DisplayPanels "display panels" Engineering
 Object ControlStation "control station" Engineering
   with name 'station' 'control', 
        description [;
-           print "It features a Heavy Iron Lever. A sign above the lever reads ";
+           print "It features a metal lever with an ergonomic grip. A sign above the lever reads ";
            TranslateAV("POHYB ZANER.", "BULKHEAD LEVER.");
        ],
        has static scenery supporter;
-Object IronLever "heavy iron lever" Engineering
-  with name 'lever' 'iron' 'heavy',
+Object IronLever "large metal lever" Engineering
+  with name 'lever' 'metal' 'large',
   before [;
      Pull, Push, SwitchOn: ! Catching multiple likely player inputs
         if (battery_count < 2) {
@@ -217,7 +232,8 @@ Object IronLever "heavy iron lever" Engineering
         give BulkheadDoor ~locked;
         give BulkheadDoor open; 
         
-        print "With the status light glowing green, you pull the lever. The machinery groans with a deep THRUM throughout the ship!^^";
+        print "With the status light glowing green, you pull the lever. You hear the pop and hiss of the bulkhead seal releasing, and a little whoosh of air as the pressure equalizes. ^^";
+        rtrue;
   ],
   has static scenery;
 Object WallSocket "wall socket" ReactorRoom

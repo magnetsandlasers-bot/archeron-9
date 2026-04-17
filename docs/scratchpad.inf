@@ -1,203 +1,43 @@
-
-Object EquipmentShelf "equipment shelf" ServerFarm3
-  with name 'shelf' 'shelves' 'rack' 'metal',
-            shelf_examined 0,  ! <-- Add this flag
-
-       description [;
-           print "A metal shelf bolted to a server. Perusing its jumbled contents, ";
-           
-           if (child(self) == 0) "you notice nothing of value.";
-           
-           print "you see ";
-           WriteListFrom(child(self), ENGLISH_BIT + TERSE_BIT);
-           ".";
-       ],
-       before [;
-            Examine:
-               if (self.shelf_examined == 0) {
-                   self.shelf_examined = 1;
-                   give RetinalScanner ~concealed;
-                   give FluxCapacitor ~concealed;
-                   give JeeJah ~concealed;
-                   give SonicScrewdriver ~concealed;
-               }
-               rfalse;
-           Receive:
-                if (noun.shelvable ~= 1) {
-                    print "That doesn't look like it belongs on the shelf.^";
-                    return true;
-                }
-                move noun to self;
-                "You nestle ", (the) noun, " among the other items on the shelf.";
-       ],
-  has static supporter scenery;
-
-Object RetinalScanner "pair of goggles"
-    with name 'glasses' 'goggles' 'scanner' 'pair',
-    description "A fairly bulky set of goggles that would completely block your vision if worn. They ",
-    shelvable 1,
-    bulk BULK_POCKET,
-    scanned 0,
-    initial [;
-        if (EquipmentShelf.shelf_examined == 0) rfalse;
-        print "There is a pair of goggles on the equipment shelf.^";
-        rtrue;
-    ],
-    before [;
-        Wear:
-            if (parent(player) ~= ExamChair) {
-                print "As you put on the goggles, your vision goes completely black! You can't see anything!^";
-                print "You hastily remove them.^";
-                rtrue;
-            }
-            rfalse;  ! Allow normal wear to proceed
-    ],
-    after [;
-        Take:
-            if (self has concealed) { give self ~concealed; }
-        Wear:
-            if (self.scanned == 0) {
-                print "You put on the goggles. With the chair's optical calibration, your vision becomes crystal clear.^";
-            }
-            rtrue;
-        Remove:
-            print "You remove the goggles.^";
-            rtrue;
-    ],
-    has clothing concealed;
-Object FluxCapacitor "burned-out circuitboard"
-    with name 'circuitboard' 'board',
-    description "Some circuitry and electronics in a small enclosure. One leg of its central trifold is burned out, its plastic casing scorched.",
-        shelvable 1,
-        bulk BULK_NORMAL,
-        initial [;
-        if (EquipmentShelf.shelf_examined == 0) rfalse;
-        print "There is a burned-out circuitboard on the equipment shelf.^";
-        rtrue;
-    ],
-    has concealed;
-Object JeeJah "smooth piece of glass"
-    with name 'glass' 'mobile' 'handheld' 'communicator' 'phone' 'jeejah',
-    each_turn [;
-        if (identity_hacked == 1) return;
-        if (parent(self) == player && parent(player) == ExamChair && RetinalScanner has worn) {
-            print "^The JeeJah vibrates in your hand.^";
-        }
-    ],
-    description [;
-        ! 1. Not holding it? Show the basic look.
-        if (parent(self) ~= player) {
-            "A featureless dark glass rectangle.";
-        }
-
-        ! 2. Handle Scripted Moments
-        if (self.script_node > 0) {
-            switch (self.script_node) {
-                1: print "The Glass comes to life as you turn it towards your face. It vibrates briefly in your hand and displays a line of text on its smooth, flat surface: ";
-                TranslateAV("CERNYV KRZHDUZH",
-                "PAIRING SUCCESSFUL");
-                print "!^";
-                2: print "A distorted face appears in the static. 'Can you hear me?'^";
-                3: print "Coordinates flicker on the screen: 42.36N, 71.05W.^";
-                4: print "The casing is hot. A warning reads: 'BATTERY CRITICAL'.^";
-                5: print "A final text scrolls by: 'They are already inside.'^";
-            }
-            self.script_node = 0; ! NOW this line is guaranteed to run
-            rtrue;
-        }
-
-        ! 3. Default random flavor text
-        switch(random(3)) {
-            1: "The screen reflects your face in the dark glass.";
-            2: "A small status icon in the corner indicates 'No Service'.";
-            3: return DisplayDroneMap(); ! This calls the routine we made above        
-        }
-    ],
-    before [;
-        Examine:
-            ! 1. If we ALREADY hacked it, skip all scan logic and show normal description.
-            if (identity_hacked == 1) rfalse;
-
-            ! 2. Check if the player is in the chair. 
-            ! If they ARE, try to run the scan.
-            if (parent(player) == ExamChair) {
-                if (RetinalScanner hasnt worn) {
-                    "You need to be wearing the goggles for the retinal scan to work.";
-                }
-                if (RetinalScanner.scanned == 1) {
-                    "The scan has already been performed.";
-                }
-                
-                print "^A message appears on the screen:^";
-                TranslateAV("~VZDYK I OSOBVZRAC KORABSTRAZHNIK ZAMER Y ROZUMSTAV? Y/N~^^", 
-                            "~RETINAL SCAN READY. CONFIRM TO UPLOAD IDENTITY DATA TO SHIP SECURITY? Y/N~^^");
-                
-                if (YesOrNo()) {
-                    print "^^The goggles flare with light as the scan completes. Your retinal data is uploaded.^";
-                    identity_hacked = 1;
-                    RetinalScanner.scanned = 1;
-                    print "The goggles go dark and the chair releases you.^";
-                    rtrue;
-                } else {
-                    "You cancel the scan.";
-                }
-            }
-            
-            ! 3. If we aren't in the chair (or the scan isn't happening), 
-            ! return false to let the 'description' property run normally.
-            rfalse;
-    ],
-    after [;
-        Take:
-            if (self has concealed) { give self ~concealed; }
-            if (self.first_pickup == 0) {
-                self.first_pickup = 1;
-                self.script_node = 1;
-                ! The player gets the "Taken." message, then they can EXAMINE it.
-            }
-    ],
-    initial [;
-        if (EquipmentShelf.shelf_examined == 0) rfalse;
-        print "There is a smooth piece of glass on the equipment shelf.^";
-        rtrue;
-    ],
-    script_node 0,
-    first_pickup 0,
-    shelvable 1,
-    bulk BULK_POCKET,
-    has concealed;
-Object SonicScrewdriver "some kind of wand"
-    with name 'manipulator' 'wand' 'screwdriver',
-    description "A wand-shaped tool. The button on the side is missing, a strand of wire peeking from the hole.",
-    before [;
-        Take:
-            print "An electric spark arcs out of the wand the moment your fingers touch it.^^";
-            if (self in parent(player)) { 
-                "You recoil so fast it simply clatters back onto the deck."; 
-            }
-            move self to parent(player); ! This drops it to the floor of the current room
-            "The device is jolted off the shelf and hits the floor with a heavy thunk.";
-    ],
-        initial [;
-        if (EquipmentShelf.shelf_examined == 0) rfalse;
-        print "There is some kind of wand on the equipment shelf.^";
-        rtrue;
-        ],
-        shelvable 1,
-        bulk BULK_POCKET,
-        has concealed;
-Object Crates "crates" ServerTerminalRoom
-    with name 'crate' 'crates' 'equipment' 'machines' 'junk',
-    description "Crates of broken-down equipment, useless as working tech but brimming wi th spare parts.",
-    before [;
-        Take:
-            "There is no way you are going to be able to manage that.";
-    ],
-    has static scenery;
-Object ExamChair "exam chair" ServerTerminalRoom
+Class ExamChair 
     with name 'chair' 'exam' 'seat',
-    description "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing cable snakes up into the ceiling from the monitor mounted in front.",
+    short_name "exam chair",
+    description [;
+        if (player in self) {
+            "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing monitor is mounted directly in front of the seat.";
+        }
+        "A chair with a chinrest and a forehead brace, designed to hold a person's head perfectly still. A softly glowing monitor is mounted directly in front of the seat.";
+    ],
+    after [;
+        Enter:
+            if (RetinalScanner in player && JeeJah in player) {
+                "You settle into the chair. The monitor pulses green, recognizing both components. You are ready to begin.";
+            }
+            if (JeeJah in player) {
+                print "As you sit down, the JeeJah in your pocket gives a sharp, sustained buzz, signaling that the machine has detected its presence.^";
+                "The monitor activates, showing a silent film of a technician demonstrating how to wear the retinal goggles.";
+            }
+            "You sit in the chair. The monitor flickers on, displaying a 'Required Hardware Missing' error with icons of goggles and a handheld glass pane.";
+    ],
     has static enterable supporter;
-Object Note "note" ServerFarm1
-    with name 'note' 'paper' 'scrap',
-    description "A scrap of paper with some hastily scrawled writing on it. It reads: ~The only way out is by following these directions: N. N. E. W. N. E. NW. S. E. SE.~";
+Class Monitor "monitor"
+    with name 'monitor' 'screen' 'display',
+    description [;
+        ! Find the chair in the same room as this monitor
+        local obj chair;
+        objectloop (obj in parent(self) && obj ofclass ExamChair) {
+            chair = obj;
+            break;
+        }
+        
+        if (chair == 0 || player notin chair)
+            "You can't really see it clearly unless you sit in the chair.";
+        
+        if (RetinalScanner in player && JeeJah in player)
+            "The monitor displays a step-by-step guide for the retinal scan.";
+        
+        if (JeeJah in player)
+            "The monitor flickers to life, playing a short looped video of goggles being put on.";
+        
+        "The monitor shows diagrams of goggles and a rectangular glass device.";
+    ],
+    has static;

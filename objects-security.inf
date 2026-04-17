@@ -62,14 +62,14 @@ Object AlarmShutoff "alarm control panel" OpsCenter
   name 'button' 'panel' 'control' 'alarm',
   has static switchable,
   with before [;
-    SwitchOn:
+    Push, SwitchOn:
         if (atmosphere_silenced == 0) {
             atmosphere_silenced = 1;
             print "^You press the button and immediately hear the voice intone ~ALARM OVERRIDE ACTIVATED,~ then fall silent.^Arpi sounds relieved. ~Thank you, that was starting to get on my nerves.~";
             return true;
         }
         "The button is already pressed. The intercom remains silent.";
-    SwitchOff:
+    Push, SwitchOff:
         "You can't turn the button off.";
   ];
   

@@ -121,7 +121,6 @@
             if (SecurityDrone2 ~= 0) PlayerTo(parent(SecurityDrone2));
             else "SecurityDrone2 not defined.";
         'brig': PlayerTo(Brig);
-        'terminal': PlayerTo(ServerTerminal);
         default: "Teleport failed. Use: bridge, spine, med, eng, workshop, d1, d2, brig";
     }
     ];
