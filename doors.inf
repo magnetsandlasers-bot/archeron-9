@@ -94,12 +94,12 @@ Object EngineeringDoor "security door"
                     return true;
                 }
                 if (Keycard notin player) {
-                    print "The door is locked. You need a keycard to enter.";
+                    print "The door is locked. The card reader blinks briefly, then goes dark.";
                     return true;
                 }
                 give self ~locked;
                 print "As you swipe your card, the lock chirps and the door slides open.";
-                return true;
+                return false;
        ],
        has static door openable lockable locked scenery;
 Object BrigDoor "reinforced door"
