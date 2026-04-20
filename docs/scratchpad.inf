@@ -41,3 +41,4 @@ Class Monitor "monitor"
         "The monitor shows diagrams of goggles and a rectangular glass device.";
     ],
     has static;
+    OK
