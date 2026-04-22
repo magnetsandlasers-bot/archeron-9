@@ -55,7 +55,7 @@ Object AVModuleFried "fried silver bio-chip"
                 self.is_installed = true;
                 StartDaemon(self);
                 remove self; ! Pulls it from inventory into 'nowhere' while installed
-                "You slide the chip into the port behind your ear, and you feel it click into place. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^^";
+                "You slide the chip into the port behind your ear, and you feel it click into place. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^";
        ],
        daemon [;
             if (self.is_installed == false) return;
@@ -169,8 +169,8 @@ Object DroneCharger "drone charger" DroneWorkshop
                         
                         self.occupied_by = 0; 
                         
-                        print "As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
-                        The drone's red eye flickers and goes dark. A wisp of smoke rises gently from the inert sphere.^^";
+                        print "^^As you attempt to yank ", (the) noun, " out, the unit sparks violently! 
+                        The drone's red eye flickers and goes dark. It clatters to the floor.^^";
                         rtrue; 
                     }
                 }

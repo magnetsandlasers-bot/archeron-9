@@ -43,7 +43,7 @@ ArcheronRoom OpsCenter "Ops Center"
            if (identity_hacked == 1) {
                print "Banks of monitors display the ship's status. An alarm control panel is mounted on the wall. ";
            } else {
-               print "The room seems awash in dull static. Nearly everything is a display, aall showing various flavors of digital snow. ";
+               print "The room seems awash in dull static. Nearly everything is a display, all showing various flavors of digital snow. ";
            }
            print "Exits lead north, west, south, and east.";
        ],
