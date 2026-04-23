@@ -498,3 +498,11 @@
     }
     rtrue;
     ];
+
+! Add this function to handle drone disassembly
+[ DisassembleDrone drone_to_disassemble;
+    new_line;
+    print "^A small mechanical construct skitters out from a vent. Crawls, the maintenance 
+    unit, quickly dismantles the drone and vanishes back into the walls with its salvage.^^";
+    remove drone_to_disassemble;
+    ];

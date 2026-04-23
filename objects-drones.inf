@@ -16,14 +16,15 @@ Object BrokenDrone "broken drone"
        initial "A broken drone sits here.",
   has static container open scenery;
 AVModule AVModule1 "silver bio-chip"
-    ;
+    with parent_drone SecurityDrone1;
 AVModule AVModule2 "silver bio-chip"
-    ;
+    with parent_drone SecurityDrone2;
 Object AVModuleFried "fried silver bio-chip"
   with name 'chip' 'module' 'silver' 'wafer' 'fried',
        bulk BULK_POCKET,
-       chip_timer 0,  ! This uses the Property you just created
+       chip_timer 0,
        is_installed false,
+       parent_drone BrokenDrone,
         description [;
             if (self notin player) 
                 "It's too small to make out the writing while it's tucked in there. You'll need to pick it up.";
@@ -32,16 +33,15 @@ Object AVModuleFried "fried silver bio-chip"
         "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
             
        ],
-        after [;
+        before [;
             Take:
-                "As your fingers close around the silver wafer, a sharp, rhythmic pulsing begins behind your left ear. Your neural port has recognized the hardware and wants you to install it.";
-       ],
-       before [;
+        move self to player;
+        print "You pick up the chip.^";
+        if (self.parent_drone ~= 0) {
+            DisassembleDrone(self.parent_drone);
+        }
+        rtrue;
             Examine:
-                ! If the chip is NOT in the player's inventory, 
-                ! the description logic above handles the 'too small' message.
-                ! This is just to ensure the 'examine' doesn't trigger 
-                ! other logic prematurely.
             Wear, Install:
                 if (self.chip_timer >= 10) "The chip is burnt out and won't interface with your port.";
                 if (AV_codec_active == 1) "You already have a working translation matrix active.";
@@ -50,11 +50,10 @@ Object AVModuleFried "fried silver bio-chip"
                     arpi_aware = 1;
                 }
                 
-                
                 AV_codec_active = 1; 
                 self.is_installed = true;
                 StartDaemon(self);
-                remove self; ! Pulls it from inventory into 'nowhere' while installed
+                remove self;
                 "You slide the chip into the port behind your ear, and you feel it click into place. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^";
        ],
        daemon [;
