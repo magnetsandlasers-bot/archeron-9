@@ -11,16 +11,14 @@ Object data_ports "data ports"
          if (ports_examined == 0) {
            ports_examined = 1;
            "You tilt your head. Three ports run in a neat row behind
-            your right ear -- matte black, flush with the skin. Except
-            they're not flush anymore. The edges have gone pink and
-            slightly raised. Your body is absorbing them.";
+            your right ear.";
          }
-         "The ports are still there. Still growing in.";
+         "The ports are still there.";
        ],
        before [;
          Touch:
            "You press a fingertip to the rim of the nearest jack.
-            There's no seam you can feel. Just... you.";
+            There's no seam you can feel.";
          Insert:
            "You'd need a cable for that.";
        ],
