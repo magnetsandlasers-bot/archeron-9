@@ -20,30 +20,32 @@ AVModule AVModule1 "silver bio-chip"
 AVModule AVModule2 "silver bio-chip"
     with parent_drone SecurityDrone2;
 Object AVModuleFried "fried silver bio-chip"
-  with name 'chip' 'module' 'silver' 'wafer' 'fried',
+  with name 'chip' 'module' 'silver' 'wafer' 'fried' 'patch',
        bulk BULK_POCKET,
        chip_timer 0,
        is_installed false,
        parent_drone BrokenDrone,
         description [;
             if (self notin player) 
-                "It's too small to make out the writing while it's tucked in there. You'll need to pick it up.";
+                "It's too small to make out the fine details from here. You'll need to pick it up.";
             if (self.chip_timer >= 10) 
-             "A useless piece of slagged silver electronics.";
-        "A sleek silver bio-chip. The faint writing confirms it is a standard Neural Auditory Processor.";
-            
+                "A useless piece of slagged silver electronics, the surface scorched and inert.";
+            "A sleek silver wafer. The faint, etched markings suggest it is a Neural Auditory Processor, though it looks well-worn.";
        ],
         before [;
             Take:
-        move self to player;
-        print "You pick up the chip.^";
-        if (self.parent_drone ~= 0) {
-            DisassembleDrone(self.parent_drone);
-        }
-        rtrue;
-            Examine:
+                move self to player;
+                if (arpi_aware == 0) {
+                    print "You pick up the silver chip. As you do, a multi-limbed robot no bigger than your hand emerges from a hatch in the workbench. Turning towards you, it points a manipulator at the chip, then to you, then to the side of its own head.^";
+                } else {
+                    print "You pick up the chip.^";
+                }
+                if (self.parent_drone ~= 0) {
+                    DisassembleDrone(self.parent_drone);
+                }
+                rtrue;
             Wear, Install:
-                if (self.chip_timer >= 10) "The chip is burnt out and won't interface with your port.";
+                if (self.chip_timer >= 10) "The chip is burnt out; it won't bond to your skin.";
                 if (AV_codec_active == 1) "You already have a working translation matrix active.";
                 
                 if (arpi_aware == 0) {
@@ -54,56 +56,54 @@ Object AVModuleFried "fried silver bio-chip"
                 self.is_installed = true;
                 StartDaemon(self);
                 remove self;
-                "You slide the chip into the port behind your ear, and you feel it click into place. You blink, and your vision seems to shift focus for a moment. Your hearing gets muffled in one ear after another, then pings into clarity.^";
+                "You press the silver wafer to your temple. You feel a little hit of suction as it bonds to your skin. Your vision blurs for a heartbeat, and your hearing pings into a sharp, artificial clarity.^";
        ],
        daemon [;
             if (self.is_installed == false) return;
             self.chip_timer++;
+
             ! Phase 1: Turns 1-3 (Flawless)
             if (self.chip_timer == 1) { 
                 AV_codec_active = 1; 
-                print "You hear a perfectly modulated voice coming from what seems like the middle of your head.^^";
                 print "~Link successful! Great job. I knew you could do it. I'm Arpi, and I'm your only friend on this ";
                 Ship();
                 print ". We're going to have to trust each other. First, we need to do something about the ";
                 Drones();
-                print ".~";
-                new_line;            
-                }
-                if (self.chip_timer == 4) { 
+                print ".~^";            
+            }
+            if (self.chip_timer == 4) { 
                 AV_codec_active = 1; 
-                print "A touch of concern tinges Arpi's voice.^^";
+                print "A touch of concern tinges Arpi's voice in your mind.^^";
                 print "~Did you notice that? I caught something strange in our ";
                 Linkup();
-                print ".~";
-                new_line;
+                print ".~^";
             }
+
             ! Phase 2: Turns 5-8 (50/50 Flicker)
             if (self.chip_timer >= 5 && self.chip_timer < 9) {
                 if (random(100) <= 50) AV_codec_active = 1;
                 else AV_codec_active = 0;
             }
+
             if (self.chip_timer == 9) { 
                 AV_codec_active = 1; 
-                print "A touch of concern has matured into laser focus.^^";
-                print "~Something is definitely wrong here. i Vzrac Stavr-Ulmk zraavek y Stavrak must have had its AV codecs fried. I'm getting y Tlkz-Smrnk zraavek y Zgrtulmk vo i Cernyv-Jadroz.~";
-                new_line;
+                print "The concern in Arpi's voice has matured into laser focus.^^";
+                print "~Something is definitely wrong here. The stavr-ulmk zraavek must have had its AV codecs fried. I'm getting tlkz-smrnk interference from the cernyv-jadroz.~^";
             }
-            ! Phase 3: Turns 9-11 (70/30 Failure - Weighted towards 0)
-            if (self.chip_timer >= 9 && self.chip_timer < 11) {
-                if (random(100) <= 30) AV_codec_active = 1; ! Only 30% chance to work
-                else AV_codec_active = 0;
 
+            ! Phase 3: Turns 9-11 (70/30 Failure)
+            if (self.chip_timer >= 9 && self.chip_timer < 11) {
+                if (random(100) <= 30) AV_codec_active = 1; 
+                else AV_codec_active = 0;
             }
 
             ! The Ejection: Turn 12
             if (self.chip_timer >= 12) {
                 StopDaemon(self);
-                AV_codec_active = 0; ! Permanent failure
+                AV_codec_active = 0; 
                 self.is_installed = false;
                 new_line;
-                style roman;
-                "With a sharp mechanical click, the chip physically ejects from your port, falling to the floor and bouncing away into a crevice. It's gone.^";
+                "With a sharp, searing heat, the chip suddenly peels away from your temple and falls to the floor, bouncing away into a dark crevice. The silence that follows is absolute.^";
             }
        ];
 Object DroneBench "drone workbench" DroneWorkshop

@@ -107,30 +107,43 @@ Class SecurityDrone
   has static container openable;
 
 Class AVModule
-  with  name 'chip' 'module' 'silver' 'wafer',
+  with  name 'chip' 'module' 'silver' 'wafer' 'sliver' 'patch',
         bulk BULK_POCKET,
         parent_drone 0,
-        description "A sleek silver bio-chip. It looks like a standard codec processor.",
+        description [;
+            print "A sleek, silver wafer, thin as a coin and slightly concave. ";
+            if (self.parent_drone ~= 0) 
+                "It's currently mounted to a drone chassis.";
+            "The inner surface is perfectly smooth, designed to bond directly to your temple.";
+        ],
         before [;
             Wear: <<Install self>>;
             Take:
                 move self to player;
-                print "You pick up the chip.^";
+                ! Trigger the Crawl tutorial if Arpi isn't active yet
+                if (arpi_aware == 0) {
+                    print "As you pick up the silver wafer, one of the nearby Crawls pauses its scavenging. It tilts its chassis toward you, pointing a manipulator arm first at the chip in your hand and then—with a sharp, mechanical click—to the side of its own rusted sensor-head. It holds the pose for a second before skittering back into the shadows.^";
+                } else {
+                    print "You pick up the silver wafer.^";
+                }
+                
                 if (self.parent_drone ~= 0) {
                     DisassembleDrone(self.parent_drone);
                 }
                 rtrue;
             Install:
                 if (AV_codec_active == 1) { 
-                    print "You hear a tiny buzzer sound and the chip refuses to insert.^"; 
+                    print "You hold the wafer to your head, but it remains cold and inert. Your neural link is already occupied.^"; 
                     rtrue; 
                 }
+                print "You press the silver wafer to your temple. It flushes with a brief, sharp heat as it bonds to your skin. The edges seem to melt into your hairline, and a low, resonant vibration spreads through your skull.^";
+                
                 if (arpi_aware == 1) {
-                    print "You slide the chip into the port behind your ear. A familiar rhythmic pulsing begins, then settles. ~We're back!~ Arpi's voice sounds clearer than before, relieved. ~I thought I lost you when that last module slagged out.~^";
+                    print "^~We're back!~ Arpi's voice resonates clearly. ~I thought I lost you when that last module slagged out.~^";
                 } 
                 else {
                     arpi_aware = 1;
-                    print "You carefully slide the chip into the port behind your ear. Your neural link integrates the data stream. ~Link successful!~ a new voice chimes in your mind. ~I'm Arpi. We're going to have to trust each other if we're getting off this ship.~^";
+                    print "^~Link successful!~ a new voice chimes in your mind, crisp and steady. ~I'm Arpi. We're going to have to trust each other if we're getting off this ship.~^";
                 }
                 achieved(6); 
                 AV_codec_active = 1;
