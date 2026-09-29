@@ -82,14 +82,14 @@ Object ExamChair1 "exam chair" CryoBay
         Enter:
             "You sit in the chair. The monitor flickers erratically, then goes dark. Nothing happens. The equipment seems broken beyond repair.";
     ],
-    has static enterable supporter;
-
+    has static enterable transparent;
 Object Monitor1 "monitor" CryoBay
     with name 'monitor' 'screen' 'display',
     description [;
         "The monitor is dark and unresponsive. Sparks occasionally flicker inside its casing. This equipment is ruined.";
     ],
-    has static;Object Corpse "desiccated corpse" AftCorridor
+    has static scenery;
+Object Corpse "desiccated corpse" AftCorridor
   with name 'body' 'corpse' 'man' 'crewman' 'dead' 'uniform' 'dessicated',
        description [;
             print "A crew member, long dead. He wears a standard technician's uniform.";
@@ -243,10 +243,8 @@ Object WallSocket "wall socket" ReactorRoom
             Receive:
                 if (child(self) ~= 0) "The slot is occupied.";
                 
-                ! 1. First, check if the object even HAS a 'charged' property
                 if (noun provides charged) {
                     
-                    ! 2. Now it is safe to check the value of 'charged'
                     if (noun.charged == 1) {
                         move noun to self;
                         "You slide the pulsing cell in, but it's already fully charged.";
@@ -264,20 +262,17 @@ Object WallSocket "wall socket" ReactorRoom
                     }
                 }
 
-                ! 3. If it doesn't provide 'charged', it's not a battery.
                 "That doesn't fit.";
        ],
     has static container open scenery;
 Object MainColumn "central column" ReactorRoom
-  with name 'column' 'machine' 'generator' 'housing' 'slot' 'cavity' 'reactor',
-       description "A towering pillar of dark alloy. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
+  with name 'central' 'column' 'console' 'generator' 'housing' 'slot' 'cavity' 'reactor',
+       description "A towering pillar of dark metal. At waist height, a heavy housing sits open, revealing a cylindrical slot with heavily scarred contact points on the bottom.",
        before [;
             Receive:
-                ! First, check if it's even a battery type
                 if ((noun provides charged) == false) {
                     "The column slot is designed for specific units; that doesn't belong there.";
                 }
-                ! If it's a charged battery (Value 1)
                 if (noun.charged == 1) {
                     remove noun;
                     battery_count++;

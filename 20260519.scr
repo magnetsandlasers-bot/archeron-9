@@ -1,0 +1,272 @@
+Start of a transcript of
+Archeron-9
+An Interactive Sci-Fi Mystery
+Release 0 / Serial number 260519 / Inform v6.44 Library v6.12.8 S
+Standard interpreter 1.1 (1F) / Library Serial Number 251226
+
+>l
+
+VESKRAN ZRAAV
+You are standing in front of a bank of glass-fronted pods. Most of them are
+open. One near you appears occupied. The only exit is a door leading north.
+
+A high-tech grey jumpsuit hangs next to the pod you just stepped out of. It
+looks warm.
+
+You can also see a dark cell, an exam chair and a monitor here.
+
+>take suit
+(the high-tech jumpsuit)
+
+You slip on the jumpsuit. It conforms to your body like a second skin. The
+advanced nano-material immediately adjusts to your body temperature, providing
+perfect insulation against the biting cold. You feel secure and protected.
+
+Red alarm lights flash! A siren sounds! A voice booms!
+
+"KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!"
+
+>take cell
+Taken.
+
+>n
+
+POHYB STAVR SCERN
+A long, dark metal corridor. Emergency lights cast long shadows.
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+Red alarm lights flash! A siren sounds! A voice booms!
+
+"KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!"
+
+>w
+
+KRZHDAR JADROZ
+This circular room is cramped and stuffy, lit only with emergency lights at shin
+level. You can make out some kind of console set into the wall, and a massive
+column with a similar console dominates the center of the room. You appear to be
+standing on a metal grate. You can barely see dim, static shapes hanging in the
+air above you. The room is silent and still. The exit lies to the East.
+
+>put cell in wall
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+
+Red alarm lights flash! A siren sounds! A voice booms!
+
+"KRZHDYN: STAVR! DRAZKARY: ZAMEROSH!"
+
+>put cell in column
+(first taking the pulsing cell out of the wall socket)
+You slide the pulsing cell into the column's slot. It clicks home and recedes
+into the housing. A new empty slot takes its place.
+
+THOOM!
+
+The room comes to life. Proper lights flicker on overhead. A low, idling hum
+replaces the dead silence. Above your head and below your feet, cables and wires
+snake off in all directions, pulsing with a dim blue glow. A ring of status
+panels light up on the wall, just above eye level. Some are green, but most are
+red.
+
+>w
+You can't go that way.
+
+>e
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+>take card
+Taken.
+
+>open door with card
+You unlock the security door.
+
+>e
+As you swipe your card, the lock chirps and the door slides open.(first opening 
+the security door)
+
+KRZHDYN STAVR
+A claustrophobic little room with a tiny workbench and shelf. Display panels of
+all sizes line the walls. Cables and wires snake in and out, around and under
+them. Looking at the panels, you see only dull static crackling across all of
+them. A metal shelf is bolted to one wall. It looks cluttered with boxes,
+manuals, spare parts, and other detritus. The only exit is West.
+
+On the metal shelf are three dark cells.
+
+The intercom springs to life with an urgent tone!
+
+"VODOJADRO i NE-KRZHDUZH. VODOJADRO i NE-KRZHDUZH."
+
+>take cell
+Taken.
+
+>w
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+The intercom activates with a sharp tone!
+
+"NESTAV STAVR. i VESKRA NE-KRZHD. NESTAV STAVR. i VESKRA NE-KRZHD."
+
+>w
+
+KRZHDAR JADROZ
+This circular room is lit from above, and hums with energy. A console is set
+into the wall, and a massive column with a similar console dominates the center
+of the room. The column twinkles with status lights, indicating steady activity.
+You are standing on a metal grate above a den of snaking, pulsing cables and
+wires. Above you, the column sends out branches in every direction, connecting
+all parts of the ship. A ring of status panels line the wall just above eye
+level. Some status panels have turned from red to green. The exit lies to the
+East.
+
+>put cell in wall. put cell in column
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+(first taking the pulsing cell out of the wall socket)
+You slide the pulsing cell into the column's slot. It clicks home and recedes
+into the housing. A new empty slot takes its place.
+
+The cables and wires pulse more brightly as power to the ship increases. The
+room begins to vibrate as an exhaust system starts up. The air begins to lose
+some of its staleness. More status panels turn green, but a few still show red.
+
+>e
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+>e
+
+KRZHDYN STAVR
+A claustrophobic little room with a tiny workbench and shelf. Display panels of
+all sizes line the walls. Cables and wires snake in and out, around and under
+them. Looking at the panels, you see only dull static crackling across all of
+them. A metal shelf is bolted to one wall. It looks cluttered with boxes,
+manuals, spare parts, and other detritus. The only exit is West.
+
+On the metal shelf are two dark cells.
+
+>take cell
+Taken.
+
+>w
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+>w
+
+KRZHDAR JADROZ
+This circular room is lit from above, and hums with energy. A console is set
+into the wall, and a massive column with a similar console dominates the center
+of the room. The column twinkles with status lights, indicating steady activity.
+You are standing on a metal grate above a den of snaking, pulsing cables and
+wires. Above you, the column sends out branches in every direction, connecting
+all parts of the ship. A ring of status panels line the wall just above eye
+level. Most are glowing green, but a few outliers remain in the red. The exit
+lies to the East.
+
+>put cell in wall. put cell in column
+You slide the cylinder into the wall port. It locks with a clunk. A high-pitched
+whine builds up, and the unit begins to glow.
+(first taking the pulsing cell out of the wall socket)
+You slide the pulsing cell into the column's slot. It clicks home and recedes
+into the housing. A new empty slot takes its place.
+
+Full power propagates through the ship's systems. In the distance, you hear the
+heavy clunk of bulkheads and other machinery coming to life. The status panels
+are all green now.
+
+>e
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, a massive bulkhead door blocks the passage. To the East, a
+security door marked KRZHDYN is closed. An open archway leads West towards an
+area marked JADROZ. A desiccated corpse lies slumped against the wall.
+
+>e
+
+KRZHDYN STAVR
+A claustrophobic little room with a tiny workbench and shelf. Display panels of
+all sizes line the walls. Cables and wires snake in and out, around and under
+them. Looking at the panels, you see only dull static crackling across all of
+them. A metal shelf is bolted to one wall. It looks cluttered with boxes,
+manuals, spare parts, and other detritus. The only exit is West.
+
+On the metal shelf is a dark cell.
+
+>pull lever
+With the status light glowing green, you pull the lever. You hear the pop and
+hiss of the bulkhead seal releasing, and a little whoosh of air as the pressure
+equalizes. 
+
+
+>e
+You can't go that way.
+
+>w
+
+POHYB STAVR SCERN
+A long, dark metal corridor. 
+To the North, the bulkhead door stands open, leading deeper into the ship. To
+the East, a security door marked KRZHDYN is closed. An open archway leads West
+towards an area marked JADROZ. A desiccated corpse lies slumped against the
+wall.
+
+>n
+
+
+As you step into the forward section, you hear a heavy CLUNK behind you. The
+bulkhead door slams shut and seals itself. You are now cut off from that section
+of the ship. The only possible direction is north.
+
+POHYB STAVR NIZK
+A bulkhead security checkpoint. The corridor continues North. To the South, the
+bulkhead door is closed.
+
+>n
+
+POHYB STAVR SRED
+The central segment of the long corridor, continuing north and south.
+
+>n
+
+JADROZ POHYB
+A massive, multi-level atrium. Exits lead north, south, east, and west. Windows
+above you are mirrored. A central staircase spirals down. 
+
+>w
+
+VZRAC ZAMER
+A reinforced checkpoint. Exits lead east and west. To the north, a heavy,
+reinforced door leads to what appears to be a detention area.
+
+A reinforced locker is set into the wall under a sign reading KOVRAZHSK.
+>w
+
+KRZHDYN VZRAC
+The room seems awash in dull static. Nearly everything is a display, all showing
+various flavors of digital snow. Exits lead north, west, south, and east.
+You can see an alarm control panel here.
+
+>
